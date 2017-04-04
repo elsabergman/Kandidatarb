@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/menu_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/menu_button"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="35dp"
+        android:maxHeight="35dp"
+        />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello STS-sektionen"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        />
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/searchen"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="35dp"
+        android:maxHeight="35dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add event"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+
+
+        />
+
+
+    <EditText
+        android:id="@+id/input_add_event"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Name of Event"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/add_event"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+
+
+        />
+
+    <EditText
+        android:id="@+id/input_company_name"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Name of Company visiting"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_add_event"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+
+        />
+
+    <EditText
+        android:id="@+id/input_links"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Relevant links"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_company_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+
+        />
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event description"
+        android:layout_above="@+id/ScrollView1"
+        android:layout_marginLeft="40dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="3dp"
+
+        />
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/create_event_button"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFFFF">
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            />
+
+    </ScrollView>
+
+    <Button
+
+        android:id="@+id/create_event_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Create event"
+        android:textColor="#032f3c"
+        android:background="#fff"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+
+
+        />
+
+
+</RelativeLayout>

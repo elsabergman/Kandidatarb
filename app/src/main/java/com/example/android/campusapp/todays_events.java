@@ -37,7 +37,7 @@ public class todays_events  extends Activity{
         TableRow tableRow;
         TextView textView;
 
-        ImageView menu = (ImageView) findViewById(R.id.menu_icon);
+        ImageView menu = (ImageView) findViewById(R.id.menu);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
