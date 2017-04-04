@@ -32,13 +32,6 @@ public class toggle_menu extends AppCompatActivity {
             }
         });
 
-        ImageView add_event_icon = (ImageView) findViewById(R.id.add_events);
-        add_event_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.add_event);
-            }
-        });
 
     }
 
