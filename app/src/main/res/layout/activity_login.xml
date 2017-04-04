@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.android.campusapp.login"
-
+    android:layout_height="match_parent">
     >
-
 
     <ImageView
         android:id="@+id/back"
@@ -23,6 +20,7 @@
         android:background="@drawable/campus_hat"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+
         />
 
     <TextView
@@ -35,7 +33,7 @@
         android:layout_centerHorizontal="true"
 
         />
-
+-->
     <!-- Email Label -->
 
 
@@ -48,6 +46,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         />
+
     <!-- Password Label -->
 
     <EditText android:id="@+id/input_pwd"
@@ -68,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="#FF0000"
         />
-
+-->
     <Button
 
         android:id="@+id/loginButton"
@@ -81,11 +80,11 @@
         android:layout_below="@id/input_pwd"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-
         />
 
 
-    <LinearLayout
+
+        <LinearLayout
         android:id="@+id/addition"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -145,6 +144,6 @@
 
             />
     </LinearLayout>
-
+-->
 
 </RelativeLayout>

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
     <ImageView
         android:id="@+id/back"
         android:layout_width="match_parent"
@@ -77,20 +82,8 @@
         android:layout_alignLeft="@+id/line1"
         android:layout_alignStart="@+id/line1" />
 
-    <TextView
-        android:id="@+id/test_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HEJ ANNA!"
-        android:textColor="#fff"
-        android:textSize="30sp"
-        android:layout_below="@id/line1"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
 
-        />
-
-
+-->
 
 
  </RelativeLayout>

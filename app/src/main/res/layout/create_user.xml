@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/back"
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/background"
@@ -14,14 +16,15 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/title1"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to CampUUs!"
         android:textColor="#fff"
         android:textSize="25sp"
         android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+
         />
 
     <ImageView
@@ -29,22 +32,178 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/campus_hat"
-        android:layout_toRightOf="@+id/title1"
-        android:layout_marginTop="30dp"
-
+        android:layout_toRightOf="@+id/welcome"
+        android:layout_marginTop="0dp"
         />
 
     <TextView
-        android:id="@+id/title2"
+        android:id="@+id/create_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create a new user below:"
         android:textColor="#fff"
         android:textSize="18sp"
-        android:layout_below="@id/title1"
+        android:layout_below="@id/welcome"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
 
 
         />
+
+
+    <EditText
+        android:id="@+id/input_firstname"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:hint="First Name"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/create_user"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+
+    <EditText
+        android:id="@+id/input_lastname"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:hint="Last Name"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_firstname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="textEmailAddress"
+        android:hint="Email adress"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_lastname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+
+    <EditText
+        android:id="@+id/input_phone"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="phone"
+        android:hint="Phone number"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+
+    <EditText
+        android:id="@+id/input_username"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:hint="Username"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_phone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:hint="Password"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_username"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+
+        />
+
+    <TextView
+        android:id="@+id/type_of_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type of user:"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_below="@id/input_password"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+
+        />
+
+
+    <RadioButton android:id="@+id/radio_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student"
+        android:onClick="onRadioButtonClicked"
+        android:layout_toRightOf="@id/type_of_user"
+        android:layout_below="@id/type_of_user"
+        android:layout_marginLeft="20dp"
+        />
+
+    <RadioButton android:id="@+id/radio_organization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Organization"
+        android:onClick="onRadioButtonClicked"
+        android:layout_toRightOf="@id/type_of_user"
+        android:layout_below="@id/radio_student"
+        android:layout_marginLeft="20dp"
+
+        />
+    <Button
+
+        android:id="@+id/createUserButton"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:text="Create user"
+        android:textColor="#FFFFFF"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_below="@id/radio_organization"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+
+
+
+        />
+
+
+
 
 </RelativeLayout>
