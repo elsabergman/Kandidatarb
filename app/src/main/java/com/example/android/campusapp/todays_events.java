@@ -5,7 +5,9 @@ import android.app.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,11 +36,17 @@ public class todays_events  extends Activity{
         TableLayout tableLayout = new TableLayout(getApplicationContext());
         TableRow tableRow;
         TextView textView;
-        
-        
+
+        ImageView menu = (ImageView) findViewById(R.id.menu_icon);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.toggle_menu);
+            }
+        });
 
         
-        for (int i = 0; i < 4; i++) {
+        /*for (int i = 0; i < 4; i++) {
             textView = new TextView(getApplicationContext());
             textView.setText("test");
         }
@@ -54,7 +62,7 @@ public class todays_events  extends Activity{
             }
             tableLayout.addView(tableRow);
         }
-        setContentView(tableLayout);
+        setContentView(tableLayout);*/
 
     }
 }

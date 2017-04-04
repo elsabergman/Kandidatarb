@@ -22,7 +22,6 @@
         android:text="Welcome to CampUUs!"
         android:textColor="#fff"
         android:textSize="25sp"
-        android:layout_below="@id/magglass"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
 
@@ -33,11 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/campus_hat"
-<<<<<<< HEAD
         android:layout_toRightOf="@+id/welcome"
-=======
-        android:layout_toRightOf="@+id/title1"
->>>>>>> origin/master
         android:layout_marginTop="0dp"
         />
 
@@ -65,26 +60,7 @@
         android:inputType="textPersonName"
         android:hint="First Name"
         android:layout_marginTop="20dp"
-<<<<<<< HEAD
         android:layout_below="@+id/create_user"
-=======
-        android:layout_marginLeft="10dp"
-
-
-        />
-
-
-    <EditText
-        android:id="@+id/input_firstname"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:textSize="15sp"
-        android:inputType="textPersonName"
-        android:hint="First Name"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/title2"
->>>>>>> origin/master
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="18dp"
