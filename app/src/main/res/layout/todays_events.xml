@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/menu_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
+        />
+
+    <ImageView
+        android:id="@+id/magglass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/searchen"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp" />
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today's Events"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:layout_below="@id/magglass"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/title1"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort by"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:layout_alignBottom="@+id/line1"
+        android:layout_alignLeft="@+id/line1"
+        android:layout_alignStart="@+id/line1" />
+
+
+
+
+ </RelativeLayout>
+
+
+    <!-- <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id = "@+id/RHE"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_weight="0"
+         android:layout_marginTop="30dp"
+         android:layout_below="@+id/line1"
+         android:layout_centerHorizontal="true"
+         android:background="#FFFFFF">
+
+         <TableLayout
+             xmlns:android="http://schemas.android.com/apk/res/android"
+
+             android:id="@+id/main_table"
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent">
+         </TableLayout>
+
+
+          <TableRow android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/runLabel"
+                  android:text="Rad1"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="10dp"
+                  />
+              <TextView
+                  android:id="@+id/hitLabel"
+                  android:text="Rad1 "
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="10dp"
+                  />
+              <TextView
+                  android:id="@+id/errorLabel"
+                  android:text="Rad3"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="10dp"
+                  />
+          </TableRow>
+
+          <TableRow android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/visitorRuns"
+                  android:text="X"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+
+                  />
+              <TextView
+                  android:id="@+id/visitorHits"
+                  android:text="0"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+                  />
+              <TextView
+                  android:id="@+id/visitorErrors"
+                  android:text="0"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+                  />
+          </TableRow>
+
+          <TableRow android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/homeRuns"
+                  android:text="0"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+                  />
+              <TextView
+                  android:id="@+id/homeHits"
+                  android:text="0"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+                  />
+              <TextView
+                  android:id="@+id/homeErrors"
+                  android:text="0"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="5dp"
+                  />
+          </TableRow>
+      </TableLayout> -->
+

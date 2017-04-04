@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.Frontend.MainActivity"
+
+    >
+
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/campus_hat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/campus_hat"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/campus_hat"
+        android:text="CampUUs"
+        android:textSize="50sp"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <!-- Email Label -->
+
+
+    <EditText android:id="@+id/input_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        />
+    <!-- Password Label -->
+
+    <EditText android:id="@+id/input_pwd"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:layout_below="@id/input_email"
+        android:layout_centerHorizontal="true"/>
+    <Button
+
+        android:id="@+id/loginButton"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:text="Login"
+        android:textColor="#032f3c"
+        android:background="#fff"
+        android:onClick="buttonOnClick"
+        android:layout_below="@id/input_pwd"
+        android:layout_centerHorizontal="true"
+
+        />
+    <LinearLayout
+        android:id="@+id/addition"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+
+    <TextView
+        android:id="@+id/createUser"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="Create user"
+        android:textSize="10sp"
+
+        android:layout_below="@id/loginButton"
+        android:layout_toLeftOf="@+id/forgotPwd"
+        android:paddingRight="20dp"
+        />
+    <TextView
+        android:id="@+id/forgotPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="Forgot Password?"
+        android:textSize="10sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/loginButton"
+        android:paddingLeft="20dp"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loginFB"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addition"
+        android:layout_centerHorizontal="true">
+
+    <ImageView
+        android:id="@+id/facebookIcon"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:background="@drawable/facebook_icon"
+        />
+
+
+    <TextView
+        android:id="@+id/login_with_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login with Facebook"
+        android:textSize="10sp"
+        android:layout_toRightOf="@id/facebookIcon"
+        android:layout_marginTop="10dp"
+
+
+        />
+    </LinearLayout>
+    
+
+</RelativeLayout>
