@@ -81,7 +81,7 @@
         android:id="@+id/test_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HEJ ELSA!"
+        android:text="HEJ ANNA!"
         android:textColor="#fff"
         android:textSize="30sp"
         android:layout_below="@id/line1"
