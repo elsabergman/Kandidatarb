@@ -17,23 +17,35 @@
         android:id="@+id/campus_hat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/campus_hat"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-
-        />
+        android:background="@drawable/hat_no_border"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/campus_hat"
-        android:text="CampUUs"
+        android:text="Campus"
         android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/campus_hat"
         android:layout_centerHorizontal="true"
+ />
 
-        />
--->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/at"
+        android:textSize="30dp"
+        android:text="at"
+        android:textColor="@color/icon_color"
+        android:layout_alignBaseline="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_toLeftOf="@+id/loginButton"
+        android:layout_toStartOf="@+id/loginButton" />
+    -->
     <!-- Email Label -->
 
 
@@ -99,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create user"
-            android:textSize="10sp"
+            android:textSize="15sp"
             android:layout_below="@id/loginButton"
             android:layout_toLeftOf="@+id/forgotPwd"
             android:paddingRight="20dp"
@@ -109,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="Forgot Password?"
-            android:textSize="10sp"
+            android:textSize="15sp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/loginButton"
             android:paddingLeft="20dp"
@@ -126,8 +138,9 @@
 
         <ImageView
             android:id="@+id/facebookIcon"
-            android:layout_width="20dp"
+            android:layout_width="22dp"
             android:layout_height="30dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/facebook_icon"
             />
 
@@ -137,9 +150,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login with Facebook"
-            android:textSize="10sp"
+            android:textSize="15sp"
             android:layout_toRightOf="@id/facebookIcon"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
 
 
             />

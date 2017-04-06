@@ -1,22 +1,22 @@
 package com.example.android.campusapp;
 
 
-import android.util.TypedValue;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.os.Bundle;
-import android.app.Activity;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.sql.SQLOutput;
-
-import static com.example.android.campusapp.R.layout.activity_login;
+import static android.R.attr.name;
 
 
 public class login extends Activity {
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class login extends Activity {
         final TextView txtView = (TextView) findViewById(R.id.wrongInput);
 
 
+
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -39,11 +40,14 @@ public class login extends Activity {
                 String email = email_Edit.getText().toString();
 
                 String pwd = pwd_Edit.getText().toString();
-                System.out.println(email);
+
 
 
                 if (("kandidat".equals(email)) || ("kand123".equals(pwd))) {
-                    setContentView(R.layout.todays_events);
+                    Intent intent = new Intent(login.this, SlidingMenuActivity.class);
+                    startActivity(intent);
+
+
                 } else {
                     txtView.setText("wrong password and/or email address");
 
@@ -64,8 +68,12 @@ public class login extends Activity {
 
     }
 }
-   // }
+// }
 //}
+
+
+
+
 
 
 

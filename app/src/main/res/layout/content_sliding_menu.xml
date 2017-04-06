@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.android.campusapp.SlidingMenuActivity"
+    tools:showIn="@layout/app_bar_sliding_menu">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/organization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello STS-sektionen!"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:theme="@style/org_header"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Events"
+        android:textColor="#fff"
+        android:textSize="40sp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/organization"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/title1"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort by"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:layout_alignBottom="@+id/line1"
+        android:layout_alignLeft="@+id/line1"
+        android:layout_alignStart="@+id/line1" />
+
+</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
+
