@@ -31,7 +31,7 @@
         app:itemTextColor="@color/darkest_blue"
 
     />
-  
+
 
 </android.support.v4.widget.DrawerLayout>
 
