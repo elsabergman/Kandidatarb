@@ -33,6 +33,13 @@
         <item name="android:textSize">40sp</item>
 
 
+    </style>
+
+    <style name="header2">
+
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">25sp</item>
+
 
     </style>
 </resources>
