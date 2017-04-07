@@ -1,9 +1,11 @@
 package com.example.android.campusapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -89,8 +91,11 @@ public class SlidingMenuActivity extends AppCompatActivity
             // Handle the camera action
 
         } else if (id == R.id.nav_addEvents) {
-            Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
-           startActivity(intent);
+            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View contentView = inflater.inflate(R.layout.add_event, null, false);
+            drawer.addView(contentView, 0);
+
         } else if (id == R.id.nav_campus) {
 
         } else if (id == R.id.nav_manage) {

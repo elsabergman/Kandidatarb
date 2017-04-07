@@ -17,10 +17,11 @@ public class add_event extends SlidingMenuActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        setContentView(R.layout.add_event);
+        /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View contentView = inflater.inflate(R.layout.add_event, null, false);
-        drawer.addView(contentView, 0);
+        drawer.addView(contentView, 0);*/
 
         }
     }
