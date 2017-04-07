@@ -79,7 +79,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="#FF0000"
         />
--->
     <Button
 
         android:id="@+id/loginButton"

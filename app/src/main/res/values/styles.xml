@@ -1,11 +1,10 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/white</item>
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/icon_color</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -26,6 +25,14 @@
     <style name="org_header">
         <item name="android:typeface">sans</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:layout_marginTop">5dp</item>
+
+    </style>
+    <style name="header1">
+
+        <item name="android:typeface">sans</item>
+        <item name="android:textSize">40sp</item>
+
+
+
     </style>
 </resources>

@@ -29,7 +29,8 @@
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
         android:theme="@style/org_header"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+
         />
 
     <TextView
@@ -37,16 +38,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Events"
-        android:textColor="#fff"
-        android:textSize="40sp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/organization"
+        android:textColor="@color/white"
+        android:theme="@style/header1"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/organization"
+        android:layout_marginTop="10dp"
+
 
         />
 
     <View
-        android:id="@+id/line1"
+        android:id="@+id/line_sort_by"
         android:layout_width="match_parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
@@ -60,10 +62,11 @@
         android:layout_height="wrap_content"
         android:text="Sort by"
         android:textSize="15dp"
+        android:textStyle="bold"
         android:textColor="#fff"
-        android:layout_alignBottom="@+id/line1"
-        android:layout_alignLeft="@+id/line1"
-        android:layout_alignStart="@+id/line1" />
+        android:layout_alignBottom="@+id/line_sort_by"
+        android:layout_alignLeft="@+id/line_sort_by"
+        android:layout_alignStart="@+id/line_sort_by" />
 
 </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

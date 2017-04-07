@@ -13,10 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,28 +78,41 @@ public class SlidingMenuActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab);
+
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
-            Intent intent = new Intent(SlidingMenuActivity.this, SlidingMenuActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_addEvents) {
-            Intent intent = new Intent(SlidingMenuActivity.this, favorites.class);
-            startActivity(intent);
+            Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
+           startActivity(intent);
         } else if (id == R.id.nav_campus) {
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_support) {
 
-        } else if (id == R.id.log_out) {
-            Intent intent = new Intent(SlidingMenuActivity.this, login.class);
-            startActivity(intent);
         }
+
+        /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET! / ELSA 7/4 */
+        Button btn = (Button) findViewById(R.id.logoutButton);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SlidingMenuActivity.this, login.class);
+                startActivity(intent);
+
+
+
+
+            }
+
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 import static android.R.attr.name;
 
 
@@ -29,7 +30,6 @@ public class login extends Activity {
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
         final EditText pwd_Edit = (EditText) findViewById(R.id.input_pwd);
         final TextView txtView = (TextView) findViewById(R.id.wrongInput);
-
 
 
         btn.setOnClickListener(new View.OnClickListener() {

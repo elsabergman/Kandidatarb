@@ -28,11 +28,40 @@
         app:headerLayout="@layout/nav_header_sliding_menu"
         app:menu="@menu/sliding_menu_drawer"
         android:theme="@style/NavigationDrawerStyle"
-        app:itemTextColor="@color/darkest_blue"
+        app:itemTextColor="@color/darkest_blue">
 
-    />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Log out"
+                android:onClick="onClick"
+                android:background ="@drawable/logout_btn"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp">
 
+            </Button>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_frame"
+                />
+
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
 
 

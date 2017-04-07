@@ -23,10 +23,7 @@
             android:id="@+id/nav_support"
             android:icon="@drawable/support_toggle"
             android:title="Support" />
-        <item
-            android:id="@+id/log_out"
-            android:icon="@drawable/logout"
-            android:title="LOG OUT" />
+
 
 
     </group>
