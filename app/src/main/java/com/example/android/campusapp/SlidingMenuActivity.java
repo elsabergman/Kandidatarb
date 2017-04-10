@@ -62,7 +62,7 @@ public class SlidingMenuActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sliding_menu, menu);
+        getMenuInflater().inflate(R.menu.search_bar, menu);
         return true;
     }
 
@@ -74,7 +74,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 

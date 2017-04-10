@@ -28,13 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".toggle_menu">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".create_user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,6 +49,15 @@
     </activity>
 
         <activity android:name=".my_events">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".org_campus_information"
+            android:label="Campusapp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

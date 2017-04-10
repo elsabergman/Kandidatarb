@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--In this array we store the different campuses -->
+    <string-array name="campuses_array">
+        <item>Ångström</item>
+        <item>ITC</item>
+        <item>Blåsenshus</item>
+        <item>Ekonomikum</item>
+        <item>Juridiska</item>
+        <item>Engelska Parken</item>
+    </string-array>
+
+</resources>
