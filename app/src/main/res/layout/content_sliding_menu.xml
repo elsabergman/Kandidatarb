@@ -71,7 +71,7 @@
         android:layout_alignStart="@+id/line_sort_by" />
 
 </RelativeLayout>
-   <include layout="@layout/app_bar_sliding_menu" />
+   <!--<include layout="@layout/app_bar_sliding_menu" />-->
 
 </android.support.constraint.ConstraintLayout>
 

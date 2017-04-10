@@ -90,6 +90,7 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
+            System.out.println("HEJ");
             Intent intent = new Intent(SlidingMenuActivity.this, todays_events.class);
             startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
@@ -108,8 +109,8 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(SlidingMenuActivity.this, login.class);
                 startActivity(intent);
 

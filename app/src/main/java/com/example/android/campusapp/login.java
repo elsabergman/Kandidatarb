@@ -34,7 +34,6 @@ public class login extends Activity {
 
         btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
 
                 String email = email_Edit.getText().toString();
@@ -61,7 +60,8 @@ public class login extends Activity {
         createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.create_user);
+                Intent intent = new Intent(login.this, todays_events.class);
+                startActivity(intent);
             }
         });
 
