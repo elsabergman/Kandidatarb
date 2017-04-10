@@ -21,8 +21,7 @@ public class create_user  extends AppCompatActivity {
 
         setContentView(R.layout.create_user);
 
-        Button btn = (Button) findViewById(R.id.createUserButton);
-
+        Button button = (Button) findViewById(R.id.createUserButton);
         /*Input fields for creating a user*/
         final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
         final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
@@ -34,10 +33,12 @@ public class create_user  extends AppCompatActivity {
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
+
                 String firstname = firstname_Edit.getText().toString();
 
                 String lastname = lastname_Edit.getText().toString();

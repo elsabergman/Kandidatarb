@@ -205,7 +205,6 @@
             android:text="Organisation"
             android:textColor="@color/grey"/>
 
-
     </LinearLayout>
 
 

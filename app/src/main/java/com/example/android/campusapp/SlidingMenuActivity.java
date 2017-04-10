@@ -24,6 +24,7 @@ public class SlidingMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,13 +90,11 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
-
+            Intent intent = new Intent(SlidingMenuActivity.this, todays_events.class);
+            startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
-            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View contentView = inflater.inflate(R.layout.add_event, null, false);
-            drawer.addView(contentView, 0);
-
+            Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
+            startActivity(intent);
         } else if (id == R.id.nav_campus) {
 
         } else if (id == R.id.nav_manage) {

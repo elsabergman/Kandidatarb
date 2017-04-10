@@ -43,7 +43,7 @@ public class login extends Activity {
 
 
 
-                if (("kandidat".equals(email)) || ("kand123".equals(pwd))) {
+                if (("kandidat".equals(email)) && ("kand123".equals(pwd))) {
                     Intent intent = new Intent(login.this, SlidingMenuActivity.class);
                     startActivity(intent);
 

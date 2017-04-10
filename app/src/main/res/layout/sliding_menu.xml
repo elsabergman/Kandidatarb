@@ -6,16 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+
     tools:openDrawer="start">
 
 
-
-
-    <include
-        layout="@layout/app_bar_sliding_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
 
 
     <android.support.design.widget.NavigationView
@@ -48,20 +42,15 @@
 
             </Button>
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/content_frame"
-                />
-
-        </LinearLayout>
     </android.support.design.widget.NavigationView>
+
+    <include
+        layout="@layout/app_bar_sliding_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
 </android.support.v4.widget.DrawerLayout>
 
 
