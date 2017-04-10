@@ -7,7 +7,6 @@
 
 >
 
-
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
@@ -27,7 +26,7 @@
         android:theme="@style/org_header"
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="60dp"
 
         />
     <ImageView
@@ -35,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/searchen"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
@@ -153,10 +152,9 @@
         android:onClick="onClick"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp" />
-
+        android:layout_marginBottom="15dp"
+        />
 
     <include layout="@layout/app_bar_sliding_menu" />
-
 
 </RelativeLayout>

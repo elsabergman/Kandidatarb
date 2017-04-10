@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -110,12 +111,9 @@ public class SlidingMenuActivity extends AppCompatActivity
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
+                System.out.println("HEJ");
                 Intent intent = new Intent(SlidingMenuActivity.this, login.class);
                 startActivity(intent);
-
-
-
 
             }
 

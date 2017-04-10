@@ -43,7 +43,7 @@ public class login extends Activity {
 
 
                 if (("kandidat".equals(email)) && ("kand123".equals(pwd))) {
-                    Intent intent = new Intent(login.this, SlidingMenuActivity.class);
+                    Intent intent = new Intent(login.this, my_events.class);
                     startActivity(intent);
 
 
@@ -60,7 +60,7 @@ public class login extends Activity {
         createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(login.this, todays_events.class);
+                Intent intent = new Intent(login.this, create_user.class);
                 startActivity(intent);
             }
         });

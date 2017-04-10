@@ -1,33 +1,27 @@
 package com.example.android.campusapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
-
 /**
- * Created by Anna on 2017-04-04.
+ * Created by elsabergman on 2017-04-10.
  */
 
-public class add_event extends SlidingMenuActivity{
-    @Override
+public class my_events extends SlidingMenuActivity {
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.add_event, null);
+        View contentView = inflater.inflate(R.layout.my_events, null);
 
         drawer.addView(contentView, 0);
 
-
-
-
-        }
     }
 
+}
