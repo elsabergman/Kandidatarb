@@ -97,7 +97,8 @@ public class SlidingMenuActivity extends AppCompatActivity
             Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
             startActivity(intent);
         } else if (id == R.id.nav_campus) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_support) {

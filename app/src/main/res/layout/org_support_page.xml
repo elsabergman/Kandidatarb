@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
->
+    >
 
     <ImageView
         android:id="@+id/background"
@@ -29,25 +29,12 @@
         android:layout_marginTop="60dp"
 
         />
-    <ImageView
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:adjustViewBounds="true"
-        android:maxWidth="35dp"
-        android:maxHeight="35dp"
-        />
-
-
 
     <TextView
-        android:id="@+id/add_event"
+        android:id="@+id/supportText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add event"
+        android:text="Support"
         android:theme="@style/header1"
         android:textColor="#fff"
         android:layout_below="@id/welcome"
@@ -59,15 +46,15 @@
 
 
     <EditText
-        android:id="@+id/input_add_event"
+        android:id="@+id/input_add_organization"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:textSize="15sp"
         android:inputType=""
-        android:hint="Name of Event"
+        android:hint="Name of Organization*"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/add_event"
+        android:layout_below="@+id/supportText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="18dp"
@@ -76,46 +63,66 @@
         />
 
     <EditText
-        android:id="@+id/input_company_name"
+        android:id="@+id/input_email_address"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:textSize="15sp"
         android:inputType=""
-        android:hint="Name of Company visiting"
+        android:hint="Email Address*"
         android:layout_marginTop="1dp"
-        android:layout_below="@+id/input_add_event"
+        android:layout_below="@+id/input_add_organization"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="18dp"
-
         />
 
     <EditText
-        android:id="@+id/input_links"
+        android:id="@+id/input_phone_number"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:textSize="15sp"
         android:inputType=""
-        android:hint="Relevant links"
+        android:hint="Phone Number*"
         android:layout_marginTop="1dp"
-        android:layout_below="@+id/input_company_name"
+        android:layout_below="@+id/input_email_address"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="18dp"
 
         />
 
+    <TextView
+        android:id="@+id/type_of_problem"
+        android:text="Type of Problem:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_below="@+id/input_phone_number"
+        android:textSize="15sp"
 
+        />
+
+    <Spinner
+        android:id="@+id/supportSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:entries="@array/support_problem_type"
+        android:layout_below="@+id/input_phone_number"
+        android:layout_toRightOf="@+id/type_of_problem"
+        />
 
 
 
     <TextView
+        android:id="@+id/write_message_here"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event description"
-        android:layout_above="@+id/ScrollView1"
+        android:text="Write your message here"
+        android:layout_below="@+id/supportSpinner"
         android:layout_marginLeft="40dp"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -123,37 +130,54 @@
 
         />
 
-    <ScrollView
+    <EditText
         android:id="@+id/ScrollView1"
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/create_event_button"
-        android:layout_marginBottom="10dp"
-        android:background="#FFFFFFFF"
-        android:isScrollContainer="false"
-        >
+        android:layout_below="@+id/write_message_here"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#FFFFFFFF">
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            />
-
-    </ScrollView>
+    </EditText>
 
     <Button
-
         android:id="@+id/create_event_button"
+        android:layout_below="@+id/ScrollView1"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Create event"
+        android:text="Send"
         android:textColor="#032f3c"
         android:background="#fff"
         android:onClick="onClick"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-    />
+        />
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/phone_symbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/support_toggle"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+     />
+
+    <TextView
+        android:id="@+id/urgent_matters_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Urgent matters?
+8-17, Mon-Fri, +46225866"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/phone_symbol"
+        android:layout_marginLeft="5dp"
+        android:textSize="10sp"
+        android:layout_marginBottom="5dp"
+
+        />
 
     <include layout="@layout/app_bar_sliding_menu" />
 

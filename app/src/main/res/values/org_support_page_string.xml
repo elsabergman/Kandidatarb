@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!--In this array we store the different campuses -->
+        <string-array name="support_problem_type">
+            <item>Technical</item>
+            <item>Information</item>
+            <item>Other</item>
+        </string-array>
+
+    </resources>
