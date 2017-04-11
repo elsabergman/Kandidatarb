@@ -102,7 +102,8 @@ public class SlidingMenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_support) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_support_page.class);
+            startActivity(intent);
         }
 
         /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET! / ELSA 7/4 */

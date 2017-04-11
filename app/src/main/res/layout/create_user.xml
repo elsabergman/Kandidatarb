@@ -190,6 +190,11 @@
         android:layout_marginRight="12dp"
         android:layout_marginEnd="12dp">
 
+        <RadioGroup
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <RadioButton
             android:id="@+id/student_button"
             android:layout_width="140dp"
@@ -205,6 +210,7 @@
             android:layout_gravity="center_horizontal|center"
             android:text="Organisation"
             android:textColor="@color/grey"/>
+        </RadioGroup>
 
         <Button
 
