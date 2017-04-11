@@ -1,6 +1,5 @@
 package com.example.android.campusapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageButton;
+
 
 public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -98,11 +97,13 @@ public class SlidingMenuActivity extends AppCompatActivity
             Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
             startActivity(intent);
         } else if (id == R.id.nav_campus) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_support) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_support_page.class);
+            startActivity(intent);
         }
 
         /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET! / ELSA 7/4 */
