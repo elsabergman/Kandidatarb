@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.android.campusapp.Student_info"
+    tools:context="com.example.android.campusapp.fragment_org_info"
     >
 
     <LinearLayout

@@ -93,46 +93,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="300dp"
         android:layout_below="@id/user_info"
         android:layout_marginTop="10dp"
         android:id="@+id/fragment_container">
 
     </RelativeLayout>
-=======
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center|bottom"
-        android:paddingBottom="80dp"
-        android:layout_alignTop="@+id/welcome"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp">
 
-        <RadioGroup
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <RadioButton
-            android:id="@+id/student_button"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center"
-            android:text="Student"
-            android:textColor="@color/grey" />
-
-        <RadioButton
-            android:id="@+id/organization_button"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center"
-            android:text="Organisation"
-            android:textColor="@color/grey"/>
-        </RadioGroup>
->>>>>>> origin/master
 
         <Button
 
