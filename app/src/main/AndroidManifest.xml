@@ -30,27 +30,22 @@
             </intent-filter>
         </activity>
 
-<<<<<<< HEAD
-        <activity android:name=".todays_events">
-=======
+
+
 
         <!-- onClick activity for login button -->
         <activity
             android:name=".login"
             android:label="at Campus">
->>>>>>> origin/master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
 
-        <activity android:name=".toggle_menu">
-=======
         <activity android:name=".todays_events">
->>>>>>> origin/master
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,27 +64,19 @@
         <activity
             android:name=".SlidingMenuActivity"
             android:label="at Campus"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
 
-    <activity android:name=".add_event">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        </activity>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-<<<<<<< HEAD
-        <!-- onClick activity for notifications button -->
-
-        <activity android:name=".org_settings">
+        <activity android:name=".add_event">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-
-
             </intent-filter>
         </activity>
-=======
+
+
 
         <activity android:name=".my_events">
             <intent-filter>
@@ -120,20 +107,12 @@
             </intent-filter>
         </activity>
 
->>>>>>> origin/master
     </application>
 
 
 
-<<<<<<< HEAD
-
-
 
 
 
 
 </manifest>
-=======
-</manifest>
-
->>>>>>> origin/master
