@@ -1,19 +1,31 @@
 package com.example.android.campusapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RadioButton;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by elsabergman on 2017-03-31.
  */
 
-public class create_user  extends AppCompatActivity {
+public class create_user extends FragmentActivity {
+
+    FragmentTransaction ft;
+    Fragment           fragment_student;
+    Fragment           fragment_org;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,22 +33,31 @@ public class create_user  extends AppCompatActivity {
 
         setContentView(R.layout.create_user);
 
-        Button btn = (Button) findViewById(R.id.createUserButton);
+        Button button = (Button) findViewById(R.id.createUserBtn);
+
+        fragment_student = new fragment_student_info();
+        fragment_org = new fragment_org_info();
+
+        RadioButton student_button = (RadioButton) findViewById(R.id.student_button);
+        RadioButton org_button = (RadioButton) findViewById(R.id.organization_button);
+        student_button.setChecked(true);
+
 
         /*Input fields for creating a user*/
+
         final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
         final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
-        final EditText phone_Edit = (EditText) findViewById(R.id.input_phone);
+
         final EditText username_Edit = (EditText) findViewById(R.id.input_username);
         final EditText password_Edit = (EditText) findViewById(R.id.input_password);
-
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
+
+       button.setOnClickListener(new OnClickListener(){
+
             public void onClick(View v) {
                 String firstname = firstname_Edit.getText().toString();
 
@@ -44,32 +65,48 @@ public class create_user  extends AppCompatActivity {
 
                 String email = email_Edit.getText().toString();
 
-                String phone = phone_Edit.getText().toString();
+
 
                 String username = username_Edit.getText().toString();
 
                 String password = password_Edit.getText().toString();
 
                 if ((firstname.equals("")) || (lastname.equals("")) || (email.equals(""))
-                        || (phone.equals("")) || (username.equals("")) || (password.equals(""))) {
+                        || (username.equals("")) || (password.equals(""))) {
 
                     txtViewNotComplete.setText("fill in all fields");
 
-            } else {
+                } else {
 
-                    Toast.makeText(create_user.this,"User sucessfully created", Toast.LENGTH_LONG).show();
+                    Toast.makeText(create_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(create_user.this, login.class);
                     startActivity(intent);
 
 
+                }
             }
+        });
 
 
-        }
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_student).commit();
+
+        // set listener
+        ((RadioGroup) findViewById(R.id.user_buttons)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                ft = getSupportFragmentManager().beginTransaction();
+                switch (checkedId) {
+                    case R.id.student_button:
+                        ft.replace(R.id.fragment_container, fragment_student);
+                        break;
+                    case R.id.organization_button:
+                        ft.replace(R.id.fragment_container, fragment_org);
+                        break;
+                }
+                ft.commit();
+            }
+        });
 
 
-
-    });
     }
 }
-

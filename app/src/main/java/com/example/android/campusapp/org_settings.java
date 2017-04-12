@@ -57,4 +57,8 @@ public class org_settings extends SlidingMenuActivity {
 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

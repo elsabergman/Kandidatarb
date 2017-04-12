@@ -1,6 +1,5 @@
 package com.example.android.campusapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+
 public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -24,6 +24,7 @@ public class SlidingMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,7 +61,7 @@ public class SlidingMenuActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sliding_menu, menu);
+        getMenuInflater().inflate(R.menu.search_bar, menu);
         return true;
     }
 
@@ -72,7 +73,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 
@@ -89,19 +90,20 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
-
+            System.out.println("HEJ");
+            Intent intent = new Intent(SlidingMenuActivity.this, todays_events.class);
+            startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
-            LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View contentView = inflater.inflate(R.layout.add_event, null, false);
-            drawer.addView(contentView, 0);
-
+            Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
+            startActivity(intent);
         } else if (id == R.id.nav_campus) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_support) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_support_page.class);
+            startActivity(intent);
         }
 
         /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET! / ELSA 7/4 */
@@ -109,13 +111,9 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SlidingMenuActivity.this, login.class);
                 startActivity(intent);
-
-
-
 
             }
 

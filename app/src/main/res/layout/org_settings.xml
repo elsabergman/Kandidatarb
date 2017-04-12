@@ -85,7 +85,11 @@
             android:id="@+id/organization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="@string/organzation"
+=======
+            android:text="Organzation"
+>>>>>>> origin/master
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_below="@id/my_profile"
@@ -103,7 +107,7 @@
             android:layout_toRightOf="@id/organization"
             android:layout_below="@id/my_profile"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
 
             />
 

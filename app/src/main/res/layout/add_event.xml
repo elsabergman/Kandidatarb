@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    >
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
+>
 
     <ImageView
         android:id="@+id/background"
@@ -33,15 +26,14 @@
         android:theme="@style/org_header"
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="60dp"
 
         />
     <ImageView
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/searchen"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
@@ -131,22 +123,20 @@
 
         />
 
-    <ScrollView
+    <EditText
         android:id="@+id/ScrollView1"
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/create_event_button"
         android:layout_marginBottom="10dp"
-        android:background="#FFFFFFFF">
+        android:background="#FFFFFFFF"
+        android:isScrollContainer="false"
+        />
 
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            />
 
-    </ScrollView>
+
 
     <Button
 
@@ -159,10 +149,9 @@
         android:onClick="onClick"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+    />
 
+    <include layout="@layout/app_bar_sliding_menu" />
 
 </RelativeLayout>
-
-
-</android.support.constraint.ConstraintLayout>

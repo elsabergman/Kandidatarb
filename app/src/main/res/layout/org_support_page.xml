@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello STS-sektionen!"
+        android:theme="@style/org_header"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+
+        />
+
+    <TextView
+        android:id="@+id/supportText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Support"
+        android:theme="@style/header1"
+        android:textColor="#fff"
+        android:layout_below="@id/welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+
+
+        />
+
+
+    <EditText
+        android:id="@+id/input_add_organization"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Name of Organization*"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/supportText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+
+
+        />
+
+    <EditText
+        android:id="@+id/input_email_address"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Email Address*"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_add_organization"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        />
+
+    <EditText
+        android:id="@+id/input_phone_number"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType=""
+        android:hint="Phone Number*"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_email_address"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+
+        />
+
+    <TextView
+        android:id="@+id/type_of_problem"
+        android:text="Type of Problem:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_below="@+id/input_phone_number"
+        android:textSize="15sp"
+
+        />
+
+    <Spinner
+        android:id="@+id/supportSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:entries="@array/support_problem_type"
+        android:layout_below="@+id/input_phone_number"
+        android:layout_toRightOf="@+id/type_of_problem"
+        />
+
+
+    <TextView
+        android:id="@+id/write_message_here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Write your message here"
+        android:layout_below="@+id/supportSpinner"
+        android:layout_marginLeft="40dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="3dp"
+
+        />
+
+    <EditText
+        android:id="@+id/support_text_field"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/write_message_here"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#FFFFFFFF"
+        android:isScrollContainer="false">
+    </EditText>
+
+    <Button
+        android:id="@+id/send_support_button"
+        android:layout_below="@+id/support_text_field"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Open and send in email Client"
+        android:textColor="#032f3c"
+        android:background="#fff"
+        android:onClick="onClick"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        />
+
+        <TextView
+            android:id="@+id/inputSupportWrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:layout_below="@+id/send_support_button"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FF0000"
+            />
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/phone_symbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/support_toggle"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+     />
+
+    <TextView
+        android:id="@+id/urgent_matters_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Urgent matters?
+ 8-17, Mon-Fri, +46225866"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/phone_symbol"
+        android:layout_marginLeft="5dp"
+        android:textSize="10sp"
+        android:layout_marginBottom="5dp"
+
+        />
+
+
+        <include layout="@layout/app_bar_sliding_menu" />
+    </RelativeLayout>
+
+    </ScrollView>

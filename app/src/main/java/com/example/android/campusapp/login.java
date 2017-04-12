@@ -34,7 +34,6 @@ public class login extends Activity {
 
         btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
 
                 String email = email_Edit.getText().toString();
@@ -43,8 +42,8 @@ public class login extends Activity {
 
 
 
-                if (("kandidat".equals(email)) || ("kand123".equals(pwd))) {
-                    Intent intent = new Intent(login.this, SlidingMenuActivity.class);
+                if (("kandidat".equals(email)) && ("kand123".equals(pwd))) {
+                    Intent intent = new Intent(login.this, my_events.class);
                     startActivity(intent);
 
 
@@ -61,7 +60,8 @@ public class login extends Activity {
         createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.create_user);
+                Intent intent = new Intent(login.this, create_user.class);
+                startActivity(intent);
             }
         });
 

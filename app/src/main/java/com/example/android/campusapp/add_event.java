@@ -15,13 +15,18 @@ import android.view.View;
 
 public class add_event extends SlidingMenuActivity{
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_event);
-        /*LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View contentView = inflater.inflate(R.layout.add_event, null, false);
-        drawer.addView(contentView, 0);*/
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.add_event, null);
+
+        drawer.addView(contentView, 0);
+
+
+
 
         }
     }
