@@ -51,7 +51,7 @@
         </intent-filter>
     </activity>
 
-        <activity android:name=".my_events">
+        <activity android:name=".org_my_events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

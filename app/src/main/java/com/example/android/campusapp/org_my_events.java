@@ -3,16 +3,13 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,22 +23,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-
-
-
 /**
  * Created by elsabergman on 2017-04-10.
  */
 
-public class my_events extends SlidingMenuActivity {
+public class org_my_events extends SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;
@@ -58,14 +44,19 @@ public class my_events extends SlidingMenuActivity {
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.my_events, null);
+        View contentView = inflater.inflate(R.layout.org_my_events, null);
 
         drawer.addView(contentView, 0);
 
+        /*-----------remember what user is logged in--------------------*/
+        SharedPreferences sp1=this.getSharedPreferences("Login",0);
 
+        String unm=sp1.getString("Unm", null);
+        String pass = sp1.getString("Psw", null);
+        /*---------------------------------------------------------------*/
 
         firstRow = (ListView)findViewById(R.id.lista);
-      /*  secondRow = (ListView)findViewById(R.id.lista2);
+      /* secondRow = (ListView)findViewById(R.id.lista2);
         thirdRow = (ListView)findViewById(R.id.lista3);*/
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
@@ -84,7 +75,7 @@ public class my_events extends SlidingMenuActivity {
             }
         });
 
-        RequestQueue rQueue = Volley.newRequestQueue(my_events.this);
+        RequestQueue rQueue = Volley.newRequestQueue(org_my_events.this);
         rQueue.add(request);
     }
 

@@ -91,7 +91,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
             System.out.println("HEJ");
-            Intent intent = new Intent(SlidingMenuActivity.this, todays_events.class);
+            Intent intent = new Intent(SlidingMenuActivity.this, org_my_events.class);
             startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
             Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
