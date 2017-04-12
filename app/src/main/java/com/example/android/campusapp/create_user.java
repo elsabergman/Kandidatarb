@@ -3,19 +3,29 @@ package com.example.android.campusapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RadioButton;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by elsabergman on 2017-03-31.
  */
 
-public class create_user  extends Activity {
+public class create_user extends FragmentActivity {
+
+    FragmentTransaction ft;
+    Fragment           fragment_student;
+    Fragment           fragment_org;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,14 @@ public class create_user  extends Activity {
         setContentView(R.layout.create_user);
 
         Button button = (Button) findViewById(R.id.createUserBtn);
+
+        fragment_student = new fragment_student_info();
+        fragment_org = new fragment_org_info();
+
+        RadioButton student_button = (RadioButton) findViewById(R.id.student_button);
+        RadioButton org_button = (RadioButton) findViewById(R.id.organization_button);
+        student_button.setChecked(true);
+
 
         /*Input fields for creating a user*/
 
@@ -35,10 +53,12 @@ public class create_user  extends Activity {
         final EditText password_Edit = (EditText) findViewById(R.id.input_password);
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
+
+
+
        button.setOnClickListener(new OnClickListener(){
 
             public void onClick(View v) {
-                System.out.println("HEJ");
                 String firstname = firstname_Edit.getText().toString();
 
                 String lastname = lastname_Edit.getText().toString();
@@ -66,5 +86,27 @@ public class create_user  extends Activity {
                 }
             }
         });
+
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_student).commit();
+
+        // set listener
+        ((RadioGroup) findViewById(R.id.user_buttons)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                ft = getSupportFragmentManager().beginTransaction();
+                switch (checkedId) {
+                    case R.id.student_button:
+                        ft.replace(R.id.fragment_container, fragment_student);
+                        break;
+                    case R.id.organization_button:
+                        ft.replace(R.id.fragment_container, fragment_org);
+                        break;
+                }
+                ft.commit();
+            }
+        });
+
+
     }
 }

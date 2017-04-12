@@ -5,6 +5,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +18,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-sdk android:minSdkVersion="4" />
+
+        <!-- onClick activity for notifications button -->
+
+        <activity android:name=".org_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+
+            </intent-filter>
+        </activity>
+
+
+
 
         <!-- onClick activity for login button -->
         <activity
@@ -24,13 +43,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".todays_events">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".create_user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,18 +60,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SlidingMenuActivity"
             android:label="at Campus"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
 
-    <activity android:name=".add_event">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        </activity>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        <activity android:name=".add_event">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
 
         <activity android:name=".org_my_events">
             <intent-filter>
@@ -73,12 +100,18 @@
             android:label="at Campus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.SENDTO" />
+                <data android:scheme="mailto" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
     </application>
+
+
+
+
 
 
 

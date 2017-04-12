@@ -123,7 +123,7 @@
 
         />
 
-    <ScrollView
+    <EditText
         android:id="@+id/ScrollView1"
         android:layout_width="300dp"
         android:layout_height="100dp"
@@ -132,14 +132,11 @@
         android:layout_marginBottom="10dp"
         android:background="#FFFFFFFF"
         android:isScrollContainer="false"
-        >
+        />
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            />
 
-    </ScrollView>
+
+
 
     <Button
 

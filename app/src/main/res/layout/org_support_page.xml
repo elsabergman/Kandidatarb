@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/background"
@@ -116,7 +120,6 @@
         />
 
 
-
     <TextView
         android:id="@+id/write_message_here"
         android:layout_width="wrap_content"
@@ -131,29 +134,39 @@
         />
 
     <EditText
-        android:id="@+id/ScrollView1"
+        android:id="@+id/support_text_field"
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/write_message_here"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:background="#FFFFFFFF">
-
+        android:background="#FFFFFFFF"
+        android:isScrollContainer="false">
     </EditText>
 
     <Button
-        android:id="@+id/create_event_button"
-        android:layout_below="@+id/ScrollView1"
+        android:id="@+id/send_support_button"
+        android:layout_below="@+id/support_text_field"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:text="Open and send in email Client"
         android:textColor="#032f3c"
         android:background="#fff"
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         />
+
+        <TextView
+            android:id="@+id/inputSupportWrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:layout_below="@+id/send_support_button"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FF0000"
+            />
 
     <ImageView
         android:layout_alignParentBottom="true"
@@ -170,7 +183,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Urgent matters?
-8-17, Mon-Fri, +46225866"
+ 8-17, Mon-Fri, +46225866"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/phone_symbol"
         android:layout_marginLeft="5dp"
@@ -179,6 +192,8 @@
 
         />
 
-    <include layout="@layout/app_bar_sliding_menu" />
 
-</RelativeLayout>
+        <include layout="@layout/app_bar_sliding_menu" />
+    </RelativeLayout>
+
+    </ScrollView>
