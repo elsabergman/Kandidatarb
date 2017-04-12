@@ -24,19 +24,7 @@
 
         />
 
-    <TextView
-        android:id="@+id/title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Events"
-        android:textColor="@color/white"
-        android:theme="@style/header1"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/organization"
-        android:layout_marginTop="10dp"
 
-
-        />
     <ImageView
         android:id="@+id/search"
         android:layout_width="wrap_content"

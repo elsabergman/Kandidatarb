@@ -5,9 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
     <ImageView
         android:id="@+id/back"
         android:layout_width="match_parent"
@@ -33,17 +30,7 @@
         android:maxHeight="30dp"
         />
 
-    <TextView
-        android:id="@+id/title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Today's Events"
-        android:textColor="#fff"
-        android:textSize="30sp"
-        android:layout_marginTop="70dp"
-        android:layout_centerHorizontal="true"
 
-        />
 
     <View
         android:id="@+id/line1"
@@ -51,8 +38,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_height="0.5dp"
-        android:layout_marginTop="35dp"
-        android:layout_below="@id/title1"
+        android:layout_marginTop="95dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
@@ -73,98 +59,4 @@
 
 
  </RelativeLayout>
-
-
-    <!-- <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-         android:id = "@+id/RHE"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="0"
-         android:layout_marginTop="30dp"
-         android:layout_below="@+id/line1"
-         android:layout_centerHorizontal="true"
-         android:background="#FFFFFF">
-
-         <TableLayout
-             xmlns:android="http://schemas.android.com/apk/res/android"
-
-             android:id="@+id/main_table"
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent">
-         </TableLayout>
-
-
-          <TableRow android:layout_height="wrap_content">
-              <TextView
-                  android:id="@+id/runLabel"
-                  android:text="Rad1"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="10dp"
-                  />
-              <TextView
-                  android:id="@+id/hitLabel"
-                  android:text="Rad1 "
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="10dp"
-                  />
-              <TextView
-                  android:id="@+id/errorLabel"
-                  android:text="Rad3"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="10dp"
-                  />
-          </TableRow>
-
-          <TableRow android:layout_height="wrap_content">
-              <TextView
-                  android:id="@+id/visitorRuns"
-                  android:text="X"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-
-                  />
-              <TextView
-                  android:id="@+id/visitorHits"
-                  android:text="0"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-                  />
-              <TextView
-                  android:id="@+id/visitorErrors"
-                  android:text="0"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-                  />
-          </TableRow>
-
-          <TableRow android:layout_height="wrap_content">
-              <TextView
-                  android:id="@+id/homeRuns"
-                  android:text="0"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-                  />
-              <TextView
-                  android:id="@+id/homeHits"
-                  android:text="0"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-                  />
-              <TextView
-                  android:id="@+id/homeErrors"
-                  android:text="0"
-                  android:layout_height="wrap_content"
-                  android:textAlignment="center"
-                  android:padding="5dp"
-                  />
-          </TableRow>
-      </TableLayout> -->
 

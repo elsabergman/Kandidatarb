@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".org_support_page"
     >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+
+  <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">-->
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/background"
@@ -33,35 +43,32 @@
         android:layout_marginTop="60dp"
 
         />
-
-    <TextView
-        android:id="@+id/supportText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Support"
-        android:theme="@style/header1"
-        android:textColor="#fff"
-        android:layout_below="@id/welcome"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
+          <View
+              android:id="@+id/background_myprofile"
+              android:layout_width="300dp"
+              android:layout_height="190dp"
+              android:layout_marginTop="10dp"
+              android:background ="@drawable/logout_btn"
+              android:layout_centerHorizontal="true"
+              android:layout_below="@id/welcome"
 
 
-        />
+              />
 
 
     <EditText
         android:id="@+id/input_add_organization"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
+        android:textColor="@color/darkest_blue"
         android:textSize="15sp"
         android:inputType=""
         android:hint="Name of Organization*"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/supportText"
+        android:layout_below="@+id/welcome"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
+        android:layout_centerHorizontal="true"
 
 
         />
@@ -70,50 +77,57 @@
         android:id="@+id/input_email_address"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:textSize="15sp"
+        android:textColor="@color/darkest_blue"
         android:inputType=""
         android:hint="Email Address*"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="0dp"
         android:layout_below="@+id/input_add_organization"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
+        android:paddingTop="10dp"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
         android:id="@+id/input_phone_number"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
+        android:textColor="@color/darkest_blue"
         android:textSize="15sp"
+        android:paddingTop="10dp"
         android:inputType=""
         android:hint="Phone Number*"
         android:layout_marginTop="1dp"
         android:layout_below="@+id/input_email_address"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
+        android:layout_centerHorizontal="true"
 
         />
 
     <TextView
         android:id="@+id/type_of_problem"
         android:text="Type of Problem:"
+        android:textColor="@color/darkest_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="55dp"
+        android:paddingTop="10dp"
         android:layout_below="@+id/input_phone_number"
         android:textSize="15sp"
+
 
         />
 
     <Spinner
         android:id="@+id/supportSpinner"
-        android:layout_width="wrap_content"
+        android:textColor="@color/darkest_blue"
+        android:layout_width="137dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="0dp"
+        android:paddingTop="10dp"
         android:entries="@array/support_problem_type"
         android:layout_below="@+id/input_phone_number"
         android:layout_toRightOf="@+id/type_of_problem"
@@ -129,19 +143,19 @@
         android:layout_marginLeft="40dp"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="30dp"
 
         />
 
     <EditText
         android:id="@+id/support_text_field"
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="140dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/write_message_here"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="#FFFFFFFF"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/logout_btn"
         android:isScrollContainer="false">
     </EditText>
 
@@ -152,10 +166,10 @@
         android:layout_height="wrap_content"
         android:text="Open and send in email Client"
         android:textColor="#032f3c"
-        android:background="#fff"
+        android:background="@drawable/logout_btn"
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="25dp"
         />
 
         <TextView
@@ -193,7 +207,10 @@
         />
 
 
-        <include layout="@layout/app_bar_sliding_menu" />
+
     </RelativeLayout>
 
-    </ScrollView>
+  </ScrollView>
+
+    <include layout="@layout/app_bar_sliding_menu" />
+</android.support.constraint.ConstraintLayout>
