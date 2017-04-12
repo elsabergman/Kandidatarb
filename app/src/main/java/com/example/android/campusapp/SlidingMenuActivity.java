@@ -90,7 +90,7 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
-            System.out.println("HEJ");
+
             Intent intent = new Intent(SlidingMenuActivity.this, org_my_events.class);
             startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
@@ -100,7 +100,8 @@ public class SlidingMenuActivity extends AppCompatActivity
             Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
-
+            Intent intent = new Intent(SlidingMenuActivity.this, org_settings.class);
+            startActivity(intent);
         } else if (id == R.id.nav_support) {
             Intent intent = new Intent(SlidingMenuActivity.this, org_support_page.class);
             startActivity(intent);

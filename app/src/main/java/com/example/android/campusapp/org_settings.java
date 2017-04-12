@@ -1,9 +1,12 @@
 package com.example.android.campusapp;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
@@ -21,7 +24,11 @@ public class org_settings extends SlidingMenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.org_settings);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.org_settings, null);
+        drawer.addView(contentView, 0);
+
 
         switchStatus = (TextView) findViewById(R.id.notifications);
         mySwitch = (Switch) findViewById(R.id.mySwitch);

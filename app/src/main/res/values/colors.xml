@@ -8,4 +8,9 @@
     <color name="darkest_blue">#032f3c</color>
     <color name="grey">#4A5356</color>
     <color name="black">#000000</color>
+    <color name="light_blue">#E7FEFA</color>
+    <color name="light_grey">#7D868B</color>
+
+
+
 </resources>
