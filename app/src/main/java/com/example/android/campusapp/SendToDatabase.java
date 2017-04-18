@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+import org.json.JSONException;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -26,16 +30,21 @@ import static android.content.ContentValues.TAG;
  * Created by elsabergman on 2017-04-11.
  */
 
-class SendToDatabase extends AsyncTask<String, Void, String> {
+class SendToDatabase extends AsyncTask<String, String, String> {
 
-        @Override
+
+    @Override
         protected String doInBackground(String... params) {
             String JsonResponse = null;
-            String JsonDATA = params[0];
+            String JsonDATA = (String) params[0];
+        String urlen = (String) params[1];
+
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
+
+
             try {
-                URL url = new URL("http://130.242.96.84:8000/users/login/");
+                URL url = new URL(urlen);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writer
@@ -45,9 +54,10 @@ class SendToDatabase extends AsyncTask<String, Void, String> {
 
 //set headers and method
                 Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
-                System.out.println("här1");
+
                 writer.write(JsonDATA);
-                System.out.println("jsondata" + JsonDATA);
+
+
 // json data
 
                 writer.close();
@@ -56,6 +66,7 @@ class SendToDatabase extends AsyncTask<String, Void, String> {
 //input stream
 
                 StringBuffer buffer = new StringBuffer();
+
                 if (inputStream == null) {
                     // Nothing to do.
                     return null;
@@ -63,6 +74,7 @@ class SendToDatabase extends AsyncTask<String, Void, String> {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 String inputLine;
+
                 while ((inputLine = reader.readLine()) != null)
                     buffer.append(inputLine + "\n");
                 if (buffer.length() == 0) {
@@ -70,18 +82,31 @@ class SendToDatabase extends AsyncTask<String, Void, String> {
                     return null;
                 }
                 JsonResponse = buffer.toString();
+
+
+
 //response data
                 Log.i(TAG,JsonResponse);
+
                 //send to post execute
+
+                /*make JsonResponse an actual Json string, as of now it only looks like a Json string but it actually is a regular String*/
+
+                JSONObject JSON_token_key = new JSONObject(JsonResponse);
+                String my_token = JSON_token_key.getString("token"); /*Save token in order to use it on other pages*/
+
+
                 return JsonResponse;
-
-
 
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+
+
+            } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
                 }

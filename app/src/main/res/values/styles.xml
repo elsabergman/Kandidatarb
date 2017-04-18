@@ -31,9 +31,10 @@
     </style>
     <style name="org_header">
         <item name="android:typeface">sans</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">20sp</item>
 
     </style>
+
     <style name="header1">
 
         <item name="android:typeface">sans</item>

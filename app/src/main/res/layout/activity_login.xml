@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    >
+
 
     <ImageView
         android:id="@+id/back"
@@ -43,8 +43,8 @@
         android:textColor="@color/icon_color"
         android:layout_alignBaseline="@+id/title"
         android:layout_alignBottom="@+id/title"
-        android:layout_toLeftOf="@+id/loginButton"
-        android:layout_toStartOf="@+id/loginButton" />
+        android:layout_toLeftOf="@+id/addition"
+        android:layout_toStartOf="@+id/addition" />
     -->
     <!-- Email Label -->
 

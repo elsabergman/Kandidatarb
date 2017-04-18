@@ -94,7 +94,7 @@
         </activity>
 
         <activity android:name=".org_campus_information"
-            android:label="Campus Information">
+            android:label="Campus Infor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
