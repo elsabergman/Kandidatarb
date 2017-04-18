@@ -66,12 +66,6 @@ public class login extends Activity {
 
         at.setTypeface(custom_font2);
 
-        try {
-            URL url = new URL("http://localhost:8000/auth/token/");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
         loginFunctions();
         TextView createUser = (TextView) findViewById(R.id.createUser);
 
@@ -116,19 +110,12 @@ public class login extends Activity {
                 }
                 if (post_dict.length() > 0) {
 
-                    new SendToDatabase().execute( post_dict.toString(), "http://localhost:8000/auth/token/");
+                    new SendToDatabase().execute( post_dict.toString(), "http://212.25.151.17:8000/auth/token/");
 
                 }
 
 
-               /* try {
-                    postData.put("username", email);
-                    postData.put("password", pwd);
 
-                    new SendToDatabase().execute("http://130.242.96.84:8010/users/login/", postData.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
 
                 Intent intent = new Intent(login.this, org_my_events.class);
                 startActivity(intent);
@@ -140,38 +127,6 @@ public class login extends Activity {
 
 }
 
-                                /*      if (("kandidat".equals(email)) && ("kand123".equals(pwd))) {
-
-
-                                           SharedPreferences sp = getSharedPreferences("Login", 0);
-                                           SharedPreferences.Editor Ed = sp.edit();
-                                           Ed.putString("Unm", email);
-                                           Ed.putString("Psw", pwd);
-                                           Ed.commit();
-
-                                           Intent intent = new Intent(login.this, org_my_events.class);
-                                           startActivity(intent);
-
-
-                                       } else {
-                                           txtView.setText("wrong password and/or email address");
-
-                                       }
-
-
-                                   }
-                               })*/
-
-
-
-
-
-
-
-
-
-// }
-//}
 
 
 

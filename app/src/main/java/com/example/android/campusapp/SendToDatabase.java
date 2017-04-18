@@ -4,10 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-<<<<<<< HEAD
-=======
 import org.json.JSONException;
->>>>>>> origin/master
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -39,14 +37,14 @@ class SendToDatabase extends AsyncTask<String, String, String> {
         protected String doInBackground(String... params) {
             String JsonResponse = null;
             String JsonDATA = (String) params[0];
-        String url1 = (String) params[1];
-        System.out.println(url1);
+        String urlen = (String) params[1];
+
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
 
             try {
-                URL url = new URL(url1);
+                URL url = new URL(urlen);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 // is output buffer writer
@@ -56,9 +54,9 @@ class SendToDatabase extends AsyncTask<String, String, String> {
 
 //set headers and method
                 Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
-                System.out.println("här1");
+
                 writer.write(JsonDATA);
-                System.out.println("jsondata" + JsonDATA);
+
 
 // json data
 
@@ -84,30 +82,23 @@ class SendToDatabase extends AsyncTask<String, String, String> {
                     return null;
                 }
                 JsonResponse = buffer.toString();
-<<<<<<< HEAD
 
-=======
-                System.out.println(buffer+ "buffer");
->>>>>>> origin/master
+
+
 //response data
                 Log.i(TAG,JsonResponse);
 
                 //send to post execute
-                System.out.println(inputLine + "inputLine");
+
+                /*make JsonResponse an actual Json string, as of now it only looks like a Json string but it actually is a regular String*/
 
                 JSONObject JSON_token_key = new JSONObject(JsonResponse);
-                String my_token = JSON_token_key.getString("token"); /* spara token för att gå vidare till andra sidor*/
+                String my_token = JSON_token_key.getString("token"); /*Save token in order to use it on other pages*/
 
 
                 return JsonResponse;
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> origin/master
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

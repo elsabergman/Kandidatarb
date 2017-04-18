@@ -67,18 +67,13 @@ public class create_user extends FragmentActivity {
                 String lastname = lastname_Edit.getText().toString();
 
                 String email = email_Edit.getText().toString();
-<<<<<<< HEAD
-=======
+
                 String email2 = email_Edit.getText().toString();
->>>>>>> origin/master
 
                 String username = username_Edit.getText().toString();
 
                 String password = password_Edit.getText().toString();
 
-<<<<<<< HEAD
-
-=======
                 JSONObject post_dict = new JSONObject();
 
                 try {
@@ -96,7 +91,7 @@ public class create_user extends FragmentActivity {
                     System.out.println("i if sats");
                     new SendToDatabase().execute(String.valueOf(post_dict));
                 }
->>>>>>> origin/master
+
 
                 if ((firstname.equals("")) || (lastname.equals("")) || (email.equals(""))
                         || (username.equals("")) || (password.equals(""))) {
