@@ -4,6 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+<<<<<<< HEAD
+=======
+import org.json.JSONException;
+>>>>>>> origin/master
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -55,6 +59,7 @@ class SendToDatabase extends AsyncTask<String, String, String> {
                 System.out.println("här1");
                 writer.write(JsonDATA);
                 System.out.println("jsondata" + JsonDATA);
+
 // json data
 
                 writer.close();
@@ -79,17 +84,38 @@ class SendToDatabase extends AsyncTask<String, String, String> {
                     return null;
                 }
                 JsonResponse = buffer.toString();
+<<<<<<< HEAD
 
+=======
+                System.out.println(buffer+ "buffer");
+>>>>>>> origin/master
 //response data
                 Log.i(TAG,JsonResponse);
+
                 //send to post execute
+                System.out.println(inputLine + "inputLine");
+
+                JSONObject JSON_token_key = new JSONObject(JsonResponse);
+                String my_token = JSON_token_key.getString("token"); /* spara token för att gå vidare till andra sidor*/
+
+
                 return JsonResponse;
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> origin/master
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+
+
+            } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
                 }

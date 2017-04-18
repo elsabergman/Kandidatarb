@@ -16,6 +16,9 @@ import android.widget.RadioButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by elsabergman on 2017-03-31.
  */
@@ -64,12 +67,36 @@ public class create_user extends FragmentActivity {
                 String lastname = lastname_Edit.getText().toString();
 
                 String email = email_Edit.getText().toString();
+<<<<<<< HEAD
+=======
+                String email2 = email_Edit.getText().toString();
+>>>>>>> origin/master
 
                 String username = username_Edit.getText().toString();
 
                 String password = password_Edit.getText().toString();
 
+<<<<<<< HEAD
 
+=======
+                JSONObject post_dict = new JSONObject();
+
+                try {
+                    post_dict.put("username" , username);
+                    post_dict.put("password", password);
+                    post_dict.put("email", email);
+                    post_dict.put("email2", email2);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (post_dict.length() > 0) {
+                    System.out.println("i if sats");
+                    new SendToDatabase().execute(String.valueOf(post_dict));
+                }
+>>>>>>> origin/master
 
                 if ((firstname.equals("")) || (lastname.equals("")) || (email.equals(""))
                         || (username.equals("")) || (password.equals(""))) {
