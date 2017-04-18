@@ -43,8 +43,8 @@
         android:textColor="@color/icon_color"
         android:layout_alignBaseline="@+id/title"
         android:layout_alignBottom="@+id/title"
-        android:layout_toLeftOf="@+id/loginButton"
-        android:layout_toStartOf="@+id/loginButton" />
+        android:layout_toLeftOf="@+id/addition"
+        android:layout_toStartOf="@+id/addition" />
     -->
     <!-- Email Label -->
 

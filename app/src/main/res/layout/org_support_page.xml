@@ -37,7 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello STS-sektionen!"
+        android:elevation="@dimen/activity_vertical_margin"
         android:theme="@style/org_header"
+
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
@@ -47,10 +49,12 @@
               android:id="@+id/background_myprofile"
               android:layout_width="300dp"
               android:layout_height="190dp"
-              android:layout_marginTop="10dp"
-              android:background ="@drawable/logout_btn"
+              android:layout_marginTop="40dp"
+              android:background ="@color/white"
               android:layout_centerHorizontal="true"
               android:layout_below="@id/welcome"
+              android:elevation="@dimen/activity_vertical_margin"
+
 
 
               />
@@ -60,15 +64,15 @@
         android:id="@+id/input_add_organization"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/darkest_blue"
         android:textSize="15sp"
         android:inputType=""
         android:hint="Name of Organization*"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/welcome"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
+        android:elevation="@dimen/activity_vertical_margin"
 
 
         />
@@ -87,6 +91,7 @@
         android:layout_alignParentStart="true"
         android:paddingTop="10dp"
         android:layout_centerHorizontal="true"
+        android:elevation="@dimen/activity_vertical_margin"
         />
 
     <EditText
@@ -103,19 +108,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
+        android:elevation="@dimen/activity_vertical_margin"
 
         />
 
     <TextView
         android:id="@+id/type_of_problem"
         android:text="Type of Problem:"
-        android:textColor="@color/darkest_blue"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:paddingTop="10dp"
         android:layout_below="@+id/input_phone_number"
         android:textSize="15sp"
+        android:elevation="@dimen/activity_vertical_margin"
 
 
         />
@@ -131,6 +138,7 @@
         android:entries="@array/support_problem_type"
         android:layout_below="@+id/input_phone_number"
         android:layout_toRightOf="@+id/type_of_problem"
+        android:elevation="@dimen/activity_vertical_margin"
         />
 
 
@@ -155,9 +163,12 @@
         android:layout_below="@+id/write_message_here"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/logout_btn"
+        android:background="@color/white"
+        android:elevation="@dimen/activity_vertical_margin"
         android:isScrollContainer="false">
     </EditText>
+
+
 
     <Button
         android:id="@+id/send_support_button"
@@ -167,17 +178,21 @@
         android:text="Open and send in email Client"
         android:textColor="#032f3c"
         android:background="@drawable/logout_btn"
+        android:elevation="@dimen/activity_vertical_margin"
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+
         />
+
+
 
         <TextView
             android:id="@+id/inputSupportWrong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
-            android:layout_below="@+id/send_support_button"
+            android:layout_marginTop="85dp"
             android:layout_centerHorizontal="true"
             android:textColor="#FF0000"
             />

@@ -65,11 +65,11 @@ public class create_user extends FragmentActivity {
 
                 String email = email_Edit.getText().toString();
 
-
-
                 String username = username_Edit.getText().toString();
 
                 String password = password_Edit.getText().toString();
+
+
 
                 if ((firstname.equals("")) || (lastname.equals("")) || (email.equals(""))
                         || (username.equals("")) || (password.equals(""))) {

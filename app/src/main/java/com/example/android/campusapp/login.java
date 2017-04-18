@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,16 +39,38 @@ import static android.R.attr.name;
 
 public class login extends Activity {
 
-    URL url;
+
     URLConnection urlConn;
     DataOutputStream printout;
     DataInputStream input;
+
 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+        TextView header = (TextView)findViewById(R.id.title);
+
+
+
+
+        Typeface custom_font = Typeface.createFromAsset(this.getAssets(),  "fonts/Shrikhand-Regular.ttf");
+
+        header.setTypeface(custom_font);
+
+        TextView at = (TextView)findViewById(R.id.at);
+
+        Typeface custom_font2 = Typeface.createFromAsset(this.getAssets(),  "fonts/Shrikhand-Regular.ttf");
+
+        at.setTypeface(custom_font2);
+
+        try {
+            URL url = new URL("http://localhost:8000/auth/token/");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
         loginFunctions();
         TextView createUser = (TextView) findViewById(R.id.createUser);
@@ -62,12 +85,14 @@ public class login extends Activity {
         });
     }
 
+
     void loginFunctions() {
         Button btn = (Button) findViewById(R.id.loginButton);
         TextView createUser = (TextView) findViewById(R.id.createUser);
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
         final EditText pwd_Edit = (EditText) findViewById(R.id.input_pwd);
         final TextView txtView = (TextView) findViewById(R.id.wrongInput);
+
 
         btn.setOnClickListener(new View.OnClickListener() {
 
@@ -80,6 +105,7 @@ public class login extends Activity {
 
                 JSONObject post_dict = new JSONObject();
 
+
                 try {
                     post_dict.put("username" , email);
                     post_dict.put("password", pwd);
@@ -89,8 +115,9 @@ public class login extends Activity {
                     e.printStackTrace();
                 }
                 if (post_dict.length() > 0) {
-                    System.out.println("i if sats");
-                    new SendToDatabase().execute(String.valueOf(post_dict));
+
+                    new SendToDatabase().execute( post_dict.toString(), "http://localhost:8000/auth/token/");
+
                 }
 
 
@@ -109,6 +136,8 @@ public class login extends Activity {
             }
         });
     }
+
+
 }
 
                                 /*      if (("kandidat".equals(email)) && ("kand123".equals(pwd))) {
