@@ -53,7 +53,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:hint="Username"
         android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"

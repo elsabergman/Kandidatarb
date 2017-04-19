@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,12 +49,11 @@ public class org_my_events extends SlidingMenuActivity {
 
         drawer.addView(contentView, 0);
 
-        /*-----------remember what user is logged in--------------------*/
-        SharedPreferences sp1=this.getSharedPreferences("Login",0);
+        /*-----------remember token--------------------*/
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
 
-        String unm=sp1.getString("Unm", null);
-        String pass = sp1.getString("Psw", null);
-        /*---------------------------------------------------------------*/
+
+        /*----------------------------------------------*/
 
         firstRow = (ListView)findViewById(R.id.lista);
       /* secondRow = (ListView)findViewById(R.id.lista2);

@@ -21,13 +21,31 @@ public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
+    Button btn;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Button btn = (Button) findViewById(R.id.logoutButton);
+
+           /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET FÖR LOGIN FUNKAR INTE! / ELSA  */
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                System.out.println("HEJ");
+                Intent intent = new Intent(SlidingMenuActivity.this, login.class);
+                startActivity(intent);
+
+            }
+
+        });
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,18 +125,10 @@ public class SlidingMenuActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET! / ELSA 7/4 */
-        Button btn = (Button) findViewById(R.id.logoutButton);
 
-        btn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                Intent intent = new Intent(SlidingMenuActivity.this, login.class);
-                startActivity(intent);
 
-            }
 
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
