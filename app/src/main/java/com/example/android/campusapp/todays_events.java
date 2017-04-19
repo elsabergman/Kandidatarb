@@ -1,40 +1,15 @@
 package com.example.android.campusapp;
 
-import android.app.Activity;
 
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-
-import static android.R.attr.button;
 
 
 /**
@@ -56,17 +31,17 @@ public class todays_events extends SlidingMenuActivity {
                 "Other"};
         Spinner spinner = (Spinner) findViewById(R.id.filterSpinner);
 
-        ArrayList<StateVO> listVOs = new ArrayList<>();
+        ArrayList<todays_events_spinner_StateVO> listVOs = new ArrayList<>();
 
         for (int i = 0; i < select_qualification.length; i++) {
-            StateVO stateVO = new StateVO();
-            stateVO.setTitle(select_qualification[i]);
-            stateVO.setSelected(false);
-            listVOs.add(stateVO);
+            todays_events_spinner_StateVO todayseventsspinnerStateVO = new todays_events_spinner_StateVO();
+            todayseventsspinnerStateVO.setTitle(select_qualification[i]);
+            todayseventsspinnerStateVO.setSelected(false);
+            listVOs.add(todayseventsspinnerStateVO);
         }
-        MyAdapter myAdapter = new MyAdapter(todays_events.this, 0,
+        todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0,
                 listVOs);
-        spinner.setAdapter(myAdapter);
+        spinner.setAdapter(todayseventsspinnerMyAdapter);
     }
 
     public void onItemSelected (AdapterView< ? > parent, View view, int position, long id) {

@@ -16,17 +16,17 @@ import java.util.List;
  * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
  */
 
-public class MyAdapter extends ArrayAdapter<StateVO> {
+public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_spinner_StateVO> {
     private Context mContext;
-    private ArrayList<StateVO> listState;
-    private MyAdapter myAdapter;
+    private ArrayList<todays_events_spinner_StateVO> listState;
+    private todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter;
     private boolean isFromView = false;
 
-    public MyAdapter(Context context, int resource, List<StateVO> objects) {
+    public todays_events_spinner_MyAdapter(Context context, int resource, List<todays_events_spinner_StateVO> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.listState = (ArrayList<StateVO>) objects;
-        this.myAdapter = this;
+        this.listState = (ArrayList<todays_events_spinner_StateVO>) objects;
+        this.todayseventsspinnerMyAdapter = this;
     }
 
     @Override

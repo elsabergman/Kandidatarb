@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.campusapp"
-    >
+    package="com.example.android.campusapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-
-
-
-
 
     <application
         android:allowBackup="true"
@@ -21,20 +15,15 @@
 
         <!-- onClick activity for notifications button -->
 
-        <activity android:name=".org_settings"
+        <activity
+            android:name=".org_settings"
             android:label="Settings">
-
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-
-
             </intent-filter>
         </activity>
-
-
-
 
         <!-- onClick activity for login button -->
         <activity
@@ -46,18 +35,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".todays_events"
-            android:label="Today's Events">
-
+        <activity
+            android:name=".todays_events"
+            android:label="Today&apos;s Events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".create_user"
+        <activity
+            android:name=".create_user"
             android:label="Create New User">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,15 +53,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SlidingMenuActivity"
             android:label=" "
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-        <activity android:name=".add_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".add_event"
             android:label="Create Event">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,10 +66,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-        <activity android:name=".org_my_events"
+        <activity
+            android:name=".org_my_events"
             android:label="My Events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,8 +75,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".org_campus_information"
+        <activity
+            android:name=".org_campus_information"
             android:label="Campus Infor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -101,25 +84,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".org_support_page"
             android:label="Support">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SENDTO" />
+
                 <data android:scheme="mailto" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
-
-
-
-
-
 
 </manifest>
