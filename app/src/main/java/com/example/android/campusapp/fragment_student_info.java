@@ -8,13 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class fragment_student_info extends Fragment {
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         container.removeAllViews();
+
         return inflater.inflate(R.layout.fragment_student_info, container, false);
+
+
     }
+
+
 }
 
