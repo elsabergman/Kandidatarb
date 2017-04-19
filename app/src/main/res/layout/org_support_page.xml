@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,21 +7,24 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".org_support_page"
-    >
+    android:background="@drawable/background">
+
 
 
   <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">-->
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +32,7 @@
         android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" />-->
 
 
     <TextView
@@ -69,8 +72,6 @@
         android:hint="Name of Organization*"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/welcome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:elevation="@dimen/activity_vertical_margin"
 
@@ -87,8 +88,6 @@
         android:hint="Email Address*"
         android:layout_marginTop="0dp"
         android:layout_below="@+id/input_add_organization"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:paddingTop="10dp"
         android:layout_centerHorizontal="true"
         android:elevation="@dimen/activity_vertical_margin"
@@ -105,8 +104,6 @@
         android:hint="Phone Number*"
         android:layout_marginTop="1dp"
         android:layout_below="@+id/input_email_address"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:elevation="@dimen/activity_vertical_margin"
 
@@ -118,7 +115,7 @@
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="55dp"
+        android:layout_marginLeft="60dp"
         android:paddingTop="10dp"
         android:layout_below="@+id/input_phone_number"
         android:textSize="15sp"
@@ -129,15 +126,15 @@
 
     <Spinner
         android:id="@+id/supportSpinner"
-        android:textColor="@color/darkest_blue"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="0dp"
         android:paddingTop="10dp"
         android:entries="@array/support_problem_type"
         android:layout_below="@+id/input_phone_number"
         android:layout_toRightOf="@+id/type_of_problem"
+        android:background="@android:drawable/btn_dropdown"
         android:elevation="@dimen/activity_vertical_margin"
         />
 
@@ -158,14 +155,17 @@
     <EditText
         android:id="@+id/support_text_field"
         android:layout_width="300dp"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/write_message_here"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/white"
-        android:elevation="@dimen/activity_vertical_margin"
-        android:isScrollContainer="false">
+        android:layout_marginTop="5dp"
+        android:background="@drawable/logout_btn"
+        android:isScrollContainer="false"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:elevation="@dimen/activity_vertical_margin">
     </EditText>
 
 
@@ -182,7 +182,6 @@
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-
         />
 
 
@@ -192,9 +191,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
-            android:layout_marginTop="85dp"
             android:layout_centerHorizontal="true"
             android:textColor="#FF0000"
+            android:paddingBottom="10dp"
+            android:layout_below="@+id/send_support_button"
             />
 
     <ImageView
@@ -218,7 +218,6 @@
         android:layout_marginLeft="5dp"
         android:textSize="10sp"
         android:layout_marginBottom="5dp"
-
         />
 
 
@@ -227,5 +226,9 @@
 
   </ScrollView>
 
-    <include layout="@layout/app_bar_sliding_menu" />
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/app_bar_sliding_menu"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+</RelativeLayout>
