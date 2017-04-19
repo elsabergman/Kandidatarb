@@ -10,6 +10,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/colorAccent"
+
     >
 
     <EditText
@@ -77,6 +78,23 @@
         android:textColorHint="@color/white"
 
         />
+   <!-- <EditText
+        android:id="@+id/phone"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="text|phone"
+        android:hint="Phone number"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/input_email2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:textColorHint="@color/white"
+
+        />-->
 
 
 

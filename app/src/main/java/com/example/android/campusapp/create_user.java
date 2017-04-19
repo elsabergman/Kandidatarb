@@ -1,6 +1,5 @@
 package com.example.android.campusapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -54,6 +53,7 @@ public class create_user extends FragmentActivity {
 
         final EditText username_Edit = (EditText) findViewById(R.id.input_username);
         final EditText password_Edit = (EditText) findViewById(R.id.input_password);
+      //  final EditText phone = (EditText) findViewById(R.id.phone);
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
 
@@ -63,16 +63,12 @@ public class create_user extends FragmentActivity {
 
             public void onClick(View v) {
                 String firstname = firstname_Edit.getText().toString();
-
                 String lastname = lastname_Edit.getText().toString();
-
                 String email = email_Edit.getText().toString();
-
                 String email2 = email_Edit.getText().toString();
-
                 String username = username_Edit.getText().toString();
-
                 String password = password_Edit.getText().toString();
+               // String phone = phone.getText().toString();
 
                 JSONObject post_dict = new JSONObject();
 
@@ -81,6 +77,9 @@ public class create_user extends FragmentActivity {
                     post_dict.put("password", password);
                     post_dict.put("email", email);
                     post_dict.put("email2", email2);
+                    post_dict.put("first_name", firstname);
+                    post_dict.put("last_name", lastname);
+
 
 
 
@@ -88,24 +87,22 @@ public class create_user extends FragmentActivity {
                     e.printStackTrace();
                 }
                 if (post_dict.length() > 0) {
-                    System.out.println("i if sats");
-                    new SendToDatabase().execute(String.valueOf(post_dict));
+
+                    new SendToDatabase().execute(post_dict.toString(), "http://130.243.198.5:8000/users/register/");
+
                 }
 
 
-                if ((firstname.equals("")) || (lastname.equals("")) || (email.equals(""))
-                        || (username.equals("")) || (password.equals(""))) {
 
-                    txtViewNotComplete.setText("fill in all fields");
-
-                } else {
+                   // txtViewNotComplete.setText("fill in all fields");
 
                     Toast.makeText(create_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(create_user.this, login.class);
                     startActivity(intent);
 
 
-                }
+
             }
         });
 

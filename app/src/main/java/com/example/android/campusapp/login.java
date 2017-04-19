@@ -2,39 +2,19 @@ package com.example.android.campusapp;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-
-import static android.R.attr.name;
 
 
 public class login extends Activity {
@@ -44,32 +24,26 @@ public class login extends Activity {
     DataOutputStream printout;
     DataInputStream input;
 
-
     public void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
 
-        TextView header = (TextView)findViewById(R.id.title);
-
-
-
-
-        Typeface custom_font = Typeface.createFromAsset(this.getAssets(),  "fonts/Shrikhand-Regular.ttf");
-
+        /*---Fonts for our Logo---*/
+        TextView header = (TextView) findViewById(R.id.title);
+        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         header.setTypeface(custom_font);
-
-        TextView at = (TextView)findViewById(R.id.at);
-
-        Typeface custom_font2 = Typeface.createFromAsset(this.getAssets(),  "fonts/Shrikhand-Regular.ttf");
-
+        TextView at = (TextView) findViewById(R.id.at);
+        Typeface custom_font2 = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         at.setTypeface(custom_font2);
+        /*--------------------------*/
 
-        loginFunctions();
+        loginFunctions(); //Handles all login code
+
+        /*----if create user button is clicked, redirect to create user page --*/
         TextView createUser = (TextView) findViewById(R.id.createUser);
-
-
         createUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,13 +53,12 @@ public class login extends Activity {
         });
     }
 
-
+    /*---handles all login function --*/
     void loginFunctions() {
         Button btn = (Button) findViewById(R.id.loginButton);
         TextView createUser = (TextView) findViewById(R.id.createUser);
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
         final EditText pwd_Edit = (EditText) findViewById(R.id.input_pwd);
-        final TextView txtView = (TextView) findViewById(R.id.wrongInput);
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -93,15 +66,15 @@ public class login extends Activity {
             public void onClick(View v) {
 
 
-                String email = email_Edit.getText().toString();
+                String email = email_Edit.getText().toString(); //saves email input from user
 
-                String pwd = pwd_Edit.getText().toString();
+                String pwd = pwd_Edit.getText().toString(); //saves password input from user
 
-                JSONObject post_dict = new JSONObject();
+                JSONObject post_dict = new JSONObject(); //creates Json object
 
 
                 try {
-                    post_dict.put("username" , email);
+                    post_dict.put("username", email);
                     post_dict.put("password", pwd);
 
 
@@ -110,22 +83,38 @@ public class login extends Activity {
                 }
                 if (post_dict.length() > 0) {
 
-                    new SendToDatabase().execute( post_dict.toString(), "http://212.25.151.17:8000/auth/token/");
+                    /*connect to GetTokenLogin, which handles connection to Database */
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.198.5:8000/auth/token/");
 
                 }
-
-
-
-
-                Intent intent = new Intent(login.this, org_my_events.class);
-                startActivity(intent);
-
             }
         });
+
+
     }
 
+    /*---This function is called from GetTokenLogin and holds information about whether access to login was granted or not---*/
 
+    void LoginAccessGranted(String message, String got_token) {
+        final TextView wrongLogin = (TextView) findViewById(R.id.wrongInput);
+
+        if (message == "error") {
+            wrongLogin.setText("Username and/or password is incorrect");
+        }
+        if (message == "access granted") {
+            System.out.println("i access");
+
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putString("token", got_token).commit();
+
+            Intent intent = new Intent(login.this, org_my_events.class);
+            startActivity(intent);
+
+
+        }
+    }
 }
+
+
 
 
 
