@@ -31,6 +31,7 @@ public class favorites extends SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;
+
     String url = "http://www.thecrazyprogrammer.com/example_data/fruits_array.json";
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
@@ -76,36 +77,40 @@ public class favorites extends SlidingMenuActivity {
     void parseJsonData(String jsonString) {
         try {
             JSONObject object = new JSONObject(jsonString);
-            JSONArray fruitsArray = object.getJSONArray("fruits");
+            JSONArray favoritesArray = object.getJSONArray("fruits");
             ArrayList al1 = new ArrayList();
             ArrayList al2 = new ArrayList();
             ArrayList al3 = new ArrayList();
 
 
 
-            for(int i = 0; i <fruitsArray.length(); ++i) {
-                al1.add(fruitsArray.getString(i));
+            for(int i = 0; i <favoritesArray.length(); ++i) {
+                al1.add(favoritesArray.getString(i));
+
             }
 
-         /*   for(int i = 0; i < 3; ++i) {
-                al2.add(fruitsArray.getString(i));
+          for(int i = 0; i < 3; ++i) {
+                al2.add(favoritesArray.getString(i));
             }
             System.out.println(al2);
 
+
+
             for(int i = 0; i < 3; ++i) {
-                al3.add(fruitsArray.getString(i));
+                al3.add(favoritesArray.getString(i));
             }
-            System.out.println(al2);*/
+            System.out.println(al2);
 
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
             firstRow.setAdapter(adapter);
 
 
-          /*  ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
+
+           ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
             secondRow.setAdapter(adapter2);
 
             ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al3);
-            thirdRow.setAdapter(adapter3);*/
+            thirdRow.setAdapter(adapter3);
         } catch (JSONException e) {
             e.printStackTrace();
         }
