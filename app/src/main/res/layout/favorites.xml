@@ -32,10 +32,6 @@
         android:layout_height="wrap_content"
         android:text="Your favorite events:"
         android:textColor="#fff"
-<<<<<<< HEAD
-=======
-        android:layout_centerLeft= "true"
->>>>>>> 9d375c96818e78143da5d1d7af9d3e746c2c7eca
         android:theme="@style/org_header"
         android:layout_marginTop="130dp"
         android:layout_marginLeft="10dp" />
@@ -59,10 +55,6 @@
         android:layout_height="wrap_content"
         android:text="Most liked events in your area:"
         android:textColor="#fff"
-<<<<<<< HEAD
-=======
-        android:layout_centerLeft= "true"
->>>>>>> 9d375c96818e78143da5d1d7af9d3e746c2c7eca
         android:theme="@style/org_header"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
