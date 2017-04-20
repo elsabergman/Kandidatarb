@@ -84,7 +84,7 @@ public class login extends Activity {
                 if (post_dict.length() > 0) {
 
                     /*connect to GetTokenLogin, which handles connection to Database */
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.238.15.223:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://212.25.154.105:8000/auth/token/");
 
                 }
             }

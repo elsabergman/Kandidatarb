@@ -32,8 +32,6 @@ public class SlidingMenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
 
-           /*OBS LOG OUT FUNKAR INTE FÖR TILLFÄLLET FÖR LOGIN FUNKAR INTE! / ELSA  */
-
 
         btn.setOnClickListener(new View.OnClickListener() {
 
@@ -46,12 +44,11 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         });
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "You have 0 new messages", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

@@ -54,10 +54,11 @@ class SendToDatabase extends AsyncTask<String, String, String> {
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
 
             writer.write(JsonDATA);
-            int code = urlConnection.getResponseCode();
 // json data
             writer.close();
 
+
+            int code = urlConnection.getResponseCode();
             InputStream inputStream = urlConnection.getInputStream();
 //input stream
 
