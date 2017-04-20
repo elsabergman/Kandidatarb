@@ -1,12 +1,18 @@
 package com.example.android.campusapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -16,12 +22,13 @@ import android.widget.Toast;
 import static android.view.View.FOCUS_DOWN;
 import static com.example.android.campusapp.R.id.campusesSpinner;
 import static com.example.android.campusapp.R.id.parent;
+import static com.example.android.campusapp.R.id.spinner1;
 
 /**
  * Created by argr0731 on 2017-04-10.
  */
 
-public class org_campus_information extends SlidingMenuActivity {
+public class org_campus_information extends SlidingMenuActivity{
 
 
     /**
@@ -32,14 +39,13 @@ public class org_campus_information extends SlidingMenuActivity {
 
         super.onCreate(savedInstanceState);
 
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.org_campus_information, null);
 
         drawer.addView(contentView, 0);
 
-
-
-    final Spinner spinner = (Spinner) findViewById(campusesSpinner);
+        final Spinner spinner = (Spinner) findViewById(spinner1);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
@@ -47,34 +53,17 @@ public class org_campus_information extends SlidingMenuActivity {
         @Override
         public void onItemSelected (AdapterView < ? > parent, View view,int position, long id){
         //Här inne är vad som sker när en grej i listan väljs
-        Toast toast = Toast.makeText(org_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-        toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
-        String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-        if ((CAMPUSTEXT.equals("ITC"))) {
-            final ScrollView scroll = (ScrollView) findViewById(R.id.infoScroll);
-            final TextView textview = (TextView) findViewById(R.id.itc_text);
-            /**   scroll.smoothScrollTo(0, TextView.getBottom());*/
+            Toast toast = Toast.makeText(org_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
+            toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
+            String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-            scroll.post(new Runnable() {
-                @Override
-                public void run() {
-                    scroll.scrollTo(0, textview.getTop());
-                }
-            });
+            if ((CAMPUSTEXT.equals("Informationsteknologiskt centrum"))) {
+
+
         }
-        if ((CAMPUSTEXT.equals("Ångström"))) {
-            final ScrollView scroll = (ScrollView) findViewById(R.id.infoScroll);
-            final TextView textview = (TextView) findViewById(R.id.angstrom_text);
-            final ImageView imageview = (ImageView) findViewById(R.id.angstrom_map);
-            /**   scroll.smoothScrollTo(0, TextView.getBottom());*/
+        if ((CAMPUSTEXT.equals("Ångströmslaboratoriet"))) {
 
-            scroll.post(new Runnable() {
-                @Override
-                public void run() {
-                    scroll.fullScroll(View.FOCUS_UP);
-                }
-            });
         }
 
 
@@ -119,7 +108,11 @@ public class org_campus_information extends SlidingMenuActivity {
          public void onItemSelected(AdapterView<?> parent, View, int positive)
          Toast.makeText(getBaseContext(), parent.getItemAtPositition(position)+" selected" , Toast.LENGTH_LONG).show();*/
 
+
+
     }
+
+
 }
 
 

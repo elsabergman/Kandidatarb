@@ -68,7 +68,7 @@
         </activity>
         <activity
             android:name=".org_campus_information"
-            android:label="Campus Infor">
+            android:label="Campus Info">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -99,8 +99,10 @@ class SendToDatabase extends AsyncTask<String, String, String> {
 
                 /*make JsonResponse an actual Json string, as of now it only looks like a Json string
                 but it actually is a regular String*/
-            System.out.println(JsonResponse + "JsonResp");
-            return JsonResponse;
+
+            System.out.println(JsonResponse);
+            return JsonResponse; //this is the response from the Database!
+
 
 
         } catch (IOException e) {
