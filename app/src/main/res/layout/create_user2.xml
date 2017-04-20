@@ -77,19 +77,7 @@
         android:layout_marginTop="0dp"
         />
 
-    <TextView
-        android:id="@+id/user_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fill in your information:"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:layout_below="@id/user_buttons"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
 
-
-        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -99,25 +87,6 @@
         android:id="@+id/fragment_container">
 
     </RelativeLayout>
-
-
-        <Button
-
-            android:id="@+id/createUserBtn"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:text="Create User"
-            android:textColor="#fff"
-            android:background="#10898D"
-            android:onClick="onClick"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            />
-
-
-
 
 
     <TextView

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to at Campus"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+
+        />
+    <TextView
+        android:id="@+id/type_of_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type of user:"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_below="@id/welcome"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+
+
+        />
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/welcome"
+        android:id="@+id/user_buttons"
+        android:layout_marginTop="20dp"
+        >
+
+        <RadioButton
+            android:id="@+id/student_button"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Student"
+            android:textColor="@color/grey"
+            />
+
+        <RadioButton
+            android:id="@+id/organization_button"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Organisation"
+            android:textColor="@color/grey"/>
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/campus_hat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/campus_hatt"
+        android:layout_toRightOf="@+id/welcome"
+        android:layout_marginTop="0dp"
+        />
+
+    <TextView
+        android:id="@+id/user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fill in your information:"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_below="@id/user_buttons"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+
+
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="200dp"
+        >
+        <!--
+        <EditText
+            android:id="@+id/input_orgname"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:hint="Organisation Name"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            /> -->
+
+        <EditText
+            android:id="@+id/input_firstname"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:hint="First Name of Contact Person"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            />
+
+        <EditText
+            android:id="@+id/input_lastname"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:hint="Last Name of Contact Person"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/input_firstname"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            />
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:hint="Email adress of Contact Person"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/input_lastname"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            />
+        <EditText
+            android:id="@+id/input_email2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:hint="Email adress again"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/input_email"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            />
+
+
+
+
+        <EditText
+            android:id="@+id/input_username"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:hint="Username"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/input_email"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+            />
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:inputType="textPersonName"
+            android:hint="Password"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/input_username"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textColorHint="@color/white"
+
+
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/header_uni_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose univserity"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginRight="18dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="1dp"
+                android:layout_toLeftOf="@+id/uni_spinner"
+                />
+
+
+            <Spinner
+                android:id="@+id/uni_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:spinnerMode="dropdown"
+                android:layout_toRightOf="@+id/header_uni_select"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/header_campus_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose campus"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+
+                android:layout_marginRight="29dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="1dp"
+                android:layout_toLeftOf="@+id/uni_spinner"
+                />
+
+
+            <Spinner
+                android:id="@+id/campus_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:spinnerMode="dropdown"
+                android:layout_toRightOf="@+id/header_campus_select"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+        <Button
+        android:id="@+id/createUserBtn"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:text="Create User"
+        android:textColor="#fff"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/wrongInputUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_above="@+id/createUserBtn"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FF0000"
+        />
+
+</RelativeLayout>

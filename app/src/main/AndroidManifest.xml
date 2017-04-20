@@ -45,15 +45,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".create_user"
-            android:label="Create New User">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".SlidingMenuActivity"
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -106,6 +97,30 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".create_user"
+            android:label="create user 2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".create_student_user"
+            android:label="create student user">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".create_org_user"
+            android:label="create user 2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
