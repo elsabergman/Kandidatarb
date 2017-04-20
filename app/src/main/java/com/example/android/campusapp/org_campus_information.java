@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.view.View.FOCUS_DOWN;
-import static com.example.android.campusapp.R.id.campusesSpinner;
 import static com.example.android.campusapp.R.id.parent;
 import static com.example.android.campusapp.R.id.spinner1;
 
@@ -141,6 +140,8 @@ public class org_campus_information extends SlidingMenuActivity{
 
             // Inflate the custom layout/view
             View customView = inflater.inflate(R.layout.popup_file,null);
+
+
 
                 /*
                     public PopupWindow (View contentView, int width, int height)

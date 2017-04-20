@@ -56,7 +56,6 @@ class SendToDatabase extends AsyncTask<String, String, String> {
             writer.write(JsonDATA);
 
             writer.flush();
-
             System.out.printf(JsonDATA);
             int code = urlConnection.getResponseCode();
             System.out.println(code);
@@ -64,7 +63,7 @@ class SendToDatabase extends AsyncTask<String, String, String> {
 // json data
 
             writer.close();
-            
+
 
             InputStream inputStream = null;
 
