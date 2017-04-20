@@ -2,12 +2,9 @@
 <resources>
     <!--In this array we store the different campuses -->
     <string-array name="campuses_array">
-        <item>Ångström</item>
-        <item>ITC</item>
-        <item>Blåsenshus</item>
-        <item>Ekonomikum</item>
-        <item>Juridiska</item>
-        <item>Engelska Parken</item>
+        <item>Ångströmslaboratoriet</item>
+        <item>Informationsteknologiskt centrum</item>
+
     </string-array>
 
 </resources>

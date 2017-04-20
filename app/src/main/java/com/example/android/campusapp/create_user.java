@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup;
@@ -48,6 +50,7 @@ public class create_user extends FragmentActivity {
         /*Input fields for creating a user*/
 
         final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
+
         final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
 
@@ -89,6 +92,8 @@ public class create_user extends FragmentActivity {
                 if (post_dict.length() > 0) {
 
                     new SendToDatabase().execute(post_dict.toString(), "http://130.243.198.5:8000/users/register/");
+
+
 
                 }
 

@@ -8,102 +8,241 @@
     android:background="@drawable/background"
     >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/infoScroll"
-        >
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <!--Background -->
-        <!--<ImageView
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/background"
-            android:scaleType="centerCrop" />-->
-
-
-        <!--In this spinner we choose what campus we want to see information about*/ -->
-
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello STS-sektionen!"
-            android:theme="@style/org_header"
-            android:textColor="#fff"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-
-            />
+    <!--In this spinner we choose what campus we want to see information about*/ -->
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
         <Spinner
-            android:id="@+id/campusesSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:entries="@array/campuses_array"
-            android:background="@android:drawable/btn_dropdown"
+            android:id="@+id/spinner1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/welcome"
-            />
-
-        <TextView
-            android:id="@+id/angstrom_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello Ångström!"
-            android:layout_below="@id/campusesSpinner"
-            android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true"
-            />
-
-        <ImageView
-            android:id="@+id/angstrom_map"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/angstrom_map"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/angstrom_text"
             android:layout_marginBottom="20dp"
-            />
+            android:layout_marginTop="25dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:entries="@array/campuses_array" />
 
 
-        <TextView
-            android:id="@+id/itc_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello ITC!"
-            android:layout_below="@id/angstrom_map"
-            android:layout_marginBottom="20dp"
-            android:layout_centerHorizontal="true"
-            />
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="Hello STS-sektionen!"
+        android:textSize="20sp"
+        android:textColor="#fff"
 
-        <ImageView
-            android:id="@+id/itc_map"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/angstrom_map"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/itc_text"
-            android:layout_marginBottom="20dp"
-            />
+        />
+
+    <View
+        android:id="@+id/background_campusInfo"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_below="@id/welcome"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.3"
+        android:elevation="10dp"
 
 
+        />
 
-    </RelativeLayout>
-    </ScrollView>
 
-    <include layout="@layout/app_bar_sliding_menu"
-        android:layout_height="0dp"
-        android:layout_width="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visiting Address"
+        android:textStyle="bold"
+        android:id="@+id/visitingaddress"
+        android:textSize="22sp"
+        android:elevation="10dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!--Information from database -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lägerhyddsvägen 1, 75237 Uppsala"
+        android:id="@+id/the_address"
+        android:textSize="20sp"
+        android:elevation="10dp"
+        android:textColor="@color/icon_color"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/visitingaddress"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!-- . . . . . . . . . . . . . . . . . . .  . -->
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/visitingaddress"
+        android:background="#FFFFFFFF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reception Opening Hours"
+        android:id="@+id/openhour"
+        android:textSize="22sp"
+        android:elevation="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/line"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!--Information from database -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8-16 Mon-Fri"
+        android:id="@+id/opening"
+        android:textSize="20sp"
+        android:elevation="10dp"
+        android:textColor="@color/icon_color"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/openhour"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!-- . . . . . . . . . . . . . . . . . . .  . -->
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/openhour"
+        android:background="#FFFFFFFF" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone Number"
+        android:id="@+id/phone"
+        android:textSize="22sp"
+        android:elevation="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/line2"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!--Information from database -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="018-471 31 03"
+        android:id="@+id/phone_number"
+        android:textSize="20sp"
+        android:elevation="10dp"
+        android:textColor="@color/icon_color"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/phone"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+    <!-- . . . . . . . . . . . . . . . . . . .  . -->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email address"
+        android:id="@+id/email"
+        android:textSize="22sp"
+        android:elevation="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/line3"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+<!--Information from database -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reception@polacksbacken.uu.se"
+        android:id="@+id/email_address"
+        android:textSize="20sp"
+        android:elevation="10dp"
+        android:textColor="@color/icon_color"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/email"
+        android:layout_alignLeft="@+id/background_campusInfo"
+        android:layout_alignStart="@+id/background_campusInfo"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp" />
+
+    <!-- . . . . . . . . . . . . . . . . . . .  . -->
+
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/phone"
+        android:background="#FFFFFFFF" />
 
 </RelativeLayout>
+    <include layout="@layout/app_bar_sliding_menu" />
+
+    <TextView
+        android:id="@+id/showOnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:elevation="10dp"
+        android:onClick="onClick"
+        android:text="Click to Show on Map"
+        android:textColor="@color/icon_color"
+        android:textSize="15sp" />
+
+</RelativeLayout>
+
