@@ -59,6 +59,17 @@ public class org_campus_information extends SlidingMenuActivity{
 
         final Spinner spinner = (Spinner) findViewById(spinner1);
 
+        Spinner campuses = (Spinner) findViewById(R.id.spinner1);
+        ArrayAdapter<CharSequence> campusadapter = ArrayAdapter.createFromResource(
+                this, R.array.campuses_array, R.layout.spinner_layout);
+
+        campusadapter.setDropDownViewResource(R.layout.spinner_layout);
+        campuses.setAdapter(campusadapter);
+
+
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
     {
@@ -141,6 +152,10 @@ public class org_campus_information extends SlidingMenuActivity{
             // Inflate the custom layout/view
             View customView = inflater.inflate(R.layout.popup_file,null);
 
+            final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.background_popup);
+            back_dim_layout.setVisibility(View.VISIBLE);
+
+
 
 
                 /*
@@ -178,6 +193,7 @@ public class org_campus_information extends SlidingMenuActivity{
                 public void onClick(View view) {
                     // Dismiss the popup window
                     mPopupWindow.dismiss();
+                    back_dim_layout.setVisibility(View.GONE);
                 }
             });
 

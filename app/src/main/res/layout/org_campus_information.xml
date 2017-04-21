@@ -9,6 +9,7 @@
     >
 
 
+
     <!--In this spinner we choose what campus we want to see information about*/ -->
 <RelativeLayout
     android:layout_width="wrap_content"
@@ -23,7 +24,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="25dp"
-            android:background="@android:drawable/btn_dropdown"
             android:entries="@array/campuses_array" />
 
 
@@ -242,9 +242,22 @@
         />
 
 </RelativeLayout>
+
+
     <include layout="@layout/app_bar_sliding_menu" />
 
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background_popup"
+        android:background="@color/black"
+        android:alpha="0.8"
+        android:visibility="gone">
 
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
 
