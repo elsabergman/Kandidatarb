@@ -3,7 +3,7 @@
     <!--In this array we store the different campuses -->
     <string-array name="campuses_array">
         <item>Ångströmslaboratoriet</item>
-        <item>Informationsteknologiskt centrum</item>
+        <item>Info.teknologiskt centrum</item>
 
     </string-array>
 

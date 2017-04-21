@@ -15,6 +15,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:id="@+id/campus_hat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/campus_hatt"
+        android:layout_above="@+id/welcome"
+        android:layout_centerHorizontal="true"
+        />
+
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
@@ -22,99 +32,53 @@
         android:text="Welcome to at Campus"
         android:textColor="#fff"
         android:textSize="25sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         />
     <TextView
         android:id="@+id/type_of_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type of user:"
+        android:text="What kind of user are you?"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_below="@id/welcome"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-
-
-        />
-    <RadioGroup
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/welcome"
-        android:id="@+id/user_buttons"
-        android:layout_marginTop="20dp"
-        >
-
-        <RadioButton
-            android:id="@+id/student_button"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="Student"
-            android:textColor="@color/grey"
-            />
-
-        <RadioButton
-            android:id="@+id/organization_button"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="Organisation"
-            android:textColor="@color/grey"/>
-    </RadioGroup>
-
-    <ImageView
-        android:id="@+id/campus_hat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/campus_hatt"
-        android:layout_toRightOf="@+id/welcome"
-        android:layout_marginTop="0dp"
-        />
-
-    <TextView
-        android:id="@+id/user_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fill in your information:"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:layout_below="@id/user_buttons"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-
-
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@id/user_info"
         android:layout_marginTop="10dp"
-        android:id="@+id/fragment_container">
+        android:layout_centerHorizontal="true"
+        />
 
-    </RelativeLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@+id/type_of_user"
+    android:layout_marginTop="20dp"
+    >
 
+    <Button
+        android:id="@+id/create_stud_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Student User"
+        android:textColor="#fff"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_marginRight="5dp"
+    />
+    <Button
+        android:id="@+id/create_organization_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text=" Organization User"
+        android:textColor="#fff"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_marginLeft="5dp"
 
-        <Button
+        />
 
-            android:id="@+id/createUserBtn"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:text="Create User"
-            android:textColor="#fff"
-            android:background="#10898D"
-            android:onClick="onClick"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            />
+</LinearLayout>
+
 
 
 

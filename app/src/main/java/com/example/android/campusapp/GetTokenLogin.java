@@ -55,6 +55,7 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
 
                 /*---Json data---*/
                 writer.write(JsonDATA);
+                writer.flush();
                 writer.close();
 
                 /*--get Response code from Database, either 200 Ok or 400 Error --*/
@@ -113,12 +114,10 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
                     return JsonResponse;
 
              /*--catch errors --*/
-            } catch (IOException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-
-            } finally {
+            }
+            finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
                 }
