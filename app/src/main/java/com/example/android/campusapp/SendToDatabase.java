@@ -5,6 +5,7 @@ package com.example.android.campusapp;
  */
 
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -34,37 +35,39 @@ class SendToDatabase extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         String JsonResponse = null;
+        /*JSON data from class that calls SendToDatabase*/
         String JsonDATA = (String) params[0];
+        /*The URL that we connect to*/
         String urlen = (String) params[1];
+        /*the token connected to the user */
+        String token = (String) params[2];
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
+        System.out.println(token);
 
-
+        /*try connect to the URL*/
         try {
             URL url = new URL(urlen);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             // is output buffer writer
+            /*Set headers needed to set up output stream*/
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Authorization", "JWT " + token);
+
 
 //set headers and method
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
 
             writer.write(JsonDATA);
-
             writer.flush();
-            System.out.printf(JsonDATA);
             int code = urlConnection.getResponseCode();
-            System.out.println(code);
-
-// json data
-
             writer.close();
 
-
+            /*Input stream*/
             InputStream inputStream = null;
 
             try {
@@ -98,10 +101,11 @@ class SendToDatabase extends AsyncTask<String, String, String> {
 
             //send to post execute
 
-                /*make JsonResponse an actual Json string, as of now it only looks like a Json string
-                but it actually is a regular String*/
+            /*make JsonResponse an actual Json string, as of now it only looks like a Json string
+             but it actually is a regular String*/
 
             System.out.println(JsonResponse);
+            /*call to method in the class that needs to know that everything went smoothly!*/
             return JsonResponse; //this is the response from the Database!
 
 
