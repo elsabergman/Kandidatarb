@@ -50,7 +50,7 @@ public class favorites extends SlidingMenuActivity {
         drawer.addView(contentView, 0);
 
 
-        firstRow = (ListView)findViewById(R.id.lista);
+        firstRow = (ListView)findViewById(R.id.most_favorite_list);
       /* secondRow = (ListView)findViewById(R.id.lista2);
         thirdRow = (ListView)findViewById(R.id.lista3);*/
         dialog = new ProgressDialog(this);
