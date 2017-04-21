@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/campus_hat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/campus_hatt"
+        android:layout_above="@+id/welcome"
+        android:layout_centerHorizontal="true"
+        />
+
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to at Campus"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/type_of_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What kind of user are you?"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_below="@id/welcome"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@+id/type_of_user"
+    android:layout_marginTop="20dp"
+    >
+
+    <Button
+        android:id="@+id/create_stud_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Student User"
+        android:textColor="#fff"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_marginRight="5dp"
+    />
+    <Button
+        android:id="@+id/create_organization_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text=" Organization User"
+        android:textColor="#fff"
+        android:background="#10898D"
+        android:onClick="onClick"
+        android:layout_marginLeft="5dp"
+
+        />
+
+</LinearLayout>
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/wrongInputUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_above="@+id/createUserBtn"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FF0000"
+        />
+
+
+
+</RelativeLayout>
