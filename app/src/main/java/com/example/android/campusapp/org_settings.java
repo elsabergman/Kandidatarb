@@ -19,13 +19,17 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.R.id.toggle;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
+import static com.example.android.campusapp.R.id.languageSpinnerSettings;
 import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.parent;
 
 import org.w3c.dom.Text;
 
 import static com.example.android.campusapp.R.id.campusesSpinner;
+import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 /**
  * Created by elsabergman on 2017-04-07.
@@ -41,7 +45,6 @@ public class org_settings extends SlidingMenuActivity {
     EditText orgusernameInput;
     EditText orgpasswordInput1;
     EditText orgpasswordInput2;
-    TextView testinputShower;
 
 
     @Override
@@ -96,40 +99,120 @@ public class org_settings extends SlidingMenuActivity {
         //language_choice.setTypeface(custom_font);
         language_settings.setTypeface(custom_font);
 
-
+        //Create the switch for notifications on/off
         switchStatus = (TextView) findViewById(R.id.notifications);
         mySwitch = (Switch) findViewById(R.id.mySwitch);
 
         //set the switch to ON
-        mySwitch.setChecked(true);
+       // mySwitch.setChecked(true);
+
+
+        //Here we makes the app remember earlier decision of user for notifications settings
+        final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
+        Boolean switchValue = sharedPref2.getBoolean("notification",false);
+        mySwitch.setChecked(switchValue);
         //attach a listener to check for changes in state
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+            //Here we check/uncheck the switch and remember the value
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 if (isChecked) {
-                    //  switchStatus.setText("ON");
-                    Toast toast = Toast.makeText(org_settings.this, "Settings on", Toast.LENGTH_SHORT);
+                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
+                    sharedPref2.edit().putBoolean("notification", true).apply();
+                    mySwitch.setChecked(true);
+                    Toast toast = Toast.makeText(org_settings.this, "Notifications on", Toast.LENGTH_SHORT);
                     toast.show();
 
-
                 } else {
-                    // switchStatus.setText("OFF");
-                    Toast toast = Toast.makeText(org_settings.this, "Settings off", Toast.LENGTH_SHORT);
+                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
+                    sharedPref2.edit().putBoolean("notification", false).apply();
+                    mySwitch.setChecked(false);
+                    Toast toast = Toast.makeText(org_settings.this, "Notifications off", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
             }
         });
 
-        //check the current state before we display the screen
-        //*if(mySwitch.isChecked()){
-        //    switchStatus.setText("ON");
-        //}
-        //else {
-        //   switchStatus.setText("OFF");
-        //}
+        //Here vi initiate the spinners and then makes the value selected by the user the "default" in all spinners
+        final Spinner spinnerSetCampus = (Spinner) findViewById(campusesSpinnerSettings);
+        final Spinner spinnerSetUni = (Spinner) findViewById(universitySpinnerSettings);
+        final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettings);
+        final SharedPreferences sharedPref3 = getSharedPreferences("spinnerSettings", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPref4 = getSharedPreferences("spinnerSettings2", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPref5 = getSharedPreferences("spinnerSettings3", Context.MODE_PRIVATE);
+        int spinnerPositionCampus = (int) sharedPref3.getInt("campusSpinnerText", 0);
+        int spinnerPositionUni = (int) sharedPref4.getInt("uniSpinnerText", 0);
+        int spinnerPositionLanguage = (int) sharedPref5.getInt("languageSpinnerText", 0);
+        spinnerSetCampus.setSelection(spinnerPositionCampus);
+        spinnerSetUni.setSelection(spinnerPositionUni);
+        spinnerSetLanguage.setSelection(spinnerPositionLanguage);
+
+        //Here we take care of the spinner that selects default campus and puts it to selected campus by the user.
+        spinnerSetCampus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                SharedPreferences sharedPref3 = getSharedPreferences("spinnerSettings", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorCampus = sharedPref3.edit();
+
+                editorCampus.putInt("campusSpinnerText", i);
+                editorCampus.apply();
+
+                int spinnerPositionCampus = (int) sharedPref3.getInt("campusSpinnerText", 0);
+                spinnerSetCampus.setSelection(spinnerPositionCampus);
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+
+        });
+        //Here we take care of the spinner that selects default university and puts it to selected campus by the user.
+        spinnerSetUni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                SharedPreferences sharedPref4 = getSharedPreferences("spinnerSettings2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorUni = sharedPref4.edit();
+
+                editorUni.putInt("uniSpinnerText", i);
+                editorUni.apply();
+
+                int spinnerPositionUni = (int) sharedPref4.getInt("uniSpinnerText", 0);
+                spinnerSetUni.setSelection(spinnerPositionUni);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+
+        });
+
+        //Here we take care of the spinner that selects default university and puts it to selected campus by the user.
+        spinnerSetLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                SharedPreferences sharedPref5 = getSharedPreferences("spinnerSettings3", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorLanguage = sharedPref5.edit();
+
+                editorLanguage.putInt("languageSpinnerText", i);
+                editorLanguage.apply();
+
+                int spinnerPositionLanguage = (int) sharedPref5.getInt("languageSpinnerText", 0);
+                spinnerSetLanguage.setSelection(spinnerPositionLanguage);
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+
+        });
+
+
+
+
+
 
         orgnameInput = (EditText) findViewById(organization_nameInput);
         orgemailInput = (EditText) findViewById(R.id.organization_emailInput);
@@ -137,7 +220,7 @@ public class org_settings extends SlidingMenuActivity {
         orgpasswordInput1 = (EditText) findViewById(R.id.organization_password_input1);
         orgpasswordInput2 = (EditText) findViewById(R.id.organization_password_input2);
 
-
+        //Här under sätter vi så att de ihågkomna värdena sätts in i My Profile när vi går in på Settings
         SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
         String orgName = sharedPref.getString("orgName", "");
@@ -153,12 +236,13 @@ public class org_settings extends SlidingMenuActivity {
         orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
         orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
 
+
+
     }
 
-        // testinputShower = (TextView) findViewById(R.id.testDisplayText);
 
 
-        //Edit info on My Profile(when you click edit)
+        //Edit info on My Profile(when you click edit). this makes it clickable and the text becomes white
 
     public void editInfo(View view) {
         orgnameInput.setFocusableInTouchMode(true);
@@ -175,7 +259,7 @@ public class org_settings extends SlidingMenuActivity {
     }
 
 
-    ///Save info on My Profile(when you click save)
+    ///Save info on My Profile(when you click save). Also set the text so it is not editable and dark.
     public void saveInfo(View view) {
 
         if (orgpasswordInput1.getText().toString().equals(orgpasswordInput2.getText().toString())) {
@@ -212,49 +296,20 @@ public class org_settings extends SlidingMenuActivity {
             String orgPassword1 = sharedPref.getString("orgPassword1", "");
             String orgPassword2 = sharedPref.getString("orgPassword2", "");
 
-            //EditText newOrgName = (EditText) findViewById(R.id.organization_nameInput);
             orgnameInput.setText(orgName, TextView.BufferType.EDITABLE);
-            //orgnameInput.setText(orgName);
-
+            orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
+            orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
+            orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
+            orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
 
             Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
 
         } else
             Toast.makeText(this, "Passwords does not match, please try again", Toast.LENGTH_SHORT).show();
 
-
-        // SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
-
-        //String orgname = sharedPref.getString("orgName", "");
-        //String orgemail = sharedPref.getString("orgEmail", "");
-        //testinputShower.setText(orgname + " " + orgemail);
-
-
     }
 
-// This is supposed to save information from spinner. But magically it does not work......
-    //  final Spinner spinnerSettings = (Spinner) findViewById(campusesSpinnerSettings);
-    // SharedPreferences sharedPref2 = getSharedPreferences("orgCampus", Context.MODE_PRIVATE);
-    // spinnerSettings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-    //SharedPreferences.Editor editorSpinner = sharedPref2.edit();
 
-
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //In here we choose what happens when a spinner item is chosen.
-        //  int selectedPosition = spinnerSettings.getSelectedItemPosition();
-        // editorSpinner.putString("orgCampus", spinnerSettings.getSelectedItem().toString());
-        // editorSpinner.apply();
-
-        Toast.makeText(this, "Saved Campus WINNING!", Toast.LENGTH_SHORT).show();
-
-
-        // sharedPref.edit().putInt("PREF_SPINNER", selectedPosition).apply();
-
-        //Toast toast = Toast.makeText(org_settings.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-        //toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
-        //String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-
-    }
 }
 
 
