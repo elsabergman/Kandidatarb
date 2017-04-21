@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,22 +23,8 @@ public class create_org_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_org_user);
-        final RadioButton org_button = (RadioButton) findViewById(R.id.organization_button);
-        final RadioButton student_button = (RadioButton) findViewById(R.id.student_button);
 
 
-
-
-        org_button.setChecked(true);
-
-        student_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent Intents= new Intent(create_org_user.this, create_student_user.class);
-                startActivity(Intents);
-                setContentView(R.layout.create_student_user);
-
-            }
-        });
 
         Spinner dropdown_uni = (Spinner)findViewById(R.id.uni_spinner);
         String[] items_uni = new String[]{"1", "2", "three"};
@@ -51,8 +36,14 @@ public class create_org_user extends AppCompatActivity {
         ArrayAdapter<String> adapter_campus = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items_campus);
         dropdown_campus.setAdapter(adapter_campus);
 
-        /*Input fields for creating a user*/
 
+    create_org_user();
+
+    }
+
+    void create_org_user(){
+         /*Input fields for creating a user*/
+        final EditText orgname_Edit = (EditText) findViewById(R.id.input_orgname);
         final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
         final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
         final EditText email_Edit = (EditText) findViewById(R.id.input_email);
@@ -70,6 +61,7 @@ public class create_org_user extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
+                String orgname = orgname_Edit.getText().toString();
                 String firstname = firstname_Edit.getText().toString();
                 String lastname = lastname_Edit.getText().toString();
                 String email = email_Edit.getText().toString();
@@ -78,18 +70,13 @@ public class create_org_user extends AppCompatActivity {
                 String password = password_Edit.getText().toString();
                 // String phone = phone.getText().toString();
 
-                System.out.println(firstname);
-                System.out.println(lastname);
-                System.out.println(email);
-                System.out.println(email2);
-                System.out.println(username);
-                System.out.println(password);
 
 
 
                 JSONObject post_dict = new JSONObject();
 
                 try {
+                    post_dict.put("org_name" , orgname);
                     post_dict.put("username" , username);
                     post_dict.put("password", password);
                     post_dict.put("email", email);
@@ -108,7 +95,6 @@ public class create_org_user extends AppCompatActivity {
                     new SendToDatabase().execute(post_dict.toString(), "http://212.25.154.105:8000/users/register/");
 
                 }
-
 
 
                 // txtViewNotComplete.setText("fill in all fields");

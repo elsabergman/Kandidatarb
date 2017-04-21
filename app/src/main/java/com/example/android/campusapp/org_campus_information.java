@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.view.View.FOCUS_DOWN;
-import static com.example.android.campusapp.R.id.campusesSpinner;
 import static com.example.android.campusapp.R.id.parent;
 import static com.example.android.campusapp.R.id.spinner1;
 

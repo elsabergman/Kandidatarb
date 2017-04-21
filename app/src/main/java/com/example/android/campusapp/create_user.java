@@ -11,7 +11,7 @@ public class create_user extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_user2);
+        setContentView(R.layout.create_user);
         final RadioButton student_button = (RadioButton) findViewById(R.id.student_button);
         final RadioButton org_button = (RadioButton) findViewById(R.id.organization_button);
 
