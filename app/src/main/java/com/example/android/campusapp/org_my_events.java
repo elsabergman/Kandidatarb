@@ -55,7 +55,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*----------------------------------------------*/
 
-        firstRow = (ListView)findViewById(R.id.lista);
+        firstRow = (ListView)findViewById(R.id.your_event_list);
       /* secondRow = (ListView)findViewById(R.id.lista2);
         thirdRow = (ListView)findViewById(R.id.lista3);*/
         dialog = new ProgressDialog(this);
@@ -82,24 +82,24 @@ public class org_my_events extends SlidingMenuActivity {
     void parseJsonData(String jsonString) {
         try {
             JSONObject object = new JSONObject(jsonString);
-            JSONArray fruitsArray = object.getJSONArray("fruits");
+            JSONArray myEventsArray = object.getJSONArray("fruits");
             ArrayList al1 = new ArrayList();
             ArrayList al2 = new ArrayList();
             ArrayList al3 = new ArrayList();
 
 
 
-            for(int i = 0; i <fruitsArray.length(); ++i) {
-                al1.add(fruitsArray.getString(i));
+            for(int i = 0; i <myEventsArray.length(); ++i) {
+                al1.add(myEventsArray.getString(i));
             }
 
          /*   for(int i = 0; i < 3; ++i) {
-                al2.add(fruitsArray.getString(i));
+                al2.add(myEventsArray.getString(i));
             }
             System.out.println(al2);
 
             for(int i = 0; i < 3; ++i) {
-                al3.add(fruitsArray.getString(i));
+                al3.add(myEventsArray.getString(i));
             }
             System.out.println(al2);*/
 
