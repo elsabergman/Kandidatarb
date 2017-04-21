@@ -54,14 +54,16 @@ class SendToDatabase extends AsyncTask<String, String, String> {
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
 
             writer.write(JsonDATA);
-            writer.flush();
 
+            writer.flush();
             System.out.printf(JsonDATA);
             int code = urlConnection.getResponseCode();
             System.out.println(code);
+
 // json data
 
             writer.close();
+
 
             InputStream inputStream = null;
 
@@ -71,7 +73,6 @@ class SendToDatabase extends AsyncTask<String, String, String> {
             catch (Exception e){
                 e.printStackTrace();
             }
-
 //input stream
 
             StringBuffer buffer = new StringBuffer();
