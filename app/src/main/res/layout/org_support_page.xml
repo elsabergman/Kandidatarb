@@ -10,12 +10,10 @@
     android:background="@drawable/background">
 
 
-
   <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
 
         <RelativeLayout
@@ -23,17 +21,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-    <!--<ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />-->
-
 
     <TextView
         android:id="@+id/welcome"
@@ -58,8 +45,6 @@
               android:layout_below="@id/welcome"
               android:elevation="@dimen/activity_vertical_margin"
 
-
-
               />
 
 
@@ -75,8 +60,6 @@
         android:layout_centerHorizontal="true"
         android:elevation="@dimen/activity_vertical_margin"
         android:maxLines="1"
-
-
         />
 
     <EditText
@@ -109,7 +92,6 @@
         android:layout_centerHorizontal="true"
         android:elevation="@dimen/activity_vertical_margin"
         android:maxLines="1"
-
         />
 
     <TextView
@@ -119,26 +101,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
-        android:paddingTop="10dp"
+        android:paddingTop="15dp"
         android:layout_below="@+id/input_phone_number"
         android:textSize="15sp"
         android:elevation="@dimen/activity_vertical_margin"
 
 
         />
-
-          <View android:layout_width="140dp"
-              android:layout_height="40dp"
-              android:layout_marginTop="2dp"
-              android:background="@drawable/spinner_background"
-              android:layout_below="@id/input_phone_number"
-              android:elevation="16dp"
-              android:layout_marginLeft="180dp"
-
-              />
-
-
-
 
           <Spinner
         android:id="@+id/supportSpinner"
@@ -198,8 +167,6 @@
         android:layout_marginTop="20dp"
         />
 
-
-
         <TextView
             android:id="@+id/inputSupportWrong"
             android:layout_width="wrap_content"
@@ -233,8 +200,6 @@
         android:textSize="10sp"
         android:layout_marginBottom="5dp"
         />
-
-
 
     </RelativeLayout>
 

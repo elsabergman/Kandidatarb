@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/background"
 >
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
 
 
     <TextView
@@ -33,7 +32,7 @@
     <View
         android:id="@+id/background_addEvent"
         android:layout_width="330dp"
-        android:layout_height="200dp"
+        android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
@@ -43,17 +42,19 @@
         android:layout_marginBottom="10dp"
         android:alpha="0.3"
         android:elevation="10dp"
-        android:maxLines="1"
 
 
         />
 
-    <EditText
+
+
+
+            <EditText
         android:id="@+id/input_add_event"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:inputType=""
         android:hint="Name of Event"
         android:layout_marginTop="40dp"
@@ -73,8 +74,7 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:inputType=""
         android:hint="Name of Company visiting"
         android:layout_marginTop="15dp"
@@ -93,7 +93,7 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:inputType=""
         android:hint="Relevant links"
         android:layout_marginTop="10dp"
@@ -107,14 +107,91 @@
 
         />
 
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="date"
+        android:hint="Date (YYYY-MM-DD)"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/input_links"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:elevation="15dp"
+        android:maxLines="1"
+
+
+        />
+
+    <EditText
+    android:id="@+id/start_time"
+    android:layout_width="330dp"
+    android:layout_height="wrap_content"
+    android:textColor="#fff"
+    android:textSize="15sp"
+    android:inputType="time"
+    android:hint="Start time (HH:MM)"
+    android:layout_marginTop="10dp"
+    android:layout_below="@+id/date"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginLeft="15dp"
+    android:elevation="15dp"
+    android:maxLines="1"
+
+
+    />
+
+    <EditText
+        android:id="@+id/end_time"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:inputType="time"
+        android:hint="End time (HH:MM)"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/start_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:elevation="15dp"
+        android:maxLines="1"
+
+        />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/end_time"
+                android:layout_marginLeft="20dp"
+                android:elevation="10dp"
+                android:textSize="17dp"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/icon_color"
+                android:text="Choose a campus" />
+
+            <Spinner
+                android:id="@+id/choose_campus"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/end_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:entries="@array/campuses_array" />
+
     <TextView
-        android:id="@+id/eventDescription"
+        android:id="@+id/eventDescriptionHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event description"
-        android:layout_above="@+id/ScrollView1"
         android:layout_below="@id/background_addEvent"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="25sp"
         android:textColor="@color/icon_color"
@@ -122,14 +199,14 @@
         />
 
     <EditText
-        android:id="@+id/ScrollView1"
+        android:id="@+id/eventDescription"
         android:layout_width="300dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="22dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="35dp"
         android:background="#FFFFFFFF"
         android:isScrollContainer="false"
         android:elevation="10dp"
-        android:layout_above="@+id/create_event_button"
+        android:layout_below="@+id/eventDescriptionHeader"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -140,12 +217,16 @@
         android:textColor="#032f3c"
         android:background="#fff"
         android:onClick="onClick"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:layout_below="@id/eventDescription"
         android:elevation="10dp"
     />
-
+        </RelativeLayout>
+    </ScrollView>
     <include layout="@layout/app_bar_sliding_menu" />
+
+
 
 </RelativeLayout>
