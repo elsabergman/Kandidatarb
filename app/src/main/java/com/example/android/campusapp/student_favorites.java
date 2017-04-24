@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Created by fridakornsater on 2017-04-19.
  */
 
-public class student_favorites extends org_SlidingMenuActivity {
+public class student_favorites extends SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;

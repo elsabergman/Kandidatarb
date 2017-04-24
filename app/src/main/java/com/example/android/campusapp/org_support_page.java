@@ -2,6 +2,7 @@ package com.example.android.campusapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.attr.password;
+import static android.R.attr.phoneNumber;
+
 import static com.example.android.campusapp.R.id.supportSpinner;
 
 /**
  * Created by argr0731 on 2017-04-10.
  */
 
-public class org_support_page extends org_SlidingMenuActivity {
+public class org_support_page extends SlidingMenuActivity{
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {

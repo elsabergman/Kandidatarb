@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * Created by Anna on 2017-04-04.
  */
 
-public class org_add_event extends org_SlidingMenuActivity {
+public class org_add_event extends SlidingMenuActivity{
     String chosen_campus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

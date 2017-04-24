@@ -5,20 +5,28 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.id.toggle;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
 import static com.example.android.campusapp.R.id.organization_nameInput;
+import static com.example.android.campusapp.R.id.parent;
 
+import org.w3c.dom.Text;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 
@@ -26,7 +34,7 @@ import static com.example.android.campusapp.R.id.universitySpinnerSettings;
  * Created by elsabergman on 2017-04-07.
  */
 
-public class org_settings extends org_SlidingMenuActivity {
+public class org_settings extends SlidingMenuActivity {
 
     private TextView switchStatus;
     private Switch mySwitch;

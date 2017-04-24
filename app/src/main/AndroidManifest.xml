@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".org_SlidingMenuActivity"
+            android:name=".SlidingMenuActivity"
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -117,30 +117,6 @@
             android:label="create user 2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".student_livefeed"
-            android:label="live feed">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".student_settings"
-            android:label="student settings">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".student_SlidingMenuActivity"
-            android:label="student menu">
-            <intent-filter>
-                <action android:name="@style/AppTheme.NoActionBar" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
