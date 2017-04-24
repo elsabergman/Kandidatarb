@@ -47,7 +47,15 @@
         <activity
             android:name=".SlidingMenuActivity"
             android:label=" "
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".student_SlidingMenuActivity"
+            android:label=" "
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".add_event"
             android:label="Create Event">

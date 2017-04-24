@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/my_events_toggle"
+            android:title="Calendar" />
+        <item
+            android:id="@+id/nav_favourites"
+            android:icon="@drawable/favorite_toggle"
+            android:title="Favourites" />
+        <item
+            android:id="@+id/nav_liveFeed"
+            android:icon="@drawable/clock_toggle"
+            android:title="Live Feed" />
+        <item
+            android:id="@+id/nav_campus"
+            android:icon="@drawable/map_toggle"
+            android:title="Campus Information" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/settings_toggle"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_support"
+            android:icon="@drawable/support_toggle"
+            android:title="Support" />
+
+    </group>
+
+</menu>
