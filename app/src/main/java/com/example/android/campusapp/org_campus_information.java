@@ -17,13 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import static com.example.android.campusapp.R.id.spinner1;
-
 /**
  * Created by argr0731 on 2017-04-10.
  */
 
-public class org_campus_information extends SlidingMenuActivity{
+public class org_campus_information extends org_SlidingMenuActivity {
     private Context mContext;
     private Activity mActivity;
 

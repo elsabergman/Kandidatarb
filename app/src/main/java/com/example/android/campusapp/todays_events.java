@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by elsabergman on 2017-03-31.
  */
-public class todays_events extends SlidingMenuActivity {
+public class todays_events extends org_SlidingMenuActivity {
 
 
     @Override

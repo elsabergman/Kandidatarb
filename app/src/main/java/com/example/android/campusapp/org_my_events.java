@@ -3,7 +3,6 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
  * Created by elsabergman on 2017-04-10.
  */
 
-public class org_my_events extends SlidingMenuActivity {
+public class org_my_events extends org_SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;

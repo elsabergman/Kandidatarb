@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 
-public class SlidingMenuActivity extends AppCompatActivity
+public class org_SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
@@ -26,7 +26,7 @@ public class SlidingMenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.sliding_menu);
+        setContentView(R.layout.org_sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
@@ -36,7 +36,7 @@ public class SlidingMenuActivity extends AppCompatActivity
 
             public void onClick(View v) {
                 System.out.println("HEJ");
-                Intent intent = new Intent(SlidingMenuActivity.this, login.class);
+                Intent intent = new Intent(org_SlidingMenuActivity.this, login.class);
                 startActivity(intent);
 
             }
@@ -105,19 +105,19 @@ public class SlidingMenuActivity extends AppCompatActivity
         if (id == R.id.nav_myEvents) {
             // Handle the camera action
 
-            Intent intent = new Intent(SlidingMenuActivity.this, org_my_events.class);
+            Intent intent = new Intent(org_SlidingMenuActivity.this, org_my_events.class);
             startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
-            Intent intent = new Intent(SlidingMenuActivity.this, org_add_event.class);
+            Intent intent = new Intent(org_SlidingMenuActivity.this, org_add_event.class);
             startActivity(intent);
         } else if (id == R.id.nav_campus) {
-            Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);
+            Intent intent = new Intent(org_SlidingMenuActivity.this, org_campus_information.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(SlidingMenuActivity.this, org_settings.class);
+            Intent intent = new Intent(org_SlidingMenuActivity.this, org_settings.class);
             startActivity(intent);
         } else if (id == R.id.nav_support) {
-            Intent intent = new Intent(SlidingMenuActivity.this, org_support_page.class);
+            Intent intent = new Intent(org_SlidingMenuActivity.this, org_support_page.class);
             startActivity(intent);
         }
 
