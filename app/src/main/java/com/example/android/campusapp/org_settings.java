@@ -27,6 +27,7 @@ import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.parent;
 
 import org.w3c.dom.Text;
+import static com.example.android.campusapp.R.id.campusesSpinner;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 

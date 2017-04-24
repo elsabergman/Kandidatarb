@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
  * Created by fridakornsater on 2017-04-19.
  */
 
-public class student_favorites extends SlidingMenuActivity {
+public class favorites extends SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;
@@ -44,7 +45,7 @@ public class student_favorites extends SlidingMenuActivity {
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.student_favorites, null);
+        View contentView = inflater.inflate(R.layout.favorites, null);
 
         drawer.addView(contentView, 0);
 
@@ -69,7 +70,7 @@ public class student_favorites extends SlidingMenuActivity {
             }
         });
 
-        RequestQueue rQueue = Volley.newRequestQueue(student_favorites.this);
+        RequestQueue rQueue = Volley.newRequestQueue(favorites.this);
         rQueue.add(request);
     }
 

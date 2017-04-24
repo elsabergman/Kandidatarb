@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -108,7 +109,7 @@ public class SlidingMenuActivity extends AppCompatActivity
             Intent intent = new Intent(SlidingMenuActivity.this, org_my_events.class);
             startActivity(intent);
         } else if (id == R.id.nav_addEvents) {
-            Intent intent = new Intent(SlidingMenuActivity.this, org_add_event.class);
+            Intent intent = new Intent(SlidingMenuActivity.this, add_event.class);
             startActivity(intent);
         } else if (id == R.id.nav_campus) {
             Intent intent = new Intent(SlidingMenuActivity.this, org_campus_information.class);

@@ -49,7 +49,7 @@
             android:label=" "
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".org_add_event"
+            android:name=".add_event"
             android:label="Create Event">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,7 +88,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".student_favorites"
+        <activity android:name=".favorites"
             android:label="My favorite events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

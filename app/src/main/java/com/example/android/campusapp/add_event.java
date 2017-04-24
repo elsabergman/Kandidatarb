@@ -1,8 +1,11 @@
 package com.example.android.campusapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +24,7 @@ import org.json.JSONObject;
  * Created by Anna on 2017-04-04.
  */
 
-public class org_add_event extends SlidingMenuActivity{
+public class add_event extends SlidingMenuActivity{
     String chosen_campus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,7 @@ public class org_add_event extends SlidingMenuActivity{
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.org_add_event, null);
+        View contentView = inflater.inflate(R.layout.add_event, null);
 
         drawer.addView(contentView, 0);
 
