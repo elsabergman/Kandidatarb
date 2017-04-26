@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".org_settings"
+    android:background="@drawable/background"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <!--  <ImageView
+                  android:id="@+id/background"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:src="@drawable/background"
+                  android:scaleType="centerCrop"
+                  android:layout_alignParentTop="true"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true" /> -->
+
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello Svante!"
+                android:theme="@style/org_header"
+                android:textColor="#fff"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+
+                />
+
+            <!--<TextView
+                android:id="@+id/testDisplayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:layout_toRightOf="@+id/display_my_profile_button"
+                />  -->
+
+
+
+            <TextView
+                android:id="@+id/my_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Profile"
+                android:theme="@style/header2"
+                android:textColor="@color/darkest_blue"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="120dp"/>
+
+            <Button
+                android:id="@+id/edit_my_profile_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:layout_toRightOf="@+id/my_profile"
+                android:layout_marginTop="120dp"
+                android:textSize="10sp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:onClick="editInfo"
+                />
+
+            <Button
+                android:id="@+id/display_my_profile_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_toRightOf="@+id/edit_my_profile_button"
+                android:layout_marginTop="120dp"
+                android:textSize="10sp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:onClick="saveInfo"
+
+                />
+
+
+
+            <View
+                android:id="@+id/background_myprofile"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:background ="@drawable/border"
+                android:layout_below="@id/my_profile"
+                android:alpha="0.3"
+                android:elevation="@dimen/activity_vertical_margin"
+
+
+
+                />
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/my_profile"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+            <EditText
+                android:id="@+id/student_nameInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Type here"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_toRightOf="@id/email"
+                android:layout_below="@id/my_profile"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:focusable="false"
+
+                />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Adress:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/name"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+            <EditText
+                android:id="@+id/student_emailInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Type here"
+                android:textSize="20dp"
+                android:textColor="@color/darkest_blue"
+                android:layout_toRightOf="@id/email"
+                android:layout_below="@id/name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:focusable="false"
+
+                />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/email"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+            <EditText
+                android:id="@+id/student_username_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Type here"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_toRightOf="@id/email"
+                android:layout_below="@id/email"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:focusable="false"
+
+                />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/username"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+            <EditText
+                android:id="@+id/student_password_input1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_toRightOf="@id/email"
+                android:layout_below="@id/username"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:focusable="false"
+                android:hint="Type here"
+                android:inputType="textPassword"
+                />
+
+            <TextView
+                android:id="@+id/password2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/password"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+
+            <EditText
+                android:id="@+id/student_password_input2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_toRightOf="@id/email"
+                android:layout_below="@id/password"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:focusable="false"
+                android:hint="Type here"
+                android:inputType="textPassword"
+
+                />
+
+
+
+            <TextView
+                android:id="@+id/campus_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Campus settings"
+                android:theme="@style/header2"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/background_myprofile"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+
+
+
+                />
+            <View
+                android:id="@+id/background_campus_settings"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:background ="@drawable/border"
+                android:layout_below="@id/campus_settings"
+                android:alpha="0.3"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+
+
+
+            <TextView
+                android:id="@+id/default_campus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default Campus"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/campus_settings"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+
+                />
+
+            <Spinner
+                android:id="@+id/campusesSpinnerSettings"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:entries="@array/campuses_array"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_alignRight="@id/background_campus_settings"
+                android:layout_below="@id/campus_settings"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="7dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+            <TextView
+                android:id="@+id/default_university"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default University"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/default_campus"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+
+                />
+
+            <Spinner
+                android:id="@+id/universitySpinnerSettings"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:entries="@array/settings_university_selections"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_alignRight="@id/background_campus_settings"
+                android:layout_below="@id/default_campus"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="7dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+
+            <!-- <TextView
+                 android:id="@+id/default_campus_choice"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Ångström/ITC"
+                 android:textSize="20sp"
+                 android:textColor="@color/darkest_blue"
+                 android:layout_toRightOf="@id/default_campus"
+                 android:layout_below="@id/campus_settings"
+                 android:layout_marginLeft="25dp"
+                 android:layout_marginTop="15dp"
+                 android:elevation="@dimen/activity_vertical_margin"
+
+                 />  -->
+
+            <TextView
+                android:id="@+id/other_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other settings"
+                android:theme="@style/header2"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/background_campus_settings"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+
+
+                />
+
+            <View
+                android:background ="@drawable/border"
+                android:id="@+id/background_other_settings"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_below="@id/other_settings"
+                android:alpha="0.3"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+            <TextView
+                android:id="@+id/notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notifications"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/other_settings"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+
+
+
+            <Switch
+                android:id="@+id/mySwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/other_settings"
+                android:layout_toRightOf="@id/other_settings"
+                android:text="Switch for notification"
+                android:elevation="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:id="@+id/switchStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/notifications"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:elevation="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:id="@+id/language_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language:"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:layout_below="@id/switchStatus"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+            <Spinner
+                android:id="@+id/languageSpinnerSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:entries="@array/settings_language"
+                android:background="@android:drawable/btn_dropdown"
+                android:layout_toRightOf="@id/language_settings"
+                android:layout_below="@id/switchStatus"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="2dp"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <!--  <ImageView
+          android:id="@+id/campus_settings_img"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/settings_toggle"
+          android:adjustViewBounds="true"
+          android:layout_below="@id/organization_password"
+          android:layout_toRightOf="@id/default_campus_choice"
+          android:layout_marginTop="15dp"
+          android:maxWidth="35dp"
+          android:maxHeight="35dp"
+
+          />
+      <ImageView
+          android:id="@+id/language_settings_img"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/settings_toggle"
+          android:adjustViewBounds="true"
+          android:layout_below="@id/default_campus_choice"
+          android:layout_toRightOf="@id/default_campus_choice"
+          android:maxWidth="35dp"
+          android:maxHeight="35dp"
+          android:layout_marginTop="15dp"
+
+          />-->
+
+
+
+    <include layout="@layout/app_bar_sliding_menu" />
+</RelativeLayout>
