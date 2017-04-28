@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,19 +12,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 
 
 /**
  * Created by Anna on 2017-04-04.
  */
 
-public class add_event extends SlidingMenuActivity{
+
+public class add_event extends SlidingMenuActivity {
+
     String chosen_campus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +41,8 @@ public class add_event extends SlidingMenuActivity{
 
         drawer.addView(contentView, 0);
 
+
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-
-
-
 
         Button btn = (Button) findViewById(R.id.create_event_button);
         final EditText event_name = (EditText) findViewById(R.id.input_add_event);
@@ -69,14 +72,10 @@ public class add_event extends SlidingMenuActivity{
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
 
-
-
                 /**  @Override public void onAttach(Activity context) {
                 super.onAttach(context);
 
-
                 }
-
 
                 /**  public interface OnFragmentInteractionListener {
                 // TODO: Update argument type and name
@@ -84,7 +83,6 @@ public class add_event extends SlidingMenuActivity{
                 }
 
                  */
-
 
             }
             @Override
@@ -119,13 +117,11 @@ public class add_event extends SlidingMenuActivity{
                     post_dict.put("type_event", "Lunch Lecture");
                     post_dict.put("name_event", eventname);
                     post_dict.put("description", eventdescription);
-                    post_dict.put("date",dateEvent);
+                    post_dict.put("date", dateEvent);
                     post_dict.put("start_time", start_time);
                     post_dict.put("stop_time", stop_time);
                     post_dict.put("external_url", relevantlinks);
-                    post_dict.put("campus_location", chosen_campus);
-
-
+                    post_dict.put("campus_location", "1");
 
 
                 } catch (JSONException e) {
@@ -133,19 +129,35 @@ public class add_event extends SlidingMenuActivity{
                 }
                 if (post_dict.length() > 0) {
 
-                    /*connect to GetTokenLogin, which handles connection to Database */
-                    new SendToDatabase().execute(post_dict.toString(), "http://212.25.154.105:8000/events/",token);
+
+                    Callback myCallback = new Callback();
+
+                    try {
+                        boolean status = (myCallback.execution(post_dict.toString(), "http://130.243.183.79:8000/events/", token,"POST"));
+                        System.out.println(status);
+                        if (status) {
+                            Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(add_event.this, org_my_events.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(add_event.this, "event could not be created", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }
-        });
-
+            });
+        }
 
 
 
     }
 
 
-        }
+
 
 

@@ -88,7 +88,7 @@ public class create_student_user extends AppCompatActivity {
                     }
                     if (post_dict.length() > 0) {
 
-                        new SendToDatabase().execute(post_dict.toString(), "http://212.25.154.105:8000/users/register/");
+                   //     new DatabaseManager().execute(post_dict.toString(), "http://212.25.154.105:8000/users/register/");
 
                     }
 

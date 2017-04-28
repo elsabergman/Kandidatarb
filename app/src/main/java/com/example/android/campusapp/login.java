@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class login extends Activity {
@@ -83,9 +87,8 @@ public class login extends Activity {
                 }
                 if (post_dict.length() > 0) {
 
-                    /*connect to GetTokenLogin, which handles connection to Database */
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://212.25.154.105:8000/auth/token/");
 
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.183.79:8000/auth/token/");
                 }
             }
         });

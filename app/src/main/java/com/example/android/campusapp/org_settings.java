@@ -20,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.id.edit;
 import static android.R.id.toggle;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
@@ -27,7 +28,6 @@ import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.parent;
 
 import org.w3c.dom.Text;
-import static com.example.android.campusapp.R.id.campusesSpinner;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 
@@ -55,6 +55,8 @@ public class org_settings extends SlidingMenuActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.org_settings, null);
         drawer.addView(contentView, 0);
+
+
 
         TextView myProfile = (TextView) findViewById(R.id.my_profile);
         TextView org = (TextView) findViewById(R.id.organization);
@@ -218,7 +220,7 @@ public class org_settings extends SlidingMenuActivity {
         orgemailInput = (EditText) findViewById(R.id.organization_emailInput);
         orgusernameInput = (EditText) findViewById(R.id.organization_username_input);
         orgpasswordInput1 = (EditText) findViewById(R.id.organization_password_input1);
-        orgpasswordInput2 = (EditText) findViewById(R.id.organization_password_input2);
+      //  orgpasswordInput2 = (EditText) findViewById(R.id.organization_password_input2);
 
         //Här under sätter vi så att de ihågkomna värdena sätts in i My Profile när vi går in på Settings
         SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
@@ -234,7 +236,7 @@ public class org_settings extends SlidingMenuActivity {
         orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
         orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
         orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-        orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
+       // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
 
 
 
@@ -245,16 +247,18 @@ public class org_settings extends SlidingMenuActivity {
         //Edit info on My Profile(when you click edit). this makes it clickable and the text becomes white
 
     public void editInfo(View view) {
+
+
         orgnameInput.setFocusableInTouchMode(true);
         orgemailInput.setFocusableInTouchMode(true);
         orgusernameInput.setFocusableInTouchMode(true);
         orgpasswordInput1.setFocusableInTouchMode(true);
-        orgpasswordInput2.setFocusableInTouchMode(true);
+      //  orgpasswordInput2.setFocusableInTouchMode(true);
         orgnameInput.setTextColor(this.getResources().getColor(R.color.white));
         orgemailInput.setTextColor(this.getResources().getColor(R.color.white));
         orgusernameInput.setTextColor(this.getResources().getColor(R.color.white));
         orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.white));
-        orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.white));
+       // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.white));
 
     }
 
@@ -262,7 +266,9 @@ public class org_settings extends SlidingMenuActivity {
     ///Save info on My Profile(when you click save). Also set the text so it is not editable and dark.
     public void saveInfo(View view) {
 
-        if (orgpasswordInput1.getText().toString().equals(orgpasswordInput2.getText().toString())) {
+
+
+        if (orgpasswordInput1.getText().toString().equals(orgpasswordInput1.getText().toString())) {
             orgnameInput.setFocusable(false);
             orgnameInput.setClickable(false);
             orgemailInput.setFocusable(false);
@@ -271,14 +277,14 @@ public class org_settings extends SlidingMenuActivity {
             orgusernameInput.setClickable(false);
             orgpasswordInput1.setFocusable(false);
             orgpasswordInput1.setClickable(false);
-            orgpasswordInput2.setFocusable(false);
-            orgpasswordInput2.setClickable(false);
+        //    orgpasswordInput2.setFocusable(false);
+          //  orgpasswordInput2.setClickable(false);
 
             orgnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgemailInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgusernameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-            orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+           // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.darkest_blue));
 
             SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
@@ -287,7 +293,7 @@ public class org_settings extends SlidingMenuActivity {
             editor.putString("orgEmail", orgemailInput.getText().toString());
             editor.putString("orgUserName", orgusernameInput.getText().toString());
             editor.putString("orgPassword1", orgpasswordInput1.getText().toString());
-            editor.putString("orgPassword2", orgpasswordInput2.getText().toString());
+           // editor.putString("orgPassword2", orgpasswordInput2.getText().toString());
             editor.apply();
 
             String orgName = sharedPref.getString("orgName", "");
@@ -300,7 +306,7 @@ public class org_settings extends SlidingMenuActivity {
             orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
             orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
             orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-            orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
+           // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
 
             Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
 

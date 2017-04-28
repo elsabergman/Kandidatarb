@@ -21,62 +21,96 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
 import static android.content.ContentValues.TAG;
-
-
 
 
 /**
  * Created by elsabergman on 2017-04-11.
  */
 
-class SendToDatabase extends AsyncTask<String, String, String> {
+
+class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
+
+    /* ----instance variables ---- */
+
     static JSONObject JSON_token_key;
-    @Override
-    protected String doInBackground(String... params) {
+    boolean status;
+    HttpURLConnection urlConnection = null;
+    BufferedReader reader = null;
+    String JsonResponse = null;
+    private Callback.FragmentCallback mFragmentCallback; //our Fragment which connects to Callback
+
+    /*--- constructor ------*/
+    public DatabaseManager(Callback.FragmentCallback fragmentCallback) {
+        this.mFragmentCallback = fragmentCallback;
+    }
+
+
+    /*This method runs in the background and is called in Callback by databasemanager.execute */
+    protected Boolean doInBackground(Object... params) {
         String JsonResponse = null;
-        /*JSON data from class that calls SendToDatabase*/
+
+        /*JSON data from class that calls DatabaseManager*/
         String JsonDATA = (String) params[0];
+
         /*The URL that we connect to*/
         String urlen = (String) params[1];
+
         /*the token connected to the user */
         String token = (String) params[2];
 
+        /*type of request, POST or GET */
+        String type = (String) params[3];
+
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-        System.out.println(token);
 
         /*try connect to the URL*/
         try {
             URL url = new URL(urlen);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            // is output buffer writer
+
+
             /*Set headers needed to set up output stream*/
-            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestMethod(type);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
-            urlConnection.setRequestProperty("Authorization", "JWT " + token);
 
+            /*From classes that do not have a token, a token = 0 will be passed to the database */
+            if (token != "0") {
+                urlConnection.setRequestProperty("Authorization", "JWT " + token);
+                System.out.println("Skickade token");
+            }
 
-//set headers and method
+            System.out.println(token);
+
+            /* Write message on stream */
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
-
             writer.write(JsonDATA);
             writer.flush();
-            int code = urlConnection.getResponseCode();
+            int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
             writer.close();
+            System.out.println(code);
 
-            /*Input stream*/
+            /* If Response code is not a 2XX, we want to stop running the code here */
+            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
+                Log.v(TAG, "OK");
+            } else {
+                status = false;
+                return status;
+            }
+
+            /*Input stream. The message that is returned from the database is being sent on this stream*/
             InputStream inputStream = null;
 
             try {
-                 inputStream = urlConnection.getInputStream();
-            }
-            catch (Exception e){
+                inputStream = urlConnection.getInputStream();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-//input stream
+
 
             StringBuffer buffer = new StringBuffer();
 
@@ -84,6 +118,7 @@ class SendToDatabase extends AsyncTask<String, String, String> {
                 // Nothing to do.
                 return null;
             }
+            /*read the content of the input stream */
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String inputLine;
@@ -94,33 +129,23 @@ class SendToDatabase extends AsyncTask<String, String, String> {
                 // Stream was empty. No point in parsing.
                 return null;
             }
-            JsonResponse = buffer.toString();
+            JsonResponse = buffer.toString(); //response data
 
-//response data
-            Log.i(TAG,JsonResponse);
+            Log.i(TAG, JsonResponse);
 
-            //send to post execute
 
-            /*make JsonResponse an actual Json string, as of now it only looks like a Json string
-             but it actually is a regular String*/
-
-            System.out.println(JsonResponse);
-            /*call to method in the class that needs to know that everything went smoothly!*/
-            return JsonResponse; //this is the response from the Database!
-
+            status = true; //the request was successful
+            return status; //return message saying request was successful to Callback
 
 
         } catch (IOException e) {
             e.printStackTrace();
-           /* } catch (JSONException e) {
-                e.printStackTrace();
-
-*/
-
+        /*close connection */
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
+            /*close stream */
             if (reader != null) {
                 try {
                     reader.close();
@@ -132,8 +157,13 @@ class SendToDatabase extends AsyncTask<String, String, String> {
         return null;
     }
 
+    /*call on TaskDone in Callback when doInBackground is finished */
+    @Override
+    protected void onPostExecute(Boolean result) {
+        mFragmentCallback.onTaskDone(result);
+
+    }
 
 
 }
-
 
