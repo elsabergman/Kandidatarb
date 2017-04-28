@@ -48,25 +48,73 @@
                 android:layout_marginLeft="20dp"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="95dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+
+                />
+
+
 
             <TextView
-                android:id="@+id/sortByText"
+                android:id="@+id/todays_events_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sort by:"
-                android:textSize="15dp"
+                android:text="Today's events"
                 android:textColor="#fff"
-                android:layout_alignBottom="@+id/line1"
-                android:layout_alignLeft="@+id/line1"
-                android:layout_alignStart="@+id/line1" />
+                android:layout_centerHorizontal="true"
+                android:theme="@style/org_header"
+                android:layout_marginTop="60dp"
+
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/three_dots"
+                android:layout_toRightOf="@id/todays_events_header"
+                android:layout_marginTop="55dp"
+
+
+                />
+
+            <TextView
+                android:id="@+id/todays_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:theme="@style/org_header"
+                android:layout_marginTop="130dp"
+                android:layout_marginLeft="10dp" />
+
+
+
+            <ListView
+                android:id="@+id/todays_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/white"
+
+                />
 
             <Spinner
                 android:id="@+id/filterSpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="110dp"
                 android:background="@android:drawable/btn_dropdown"
+                android:layout_marginLeft="100dp"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort by:"
+                android:layout_marginTop="120dp"
+                android:layout_marginLeft="30dp"
+
                 />
 
             <View

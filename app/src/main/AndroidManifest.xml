@@ -16,7 +16,17 @@
         <!-- onClick activity for notifications button -->
 
         <activity
-            android:name=".org_settings"
+        android:name=".org_settings"
+        android:label="Settings">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+        <activity
+            android:name=".student_settings"
             android:label="Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +57,15 @@
         <activity
             android:name=".SlidingMenuActivity"
             android:label=" "
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".student_SlidingMenuActivity"
+            android:label=" "
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".add_event"
             android:label="Create Event">

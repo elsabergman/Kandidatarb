@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -31,6 +32,10 @@ public class org_support_page extends SlidingMenuActivity{
         View contentView = inflater.inflate(R.layout.org_support_page, null);
 
         drawer.addView(contentView, 0);
+
+        //This line prevents keyboard to pop up in screens with edittexts
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 
         Button button = (Button) findViewById(R.id.send_support_button);
 

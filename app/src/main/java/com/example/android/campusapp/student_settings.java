@@ -17,7 +17,10 @@ import android.widget.Toast;
 
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
-import static com.example.android.campusapp.R.id.organization_nameInput;
+import static com.example.android.campusapp.R.id.student_nameInput;
+
+//import static com.example.android.campusapp.R.id.campusesSpinner;
+
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 
@@ -25,16 +28,16 @@ import static com.example.android.campusapp.R.id.universitySpinnerSettings;
  * Created by elsabergman on 2017-04-07.
  */
 
-public class org_settings extends SlidingMenuActivity {
+public class student_settings extends student_SlidingMenuActivity {
 
     private TextView switchStatus;
     private Switch mySwitch;
 
-    EditText orgnameInput;
-    EditText orgemailInput;
-    EditText orgusernameInput;
-    EditText orgpasswordInput1;
-    EditText orgpasswordInput2;
+    EditText studentnameInput;
+    EditText studentemailInput;
+    EditText studentusernameInput;
+    EditText studentpasswordInput1;
+    EditText studentpasswordInput2;
 
 
     @Override
@@ -43,13 +46,11 @@ public class org_settings extends SlidingMenuActivity {
         super.onCreate(savedInstanceState);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.org_settings, null);
+        View contentView = inflater.inflate(R.layout.student_settings, null);
         drawer.addView(contentView, 0);
 
-
-
         TextView myProfile = (TextView) findViewById(R.id.my_profile);
-        TextView org = (TextView) findViewById(R.id.organization);
+        TextView stud = (TextView) findViewById(R.id.name);
         // TextView org_name = (TextView)findViewById(R.id.organization_name);
         TextView email = (TextView) findViewById(R.id.email);
         // TextView org_email= (TextView)findViewById(R.id.organization_email);
@@ -72,7 +73,7 @@ public class org_settings extends SlidingMenuActivity {
         Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Slabo27px-Regular.ttf");
 
         myProfile.setTypeface(custom_font);
-        org.setTypeface(custom_font);
+        stud.setTypeface(custom_font);
         //org_name.setTypeface(custom_font);
         email.setTypeface(custom_font);
         //org_email.setTypeface(custom_font);
@@ -96,7 +97,7 @@ public class org_settings extends SlidingMenuActivity {
         mySwitch = (Switch) findViewById(R.id.mySwitch);
 
         //set the switch to ON
-       // mySwitch.setChecked(true);
+        // mySwitch.setChecked(true);
 
 
         //Here we makes the app remember earlier decision of user for notifications settings
@@ -112,14 +113,14 @@ public class org_settings extends SlidingMenuActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", true).apply();
                     mySwitch.setChecked(true);
-                    Toast toast = Toast.makeText(org_settings.this, "Notifications on", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
                     toast.show();
 
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", false).apply();
                     mySwitch.setChecked(false);
-                    Toast toast = Toast.makeText(org_settings.this, "Notifications off", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
@@ -206,32 +207,27 @@ public class org_settings extends SlidingMenuActivity {
 
 
 
-        orgnameInput = (EditText) findViewById(organization_nameInput);
-        orgemailInput = (EditText) findViewById(R.id.organization_emailInput);
-        orgusernameInput = (EditText) findViewById(R.id.organization_username_input);
-        orgpasswordInput1 = (EditText) findViewById(R.id.organization_password_input1);
-      //  orgpasswordInput2 = (EditText) findViewById(R.id.organization_password_input2);
-
-        orgemailInput = (EditText) findViewById(R.id.student_emailInput);
-        orgusernameInput = (EditText) findViewById(R.id.student_username_input);
-        orgpasswordInput1 = (EditText) findViewById(R.id.student_password_input1);
-       // orgpasswordInput2 = (EditText) findViewById(R.id.student_password_input2);
+        studentnameInput = (EditText) findViewById(student_nameInput);
+        studentemailInput = (EditText) findViewById(R.id.student_emailInput);
+        studentusernameInput = (EditText) findViewById(R.id.student_username_input);
+        studentpasswordInput1 = (EditText) findViewById(R.id.student_password_input1);
+        studentpasswordInput2 = (EditText) findViewById(R.id.student_password_input2);
 
         //Här under sätter vi så att de ihågkomna värdena sätts in i My Profile när vi går in på Settings
         SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
-        String orgName = sharedPref.getString("orgName", "");
-        String orgEmail = sharedPref.getString("orgEmail", "");
-        String orgUserName = sharedPref.getString("orgUserName", "");
-        String orgPassword1 = sharedPref.getString("orgPassword1", "");
-        String orgPassword2 = sharedPref.getString("orgPassword2", "");
+        String studName = sharedPref.getString("orgName", "");
+        String studEmail = sharedPref.getString("orgEmail", "");
+        String studUserName = sharedPref.getString("orgUserName", "");
+        String studPassword1 = sharedPref.getString("orgPassword1", "");
+        String studPassword2 = sharedPref.getString("orgPassword2", "");
 
-        //EditText newOrgName = (EditText) findViewById(R.id.organization_nameInput);
-        orgnameInput.setText(orgName, TextView.BufferType.EDITABLE);
-        orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
-        orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
-        orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-       // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
+        //EditText newOrgName = (EditText) findViewById(R.id.student_nameInput);
+        studentnameInput.setText(studName, TextView.BufferType.EDITABLE);
+        studentemailInput.setText(studEmail, TextView.BufferType.EDITABLE);
+        studentusernameInput.setText(studUserName, TextView.BufferType.EDITABLE);
+        studentpasswordInput1.setText(studPassword1, TextView.BufferType.EDITABLE);
+        studentpasswordInput2.setText(studPassword2, TextView.BufferType.EDITABLE);
 
 
 
@@ -239,21 +235,19 @@ public class org_settings extends SlidingMenuActivity {
 
 
 
-        //Edit info on My Profile(when you click edit). this makes it clickable and the text becomes white
+    //Edit info on My Profile(when you click edit). this makes it clickable and the text becomes white
 
     public void editInfo(View view) {
-
-
-        orgnameInput.setFocusableInTouchMode(true);
-        orgemailInput.setFocusableInTouchMode(true);
-        orgusernameInput.setFocusableInTouchMode(true);
-        orgpasswordInput1.setFocusableInTouchMode(true);
-      //  orgpasswordInput2.setFocusableInTouchMode(true);
-        orgnameInput.setTextColor(this.getResources().getColor(R.color.white));
-        orgemailInput.setTextColor(this.getResources().getColor(R.color.white));
-        orgusernameInput.setTextColor(this.getResources().getColor(R.color.white));
-        orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.white));
-       // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.white));
+        studentnameInput.setFocusableInTouchMode(true);
+        studentemailInput.setFocusableInTouchMode(true);
+        studentusernameInput.setFocusableInTouchMode(true);
+        studentpasswordInput1.setFocusableInTouchMode(true);
+        studentpasswordInput2.setFocusableInTouchMode(true);
+        studentnameInput.setTextColor(this.getResources().getColor(R.color.white));
+        studentemailInput.setTextColor(this.getResources().getColor(R.color.white));
+        studentusernameInput.setTextColor(this.getResources().getColor(R.color.white));
+        studentpasswordInput1.setTextColor(this.getResources().getColor(R.color.white));
+        studentpasswordInput2.setTextColor(this.getResources().getColor(R.color.white));
 
     }
 
@@ -261,47 +255,45 @@ public class org_settings extends SlidingMenuActivity {
     ///Save info on My Profile(when you click save). Also set the text so it is not editable and dark.
     public void saveInfo(View view) {
 
+        if (studentpasswordInput1.getText().toString().equals(studentpasswordInput2.getText().toString())) {
+            studentnameInput.setFocusable(false);
+            studentnameInput.setClickable(false);
+            studentemailInput.setFocusable(false);
+            studentemailInput.setClickable(false);
+            studentusernameInput.setFocusable(false);
+            studentusernameInput.setClickable(false);
+            studentpasswordInput1.setFocusable(false);
+            studentpasswordInput1.setClickable(false);
+            studentpasswordInput2.setFocusable(false);
+            studentpasswordInput2.setClickable(false);
 
-
-        if (orgpasswordInput1.getText().toString().equals(orgpasswordInput1.getText().toString())) {
-            orgnameInput.setFocusable(false);
-            orgnameInput.setClickable(false);
-            orgemailInput.setFocusable(false);
-            orgemailInput.setClickable(false);
-            orgusernameInput.setFocusable(false);
-            orgusernameInput.setClickable(false);
-            orgpasswordInput1.setFocusable(false);
-            orgpasswordInput1.setClickable(false);
-        //    orgpasswordInput2.setFocusable(false);
-          //  orgpasswordInput2.setClickable(false);
-
-            orgnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-            orgemailInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-            orgusernameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-            orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-           // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+            studentnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+            studentemailInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+            studentusernameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+            studentpasswordInput1.setTextColor(this.getResources().getColor(R.color.darkest_blue));
+            studentpasswordInput2.setTextColor(this.getResources().getColor(R.color.darkest_blue));
 
             SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("orgName", orgnameInput.getText().toString());
-            editor.putString("orgEmail", orgemailInput.getText().toString());
-            editor.putString("orgUserName", orgusernameInput.getText().toString());
-            editor.putString("orgPassword1", orgpasswordInput1.getText().toString());
-           // editor.putString("orgPassword2", orgpasswordInput2.getText().toString());
+            editor.putString("orgName", studentnameInput.getText().toString());
+            editor.putString("orgEmail", studentemailInput.getText().toString());
+            editor.putString("orgUserName", studentusernameInput.getText().toString());
+            editor.putString("orgPassword1", studentpasswordInput1.getText().toString());
+            editor.putString("orgPassword2", studentpasswordInput2.getText().toString());
             editor.apply();
 
-            String orgName = sharedPref.getString("orgName", "");
-            String orgEmail = sharedPref.getString("orgEmail", "");
-            String orgUserName = sharedPref.getString("orgUserName", "");
-            String orgPassword1 = sharedPref.getString("orgPassword1", "");
-            String orgPassword2 = sharedPref.getString("orgPassword2", "");
+            String studName = sharedPref.getString("orgName", "");
+            String studEmail = sharedPref.getString("orgEmail", "");
+            String studUserName = sharedPref.getString("orgUserName", "");
+            String studPassword1 = sharedPref.getString("orgPassword1", "");
+            String studPassword2 = sharedPref.getString("orgPassword2", "");
 
-            orgnameInput.setText(orgName, TextView.BufferType.EDITABLE);
-            orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
-            orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
-            orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-           // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
+            studentnameInput.setText(studName, TextView.BufferType.EDITABLE);
+            studentemailInput.setText(studEmail, TextView.BufferType.EDITABLE);
+            studentusernameInput.setText(studUserName, TextView.BufferType.EDITABLE);
+            studentpasswordInput1.setText(studPassword1, TextView.BufferType.EDITABLE);
+            studentpasswordInput2.setText(studPassword2, TextView.BufferType.EDITABLE);
 
             Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
 

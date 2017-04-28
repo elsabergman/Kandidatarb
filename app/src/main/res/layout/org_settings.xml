@@ -142,7 +142,7 @@
 
             />
         <EditText
-            android:id="@+id/organization_emailInput"
+            android:id="@+id/student_emailInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="sts-ordf@utn.se"
@@ -171,7 +171,7 @@
 
             />
         <EditText
-            android:id="@+id/organization_username_input"
+            android:id="@+id/student_username_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="STS-sektionen"
@@ -200,7 +200,7 @@
 
             />
         <EditText
-            android:id="@+id/organization_password_input1"
+            android:id="@+id/student_password_input1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -230,7 +230,7 @@
             />
 
         <EditText
-            android:id="@+id/organization_password_input2"
+            android:id="@+id/student_password_input2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
