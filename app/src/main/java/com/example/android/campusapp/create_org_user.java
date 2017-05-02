@@ -95,13 +95,13 @@ public class create_org_user extends AppCompatActivity {
                         Callback myCallback = new Callback();
 
                         try {
-                            boolean status = (myCallback.execution(post_dict.toString(), "http://130.243.183.79:8000/register/", "0" , "POST"));
+                            String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST",post_dict.toString()));
                             System.out.println(status);
-                            if (status) {
+                            if (status == "true") {
                                 Intent intent = new Intent(create_org_user.this, login.class);
                                 startActivity(intent);
                                 Toast.makeText(create_org_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
-                            }else {
+                            }if (status =="false") {
                                 Toast.makeText(create_org_user.this, "User could not be created", Toast.LENGTH_LONG).show();
 
                             }

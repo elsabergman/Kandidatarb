@@ -30,38 +30,50 @@ import static android.content.ContentValues.TAG;
  */
 
 
-class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
+class DatabaseManager extends AsyncTask<Object, Object, String> {
 
     /* ----instance variables ---- */
 
     static JSONObject JSON_token_key;
-    boolean status;
+    String status;
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     String JsonResponse = null;
     private Callback.FragmentCallback mFragmentCallback; //our Fragment which connects to Callback
+    String response;
+    // private Callback.FragmentCallbackGET mFragmentCallbackGET;
 
     /*--- constructor ------*/
     public DatabaseManager(Callback.FragmentCallback fragmentCallback) {
         this.mFragmentCallback = fragmentCallback;
+
     }
+
+   /* public DatabaseManager(Callback.FragmentCallbackGET fragmentCallbackGET) {
+        this.mFragmentCallbackGET = fragmentCallbackGET;
+    }*/
 
 
     /*This method runs in the background and is called in Callback by databasemanager.execute */
-    protected Boolean doInBackground(Object... params) {
+    protected String doInBackground(Object... params) {
         String JsonResponse = null;
+        String JsonDATA = null;
 
         /*JSON data from class that calls DatabaseManager*/
-        String JsonDATA = (String) params[0];
+       
 
         /*The URL that we connect to*/
-        String urlen = (String) params[1];
+        String urlen = (String) params[0];
 
         /*the token connected to the user */
-        String token = (String) params[2];
+        String token = (String) params[1];
 
         /*type of request, POST or GET */
-        String type = (String) params[3];
+        String type = (String) params[2];
+
+        JsonDATA = (String) params[3];
+
+        System.out.println(type);
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -70,8 +82,6 @@ class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
         try {
             URL url = new URL(urlen);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
-
 
             /*Set headers needed to set up output stream*/
             urlConnection.setRequestMethod(type);
@@ -81,24 +91,31 @@ class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
             /*From classes that do not have a token, a token = 0 will be passed to the database */
             if (token != "0") {
                 urlConnection.setRequestProperty("Authorization", "JWT " + token);
-                System.out.println("Skickade token");
+
             }
 
             System.out.println(token);
 
+            if(type == "POST") {
+                urlConnection.setDoOutput(true);
             /* Write message on stream */
-            Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
-            writer.write(JsonDATA);
-            writer.flush();
+                Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
+                writer.write(JsonDATA);
+                writer.flush();
+                writer.close();
+
+            }
+
             int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
-            writer.close();
             System.out.println(code);
+
 
             /* If Response code is not a 2XX, we want to stop running the code here */
             if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
                 Log.v(TAG, "OK");
             } else {
-                status = false;
+
+                status = "false";
                 return status;
             }
 
@@ -129,13 +146,19 @@ class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
                 // Stream was empty. No point in parsing.
                 return null;
             }
-            JsonResponse = buffer.toString(); //response data
+            JsonResponse = buffer.toString();//response data
 
             Log.i(TAG, JsonResponse);
 
+            if (type == "POST") {
 
-            status = true; //the request was successful
-            return status; //return message saying request was successful to Callback
+                status = "true"; //the request was successful
+                return status; //return message saying request was successful to Callback
+            }
+            if(type == "GET") {
+                response = JsonResponse;
+                return response;
+            }
 
 
         } catch (IOException e) {
@@ -159,8 +182,10 @@ class DatabaseManager extends AsyncTask<Object, Object, Boolean> {
 
     /*call on TaskDone in Callback when doInBackground is finished */
     @Override
-    protected void onPostExecute(Boolean result) {
+    protected void onPostExecute(String result) {
+
         mFragmentCallback.onTaskDone(result);
+
 
     }
 

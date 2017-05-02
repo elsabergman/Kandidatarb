@@ -133,13 +133,13 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        boolean status = (myCallback.execution(post_dict.toString(), "http://130.243.183.79:8000/events/", token,"POST"));
+                        String status = (myCallback.execution_Post( "http://130.243.134.165:8000/events/", token,"POST",post_dict.toString()));
                         System.out.println(status);
-                        if (status) {
+                        if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(add_event.this, org_my_events.class);
                             startActivity(intent);
-                        }else{
+                        }if(status == "false"){
                             Toast.makeText(add_event.this, "event could not be created", Toast.LENGTH_LONG).show();
                         }
                     } catch (InterruptedException e) {

@@ -13,34 +13,54 @@ fragments in order to enable a callback from the DatabaseManager class */
 
 public class Callback extends Fragment {
 
-    boolean status;
+    String status;
+    String response;
     /* method called from the class wishing to connect to the database. */
-    public boolean  execution(String JSON, String url, String token, String type) throws ExecutionException, InterruptedException {
+    public String  execution_Post( String url, String token, String type, String JSON) throws ExecutionException, InterruptedException {
+
         /*create new databaseManager object, in order to enable a connection */
         DatabaseManager databaseManager = new DatabaseManager(new FragmentCallback() {
             /*method to be executed when databaseManager is finished */
             @Override
-            public void onTaskDone(boolean result) {
-                if (result) {
+            public void onTaskDone(String result) {
+                if (result == "true") {
 
-                    status = true;
+                    status = "true";
 
                 } else {
-                    status = false;
+                    status = "false";
 
                 }
 
             }
         });
         /*call databaseManager class */
-        databaseManager.execute(JSON, url, token, type).get();
+        databaseManager.execute(url, token, type, JSON).get();
         return databaseManager.status; //return true or false depending on if request was successful or not
     }
 
+    public String execution_Get(String url, String token, String type, String Json) throws ExecutionException, InterruptedException {
+        /*create new databaseManager object, in order to enable a connection */
+        DatabaseManager databaseManager = new DatabaseManager(new FragmentCallback() {
+            /*method to be executed when databaseManager is finished */
+            @Override
+            public void onTaskDone(String result) {
+
+                response = result;
+                System.out.println(response);
+
+            }
+        });
+        /*call databaseManager class */
+        databaseManager.execute(url, token, type, Json).get();
+        return databaseManager.response; //return true or false depending on if request was successful or not
+    }
+
+
     /*Fragment interface which calls onTaskDone when databaseManager is finished.
-    This interface is called from DatabaseManager */
+This interface is called from DatabaseManager */
     public  interface FragmentCallback {
-        public void onTaskDone(boolean result);
+        public void onTaskDone(String result);
     }
 
 
