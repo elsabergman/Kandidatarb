@@ -1,6 +1,7 @@
 package com.example.android.campusapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,12 +20,14 @@ import org.json.JSONObject;
  */
 
 public class create_org_user extends AppCompatActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_org_user);
 
-
+        final String confirmationMethod = null;
 
         Spinner dropdown_uni = (Spinner)findViewById(R.id.uni_spinner);
         String[] items_uni = new String[]{"1", "2", "three"};
@@ -54,8 +57,6 @@ public class create_org_user extends AppCompatActivity {
         //  final EditText phone = (EditText) findViewById(R.id.phone);
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
-
-
         Button button = (Button) findViewById(R.id.createUserBtn);
 
         button.setOnClickListener(new View.OnClickListener(){
@@ -71,8 +72,6 @@ public class create_org_user extends AppCompatActivity {
                 // String phone = phone.getText().toString();
 
 
-
-
                 JSONObject post_dict = new JSONObject();
 
                 try {
@@ -83,6 +82,7 @@ public class create_org_user extends AppCompatActivity {
                     post_dict.put("email2", email2);
                     post_dict.put("first_name", firstname);
                     post_dict.put("last_name", lastname);
+                    post_dict.put("groups","Organisation");
 
 
 
@@ -92,21 +92,37 @@ public class create_org_user extends AppCompatActivity {
                 }
                 if (post_dict.length() > 0) {
 
-                    new SendToDatabase().execute(post_dict.toString(), "http://212.25.154.105:8000/users/register/");
+                        Callback myCallback = new Callback();
+
+                        try {
+                            String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST",post_dict.toString()));
+                            System.out.println(status);
+                            if (status == "true") {
+                                Intent intent = new Intent(create_org_user.this, login.class);
+                                startActivity(intent);
+                                Toast.makeText(create_org_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
+                            }if (status =="false") {
+                                Toast.makeText(create_org_user.this, "User could not be created", Toast.LENGTH_LONG).show();
+
+                            }
+
+                        }
+
+
+                    catch (Exception e) {
+
+                        System.out.println("Could not create suer");
+                    }
+
 
                 }
 
-
-                // txtViewNotComplete.setText("fill in all fields");
-
-                Toast.makeText(create_org_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(create_org_user.this, login.class);
-                startActivity(intent);
 
 
 
             }
         });
     }
+
+
 }

@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
@@ -40,8 +49,6 @@
 
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +62,7 @@
             android:text="Fill in your information:"
             android:textColor="#fff"
             android:textSize="18sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
 
 
@@ -66,7 +73,8 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
+            android:layout_marginTop="15dp"
             android:inputType="textPersonName"
             android:hint="Organisation Name"
             android:layout_alignParentLeft="true"
@@ -81,7 +89,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:inputType="textPersonName"
             android:hint="First Name of Contact Person"
             android:layout_alignParentLeft="true"
@@ -96,7 +104,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:inputType="textPersonName"
             android:hint="Last Name of Contact Person"
             android:layout_marginTop="1dp"
@@ -111,8 +119,8 @@
             android:id="@+id/input_email"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:inputType="textEmailAddress"
             android:hint="Email adress of Contact Person"
             android:layout_marginTop="1dp"
@@ -129,7 +137,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:inputType="textEmailAddress"
             android:hint="Email adress again"
             android:layout_marginTop="1dp"
@@ -150,7 +158,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:inputType="textPersonName"
             android:hint="Username"
             android:layout_marginTop="1dp"
@@ -168,7 +176,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:inputType="textPersonName"
             android:hint="Password"
             android:layout_marginTop="1dp"
@@ -190,8 +198,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Choose univserity"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textColor="@color/icon_color"
+                android:textSize="20sp"
                 android:layout_marginRight="18dp"
                 android:layout_marginLeft="23dp"
                 android:layout_marginTop="1dp"
@@ -219,8 +227,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Choose campus"
-                android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textColor="@color/icon_color"
+                android:textSize="20sp"
 
                 android:layout_marginRight="29dp"
                 android:layout_marginLeft="23dp"
@@ -233,7 +241,6 @@
                 android:id="@+id/campus_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="@android:drawable/btn_dropdown"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="1dp"
                 android:spinnerMode="dropdown"
@@ -242,8 +249,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 
@@ -258,9 +263,8 @@
         android:background="#10898D"
         android:onClick="onClick"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="530dp"
+
         />
 
 
@@ -274,5 +278,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="#FF0000"
         />
+            </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

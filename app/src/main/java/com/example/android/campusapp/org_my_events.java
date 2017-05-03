@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -23,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by elsabergman on 2017-04-10.
@@ -35,6 +37,7 @@ public class org_my_events extends SlidingMenuActivity {
     String url = "http://www.thecrazyprogrammer.com/example_data/fruits_array.json";
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
+    String status;
 
 
     @Override
@@ -51,6 +54,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        System.out.println(token);
 
 
         /*----------------------------------------------*/
@@ -62,27 +66,23 @@ public class org_my_events extends SlidingMenuActivity {
         dialog.setMessage("Loading....");
         dialog.show();
 
-        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String string) {
-                parseJsonData(string);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getApplicationContext(), "Some error occurred!!", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
 
-        RequestQueue rQueue = Volley.newRequestQueue(org_my_events.this);
-        rQueue.add(request);
-    }
 
-    void parseJsonData(String jsonString) {
+        Callback myCallback = new Callback();
         try {
-            JSONObject object = new JSONObject(jsonString);
-            JSONArray myEventsArray = object.getJSONArray("fruits");
+
+            String status = (myCallback.execution_Get("http://130.243.134.165:8000/events/my-events/", token, "GET", "No JsonData"));
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+         /*   JSONObject object = new JSONObject(status);
+            JSONArray myEventsArray = object.getJSONArray(status);
             ArrayList al1 = new ArrayList();
             ArrayList al2 = new ArrayList();
             ArrayList al3 = new ArrayList();
@@ -103,8 +103,8 @@ public class org_my_events extends SlidingMenuActivity {
             }
             System.out.println(al2);*/
 
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
-            firstRow.setAdapter(adapter);
+           /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
+            firstRow.setAdapter(adapter); */
 
 
           /*  ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
@@ -112,9 +112,6 @@ public class org_my_events extends SlidingMenuActivity {
 
             ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al3);
             thirdRow.setAdapter(adapter3);*/
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         dialog.dismiss();
     }
