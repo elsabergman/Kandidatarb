@@ -71,7 +71,7 @@ public class org_my_events extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String status = (myCallback.execution_Get("http://130.243.134.165:8000/events/my-events/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.134.165/events/my-events/", token, "GET", "No JsonData"));
 
         } catch (ExecutionException e) {
             e.printStackTrace();

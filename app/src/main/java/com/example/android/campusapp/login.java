@@ -108,6 +108,7 @@ public class login extends Activity {
             System.out.println("i access");
 
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString("token", got_token).commit();
+           // System.out.println(got_token);
 
             Intent intent = new Intent(login.this, org_my_events.class);
             startActivity(intent);
