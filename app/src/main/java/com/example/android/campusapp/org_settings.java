@@ -202,10 +202,6 @@ public class org_settings extends SlidingMenuActivity {
         });
 
 
-
-
-
-
         orgnameInput = (EditText) findViewById(organization_nameInput);
         orgemailInput = (EditText) findViewById(R.id.organization_emailInput);
         orgusernameInput = (EditText) findViewById(R.id.organization_username_input);
