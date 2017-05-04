@@ -87,7 +87,7 @@
 
 
 
-            <ListView
+            <ExpandableListView
                 android:id="@+id/todays_events_list"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
@@ -95,8 +95,40 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:background="@color/white"
-
                 />
+
+            <TextView
+                android:id="@+id/lblListHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+                android:textSize="17dp"
+                android:textColor="#f9f93d" />
+
+            <TextView
+                android:id="@+id/lblListItem"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dip"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+
+
+
+
+
+            <ImageButton
+                android:id="@+id/ib_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/exit_button"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                />
+
+
 
             <Spinner
                 android:id="@+id/filterSpinner"
@@ -123,6 +155,8 @@
                 />
         </RelativeLayout>
 
+
+
     </ScrollView>
 
     <include layout="@layout/app_bar_sliding_menu"
@@ -131,5 +165,19 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
 
- </RelativeLayout>
 
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background_popup"
+        android:background="@color/black"
+        android:alpha="0.8"
+        android:visibility="gone">
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

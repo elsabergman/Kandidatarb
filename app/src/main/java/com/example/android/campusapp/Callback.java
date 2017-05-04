@@ -47,7 +47,6 @@ public class Callback extends Fragment {
             public void onTaskDone(String result) {
 
                 response = result;
-                System.out.println(response);
 
             }
         });

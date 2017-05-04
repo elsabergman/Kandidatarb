@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,7 +26,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.android.campusapp.Constants.FIRST_COLUMN;
+import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.SECOND_COLUMN;
+import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
 /**
  * Created by elsabergman on 2017-04-10.
@@ -34,15 +51,16 @@ public class org_my_events extends SlidingMenuActivity {
     ListView firstRow;
     ListView secondRow;
     ListView thirdRow;
-    String url = "http://www.thecrazyprogrammer.com/example_data/fruits_array.json";
+
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
+    private Date dateTime;
 
-
+    private ArrayList<HashMap<String, String>> list;
+    private ArrayList<HashMap<String, String>> total_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
 
@@ -56,65 +74,78 @@ public class org_my_events extends SlidingMenuActivity {
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         System.out.println(token);
 
-
         /*----------------------------------------------*/
 
-        firstRow = (ListView)findViewById(R.id.your_event_list);
-      /* secondRow = (ListView)findViewById(R.id.lista2);
-        thirdRow = (ListView)findViewById(R.id.lista3);*/
+
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
 
 
-
         Callback myCallback = new Callback();
-        try {
+        try { String status = (myCallback.execution_Get("http://130.243.134.165:8000/events/my-events/", token, "GET", "No JsonData"));
 
-            String status = (myCallback.execution_Get("http://130.243.134.165/events/my-events/", token, "GET", "No JsonData"));
+    if (status == "false"){
+                Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
+            }
+            else {
+
+                JSONArray myEventsArray = new JSONArray(status);
+
+                ListView listView = (ListView) findViewById(R.id.your_event_list);
+
+                /*list = the list that will store all hashMaps
+                hashMap = stores all information about a specific event
+                total_list = the list that will be displayed
+                 */
+
+                /* --- create hash map that all Json objects are inserted to --- */ 
+                list=new ArrayList<HashMap<String,String>>();
+                total_list=new ArrayList<HashMap<String,String>>();
+                ListViewAdapter adapter=new ListViewAdapter(this, total_list);
+
+                /*create as many hash maps as needed */
+                for(int i = 0; i < myEventsArray.length(); i++) {
+                    list.add(new HashMap<String, String>());
+                }
+
+                for (int i = 0; i < myEventsArray.length(); i++) {
+                    JSONObject json_data = myEventsArray.getJSONObject(i);
+                    String date = json_data.getString("date");
+                    String name = json_data.getString("name_event");
+                    String start_time = json_data.getString("start_time");
+                    String end_time = json_data.getString("stop_time");
+                    String owner = json_data.getString("owner");
+                    list.get(i).put(FIRST_COLUMN, date);
+                    list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
+                    list.get(i).put(THIRD_COLUMN,owner );
+                    list.get(i).put(FOURTH_COLUMN, name );
+                    total_list.add(list.get(i));
+                    Log.d(name, "name");
+                    Log.d(date, "date");
+                    Log.d(start_time,"start");
+                    Log.d(end_time, "end");
+                }
+
+                adapter=new ListViewAdapter(this, list);
+                listView.setAdapter(adapter);
+
+            }
 
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
 
 
-         /*   JSONObject object = new JSONObject(status);
-            JSONArray myEventsArray = object.getJSONArray(status);
-            ArrayList al1 = new ArrayList();
-            ArrayList al2 = new ArrayList();
-            ArrayList al3 = new ArrayList();
-
-
-
-            for(int i = 0; i <myEventsArray.length(); ++i) {
-                al1.add(myEventsArray.getString(i));
-            }
-
-         /*   for(int i = 0; i < 3; ++i) {
-                al2.add(myEventsArray.getString(i));
-            }
-            System.out.println(al2);
-
-            for(int i = 0; i < 3; ++i) {
-                al3.add(myEventsArray.getString(i));
-            }
-            System.out.println(al2);*/
-
-           /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
-            firstRow.setAdapter(adapter); */
-
-
-          /*  ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
-            secondRow.setAdapter(adapter2);
-
-            ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al3);
-            thirdRow.setAdapter(adapter3);*/
 
         dialog.dismiss();
-    }
+
+        }
 
 }
 

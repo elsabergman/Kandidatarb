@@ -105,7 +105,6 @@ public class login extends Activity {
             wrongLogin.setText("Username and/or password is incorrect");
         }
         if (message == "access granted") {
-            System.out.println("i access");
 
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString("token", got_token).commit();
            // System.out.println(got_token);

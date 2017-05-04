@@ -23,9 +23,11 @@ package com.example.android.campusapp;
  */
 class GetTokenLogin extends AsyncTask<String, String, String> {
     private static login Login;
+
     public GetTokenLogin(login Login) {
         this.Login = Login;
     }
+
     @Override
     protected String doInBackground(String... params) {
         String JsonResponse = null;
@@ -50,7 +52,7 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
                 /*--get Response code from Database, either 200 Ok or 400 Error --*/
             int code = urlConnection.getResponseCode(); /*response code, either 200 OK or 401 */
                 /*--if Error code, send this info to Login Class, which won't not grant access to log in--*/
-            if (code == 400) {
+            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) != '2')) {
                 Login.runOnUiThread(new Runnable() { //To make compatible with AsyncTask
                     public void run() {
                         Login.LoginAccessGranted("error", "no token given");
