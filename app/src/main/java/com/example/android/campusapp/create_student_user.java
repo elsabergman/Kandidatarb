@@ -16,6 +16,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 
 /**
  * Created by Anna on 2017-04-19.
@@ -81,6 +83,8 @@ public class create_student_user extends AppCompatActivity {
                         post_dict.put("email2", email2);
                         post_dict.put("first_name", firstname);
                         post_dict.put("last_name", lastname);
+                        post_dict.put("groups","Student");
+
 
 
                     } catch (JSONException e) {
@@ -88,17 +92,26 @@ public class create_student_user extends AppCompatActivity {
                     }
                     if (post_dict.length() > 0) {
 
-                   //     new DatabaseManager().execute(post_dict.toString(), "http://212.25.154.105:8000/users/register/");
+                        Callback myCallback = new Callback();
+
+                        try {
+                            String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST", post_dict.toString()));
+                            if (status == "true") {
+                                Intent intent = new Intent(create_student_user.this, login.class);
+                                startActivity(intent);
+                                Toast.makeText(create_student_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
+                            }if (status =="false") {
+                                Toast.makeText(create_student_user.this, "User could not be created", Toast.LENGTH_LONG).show();
+
+                            }
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
 
                     }
-
-
-                    // txtViewNotComplete.setText("fill in all fields");
-
-                    Toast.makeText(create_student_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(create_student_user.this, login.class);
-                    startActivity(intent);
 
 
                 }

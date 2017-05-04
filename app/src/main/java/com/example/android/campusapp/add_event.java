@@ -121,7 +121,9 @@ public class add_event extends SlidingMenuActivity {
                     post_dict.put("start_time", start_time);
                     post_dict.put("stop_time", stop_time);
                     post_dict.put("external_url", relevantlinks);
-                    post_dict.put("campus_location", "1");
+                    post_dict.put("campus_location", "2");
+
+                    System.out.println(post_dict);
 
 
                 } catch (JSONException e) {
@@ -133,7 +135,7 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post( "http://130.243.134.165:8000/events/", token,"POST",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://130.243.134.165:8000/events/", token,"POST",post_dict.toString()));
                         System.out.println(status);
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();

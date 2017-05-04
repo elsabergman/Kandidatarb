@@ -95,7 +95,7 @@ public class create_org_user extends AppCompatActivity {
                         Callback myCallback = new Callback();
 
                         try {
-                            String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST",post_dict.toString()));
+                            String status = (myCallback.execution_Post("http://130.238.92.103:8000/register/", "0" , "POST", post_dict.toString()));
                             System.out.println(status);
                             if (status == "true") {
                                 Intent intent = new Intent(create_org_user.this, login.class);
@@ -111,7 +111,7 @@ public class create_org_user extends AppCompatActivity {
 
                     catch (Exception e) {
 
-                        System.out.println("Could not create suer");
+                        System.out.println("Could not create user");
                     }
 
 
