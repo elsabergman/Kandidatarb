@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.PopupWindow;
@@ -22,6 +24,8 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -59,17 +63,80 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
 
-        /* Här skapas rutorna i feeden */
-        for (int i = 1; i < 6; i++) {
 
-            TextView feed = new TextView(this);
-            feed.setText("Feed " + i);
-            feed.setTextColor(getResources().getColor(R.color.black));
+        /* Här skapas rutorna i feeden */
+        for (int i = 1; i < 10; i++) {
+
+            RelativeLayout feed = new RelativeLayout(this);
+
+            //feed.setText("Feed " + i);
+            // feed.setTextColor(getResources().getColor(R.color.black));
+
             feed.setBackgroundResource(R.color.white);
             feed.setAlpha((float) 0.3);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 250);
+
+
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT, 300);
             lp.setMargins(0, 0, 0, 10);
+
+            ImageButton arrow_up =  new ImageButton(this);
+            ImageButton arrow_down = new ImageButton(this);
+            TextView count = new TextView(this);
+            count.setText("0");
+            count.setTextColor(getResources().getColor(R.color.black));
+            count.setTextSize(20);
+
+
+            // Integer count = 0;
+
+            arrow_up.setImageResource(R.drawable.arrow_up);
+            arrow_down.setImageResource(R.drawable.arrow_down);
+
+            ArrayList <ImageButton> buttons = new ArrayList<>();
+
+
+            buttons.add(arrow_up);
+            buttons.add(arrow_down);
+
+
+
+            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            lp2.setMargins(0,0,100,0);
+
+            RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+           lp3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            lp3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            lp3.setMargins(0,0,100,0);
+
+            RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lp4.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            lp4.addRule(RelativeLayout.END_OF, buttons.indexOf(arrow_up));
+            lp4.setMargins(0,120,145,0);
+
+
+
+            arrow_up.setLayoutParams(lp2);
+            arrow_down.setLayoutParams(lp3);
+            count.setLayoutParams(lp4);
+
+            feed.addView(arrow_up);
+            feed.addView(arrow_down);
+            feed.addView(count);
+
+
             ll.addView(feed, lp);
+
+
+
+
 
 
         }

@@ -77,7 +77,6 @@ public class create_student_user extends AppCompatActivity {
                 JSONObject post_dict = new JSONObject();
 
                 try {
-                    post_dict.put("org_name" , "");
                     post_dict.put("username", username);
                     post_dict.put("password", password);
                     post_dict.put("email", email);
