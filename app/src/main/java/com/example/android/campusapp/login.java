@@ -88,7 +88,7 @@ public class login extends Activity {
                 if (post_dict.length() > 0) {
 
 
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.134.165:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.238.250.84:8000/auth/token/");
                 }
             }
         });
