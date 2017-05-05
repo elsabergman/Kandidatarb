@@ -42,80 +42,80 @@ public class create_student_user extends AppCompatActivity {
         dropdown_campus.setAdapter(adapter_campus);
 
 
-
+    create_student_user();
 
     }
 
     void create_student_user() {
 
          /*Input fields for creating a user*/
-            final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
-            final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
-            final EditText email_Edit = (EditText) findViewById(R.id.input_email);
+        final EditText firstname_Edit = (EditText) findViewById(R.id.input_firstname);
+        final EditText lastname_Edit = (EditText) findViewById(R.id.input_lastname);
+        final EditText email_Edit = (EditText) findViewById(R.id.input_email);
 
-            final EditText username_Edit = (EditText) findViewById(R.id.input_username);
-            final EditText password_Edit = (EditText) findViewById(R.id.input_password);
+        final EditText username_Edit = (EditText) findViewById(R.id.input_username);
+        final EditText password_Edit = (EditText) findViewById(R.id.input_password);
 
-            //  final EditText phone = (EditText) findViewById(R.id.phone);
-            final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
-
-
-            Button button = (Button) findViewById(R.id.createUserBtn);
-
-            button.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    String firstname = firstname_Edit.getText().toString();
-                    String lastname = lastname_Edit.getText().toString();
-                    String email = email_Edit.getText().toString();
-                    String email2 = email_Edit.getText().toString();
-                    String username = username_Edit.getText().toString();
-                    String password = password_Edit.getText().toString();
-                    // String phone = phone.getText().toString();
+        //  final EditText phone = (EditText) findViewById(R.id.phone);
+        final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
 
-                    JSONObject post_dict = new JSONObject();
+        Button button = (Button) findViewById(R.id.createUserBtn);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                String firstname = firstname_Edit.getText().toString();
+                String lastname = lastname_Edit.getText().toString();
+                String email = email_Edit.getText().toString();
+                String email2 = email_Edit.getText().toString();
+                String username = username_Edit.getText().toString();
+                String password = password_Edit.getText().toString();
+                // String phone = phone.getText().toString();
+
+
+                JSONObject post_dict = new JSONObject();
+
+                try {
+                    post_dict.put("username", username);
+                    post_dict.put("password", password);
+                    post_dict.put("email", email);
+                    post_dict.put("email2", email2);
+                    post_dict.put("first_name", firstname);
+                    post_dict.put("last_name", lastname);
+                    post_dict.put("groups","Student");
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (post_dict.length() > 0) {
+
+                    Callback myCallback = new Callback();
 
                     try {
-                        post_dict.put("username", username);
-                        post_dict.put("password", password);
-                        post_dict.put("email", email);
-                        post_dict.put("email2", email2);
-                        post_dict.put("first_name", firstname);
-                        post_dict.put("last_name", lastname);
-                        post_dict.put("groups","Student");
+                        String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST",post_dict.toString()));
+                        if (status == "true") {
+                            Intent intent = new Intent(create_student_user.this, login.class);
+                            startActivity(intent);
+                            Toast.makeText(create_student_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
+                        }if (status =="false") {
+                            Toast.makeText(create_student_user.this, "User could not be created", Toast.LENGTH_LONG).show();
 
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (post_dict.length() > 0) {
-
-                        Callback myCallback = new Callback();
-
-                        try {
-                            String status = (myCallback.execution_Post("http://130.243.134.165:8000/register/", "0" , "POST", post_dict.toString()));
-                            if (status == "true") {
-                                Intent intent = new Intent(create_student_user.this, login.class);
-                                startActivity(intent);
-                                Toast.makeText(create_student_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
-                            }if (status =="false") {
-                                Toast.makeText(create_student_user.this, "User could not be created", Toast.LENGTH_LONG).show();
-
-                            }
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
                         }
 
                     }
-
+                    catch (Exception e) {
+                        System.out.println("Could not create suer");
+                    }
 
                 }
-            });
-        }
-    }
 
+
+
+            }
+        });
+    }
+}

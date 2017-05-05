@@ -1,10 +1,13 @@
 package com.example.android.campusapp;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,11 +17,23 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.preference.PreferenceManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import static com.android.volley.Request.Method.GET;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
 import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
+import static com.example.android.campusapp.R.id.username;
 
 
 /**
@@ -34,7 +49,11 @@ public class org_settings extends SlidingMenuActivity {
     EditText orgemailInput;
     EditText orgusernameInput;
     EditText orgpasswordInput1;
-    EditText orgpasswordInput2;
+    ProgressDialog dialog;
+    String token;
+    String status;
+    //EditText orgpasswordInput2;
+
 
 
     @Override
@@ -47,13 +66,19 @@ public class org_settings extends SlidingMenuActivity {
         drawer.addView(contentView, 0);
 
 
+        /*-----------remember token--------------------*/
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        System.out.println("token inside oncreate is "+token);
+        /*----------------------------------------------*/
+
+
 
         TextView myProfile = (TextView) findViewById(R.id.my_profile);
         TextView org = (TextView) findViewById(R.id.organization);
         // TextView org_name = (TextView)findViewById(R.id.organization_name);
         TextView email = (TextView) findViewById(R.id.email);
         // TextView org_email= (TextView)findViewById(R.id.organization_email);
-        TextView username = (TextView) findViewById(R.id.username);
+        //TextView username = (TextView) findViewById(username);
         // TextView org_username = (TextView)findViewById(R.id.organization_username);
         TextView password = (TextView) findViewById(R.id.password);
         // TextView org_password = (TextView)findViewById(R.id.organization_password);
@@ -76,7 +101,7 @@ public class org_settings extends SlidingMenuActivity {
         //org_name.setTypeface(custom_font);
         email.setTypeface(custom_font);
         //org_email.setTypeface(custom_font);
-        username.setTypeface(custom_font);
+        //username.setTypeface(custom_font);
         //org_username.setTypeface(custom_font);
         password.setTypeface(custom_font);
         //org_password.setTypeface(custom_font);
@@ -206,13 +231,12 @@ public class org_settings extends SlidingMenuActivity {
         orgemailInput = (EditText) findViewById(R.id.organization_emailInput);
         orgusernameInput = (EditText) findViewById(R.id.organization_username_input);
         orgpasswordInput1 = (EditText) findViewById(R.id.organization_password_input1);
-      //  orgpasswordInput2 = (EditText) findViewById(R.id.organization_password_input2);
+       // orgemailInput = (EditText) findViewById(R.id.student_emailInput);
+       // orgusernameInput = (EditText) findViewById(R.id.student_username_input);
+       // orgpasswordInput1 = (EditText) findViewById(R.id.student_password_input1);
 
-        orgemailInput = (EditText) findViewById(R.id.student_emailInput);
-        orgusernameInput = (EditText) findViewById(R.id.student_username_input);
-        orgpasswordInput1 = (EditText) findViewById(R.id.student_password_input1);
-       // orgpasswordInput2 = (EditText) findViewById(R.id.student_password_input2);
 
+       /* Here we have sharedpref stuff - delete after database is up
         //Här under sätter vi så att de ihågkomna värdena sätts in i My Profile när vi går in på Settings
         SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
@@ -220,46 +244,94 @@ public class org_settings extends SlidingMenuActivity {
         String orgEmail = sharedPref.getString("orgEmail", "");
         String orgUserName = sharedPref.getString("orgUserName", "");
         String orgPassword1 = sharedPref.getString("orgPassword1", "");
-        String orgPassword2 = sharedPref.getString("orgPassword2", "");
+        String orgPassword2 = sharedPref.getString("orgPassword2", "");*/
+
+
+
+
+
+
+        //Here we get data from database to display once the page is loaded!
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading....");
+        dialog.show();
+
+        Callback myCallback = new Callback();
+        try {
+            String status = (myCallback.execution_Get("http://130.243.134.165:8000/users/arv/", token, "GET", "No JsonData"));
+
+            System.out.println(status);
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+/*   Här nere är koden inte komplett utan Arvid har ladat upp för att få ned kod från github. Arvid jobbar på detta 4/5 2017
+        JSONObject object = new JSONObject(status);
+        JSONArray myEventsArray = object.getJSONArray(status);
+        ArrayList al1 = new ArrayList();
+        ArrayList al2 = new ArrayList();
+        ArrayList al3 = new ArrayList();
+
+
+
+        for(int i = 0; i <myEventsArray.length(); ++i) {
+            al1.add(myEventsArray.getString(i));
+        }
+
+         /*   for(int i = 0; i < 3; ++i) {
+                al2.add(myEventsArray.getString(i));
+            }
+            System.out.println(al2);
+
+            for(int i = 0; i < 3; ++i) {
+                al3.add(myEventsArray.getString(i));
+            }
+            System.out.println(al2);*/
+
+           /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
+            firstRow.setAdapter(adapter); */
+
+
+          /*  ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
+            secondRow.setAdapter(adapter2);
+
+            ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al3);
+            thirdRow.setAdapter(adapter3);*/
+
+        dialog.dismiss();
+
+
 
         //EditText newOrgName = (EditText) findViewById(R.id.organization_nameInput);
-        orgnameInput.setText(orgName, TextView.BufferType.EDITABLE);
-        orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
-        orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
-        orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-       // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
-
-
+        orgnameInput.setText("arv", TextView.BufferType.EDITABLE);
+        orgemailInput.setText("arv@cool.com", TextView.BufferType.EDITABLE);
+        orgusernameInput.setText("arv", TextView.BufferType.EDITABLE);
+        orgpasswordInput1.setText("hej123456", TextView.BufferType.EDITABLE);
+        //orgpasswordInput2.setText("testpass2", TextView.BufferType.EDITABLE);
 
     }
 
 
 
         //Edit info on My Profile(when you click edit). this makes it clickable and the text becomes white
-
     public void editInfo(View view) {
-
-
         orgnameInput.setFocusableInTouchMode(true);
         orgemailInput.setFocusableInTouchMode(true);
         orgusernameInput.setFocusableInTouchMode(true);
         orgpasswordInput1.setFocusableInTouchMode(true);
-      //  orgpasswordInput2.setFocusableInTouchMode(true);
         orgnameInput.setTextColor(this.getResources().getColor(R.color.white));
         orgemailInput.setTextColor(this.getResources().getColor(R.color.white));
         orgusernameInput.setTextColor(this.getResources().getColor(R.color.white));
         orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.white));
-       // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.white));
-
     }
 
 
     ///Save info on My Profile(when you click save). Also set the text so it is not editable and dark.
     public void saveInfo(View view) {
 
-
-
-        if (orgpasswordInput1.getText().toString().equals(orgpasswordInput1.getText().toString())) {
             orgnameInput.setFocusable(false);
             orgnameInput.setClickable(false);
             orgemailInput.setFocusable(false);
@@ -268,15 +340,67 @@ public class org_settings extends SlidingMenuActivity {
             orgusernameInput.setClickable(false);
             orgpasswordInput1.setFocusable(false);
             orgpasswordInput1.setClickable(false);
-        //    orgpasswordInput2.setFocusable(false);
-          //  orgpasswordInput2.setClickable(false);
-
             orgnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgemailInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgusernameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
             orgpasswordInput1.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-           // orgpasswordInput2.setTextColor(this.getResources().getColor(R.color.darkest_blue));
 
+
+            //Put to strings for JSON to handle
+            String orgname = orgnameInput.getText().toString();
+            String orgemail = orgemailInput.getText().toString();
+            String orgusername = orgusernameInput.getText().toString();
+            String orgpassword = orgpasswordInput1.getText().toString();
+
+
+         /*-----------remember token in saveInfo method--------------------*/
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        System.out.println("token inside saveInfo is "+token);
+        /*----------------------------------------------*/
+
+
+            //Här nedanför sker kopplingen till databasen med JASON osv
+            JSONObject post_dict = new JSONObject();
+
+            try {
+                post_dict.put("org_name" , orgname);
+                post_dict.put("username" , orgusername);
+                post_dict.put("password", orgpassword);
+                //post_dict.put("email", orgemail);
+                //post_dict.put("groups","Organisation");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (post_dict.length() > 0) {
+
+                Callback myCallback = new Callback();
+
+                try {
+                    String status = (myCallback.execution_Post("http://130.243.134.165:8000/users/"+username+"/", token , "PATCH",post_dict.toString()));
+                    System.out.println(status);
+                    System.out.println("token inside saveInfo is " + token);
+                    if (status == "true") {
+                        Intent intent = new Intent(org_settings.this, login.class);
+                        startActivity(intent);
+                        Toast.makeText(org_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
+                    }if (status =="false") {
+                        Toast.makeText(org_settings.this, "User could not be edited", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                catch (Exception e) {
+
+                    System.out.println("Could not create suer");
+                }
+
+
+            }
+
+
+            /*I det utkommenterade nedanför sköts massa sharedpreference-grejer som inte är nödvändigt med databasen. Ska raderas när databaskopplingen är fungerande.
+            /*
             SharedPreferences sharedPref = getSharedPreferences("orgInfo", Context.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -284,7 +408,7 @@ public class org_settings extends SlidingMenuActivity {
             editor.putString("orgEmail", orgemailInput.getText().toString());
             editor.putString("orgUserName", orgusernameInput.getText().toString());
             editor.putString("orgPassword1", orgpasswordInput1.getText().toString());
-           // editor.putString("orgPassword2", orgpasswordInput2.getText().toString());
+
             editor.apply();
 
             String orgName = sharedPref.getString("orgName", "");
@@ -297,12 +421,7 @@ public class org_settings extends SlidingMenuActivity {
             orgemailInput.setText(orgEmail, TextView.BufferType.EDITABLE);
             orgusernameInput.setText(orgUserName, TextView.BufferType.EDITABLE);
             orgpasswordInput1.setText(orgPassword1, TextView.BufferType.EDITABLE);
-           // orgpasswordInput2.setText(orgPassword2, TextView.BufferType.EDITABLE);
-
-            Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
-
-        } else
-            Toast.makeText(this, "Passwords does not match, please try again", Toast.LENGTH_SHORT).show();
+            */
 
     }
 

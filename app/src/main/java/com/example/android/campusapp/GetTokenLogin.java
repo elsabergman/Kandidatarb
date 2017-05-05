@@ -55,7 +55,7 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
             if ((Character.toLowerCase(String.valueOf(code).charAt(0)) != '2')) {
                 Login.runOnUiThread(new Runnable() { //To make compatible with AsyncTask
                     public void run() {
-                        Login.LoginAccessGranted("error", "no token given");
+                        Login.LoginAccessGranted("error", "no token given", "no group given");
                     }
                 });
             }
@@ -84,9 +84,10 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
             Log.i(TAG,JsonResponse); //Log response data
                 /*make JsonResponse an actual Json string, as of now it only looks like a Json string
                 but it actually is a regular String*/
-            JSONObject JSON_token_key = new JSONObject(JsonResponse);
-            String my_token = JSON_token_key.getString("token");
-            Login.LoginAccessGranted("access granted", my_token); //Send ok to Login Class, which will grant login access
+            JSONObject JSON_response = new JSONObject(JsonResponse);
+            String my_token = JSON_response.getString("token");
+            String my_group = JSON_response.getString("groups");
+            Login.LoginAccessGranted("access granted", my_token, my_group); //Send ok to Login Class, which will grant login access
             return JsonResponse;
 
              /*--catch errors --*/
