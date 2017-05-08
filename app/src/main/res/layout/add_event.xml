@@ -163,48 +163,41 @@
 
         />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/end_time"
-                android:layout_marginLeft="20dp"
-                android:elevation="10dp"
-                android:textSize="17dp"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/icon_color"
-                android:text="Choose a University" />
+
             <Spinner
 
                 android:id="@+id/choose_university"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textView4"
+                android:layout_below="@id/end_time"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:entries="@array/campuses_array" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/choose_university"
-                android:layout_marginLeft="20dp"
-                android:elevation="10dp"
-                android:textSize="17dp"
-                android:textColor="@color/icon_color"
-                android:text="Choose a campus" />
 
             <Spinner
                 android:id="@+id/choose_campus"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textView3"
+                android:layout_below="@id/choose_university"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="20dp"
-                android:entries="@array/campuses_array" />
+                />
+
+
+            <Spinner
+                android:id="@+id/choose_room"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_campus"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <!-- android:entries="@array/campuses_array"-->
 
     <TextView
         android:id="@+id/eventDescriptionHeader"

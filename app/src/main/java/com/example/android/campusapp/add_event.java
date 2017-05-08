@@ -19,12 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
-import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 
 
 /**
@@ -40,12 +38,23 @@ public class add_event extends SlidingMenuActivity {
     JSONArray myUniArray;
     String theId;
     String theIdCampus;
+    String theIdRoom;
+    String chosen_room;
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;
     ArrayList<String> nameCampusList;
     ArrayList<String> idCampusList;
-
+    ArrayList<String> nameRoomList;
+    ArrayList<String> idRoomList;
+    JSONArray myRoomArray;
+     EditText event_name;
+    EditText company_name;
+    EditText relevant_links;
+    EditText description;
+    EditText date;
+    EditText starttime;
+    EditText stoptime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +71,13 @@ public class add_event extends SlidingMenuActivity {
         /*----------------------------------------------*/
 
 
-        Button btn = (Button) findViewById(R.id.create_event_button);
-        final EditText event_name = (EditText) findViewById(R.id.input_add_event);
-        final EditText company_name = (EditText) findViewById(R.id.input_company_name);
-        final EditText relevant_links = (EditText) findViewById(R.id.input_links);
-        final EditText description = (EditText) findViewById(R.id.eventDescription);
-        final EditText date = (EditText) findViewById(R.id.date);
-        final EditText starttime = (EditText) findViewById(R.id.start_time);
-        final EditText stoptime = (EditText) findViewById(R.id.end_time);
 
+ /*----GET UNIVERSITY ---*/
 
          /*--spinner implementation--*/
         Callback myCallback = new Callback();
         try {
-            String status = (myCallback.execution_Get("http://130.238.250.84:8000/university/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.242.109.166:8000/university/", token, "GET", "No JsonData"));
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
             idList = new ArrayList<String>();
@@ -88,13 +90,12 @@ public class add_event extends SlidingMenuActivity {
             }*/
 
 
-            for (int i = 0; i < myUniArray.length() ; i++) {
+            for (int i = 0; i < myUniArray.length(); i++) {
                 JSONObject json_data = myUniArray.getJSONObject(i);
                 String name = json_data.getString("name");
                 String id = json_data.getString("id");
-                nameList.add(i,name);
-                System.out.println(nameList);
-                idList.add(i,id);
+                nameList.add(i, name);
+                idList.add(i, id);
 
 
             }
@@ -102,8 +103,6 @@ public class add_event extends SlidingMenuActivity {
             System.out.println(nameList);
             System.out.println(idList);
             System.out.println(nameList.get(0));
-
-
 
 
         } catch (ExecutionException e) {
@@ -114,9 +113,13 @@ public class add_event extends SlidingMenuActivity {
             e.printStackTrace();
         }
 
+        ArrayList<String> items_uni = new ArrayList<String>();
+        items_uni.add("Choose University...");
+        for (int i=0; i<nameList.size(); i++) {
+            items_uni.add(nameList.get(i));
+        }
+        final Spinner uni_spinner = (Spinner) findViewById(R.id.choose_university);
 
-        final Spinner uni_spinner = (Spinner)findViewById(R.id.choose_university);
-        String[] items_uni = new String[]{"Choose university", nameList.get(0)};
         ArrayAdapter<String> uniadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_uni);
         uniadapter.setDropDownViewResource(R.layout.spinner_layout);
         uni_spinner.setAdapter(uniadapter);
@@ -124,73 +127,76 @@ public class add_event extends SlidingMenuActivity {
 
         {
             @Override
-            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id){
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Här inne är vad som sker när en grej i listan väljs
 
                 chosen_uni = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
-                System.out.println(chosen_uni);
-                if(chosen_uni != "Choose university") {
+
+                if (chosen_uni != "Choose university...") {
 
 
+                    for (int i = 0; i < myUniArray.length(); i++) {
 
-               for(int i = 0; i<myUniArray.length(); i++) {
-
-                   if (uni_spinner.getSelectedItemPosition() ==  i);
-                   {
-                       theId = idList.get(i);
-                       System.out.println(theId);
-                   }
-               }
-
-                Callback myCallback = new Callback();
-               try {
-                   String all_campuses = (myCallback.execution_Get("http://130.238.250.84:8000/campus/?university="+theId, token, "GET", "No JsonData"));
-                   myCampusArray = new JSONArray(all_campuses);
-                   nameCampusList = new ArrayList<String>();
-                   idCampusList = new ArrayList<String>();
+                        if (uni_spinner.getSelectedItemPosition() == i) ;
+                        {
+                            theId = idList.get(i);
+                            System.out.println("my ID" + theId);
+                            ChooseMyCampus(theId, token);
 
 
-                   for (int i = 0; i < myUniArray.length() ; i++) {
-                       JSONObject json_data = myUniArray.getJSONObject(i);
-                       String nameCampus = json_data.getString("name");
-                       String idCampus = json_data.getString("id");
-                       nameCampusList.add(i,nameCampus);
-                       idCampusList.add(i,idCampus);
-
-
-                   }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                   e.printStackTrace();
-               }
-
-                    /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
+                        }
+                    }
                 }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
-
             }
-            }
+
             @Override
-            public void onNothingSelected (AdapterView < ? > parent){
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
-
-
         });
+    }
+
+    /*----GET CAMPUS ----*/
+
+    void ChooseMyCampus(String theId, final String token) {
+
+                    Callback myCallback = new Callback();
+                    try {
+                        String all_campuses = (myCallback.execution_Get("http://130.242.109.166:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+                        myCampusArray = new JSONArray(all_campuses);
+                        nameCampusList = new ArrayList<String>();
+                        idCampusList = new ArrayList<String>();
+                        System.out.println("all campuses " + all_campuses);
+
+
+                        for (int i = 0; i < myCampusArray.length() ; i++) {
+                            JSONObject json_data = myCampusArray.getJSONObject(i);
+                            String nameCampus = json_data.getString("name");
+                            String idCampus = json_data.getString("id");
+                            nameCampusList.add(i,nameCampus);
+                            idCampusList.add(i,idCampus);
+
+
+                        }
+                        System.out.println(nameCampusList + "name");
+                        System.out.println(nameCampusList.get(0));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
         final Spinner spinner = (Spinner)findViewById(R.id.choose_campus);
-        String[] items_campus = new String[]{"Choose Campus", nameCampusList.get(0)};
+      //  String[] items_campus = new String[]{"Choose Campus"};
+        ArrayList<String> items_campus = new ArrayList<String>();
+        items_campus.add("Choose Campus...");
+        for (int i=0; i<nameCampusList.size(); i++) {
+          items_campus.add(nameCampusList.get(i));
+        }
+
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);
         campusadapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner.setAdapter(campusadapter);
@@ -203,13 +209,104 @@ public class add_event extends SlidingMenuActivity {
                 //Här inne är vad som sker när en grej i listan väljs
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                if (chosen_uni != "Choose Campus") {
 
-                    for (int i = 0; i < myUniArray.length(); i++) {
+                if (chosen_campus != "Choose Campus...") {
 
-                        if (uni_spinner.getSelectedItemPosition() == i) ;
+                    for (int i = 0; i < myCampusArray.length(); i++) {
+
+                        if (spinner.getSelectedItemPosition()  == i+1) //Den kallar på ChooseRoom två gånger! fixa detta!
                         {
                             theIdCampus = idCampusList.get(i);
+                            System.out.println(theIdCampus);
+                            System.out.println(spinner.getSelectedItemPosition() + "the position");
+                            ChooseRoom(theIdCampus, token);
+
+                        }
+                    }
+                }
+
+
+                    /**  @Override public void onAttach(Activity context) {
+                    super.onAttach(context);
+
+                    }
+
+                    /**  public interface OnFragmentInteractionListener {
+                    // TODO: Update argument type and name
+                    void onFragmentInteraction(Uri uri);
+                    }
+
+                     */
+
+                }
+
+            @Override
+            public void onNothingSelected (AdapterView < ? > parent){
+            }
+
+
+        });
+
+    }
+
+    /*-----GET ROOM -----*/
+
+    void ChooseRoom(String campusId, final String token) {
+
+        Callback myCallback = new Callback();
+        try {
+            String all_rooms = (myCallback.execution_Get("http://130.242.109.166:8000/campus-location/?campus="+campusId, token, "GET", "No JsonData"));
+            myRoomArray = new JSONArray(all_rooms);
+            nameRoomList = new ArrayList<String>();
+            idRoomList = new ArrayList<String>();
+
+
+            for (int i = 0; i < myRoomArray.length() ; i++) {
+                JSONObject json_data = myRoomArray.getJSONObject(i);
+                String nameRoom = json_data.getString("name");
+                String idRoom = json_data.getString("id");
+                nameRoomList.add(i,nameRoom);
+                idRoomList.add(i,idRoom);
+
+
+            }
+            System.out.println(nameRoomList + "id");
+            System.out.println(nameRoomList + "name");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> items_room = new ArrayList<String>();
+        items_room.add("Choose Room...");
+        for (int i=0; i<nameRoomList.size(); i++) {
+            items_room.add(nameRoomList.get(i));
+        }
+        final Spinner spinner_room = (Spinner)findViewById(R.id.choose_room);
+        ArrayAdapter<String> roomadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_room);
+        roomadapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner_room.setAdapter(roomadapter);
+
+        spinner_room.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
+                //Här inne är vad som sker när en grej i listan väljs
+
+                chosen_room = spinner_room.getItemAtPosition(spinner_room.getSelectedItemPosition()).toString();
+                if (chosen_room != "Choose Room...") {
+
+                    for (int i = 0; i < myRoomArray.length(); i++) {
+
+                        if (spinner_room.getSelectedItemPosition() == i) ;
+                        {
+                            theIdRoom = idRoomList.get(i);
+
+                            CreateMyEvent(theIdRoom, token);
 
                         }
                     }
@@ -236,10 +333,27 @@ public class add_event extends SlidingMenuActivity {
 
         });
 
+    }
+
+
+    /*----CREATE EVENT ----*/
+
+    void CreateMyEvent(final String roomId, final String token) {
+
+        Button btn = (Button) findViewById(R.id.create_event_button);
+
+        final EditText event_name = (EditText) findViewById(R.id.input_add_event);
+        final EditText company_name = (EditText) findViewById(R.id.input_company_name);
+        final EditText relevant_links = (EditText) findViewById(R.id.input_links);
+        final EditText description = (EditText) findViewById(R.id.eventDescription);
+        final EditText date = (EditText) findViewById(R.id.date);
+        final EditText starttime = (EditText) findViewById(R.id.start_time);
+        final EditText stoptime = (EditText) findViewById(R.id.end_time);
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
 
 
                 String eventname = event_name.getText().toString(); //saves email input from user
@@ -265,7 +379,7 @@ public class add_event extends SlidingMenuActivity {
                     post_dict.put("start_time", start_time);
                     post_dict.put("stop_time", stop_time);
                     post_dict.put("external_url", relevantlinks);
-                    post_dict.put("campus_location", chosen_campus);
+                    post_dict.put("campus_location", roomId);
 
                     System.out.println(post_dict);
 
@@ -279,8 +393,7 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post("http://130.238.250.84:8000/events/", token,"POST",post_dict.toString()));
-                        System.out.println(status);
+                        String status = (myCallback.execution_Post("http://130.242.109.166:8000/events/", token,"POST",post_dict.toString()));
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(add_event.this, org_my_events.class);
@@ -296,12 +409,15 @@ public class add_event extends SlidingMenuActivity {
 
                 }
             }
-            });
-        }
-
-
-
+        });
     }
+
+
+
+}
+
+
+
 
 
 
