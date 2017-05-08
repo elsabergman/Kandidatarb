@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by elsabergman on 2017-03-31.
  */
-public class todays_events extends SlidingMenuActivity {
+public class todays_events extends student_SlidingMenuActivity {
 
     private Context mContext;
     private Activity mActivity;
@@ -58,14 +59,26 @@ public class todays_events extends SlidingMenuActivity {
         todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0,
                 listVOs);
         spinner.setAdapter(todayseventsspinnerMyAdapter);
+
+
+        Button add_post = (Button) findViewById(R.id.test);
+
+        add_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(todays_events.this, student_livefeed.class);
+                startActivity(intent);
+            }
+
+        });
     }
 
-    public void onItemSelected (AdapterView< ? > parent, View view, int position, long id) {
+
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Här inne är vad som sker när en grej i listan väljs
         Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
         toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
     }
-
 
 
 

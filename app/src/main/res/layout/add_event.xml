@@ -32,7 +32,7 @@
     <View
         android:id="@+id/background_addEvent"
         android:layout_width="330dp"
-        android:layout_height="400dp"
+        android:layout_height="470dp"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
@@ -162,8 +162,9 @@
         android:maxLines="1"
 
         />
+
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/end_time"
@@ -172,15 +173,36 @@
                 android:textSize="17dp"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/icon_color"
+                android:text="Choose a University" />
+            <Spinner
+
+                android:id="@+id/choose_university"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:entries="@array/campuses_array" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/choose_university"
+                android:layout_marginLeft="20dp"
+                android:elevation="10dp"
+                android:textSize="17dp"
+                android:textColor="@color/icon_color"
                 android:text="Choose a campus" />
 
             <Spinner
                 android:id="@+id/choose_campus"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/end_time"
+                android:layout_below="@id/textView3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="20dp"
                 android:entries="@array/campuses_array" />
 

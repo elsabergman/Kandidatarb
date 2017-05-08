@@ -88,7 +88,9 @@ public class login extends Activity {
                 if (post_dict.length() > 0) {
 
 
+
                     new GetTokenLogin(login.this).execute(post_dict.toString(), "http://212.25.150.89:8000/auth/token/");
+
                 }
             }
         });
@@ -98,7 +100,7 @@ public class login extends Activity {
 
     /*---This function is called from GetTokenLogin and holds information about whether access to login was granted or not---*/
 
-    void LoginAccessGranted(String message, String got_token) {
+    void LoginAccessGranted(String message, String got_token, String got_group) {
         final TextView wrongLogin = (TextView) findViewById(R.id.wrongInput);
 
         if (message == "error") {
@@ -108,11 +110,23 @@ public class login extends Activity {
 
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString("token", got_token).commit();
 
-            Intent intent = new Intent(login.this, org_my_events.class);
-            startActivity(intent);
+            if(got_group == "Organisation") {
+
+                Intent intent = new Intent(login.this, org_my_events.class);
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(login.this, todays_events.class);
+                startActivity(intent);
+
+            }
+
+
 
 
         }
+
+
     }
 }
 
