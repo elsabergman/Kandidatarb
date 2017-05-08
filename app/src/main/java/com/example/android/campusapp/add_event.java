@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +41,7 @@ public class add_event extends SlidingMenuActivity {
     String theIdCampus;
     String theIdRoom;
     String chosen_room;
+    String chosen_location;
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;
@@ -55,6 +57,7 @@ public class add_event extends SlidingMenuActivity {
     EditText date;
     EditText starttime;
     EditText stoptime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -339,6 +342,49 @@ public class add_event extends SlidingMenuActivity {
     /*----CREATE EVENT ----*/
 
     void CreateMyEvent(final String roomId, final String token) {
+        ArrayList<String> type = new ArrayList<String>();
+        type.add("Choose Type...");
+        type.add("Lunch Event");
+        type.add("Evening Event");
+        type.add("Case Event");
+        type.add("Promoting Event");
+
+        final Spinner spinner_type = (Spinner)findViewById(R.id.choose_type);
+        ArrayAdapter<String> locationadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, type);
+       locationadapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner_type.setAdapter(locationadapter);
+
+        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
+                //Här inne är vad som sker när en grej i listan väljs
+
+                chosen_location = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
+                if (chosen_location != "Choose Type...") {
+
+                    Log.d("chosen location", chosen_location);
+                    /**  @Override public void onAttach(Activity context) {
+                    super.onAttach(context);
+
+                    }
+
+                    /**  public interface OnFragmentInteractionListener {
+                    // TODO: Update argument type and name
+                    void onFragmentInteraction(Uri uri);
+                    }
+
+                     */
+
+                }
+            }
+            @Override
+            public void onNothingSelected (AdapterView < ? > parent){
+            }
+
+
+        });
 
         Button btn = (Button) findViewById(R.id.create_event_button);
 

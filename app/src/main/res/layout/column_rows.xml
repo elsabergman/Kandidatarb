@@ -1,60 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
 
-<LinearLayout
-    android:id="@+id/linear"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="wrap_content"
+    android:drawSelectorOnTop="false"
+    android:background="@drawable/list_row_color">
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/dateEvent"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:padding="6dp"
-        />
+        android:textStyle="bold"/>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="6dp"
         android:id="@+id/nameEvent"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:padding="6dp"
-
-       />
+        android:layout_toRightOf="@id/dateEvent"
+        android:layout_marginLeft="4dp"/>
 
     <TextView
-        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
         android:layout_weight="1"
         android:padding="6dp"
-       />
+        android:id="@+id/Time"
+        android:layout_toRightOf="@id/nameEvent" />
 
     <TextView
-        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
+        android:id="@+id/owner"
         android:layout_weight="1"
         android:padding="6dp"
-       />
+        android:layout_toRightOf="@id/Time"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="10dp"/>
+
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/description"
-        android:layout_height="30dp"
-        android:layout_width="1dp"
-        android:layout_weight="1"
-        android:padding="6dp"
+        android:textSize="17sp"
+        android:layout_below="@+id/dateEvent"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginLeft="3dp"
+
         android:visibility="gone"/>
+</RelativeLayout>
+
+    <!--<RelativeLayout android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <TextView
+            android:id="@+id/dateEvent"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:padding="6dp"
+            />
+
+        <TextView
+            android:id="@+id/nameEvent"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+
+           />
+
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+           />
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+           />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_height="30dp"
+            android:layout_width="1dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+            android:visibility="gone"/>
 
 
 
-</LinearLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
-
+        </RelativeLayout>-->

@@ -122,6 +122,7 @@ public class org_my_events extends SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
+                //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,owner );
@@ -136,12 +137,12 @@ public class org_my_events extends SlidingMenuActivity {
                     Log.d(start_time,"start");
                     Log.d(end_time, "end");
                     Log.d(description,"description");
+                   // Log.d(id, "id");
 
 
                 }
 
                 adapter=new ListViewAdapter(this, list, listView);
-                System.out.println(list);
                 listView.setAdapter(adapter);
 
 
