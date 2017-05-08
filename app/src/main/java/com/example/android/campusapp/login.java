@@ -88,7 +88,7 @@ public class login extends Activity {
                 if (post_dict.length() > 0) {
 
 
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.238.250.84:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.242.109.166:8000/auth/token/");
                 }
             }
         });
@@ -100,6 +100,7 @@ public class login extends Activity {
 
     void LoginAccessGranted(String message, String got_token, String got_group) {
         final TextView wrongLogin = (TextView) findViewById(R.id.wrongInput);
+
 
         if (message == "error") {
             wrongLogin.setText("Username and/or password is incorrect");
@@ -114,8 +115,12 @@ public class login extends Activity {
                 startActivity(intent);
             }
             else{
-                Intent intent = new Intent(login.this, todays_events.class);
+
+                Intent intent = new Intent(login.this, org_my_events.class);
                 startActivity(intent);
+
+            /*  Intent intent = new Intent(login.this, todays_events.class);
+                startActivity(intent);*/
 
             }
 

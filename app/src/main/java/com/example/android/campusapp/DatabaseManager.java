@@ -88,7 +88,7 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
                 urlConnection.setRequestProperty("Authorization", "JWT " + token);
 
             }
-            System.out.println(token);
+
             System.out.println(type);
             if(type == "POST") {
                 urlConnection.setDoOutput(true);
