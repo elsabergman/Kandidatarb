@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".student_support_page"
+    android:background="@drawable/background"
+    >
+
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello STS-sektionen!"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:theme="@style/org_header"
+
+                android:textColor="#fff"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+
+                />
+            <View
+                android:id="@+id/background_myprofile"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:background ="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/welcome"
+                android:elevation="@dimen/activity_vertical_margin"
+
+                />
+
+
+            <EditText
+                android:id="@+id/input_add_organization"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:inputType=""
+                android:hint="Name of User*"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/welcome"
+                android:layout_centerHorizontal="true"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:maxLines="1"
+                />
+
+            <EditText
+                android:id="@+id/input_email_address"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/darkest_blue"
+                android:inputType=""
+                android:hint="My Email Address*"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/input_add_organization"
+                android:paddingTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:maxLines="1"
+                />
+
+            <EditText
+                android:id="@+id/input_phone_number"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkest_blue"
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:inputType=""
+                android:hint="My Phone Number*"
+                android:layout_marginTop="1dp"
+                android:layout_below="@+id/input_email_address"
+                android:layout_centerHorizontal="true"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:maxLines="1"
+                />
+
+            <TextView
+                android:id="@+id/type_of_problem"
+                android:text="Type of Problem:"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:paddingTop="15dp"
+                android:layout_below="@+id/input_phone_number"
+                android:textSize="15sp"
+                android:elevation="@dimen/activity_vertical_margin"
+
+
+                />
+
+            <Spinner
+                android:id="@+id/supportSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:entries="@array/support_problem_type"
+                android:layout_below="@+id/input_phone_number"
+                android:layout_toRightOf="@+id/type_of_problem"
+                android:elevation="@dimen/activity_vertical_margin"
+                />
+
+
+            <TextView
+                android:id="@+id/write_message_here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Write your message here"
+                android:layout_below="@+id/supportSpinner"
+                android:layout_marginLeft="40dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+
+                />
+
+            <EditText
+                android:id="@+id/support_text_field"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/write_message_here"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/logout_btn"
+                android:isScrollContainer="false"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:elevation="@dimen/activity_vertical_margin">
+            </EditText>
+
+
+
+            <Button
+                android:id="@+id/send_support_button"
+                android:layout_below="@+id/support_text_field"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Open and send in email Client"
+                android:textColor="#032f3c"
+                android:background="@drawable/logout_btn"
+                android:elevation="@dimen/activity_vertical_margin"
+                android:onClick="onClick"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/inputSupportWrong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#FF0000"
+                android:paddingBottom="10dp"
+                android:layout_below="@+id/send_support_button"
+                />
+
+            <ImageView
+                android:layout_alignParentBottom="true"
+                android:id="@+id/phone_symbol"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/support_toggle"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                />
+
+            <TextView
+                android:layout_below="@+id/send_support_button"
+                android:id="@+id/urgent_matters_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urgent matters? \n 8-17, Mon-Fri, +46225866 \n Or shoot us an email at support@atcampus.comn"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/phone_symbol"
+                android:layout_marginLeft="5dp"
+                android:textSize="10sp"
+                android:layout_marginBottom="5dp"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/app_bar_sliding_menu" />
+</RelativeLayout>

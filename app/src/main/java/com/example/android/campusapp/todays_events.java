@@ -60,17 +60,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 listVOs);
         spinner.setAdapter(todayseventsspinnerMyAdapter);
 
-
-        Button add_post = (Button) findViewById(R.id.test);
-
-        add_post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(todays_events.this, student_livefeed.class);
-                startActivity(intent);
-            }
-
-        });
+        
     }
 
 

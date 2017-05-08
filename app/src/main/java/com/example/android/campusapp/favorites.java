@@ -43,7 +43,7 @@ public class favorites extends student_SlidingMenuActivity {
 
         super.onCreate(savedInstanceState);
 
-
+/*
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.favorites, null);
 
@@ -53,7 +53,7 @@ public class favorites extends student_SlidingMenuActivity {
         firstRow = (ListView)findViewById(R.id.most_favorite_list);
       /* secondRow = (ListView)findViewById(R.id.lista2);
         thirdRow = (ListView)findViewById(R.id.lista3);*/
-        dialog = new ProgressDialog(this);
+    /*    dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
 
@@ -115,7 +115,7 @@ public class favorites extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-        dialog.dismiss();
+        dialog.dismiss();*/
     }
 
 }
