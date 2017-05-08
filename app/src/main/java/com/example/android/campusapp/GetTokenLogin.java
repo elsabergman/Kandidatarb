@@ -87,6 +87,7 @@ class GetTokenLogin extends AsyncTask<String, String, String> {
             JSONObject JSON_response = new JSONObject(JsonResponse);
             String my_token = JSON_response.getString("token");
             String my_group = JSON_response.getString("groups");
+
             Login.LoginAccessGranted("access granted", my_token, my_group); //Send ok to Login Class, which will grant login access
             return JsonResponse;
 

@@ -1,7 +1,9 @@
 package com.example.android.campusapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -15,6 +17,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
+import static com.example.android.campusapp.R.id.organization_nameInput;
+import static com.example.android.campusapp.R.id.textView2;
 
 
 public class student_SlidingMenuActivity extends AppCompatActivity
@@ -22,6 +35,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
     DrawerLayout drawer;
     Button btn;
+    ProgressDialog dialog;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,58 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
+
+        /* ------START Arvid fixat här men problem med login så kommenterar ut 8/5. Tanken är att ladda in namn in i headern i sliding menuen
+
+        /*-----------remember token--------------------*/
+      /*  String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        System.out.println("token inside oncreate is "+token);
+        /*----------------------------------------------*/
+
+
+      /*  TextView firstname = (TextView) findViewById(textView2);
+
+        //-----------Here we get data from database to display once the page is loaded!-------------
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading....");
+        dialog.show();
+
+        Callback myCallback = new Callback();
+        try {
+            String status = (myCallback.execution_Get("http://212.25.150.89:8000/users/profile/", token, "GET", "No JsonData"));
+            System.out.println("status is "+status);
+
+            if (status == "false"){
+                Toast.makeText(student_SlidingMenuActivity.this, "could not fetch user info from database", Toast.LENGTH_LONG).show();
+            }
+            else {
+                //Here we get separate objects from json string
+                JSONObject myInfoObject = new JSONObject(status);
+                System.out.println("This row is just after myinfoarray is created");
+
+                String firstnameJson = myInfoObject.getString("username");
+
+                System.out.println("username is "+firstnameJson);
+
+                firstname.setText(firstnameJson);
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        dialog.dismiss();
+
+        /*------------------Slut hämta data databasen till namnet i toppen -------------*/
+        /* ------SLUT Arvid fixat här men problem med login så kommenterar ut 8/5 */
+
 
 
         btn.setOnClickListener(new View.OnClickListener() {

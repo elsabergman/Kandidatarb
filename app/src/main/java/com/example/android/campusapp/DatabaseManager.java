@@ -88,9 +88,9 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
                 urlConnection.setRequestProperty("Authorization", "JWT " + token);
 
             }
-            System.out.println(token);
+
             System.out.println(type);
-            if(type == "POST") {
+            if(type == "POST" || type == "PATCH" || type == "PUT") {
                 urlConnection.setDoOutput(true);
             /* Write message on stream */
                 Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
@@ -143,7 +143,7 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
 
             Log.i(TAG, JsonResponse);
 
-            if (type == "POST") {
+            if (type == "POST" || type == "PATCH" || type == "PUT") {
 
                 status = "true"; //the request was successful
                 return status; //return message saying request was successful to Callback

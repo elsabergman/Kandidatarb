@@ -60,7 +60,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 listVOs);
         spinner.setAdapter(todayseventsspinnerMyAdapter);
 
-        
+
     }
 
 
