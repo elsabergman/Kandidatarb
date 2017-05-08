@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
@@ -83,7 +85,9 @@ public class org_my_events extends SlidingMenuActivity {
 
 
         Callback myCallback = new Callback();
-        try { String status = (myCallback.execution_Get("http://130.243.134.165:8000/events/my-events/", token, "GET", "No JsonData"));
+
+        try { String status = (myCallback.execution_Get("http://212.25.150.89:8000/events/my-events/", token, "GET", "No JsonData"));
+
 
     if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
@@ -92,6 +96,7 @@ public class org_my_events extends SlidingMenuActivity {
 
                 JSONArray myEventsArray = new JSONArray(status);
 
+
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
 
                 /*list = the list that will store all hashMaps
@@ -99,10 +104,10 @@ public class org_my_events extends SlidingMenuActivity {
                 total_list = the list that will be displayed
                  */
 
-                /* --- create hash map that all Json objects are inserted to --- */ 
+                /* --- create hash map that all Json objects are inserted to --- */
                 list=new ArrayList<HashMap<String,String>>();
                 total_list=new ArrayList<HashMap<String,String>>();
-                ListViewAdapter adapter=new ListViewAdapter(this, total_list);
+                ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for(int i = 0; i < myEventsArray.length(); i++) {
@@ -116,22 +121,35 @@ public class org_my_events extends SlidingMenuActivity {
                     String start_time = json_data.getString("start_time");
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
+                    String description = json_data.getString("description");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,owner );
                     list.get(i).put(FOURTH_COLUMN, name );
+                    list.get(i).put(DESCRIPTION, description);
                     total_list.add(list.get(i));
+
+
+
                     Log.d(name, "name");
                     Log.d(date, "date");
                     Log.d(start_time,"start");
                     Log.d(end_time, "end");
+                    Log.d(description,"description");
+
+
                 }
 
-                adapter=new ListViewAdapter(this, list);
+                adapter=new ListViewAdapter(this, list, listView);
+                System.out.println(list);
                 listView.setAdapter(adapter);
 
-            }
 
+
+
+
+
+            }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -95,7 +95,9 @@ public class create_org_user extends AppCompatActivity {
                         Callback myCallback = new Callback();
 
                         try {
-                            String status = (myCallback.execution_Post("http://130.238.92.103:8000/register/", "0" , "POST", post_dict.toString()));
+
+                            String status = (myCallback.execution_Post("http://212.25.150.89:8000/register/", "0" , "POST", post_dict.toString()));
+
                             System.out.println(status);
                             if (status == "true") {
                                 Intent intent = new Intent(create_org_user.this, login.class);
