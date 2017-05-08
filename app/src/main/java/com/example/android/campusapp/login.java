@@ -90,6 +90,7 @@ public class login extends Activity {
                     new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.242.109.166:8000/auth/token/");
 
 
+
                 }
             }
         });
@@ -112,7 +113,7 @@ public class login extends Activity {
 
             if(got_group == "Organisation") {
 
-                Intent intent = new Intent(login.this, org_my_events.class);
+                Intent intent = new Intent(login.this, todays_events.class);    //ÄNDRA TILL ORG_MY_EVENT.CLASS
                 startActivity(intent);
             }
             else{
