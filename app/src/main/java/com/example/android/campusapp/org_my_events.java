@@ -85,7 +85,9 @@ public class org_my_events extends SlidingMenuActivity {
 
 
         Callback myCallback = new Callback();
+
         try { String status = (myCallback.execution_Get("http://130.242.109.166:8000/events/my-events/", token, "GET", "No JsonData"));
+
 
     if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();

@@ -3,19 +3,16 @@ package com.example.android.campusapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.PopupWindow;
@@ -41,6 +38,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
     private FloatingActionButton fab;
 
     private PopupWindow mPopupWindow;
+    String token;
+
+
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.student_livefeed, null);
         drawer.addView(contentView, 0);
+
+    /*-----------remember token--------------------*/
+        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+    /*----------------------------------------------*/
 
 
         createFeed();
@@ -68,10 +73,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
         for (int i = 1; i < 10; i++) {
 
             RelativeLayout feed = new RelativeLayout(this);
-
-            //feed.setText("Feed " + i);
-            // feed.setTextColor(getResources().getColor(R.color.black));
-
+            
             feed.setBackgroundResource(R.color.white);
             feed.setAlpha((float) 0.3);
 
@@ -80,6 +82,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     RelativeLayout.LayoutParams.MATCH_PARENT, 300);
             lp.setMargins(0, 0, 0, 10);
 
+            /* Create up and down arrows and counter */
             ImageButton arrow_up =  new ImageButton(this);
             ImageButton arrow_down = new ImageButton(this);
             TextView count = new TextView(this);
@@ -88,7 +91,6 @@ public class student_livefeed extends student_SlidingMenuActivity {
             count.setTextSize(20);
 
 
-            // Integer count = 0;
 
             arrow_up.setImageResource(R.drawable.arrow_up);
             arrow_down.setImageResource(R.drawable.arrow_down);
@@ -134,18 +136,11 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
             ll.addView(feed, lp);
 
-
-
-
-
-
         }
     }
 
 
     void createPost() {
-
-
                 // Get the application context
                 mContext = getApplicationContext();
                 // Get the activity
@@ -179,28 +174,21 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
 
                         // Set an elevation value for popup window
-                        // Call requires API level 21
                         if (Build.VERSION.SDK_INT >= 21) {
                             mPopupWindow.setElevation(5.0f);
                         }
-
-
-
 
                       Button add_post = (Button) customView.findViewById(R.id.post_added);
                         add_post.setOnClickListener(new View.OnClickListener(){
                         @Override
                          public void onClick(View view) {
                             final EditText feed_post = (EditText) customView.findViewById(R.id.feed_text);
-
                             mPopupWindow.setContentView(inflater.inflate(R.layout.popup_file_livefeed, null, false));
-                           // String feed_post_data = feed_post.getText().toString();
-                            //System.out.println(feed_post_data);
 
                             JSONObject post_dict = new JSONObject();
 
                             try {
-                                post_dict.put("content", feed_post);
+                                post_dict.put("content", feed_post.getText().toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -210,7 +198,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 Callback myCallback = new Callback();
 
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.243.134.165:8000/messages/", "0", "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://212.25.150.89:8000/messages/", token, "POST", post_dict.toString()));
                                     System.out.println(status);
                                 } catch (Exception e) {
 

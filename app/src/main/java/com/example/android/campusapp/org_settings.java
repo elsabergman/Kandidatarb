@@ -8,11 +8,13 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -23,15 +25,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static android.R.id.list;
 import static com.android.volley.Request.Method.GET;
+import static com.example.android.campusapp.Constants.FIRST_COLUMN;
+import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.SECOND_COLUMN;
+import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
+import static com.example.android.campusapp.R.id.end_time;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
 import static com.example.android.campusapp.R.id.organization_nameInput;
+import static com.example.android.campusapp.R.id.start_time;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 import static com.example.android.campusapp.R.id.username;
 
@@ -52,6 +62,8 @@ public class org_settings extends SlidingMenuActivity {
     ProgressDialog dialog;
     String token;
     String status;
+    private ArrayList<HashMap<String, String>> list;
+    private ArrayList<HashMap<String, String>> total_list;
     //EditText orgpasswordInput2;
 
 
@@ -256,60 +268,56 @@ public class org_settings extends SlidingMenuActivity {
         dialog.setMessage("Loading....");
         dialog.show();
 
+
         Callback myCallback = new Callback();
         try {
-            String status = (myCallback.execution_Get("http://130.243.134.165:8000/users/arv/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://212.25.150.89:8000/users/profile/", token, "GET", "No JsonData"));
+            System.out.println("status is "+status);
 
-            System.out.println(status);
+            if (status == "false"){
+                Toast.makeText(org_settings.this, "could not fetch user info", Toast.LENGTH_LONG).show();
+            }
+            else {
+                //Here we get separate objects from json string
+                JSONObject myInfoObject = new JSONObject(status);
+                System.out.println("This row is just after myinfoarray is created");
+
+                String usernameJson = myInfoObject.getString("username");
+                //String emailJson = myInfoObject.getString("email");
+                //String orgnameJson = myInfoObject.getString("org_name");
+
+                //System.out.println("emailJson is "+emailJson);
+                System.out.println("username is "+usernameJson);
+                //System.out.println("orgname is"+orgnameJson);
+
+                //orgnameInput.setText(orgnameJson, TextView.BufferType.EDITABLE);
+                //orgemailInput.setText(emailJson, TextView.BufferType.EDITABLE);
+                orgusernameInput.setText(usernameJson, TextView.BufferType.EDITABLE);
+                //we might now change password here because it is difficult to load in from database due to security reasons
+                //orgpasswordInput1.setText("hej123456", TextView.BufferType.EDITABLE);
+
+            }
 
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-/*   Här nere är koden inte komplett utan Arvid har ladat upp för att få ned kod från github. Arvid jobbar på detta 4/5 2017
-        JSONObject object = new JSONObject(status);
-        JSONArray myEventsArray = object.getJSONArray(status);
-        ArrayList al1 = new ArrayList();
-        ArrayList al2 = new ArrayList();
-        ArrayList al3 = new ArrayList();
 
 
-
-        for(int i = 0; i <myEventsArray.length(); ++i) {
-            al1.add(myEventsArray.getString(i));
-        }
-
-         /*   for(int i = 0; i < 3; ++i) {
-                al2.add(myEventsArray.getString(i));
-            }
-            System.out.println(al2);
-
-            for(int i = 0; i < 3; ++i) {
-                al3.add(myEventsArray.getString(i));
-            }
-            System.out.println(al2);*/
-
-           /* ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al1);
-            firstRow.setAdapter(adapter); */
-
-
-          /*  ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al2);
-            secondRow.setAdapter(adapter2);
-
-            ArrayAdapter adapter3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al3);
-            thirdRow.setAdapter(adapter3);*/
 
         dialog.dismiss();
 
 
-
+            //Här nere sätter vi vad edittextfields blir när vi startar sidan. sker numera inne i jsonanropet. Kan tas bort när databaskoppling funkis
         //EditText newOrgName = (EditText) findViewById(R.id.organization_nameInput);
-        orgnameInput.setText("arv", TextView.BufferType.EDITABLE);
-        orgemailInput.setText("arv@cool.com", TextView.BufferType.EDITABLE);
-        orgusernameInput.setText("arv", TextView.BufferType.EDITABLE);
-        orgpasswordInput1.setText("hej123456", TextView.BufferType.EDITABLE);
+       // orgnameInput.setText("arv", TextView.BufferType.EDITABLE);
+        //orgemailInput.setText("arv@cool.com", TextView.BufferType.EDITABLE);
+        //orgusernameInput.setText("arv", TextView.BufferType.EDITABLE);
+        //orgpasswordInput1.setText("hej123456", TextView.BufferType.EDITABLE);
         //orgpasswordInput2.setText("testpass2", TextView.BufferType.EDITABLE);
 
     }
@@ -363,9 +371,11 @@ public class org_settings extends SlidingMenuActivity {
             JSONObject post_dict = new JSONObject();
 
             try {
-                post_dict.put("org_name" , orgname);
+                //post_dict.put("org_name" , orgname);
                 post_dict.put("username" , orgusername);
-                post_dict.put("password", orgpassword);
+                //We will see how password is saved or edited due to security reasons Arvid 4/5
+                //post_dict.put("password", orgpassword);
+                //We are waiting with email because it is hard to change in the database Arvid 4/5
                 //post_dict.put("email", orgemail);
                 //post_dict.put("groups","Organisation");
 
@@ -378,12 +388,16 @@ public class org_settings extends SlidingMenuActivity {
                 Callback myCallback = new Callback();
 
                 try {
-                    String status = (myCallback.execution_Post("http://130.243.134.165:8000/users/"+username+"/", token , "PATCH",post_dict.toString()));
-                    System.out.println(status);
+
+                    //This does not work to update info to database but we are working on it Arvid 8/5
+
+                    System.out.println("post_dict is " + post_dict.toString());
+                    String status = (myCallback.execution_Post("http://212.25.150.89:8000/users/profile/", token , "PATCH",post_dict.toString()));
+                    System.out.println("status in save is "+status);
                     System.out.println("token inside saveInfo is " + token);
                     if (status == "true") {
-                        Intent intent = new Intent(org_settings.this, login.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(org_settings.this, org_settings.class);
+                        //startActivity(intent);
                         Toast.makeText(org_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
                     }if (status =="false") {
                         Toast.makeText(org_settings.this, "User could not be edited", Toast.LENGTH_LONG).show();
