@@ -124,7 +124,7 @@ public class org_my_events extends SlidingMenuActivity {
                     String description = json_data.getString("description");
                 //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-                    list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
+                    list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
                     list.get(i).put(THIRD_COLUMN,owner );
                     list.get(i).put(FOURTH_COLUMN, name );
                     list.get(i).put(DESCRIPTION, description);
