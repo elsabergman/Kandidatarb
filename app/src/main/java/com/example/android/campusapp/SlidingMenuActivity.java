@@ -36,7 +36,6 @@ public class SlidingMenuActivity extends AppCompatActivity
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                System.out.println("HEJ");
                 Intent intent = new Intent(SlidingMenuActivity.this, login.class);
                 startActivity(intent);
 
