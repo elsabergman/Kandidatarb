@@ -113,13 +113,11 @@ public class login extends Activity {
 
             if(got_group == "Organisation") {
 
-                Intent intent = new Intent(login.this, todays_events.class);    //ÄNDRA TILL ORG_MY_EVENT.CLASS
+                Intent intent = new Intent(login.this, org_my_events.class);    //ÄNDRA TILL ORG_MY_EVENT.CLASS
                 startActivity(intent);
             }
             else{
 
-              /* Intent intent = new Intent(login.this, org_my_events.class);
-                startActivity(intent);*/
 
               Intent intent = new Intent(login.this, todays_events.class);
                 startActivity(intent);

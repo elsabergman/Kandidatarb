@@ -172,7 +172,8 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
                     try {
 
-                        String all_campuses = (myCallback.execution_Get("http://130.242.107.7:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+                        String all_campuses = (myCallback.execution_Get("http://130.243.201.128:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+
 
                         myCampusArray = new JSONArray(all_campuses);
                         nameCampusList = new ArrayList<String>();
