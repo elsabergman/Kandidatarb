@@ -119,9 +119,11 @@ public class login extends Activity {
             else{
 
                 Intent intent = new Intent(login.this, todays_events.class);
+
+
                 startActivity(intent);
 
-            /*  Intent intent = new Intent(login.this, todays_events.class);
+              /*Intent intent = new Intent(login.this, todays_events.class);
                 startActivity(intent);*/
 
             }

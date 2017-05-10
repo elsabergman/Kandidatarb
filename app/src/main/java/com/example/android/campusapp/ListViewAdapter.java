@@ -128,11 +128,11 @@ public class ListViewAdapter extends BaseAdapter {
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
 
-                view.setSelected(true);
                 String myDescription = item.get("Description");
                 System.out.println(myDescription);
                 txtDescription = (TextView) view.findViewById((R.id.description));
-                txtDescription.setText(myDescription);
+                txtDescription.setText("Description: " + myDescription);
+
 
 
 
@@ -140,6 +140,7 @@ public class ListViewAdapter extends BaseAdapter {
                 {
                     txtDescription.setVisibility(View.GONE);
                     txtDescription.invalidate();
+                    view.setBackgroundColor(Color.WHITE);
 
                 }
               else
@@ -147,6 +148,7 @@ public class ListViewAdapter extends BaseAdapter {
                     txtDescription.setVisibility(View.VISIBLE);
 
                     txtDescription.invalidate();
+                    view.setBackgroundResource(R.color.very_light_grey);
 
 
 

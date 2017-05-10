@@ -295,35 +295,34 @@
             android:id="@+id/default_campus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default Campus"
+            android:text="Default University"
             android:textSize="20sp"
             android:textColor="@color/darkest_blue"
             android:layout_below="@id/campus_settings"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
-
-
             />
 
         <Spinner
-            android:id="@+id/campusesSpinnerSettings"
+            android:id="@+id/universitySpinnerSettings"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_marginBottom="20dp"
             android:entries="@array/campuses_array"
-            android:layout_alignRight="@id/background_campus_settings"
             android:layout_below="@id/campus_settings"
+            android:layout_alignRight="@id/background_campus_settings"
             android:layout_marginRight="5dp"
             android:layout_marginTop="7dp"
             android:elevation="@dimen/activity_vertical_margin"
             />
 
       <TextView
+
           android:id="@+id/default_university"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Default University"
+          android:text="Default Campus"
           android:textSize="20sp"
           android:textColor="@color/darkest_blue"
           android:layout_below="@id/default_campus"
@@ -335,13 +334,13 @@
           />
 
       <Spinner
-          android:id="@+id/universitySpinnerSettings"
+          android:id="@+id/campusesSpinnerSettings"
           android:layout_width="160dp"
           android:layout_height="40dp"
           android:layout_marginBottom="20dp"
           android:entries="@array/settings_university_selections"
-          android:layout_alignRight="@id/background_campus_settings"
           android:layout_below="@id/default_campus"
+          android:layout_alignRight="@id/background_campus_settings"
           android:layout_marginRight="5dp"
           android:layout_marginTop="7dp"
           android:elevation="@dimen/activity_vertical_margin"
