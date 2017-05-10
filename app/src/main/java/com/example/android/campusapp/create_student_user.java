@@ -96,7 +96,7 @@ public class create_student_user extends AppCompatActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post("http://212.25.147.246:8000/register/", "0" , "POST",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://130.243.201.128:8000/register/", "0" , "POST",post_dict.toString()));
                         if (status == "true") {
                             Intent intent = new Intent(create_student_user.this, login.class);
                             startActivity(intent);
