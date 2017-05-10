@@ -185,7 +185,8 @@ public class todays_events extends student_SlidingMenuActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             //Här inne är vad som sker när en grej i listan väljs
             Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-            toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
+            toast.show();
+            /**Denna toast visar i en liten ruta vilken man valt*/
         }
 
         /**   This part controls the spinner with checkboxes for choices,Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox    */

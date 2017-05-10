@@ -43,6 +43,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
@@ -107,6 +108,7 @@ public class ListViewAdapter extends BaseAdapter {
             txtThird=(TextView) convertView.findViewById(R.id.Time);
             txtFourth=(TextView) convertView.findViewById(R.id.owner);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
+
            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
 
         }
