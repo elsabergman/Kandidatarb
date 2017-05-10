@@ -87,7 +87,7 @@ public class login extends Activity {
                 }
                 if (post_dict.length() > 0) {
 
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.242.109.166:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://212.25.147.246:8000/auth/token/");
 
 
                 }
@@ -117,10 +117,10 @@ public class login extends Activity {
             }
             else{
 
-                Intent intent = new Intent(login.this, org_my_events.class);
+               Intent intent = new Intent(login.this, org_my_events.class);
                 startActivity(intent);
 
-            /*  Intent intent = new Intent(login.this, todays_events.class);
+              /*Intent intent = new Intent(login.this, todays_events.class);
                 startActivity(intent);*/
 
             }

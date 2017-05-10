@@ -1,6 +1,7 @@
 package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,34 +29,66 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.textView2;
+import static com.example.android.campusapp.R.layout.nav_header_sliding_menu;
 
 
 public class student_SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+
+
+
+
     DrawerLayout drawer;
     Button btn;
     ProgressDialog dialog;
+    //TextView firstname;
+
+
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //setContentView(R.layout.nav_header_sliding_menu);
         setContentView(R.layout.student_sliding_menu);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
 
-        /* ------START Arvid fixat här men problem med login så kommenterar ut 8/5. Tanken är att ladda in namn in i headern i sliding menuen
+        //TextView firstname = (TextView) findViewById(R.id.textView2);
+        //System.out.println("firstname is "+firstname.getText().toString());
+
+
+        /* ------START Arvid fixat här men problem så kommenterar ut 9/5. Tanken är att ladda in namn in i headern i sliding menuen*/
+
+       /* LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View nameview = inflater.inflate(R.layout.nav_header_sliding_menu, null);*/
+
+       /* TextView firstname = (TextView) nameview.findViewById(R.id.textView2);
+        TextView lastname = (TextView) nameview.findViewById(R.id.textView);
+        System.out.println(firstname);
+        System.out.println(lastname);*/
+        //firstname.setText("AWESOME!!!!");
+        //lastname.setText("AWESOMESSON");
+
+
+
 
         /*-----------remember token--------------------*/
-      /*  String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         System.out.println("token inside oncreate is "+token);
         /*----------------------------------------------*/
 
 
-      /*  TextView firstname = (TextView) findViewById(textView2);
+
+
+         //-------------- HÄR har ARVID pausat att försöka komma åt  textView2 i nav_header_sliding_menu för att det går skit.  Problemet är att skapa firstname. Återkommer efter klar med settings! 9/5
+        /*TextView firstname = (TextView) findViewById(R.id.textView27);
+        //TextView firstname = ((TextView) findViewById(R.id.nametextview111).findViewById(R.id.textView2));
+
+        System.out.println("firstname outside try  is: " + firstname );
 
         //-----------Here we get data from database to display once the page is loaded!-------------
         dialog = new ProgressDialog(this);
@@ -64,7 +97,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
         Callback myCallback = new Callback();
         try {
-            String status = (myCallback.execution_Get("http://212.25.150.89:8000/users/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.238.242.71:8000/profile/", token, "GET", "No JsonData"));
             System.out.println("status is "+status);
 
             if (status == "false"){
@@ -75,9 +108,10 @@ public class student_SlidingMenuActivity extends AppCompatActivity
                 JSONObject myInfoObject = new JSONObject(status);
                 System.out.println("This row is just after myinfoarray is created");
 
-                String firstnameJson = myInfoObject.getString("username");
+                String firstnameJson = myInfoObject.getString("first_name");
 
-                System.out.println("username is "+firstnameJson);
+                System.out.println("first_name is "+firstnameJson);
+                System.out.println("firstname inside try is: " + firstname );
 
                 firstname.setText(firstnameJson);
             }
@@ -90,22 +124,23 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-
-
-
         dialog.dismiss();
 
         /*------------------Slut hämta data databasen till namnet i toppen -------------*/
-        /* ------SLUT Arvid fixat här men problem med login så kommenterar ut 8/5 */
+        /* ------SLUT Arvid fixat här men problem så kommenterar ut 9/5 */
 
 
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
+
                 System.out.println("HEJ");
                 Intent intent = new Intent(student_SlidingMenuActivity.this, login.class);
                 startActivity(intent);
+
+
 
             }
 
@@ -145,6 +180,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_bar, menu);
         return true;
+
     }
 
     @Override
@@ -175,6 +211,9 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
             Intent intent = new Intent(student_SlidingMenuActivity.this, org_my_events.class);
             startActivity(intent);
+
+
+
         }
         else if (id == R.id.nav_favourites) {
             Intent intent = new Intent(student_SlidingMenuActivity.this, favorites.class);
