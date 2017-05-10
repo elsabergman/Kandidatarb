@@ -10,10 +10,10 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_custom_layout"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="500dp"
         android:padding="2dp"
-        android:background="@color/very_light_grey"
+        android:background="@color/white"
 
         >
         <ImageButton
@@ -25,12 +25,37 @@
             android:layout_alignParentRight="true"
             android:background="@null"
             />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Write a post"
+                android:layout_centerHorizontal="true"
+                android:textSize="40sp"
+                android:id="@+id/header_livefeed"/>
         <EditText
             android:id="@+id/feed_text"
-            android:layout_width="100dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="25sp"
+            android:layout_centerHorizontal="true"
+            android:hint="Description"
+            android:layout_below="@+id/header_livefeed"
+            android:layout_marginTop="30dp"
+            />
+        <EditText
+            android:id="@+id/feed_location"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/feed_text"
+            android:layout_marginTop="30dp"
+            android:hint="Location"
+
             />
 
         <Button
@@ -40,7 +65,10 @@
             android:id="@+id/post_added"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:background="@color/icon_color"
             />
+        </RelativeLayout>
     </RelativeLayout>
 
 

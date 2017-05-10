@@ -209,7 +209,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         if (id == R.id.nav_calendar) {
             // Handle the camera action
 
-            Intent intent = new Intent(student_SlidingMenuActivity.this, org_my_events.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, todays_events.class);
             startActivity(intent);
 
 
@@ -220,26 +220,21 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             startActivity(intent);
         }
         else if (id == R.id.nav_liveFeed) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, org_campus_information.class);
-            //startActivity(intent); Skicka vidare till live feed
+            Intent intent = new Intent(student_SlidingMenuActivity.this, student_livefeed.class);
+            startActivity(intent); //Skicka vidare till live feed
         }
         else if (id == R.id.nav_campus) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, org_campus_information.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, student_campus_information.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, org_settings.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, student_settings.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_support) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, org_support_page.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, student_support_page.class);
             startActivity(intent);
         }
-
-
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

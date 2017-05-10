@@ -5,6 +5,7 @@ package com.example.android.campusapp;
  */
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,8 +104,8 @@ public class ListViewAdapter extends BaseAdapter {
 
             txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
             txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-            txtThird=(TextView) convertView.findViewById(R.id.startTime);
-            txtFourth=(TextView) convertView.findViewById(R.id.endTime);
+            txtThird=(TextView) convertView.findViewById(R.id.Time);
+            txtFourth=(TextView) convertView.findViewById(R.id.owner);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
 
@@ -127,7 +128,7 @@ public class ListViewAdapter extends BaseAdapter {
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
 
-
+                view.setSelected(true);
                 String myDescription = item.get("Description");
                 System.out.println(myDescription);
                 txtDescription = (TextView) view.findViewById((R.id.description));
@@ -144,6 +145,7 @@ public class ListViewAdapter extends BaseAdapter {
               else
                 {
                     txtDescription.setVisibility(View.VISIBLE);
+
                     txtDescription.invalidate();
 
 
