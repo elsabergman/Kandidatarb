@@ -53,6 +53,8 @@ public class student_livefeed extends student_SlidingMenuActivity {
     String status;
     private ArrayList<String> listContent;
     private ArrayList<String> listLocation;
+    private ArrayList<String> listCount;
+
 
 
 
@@ -80,24 +82,27 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
+          ImageButton arrow_up;
+         ImageButton arrow_down;
 
         //Hämtar alla inlägg från databasen och lägger de i list
         Callback myCallback = new Callback();
 
         try {
-            status = (myCallback.execution_Get("http://130.242.109.166:8000/messages/", token, "GET", "No JsonData"));
-
-            if (status == "false"){
+            status = (myCallback.execution_Get("http://130.243.201.128:8000/messages/", token, "GET", "No JsonData"));
+            System.out.println(status);
+            if (status == "false") {
                 Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
-            }
-
-            else {
+            } else {
 
                 JSONArray feedArrayDescription = new JSONArray(status);
                 JSONArray feedArrayLocation = new JSONArray(status);
+                JSONArray feedArrayCount = new JSONArray(status);
+
 
                 listContent = new ArrayList<>();
                 listLocation = new ArrayList<>();
+                listCount = new ArrayList<>();
 
 
                 for (int i = 0; i < feedArrayDescription.length(); i++) {
@@ -107,6 +112,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                 }
 
+
                 for (int i = 0; i < feedArrayLocation.length(); i++) {
                     JSONObject json_data = feedArrayLocation.getJSONObject(i);
                     String location = json_data.getString("location");
@@ -114,106 +120,183 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                 }
 
+               for (int i = 0; i < feedArrayCount.length(); i++) {
+                    JSONObject json_data = feedArrayCount.getJSONObject(i);
+                    String count = json_data.getString("votes");
+                    listCount.add(count);
+
+                }
+
+                ArrayList voteArray = new ArrayList<>();
+
+
         /* Här skapas rutorna i feeden */
-                    for (int i = listContent.size()-1; i >= 0 ; i--) {
+                for (int i = listContent.size()-1; i >= 0; i--) {
+                    System.out.println(listContent.size());
 
-                        RelativeLayout feed = new RelativeLayout(this);
-                        TextView descriptionArea = new TextView(this);
-                        TextView locationArea = new TextView(this);
+                    RelativeLayout feed = new RelativeLayout(this);
+                    TextView descriptionArea = new TextView(this);
+                    TextView locationArea = new TextView(this);
+                    TextView countArea = new TextView(this);
 
-                        descriptionArea.setText(listContent.get(i));
-                        descriptionArea.setTextSize(24);
-                        descriptionArea.setTextColor(Color.rgb(0,0,0));
-                        descriptionArea.setHeight(200);
-                        descriptionArea.setWidth(500);
+                    descriptionArea.setText(listContent.get(i));
+                    descriptionArea.setTextSize(24);
+                    descriptionArea.setTextColor(Color.rgb(0, 0, 0));
+                    descriptionArea.setHeight(200);
+                    descriptionArea.setWidth(500);
 
-                        locationArea.setText(listLocation.get(i));
-                        locationArea.setTextSize(15);
-                        locationArea.setHeight(200);
-                        locationArea.setWidth(200);
-                        locationArea.setTextColor(Color.rgb(0,0,0));
-
-                        feed.addView(descriptionArea);
-                        feed.addView(locationArea);
-
-
-                        feed.setBackgroundResource(R.color.white);
-                        feed.setAlpha((float) 0.3);
+                    locationArea.setText(listLocation.get(i));
+                    locationArea.setTextSize(15);
+                    locationArea.setHeight(200);
+                    locationArea.setWidth(200);
+                    locationArea.setTextColor(Color.rgb(0, 0, 0));
 
 
-                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                                RelativeLayout.LayoutParams.MATCH_PARENT, 300);
-                        lp.setMargins(0, 0, 0, 10);
+
+                    JSONObject json_data = feedArrayCount.getJSONObject(i);
+                    String count = json_data.getJSONObject("votes").getString("vote_value__sum");
+
+                    countArea.setText(count);
+                    countArea.setTextSize(20);
+                    countArea.setHeight(200);
+                    countArea.setWidth(200);
+                    countArea.setTextColor(Color.rgb(0, 0, 0));
+
+                    feed.addView(descriptionArea);
+                    feed.addView(locationArea);
+
+
+                    feed.setBackgroundResource(R.color.white);
+                    feed.setAlpha((float) 0.3);
+
+
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, 300);
+                    lp.setMargins(0, 0, 0, 10);
 
             /* Create up and down arrows and counter */
-                        ImageButton arrow_up = new ImageButton(this);
-                        ImageButton arrow_down = new ImageButton(this);
-                        TextView count = new TextView(this);
-                        ImageView pin = new ImageView(this);
 
-                        count.setText("0");
-                        count.setTextColor(getResources().getColor(R.color.black));
-                        count.setTextSize(20);
+                    ImageView pin = new ImageView(this);
+                    arrow_up = new ImageButton(this);
+                    arrow_down = new ImageButton(this);
 
-                        pin.setImageResource(R.drawable.pin_live_feed);
-                        arrow_up.setImageResource(R.drawable.arrow_up);
-                        arrow_down.setImageResource(R.drawable.arrow_down);
+                    arrow_up.setId(i);
+                    arrow_down.setId(-i);
 
-                        ArrayList<ImageButton> buttons = new ArrayList<>();
+                    final int Id_arrowUp = arrow_up.getId();
+                    final int Id_arrowDown = arrow_down.getId();
 
 
-                        buttons.add(arrow_up);
-                        buttons.add(arrow_down);
+                    voteArray.add(Id_arrowUp);
+                    voteArray.add(Id_arrowDown);
 
 
-                        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
-                                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        lp2.setMargins(0, 0, 100, 0);
+                    System.out.println(voteArray);
 
-                        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(
-                                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        lp3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        lp3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                        lp3.setMargins(0, 0, 100, 0);
+                    pin.setImageResource(R.drawable.pin_live_feed);
+                    arrow_up.setImageResource(R.drawable.arrow_up);
+                    arrow_down.setImageResource(R.drawable.arrow_down);
 
-                        RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(
-                                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        lp4.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                        lp4.addRule(RelativeLayout.END_OF, buttons.indexOf(arrow_up));
-                        lp4.setMargins(0, 120, 145, 0);
-
-                        RelativeLayout.LayoutParams lp5 = new RelativeLayout.LayoutParams(70,70);
-                        lp5.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
-                        RelativeLayout.LayoutParams lp6 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        lp6.setMargins(80,250,0,0);
+                    ArrayList<ImageButton> buttons = new ArrayList<>();
 
 
-                        arrow_up.setLayoutParams(lp2);
-                        arrow_down.setLayoutParams(lp3);
-                        count.setLayoutParams(lp4);
-                        pin.setLayoutParams(lp5);
-                       locationArea.setLayoutParams(lp6);
+                    buttons.add(arrow_up);
+                    buttons.add(arrow_down);
 
 
-                        feed.addView(arrow_up);
-                        feed.addView(arrow_down);
-                        feed.addView(count);
-                        feed.addView(pin);
+                    RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    lp2.setMargins(0, 0, 130, 0);
 
-                        ll.addView(feed, lp);
+                    RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    lp3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    lp3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    lp3.setMargins(0, 0, 130, 0);
 
+                    RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    lp4.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    lp4.addRule(RelativeLayout.END_OF, buttons.indexOf(arrow_up));
+                    lp4.setMargins(0, 120, 0, 0);
+
+                    RelativeLayout.LayoutParams lp5 = new RelativeLayout.LayoutParams(70, 70);
+                    lp5.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+                    RelativeLayout.LayoutParams lp6 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp6.setMargins(80, 250, 0, 0);
+
+
+                    arrow_up.setLayoutParams(lp2);
+                    arrow_down.setLayoutParams(lp3);
+                    countArea.setLayoutParams(lp4);
+                    pin.setLayoutParams(lp5);
+                    locationArea.setLayoutParams(lp6);
+
+
+                    feed.addView(arrow_up);
+                    feed.addView(arrow_down);
+                    feed.addView(pin);
+                    feed.addView(countArea);
+
+
+                    ll.addView(feed, lp);
+
+                    if(i == Id_arrowUp) {
+                        arrow_up.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                System.out.println(Id_arrowUp);
+
+                            }
+                        });
 
 
                     }
 
-            }
+                    if(-i == Id_arrowDown) {
+                        arrow_down.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                System.out.println(Id_arrowDown);
 
-        } catch (InterruptedException e) {
+                            }
+                        });
+
+
+                    }
+
+                }
+
+
+
+
+
+
+               /* arrow_up.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            /*ÖKA VOTESEN*/
+
+                 //   }
+              //  });
+
+              /*  arrow_down.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            /*MINSKA VOTESEN*/
+
+                  //  }
+               // });
+
+            }
+        }
+
+        catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -221,6 +304,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
     }
+
+
+
+
 
 
     void createPost() {
@@ -284,7 +371,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 Callback myCallback = new Callback();
 
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.242.109.166:8000/messages/", token, "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://130.243.201.128:8000/messages/", token, "POST", post_dict.toString()));
                                     System.out.println(status);
                                 } catch (Exception e) {
 
