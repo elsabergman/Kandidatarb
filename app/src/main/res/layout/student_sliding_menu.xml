@@ -13,8 +13,15 @@
         layout="@layout/app_bar_sliding_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         />
+
+
+    <!-- Arvid kommenterat ut för att detta ger headern på alla sidor 9/8 återkommer senare pga psykbryt       -->
+   <!-- <include
+        android:id="@+id/nametextview111"
+        layout="@layout/nav_header_sliding_menu"
+        /> -->
+
 
 
     <android.support.design.widget.NavigationView

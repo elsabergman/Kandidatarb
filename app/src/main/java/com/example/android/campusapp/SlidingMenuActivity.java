@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class SlidingMenuActivity extends AppCompatActivity
@@ -33,10 +34,10 @@ public class SlidingMenuActivity extends AppCompatActivity
         Button btn = (Button) findViewById(R.id.logoutButton);
 
 
+
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                System.out.println("HEJ");
                 Intent intent = new Intent(SlidingMenuActivity.this, login.class);
                 startActivity(intent);
 
