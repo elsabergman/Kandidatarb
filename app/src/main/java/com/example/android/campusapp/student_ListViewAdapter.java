@@ -43,7 +43,7 @@ public class student_ListViewAdapter extends BaseAdapter{
         ListView listView;
         boolean isVisible;
         ImageView txtFourth;
-        public student_ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list, ListView listView,ArrayList<HashMap<String, Integer>> imageList){
+        public student_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, ArrayList<HashMap<String, Integer>> imageList){
             super();
             this.activity=activity;
             this.list=list;
