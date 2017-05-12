@@ -78,12 +78,12 @@ public class student_ListViewAdapter extends BaseAdapter{
             }
 
             final HashMap<String, String> map=list.get(position);
-            final HashMap<String, Integer> imagemap = imageList.get(position);
+            //final HashMap<String, Integer> imagemap = imageList.get(position);
             txtFirst.setText(map.get(FIRST_COLUMN));
             txtSecond.setText(map.get(SECOND_COLUMN));
             txtThird.setText(map.get(THIRD_COLUMN));
          //   txtFourth.setImageResource(map.get(FOURTH_COLUMN));
-            heart.setImageResource(imagemap.get(HEART));
+            //heart.setImageResource(imagemap.get(HEART));
             //heart.setImageResource(R.drawable.favorite_toggle);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

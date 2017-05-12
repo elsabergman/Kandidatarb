@@ -116,12 +116,15 @@ public class ListViewAdapter extends BaseAdapter {
 
         }
         final HashMap<String, String> map=list.get(position);
-
+        txtFirst.setTextColor(Color.DKGRAY);
+        txtSecond.setTextColor(Color.DKGRAY);
+        txtThird.setTextColor(Color.DKGRAY);
 
 
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
+
         //txtFourth.setText(map.get(FOURTH_COLUMN));
         //txtDescription.setText(map.get(DESCRIPTION));
 
@@ -137,37 +140,30 @@ public class ListViewAdapter extends BaseAdapter {
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
 
-                System.out.println(myDescription);
-                System.out.println("URL som string " + myUrl);
 
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));
+                txtDescription.setTextColor(Color.DKGRAY);
+                txtDescription.setText("Description: " + myDescription + "     " + myUrl );
+                //txtURL.setText(myUrl);
+                //txtURL.setLinkTextColor(Color.DKGRAY);
 
-                txtDescription.setText("Description: " + myDescription);
+               /* if (myUrl!= ""){
 
-                if (myUrl!= ""){
-
-                txtURL.setText(myUrl);}
+                    txtURL.setText(myUrl);
+                }
 
                 else {
                     txtURL.setText(" ");
-                }
+                }*/
 
-
-
-
-
-
-
-
-
-                if ( txtDescription.getVisibility() == View.VISIBLE)
+                if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                 {
-                    txtDescription.setVisibility(View.GONE);
-                    txtDescription.invalidate();
 
-                    txtURL.setVisibility(View.GONE);
-                    txtURL.invalidate();
+                    txtDescription.setVisibility(View.GONE);
+                  // txtURL.setVisibility(View.GONE);
+                    txtDescription.invalidate();
+                   // txtURL.invalidate();
 
                     view.setBackgroundColor(Color.WHITE);
 
@@ -175,11 +171,9 @@ public class ListViewAdapter extends BaseAdapter {
               else
                 {
                     txtDescription.setVisibility(View.VISIBLE);
-                    txtDescription.invalidate();
-
-                    txtURL.setVisibility(View.VISIBLE);
-                    txtURL.invalidate();
-
+                   //txtURL.setVisibility(View.VISIBLE);
+                   txtDescription.invalidate();
+                   // txtURL.invalidate();
 
                     view.setBackgroundResource(R.color.very_light_grey);
 

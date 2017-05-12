@@ -118,7 +118,7 @@ public class favorites extends student_SlidingMenuActivity {
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name );
-                    list.get(i).put(FOURTH_COLUMN,date);
+                  //  list.get(i).put(FOURTH_COLUMN,date);
                     //total_list.get(i).put((HEART), (R.drawable.favorite_toggle));
                     list.get(i).put(DESCRIPTION, description);
                    /* list.get(i).put(FOURTH_COLUMN, owner );

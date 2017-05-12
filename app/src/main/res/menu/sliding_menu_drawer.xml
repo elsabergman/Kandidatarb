@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_addEvents"
             android:icon="@drawable/add_events_toggle"
-            android:title="Add Events" />
+            android:title="Create Events" />
         <item
             android:id="@+id/nav_campus"
             android:icon="@drawable/map_toggle"

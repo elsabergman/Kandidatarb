@@ -125,11 +125,11 @@ public class org_my_events extends SlidingMenuActivity {
                     }
 
                     else {
-                        url = "TJA";
+
                         list.get(i).put(URL, url);
                     }
 
-                    System.out.println("eventets url: "+ url);
+
                     total_list.add(list.get(i));
 
 

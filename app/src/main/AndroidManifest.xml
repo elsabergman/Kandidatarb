@@ -47,7 +47,7 @@
         </activity>
         <activity
             android:name=".todays_events"
-            android:label="Today&apos;s Events">
+            android:label="All Events">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,7 +86,7 @@
         </activity>
         <activity
             android:name=".org_campus_information"
-            android:label="Campus Info">
+            android:label="Campus Information">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -140,7 +140,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".student_livefeed"
-            android:label="student livefeed">
+            android:label="Livefeed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -148,7 +148,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".student_support_page"
-            android:label="student livefeed">
+            android:label="Support">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -156,7 +156,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".student_campus_information"
-            android:label="student livefeed">
+            android:label="Campus Information">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
