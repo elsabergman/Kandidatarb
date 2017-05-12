@@ -241,7 +241,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     pin.setLayoutParams(lp5);
                     locationArea.setLayoutParams(lp6);
                     descriptionArea.setLayoutParams(lp7);
-                    
+
 
                     feed.addView(arrow_up);
                     feed.addView(arrow_down);
