@@ -87,7 +87,7 @@ public class login extends Activity {
                 }
                 if (post_dict.length() > 0) {
 
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.238.242.123:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.201.128:8000/auth/token/");
 
 
 
@@ -110,7 +110,7 @@ public class login extends Activity {
         if (message == "access granted") {
 
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString("token", got_token).commit();
-
+            System.out.println(got_group);
             if(got_group == "Organisation") {
 
                 Intent intent = new Intent(login.this, org_my_events.class);    //ÄNDRA TILL ORG_MY_EVENT.CLASS

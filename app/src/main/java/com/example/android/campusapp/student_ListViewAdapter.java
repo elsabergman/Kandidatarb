@@ -1,98 +1,60 @@
 package com.example.android.campusapp;
 
-/**
- * Created by elsabergman on 2017-05-02.
- */
-
 import android.app.Activity;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-
-import android.app.Activity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-/**
- * Created by elsabergman on 2017-05-02.
- */
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.app.Activity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import static com.example.android.campusapp.Constants.DESCRIPTION;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
+/**
+ * Created by Anna on 2017-05-10.
+ */
 
-public class ListViewAdapter extends BaseAdapter {
-
-
+public class student_ListViewAdapter {
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     TextView txtFirst;
     TextView txtSecond;
     TextView txtThird;
-    TextView txtFourth;
+    ToggleButton heart;
     TextView txtDescription;
-    TextView txtURL;
     ListView listView;
     boolean isVisible;
-    public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list, ListView listView){
+    public student_ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list, ListView listView){
         super();
         this.activity=activity;
         this.list=list;
         this.listView = listView;
     }
 
-    @Override
+
     public int getCount() {
         // TODO Auto-generated method stub
         return list.size();
     }
 
-    @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
         return list.get(position);
     }
 
-    @Override
     public long getItemId(int position) {
         // TODO Auto-generated method stub
         return 0;
     }
 
 
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
 
@@ -106,12 +68,11 @@ public class ListViewAdapter extends BaseAdapter {
 
             txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
             txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-            txtThird=(TextView) convertView.findViewById(R.id.Time);
-            txtFourth=(TextView) convertView.findViewById(R.id.owner);
-            txtDescription = (TextView) convertView.findViewById((R.id.description));
-            txtURL = (TextView) convertView.findViewById((R.id.url));
+            txtThird=(TextView) convertView.findViewById(R.id.startTime);
 
-           // listView = (ListView) convertView.findViewById(R.id.your_event_list);
+            heart=(ToggleButton) convertView.findViewById(R.id.fav_toggleButton);
+            txtDescription = (TextView) convertView.findViewById((R.id.description));
+            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
 
         }
         final HashMap<String, String> map=list.get(position);
@@ -121,7 +82,7 @@ public class ListViewAdapter extends BaseAdapter {
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
-        txtFourth.setText(map.get(FOURTH_COLUMN));
+        heart.setText(map.get(FOURTH_COLUMN));
         //txtDescription.setText(map.get(DESCRIPTION));
 
 
@@ -132,28 +93,11 @@ public class ListViewAdapter extends BaseAdapter {
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
 
+
                 String myDescription = item.get("Description");
-                String myUrl = item.get("Url");
-
                 System.out.println(myDescription);
-                System.out.println("URL som string " + myUrl);
-
                 txtDescription = (TextView) view.findViewById((R.id.description));
-                txtURL = (TextView) view.findViewById((R.id.url));
-
-                txtDescription.setText("Description: " + myDescription);
-
-                if (myUrl!= ""){
-
-                txtURL.setText(myUrl);}
-
-                else {
-                    txtURL.setText(" ");
-                }
-
-
-
-
+                txtDescription.setText(myDescription);
 
 
 
@@ -162,22 +106,11 @@ public class ListViewAdapter extends BaseAdapter {
                     txtDescription.setVisibility(View.GONE);
                     txtDescription.invalidate();
 
-                    txtURL.setVisibility(View.GONE);
-                    txtURL.invalidate();
-
-                    view.setBackgroundColor(Color.WHITE);
-
                 }
-              else
+                else
                 {
                     txtDescription.setVisibility(View.VISIBLE);
                     txtDescription.invalidate();
-
-                    txtURL.setVisibility(View.VISIBLE);
-                    txtURL.invalidate();
-
-
-                    view.setBackgroundResource(R.color.very_light_grey);
 
 
 
@@ -192,4 +125,3 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
 }
-

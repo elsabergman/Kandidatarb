@@ -44,6 +44,7 @@ import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
+import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by elsabergman on 2017-04-10.
@@ -122,12 +123,25 @@ public class org_my_events extends SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
+                    String url = json_data.getString("external_url");
                 //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
                     list.get(i).put(THIRD_COLUMN,owner );
                     list.get(i).put(FOURTH_COLUMN, name );
                     list.get(i).put(DESCRIPTION, description);
+
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+                    }
+
+                    else {
+                        url = "TJA";
+                        list.get(i).put(URL, url);
+                    }
+
+                    System.out.println("eventets url: "+ url);
                     total_list.add(list.get(i));
 
 
@@ -137,6 +151,7 @@ public class org_my_events extends SlidingMenuActivity {
                     Log.d(start_time,"start");
                     Log.d(end_time, "end");
                     Log.d(description,"description");
+                    Log.d(url, "external_url");
                    // Log.d(id, "id");
 
 
