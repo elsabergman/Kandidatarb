@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,7 +65,7 @@ public class ListViewAdapter extends BaseAdapter {
     TextView txtDescription;
     ListView listView;
     boolean isVisible;
-    public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list, ListView listView){
+    public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView){
         super();
         this.activity=activity;
         this.list=list;
@@ -106,7 +107,7 @@ public class ListViewAdapter extends BaseAdapter {
             txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
             txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
             txtThird=(TextView) convertView.findViewById(R.id.Time);
-            txtFourth=(TextView) convertView.findViewById(R.id.owner);
+           // txtFourth=(TextView) convertView.findViewById(R.id.owner);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
 
            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
@@ -119,7 +120,7 @@ public class ListViewAdapter extends BaseAdapter {
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
-        txtFourth.setText(map.get(FOURTH_COLUMN));
+        //txtFourth.setText(map.get(FOURTH_COLUMN));
         //txtDescription.setText(map.get(DESCRIPTION));
 
 
@@ -129,11 +130,14 @@ public class ListViewAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
+                System.out.println(item);
 
                 String myDescription = item.get("Description");
                 System.out.println(myDescription);
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtDescription.setText("Description: " + myDescription);
+
+
 
 
 

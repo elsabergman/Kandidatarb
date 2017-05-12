@@ -31,19 +31,30 @@
         android:text="Your upcoming events"
         android:layout_below="@+id/welcome"
         android:textColor="#fff"
-        android:textSize="30dp"
-        android:layout_centerHorizontal="true"
+        android:textSize="35sp"
+
         android:theme="@style/org_header"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
 
         />
-
+    <TextView
+        android:id="@+id/description_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/your_events"
+        android:text="Click on list row to show event description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+/>
 
     <ListView
         android:id="@+id/your_event_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/your_events"
+        android:layout_below="@id/description_info"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
