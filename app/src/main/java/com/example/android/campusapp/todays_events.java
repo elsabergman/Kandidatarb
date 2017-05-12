@@ -89,8 +89,8 @@ public class todays_events extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.238.242.123:8000/events/", token, "GET", "No JsonData"));
-
+        try { String status = (myCallback.execution_Get("http://130.242.98.112:8000/events/", token, "GET", "No JsonData"));
+            System.out.println(status);
 
             if (status == "false"){
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();

@@ -89,7 +89,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
-            status = (myCallback.execution_Get("http://130.243.201.128:8000/messages/", token, "GET", "No JsonData"));
+            status = (myCallback.execution_Get("http://130.242.98.112:8000/messages/", token, "GET", "No JsonData"));
             System.out.println(status);
             if (status == "false") {
                 Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
@@ -132,12 +132,11 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
         /* Här skapas rutorna i feeden */
                 for (int i = listContent.size()-1; i >= 0; i--) {
-                    System.out.println(listContent.size());
 
                     RelativeLayout feed = new RelativeLayout(this);
                     TextView descriptionArea = new TextView(this);
                     TextView locationArea = new TextView(this);
-                    TextView countArea = new TextView(this);
+                    final TextView countArea = new TextView(this);
 
                     descriptionArea.setText(listContent.get(i));
                     descriptionArea.setTextSize(24);
@@ -151,16 +150,18 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     locationArea.setWidth(200);
                     locationArea.setTextColor(Color.rgb(0, 0, 0));
 
-
-
-                    JSONObject json_data = feedArrayCount.getJSONObject(i);
-                    String count = json_data.getJSONObject("votes").getString("vote_value__sum");
-
-                    countArea.setText(count);
+                    countArea.setText(listCount.get(i));
                     countArea.setTextSize(20);
                     countArea.setHeight(200);
                     countArea.setWidth(200);
                     countArea.setTextColor(Color.rgb(0, 0, 0));
+
+
+
+                   JSONObject json_data = feedArrayCount.getJSONObject(i);
+
+                    final int id = Integer.parseInt(json_data.getString("id"));
+
 
                     feed.addView(descriptionArea);
                     feed.addView(locationArea);
@@ -180,8 +181,8 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     arrow_up = new ImageButton(this);
                     arrow_down = new ImageButton(this);
 
-                    arrow_up.setId(i);
-                    arrow_down.setId(-i);
+                    arrow_up.setId(i+1);
+                    arrow_down.setId(i+1);
 
                     final int Id_arrowUp = arrow_up.getId();
                     final int Id_arrowDown = arrow_down.getId();
@@ -230,13 +231,17 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     RelativeLayout.LayoutParams lp6 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     lp6.setMargins(80, 250, 0, 0);
 
+                    RelativeLayout.LayoutParams lp7 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp7.setMargins(20, 20, 0, 0);
+
 
                     arrow_up.setLayoutParams(lp2);
                     arrow_down.setLayoutParams(lp3);
                     countArea.setLayoutParams(lp4);
                     pin.setLayoutParams(lp5);
                     locationArea.setLayoutParams(lp6);
-
+                    descriptionArea.setLayoutParams(lp7);
+                    
 
                     feed.addView(arrow_up);
                     feed.addView(arrow_down);
@@ -246,52 +251,120 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                     ll.addView(feed, lp);
 
-                    if(i == Id_arrowUp) {
+                    if(i+1 == Id_arrowUp) {
                         arrow_up.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                System.out.println(Id_arrowUp);
 
+                                JSONObject post_dict = new JSONObject();
+
+                                try {
+                                    post_dict.put("message_id", String.valueOf(Id_arrowUp));
+                                    post_dict.put("upvote", "True");
+                                    post_dict.put("downvote", "False");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Callback myCallback = new Callback();
+
+                                try {
+                                    String status = (myCallback.execution_Post("http://130.242.98.112:8000/vote/", token, "POST", post_dict.toString()));
+                                } catch (Exception e) {
+
+                                    System.out.println("Could not post feed");
+                                }
+
+                                try {
+                                    status = (myCallback.execution_Get("http://130.242.98.112:8000/messages/?id=" + String.valueOf(Id_arrowUp), token, "GET", "No JsonData"));
+                                    if (status == "false") {
+                                        Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        JSONArray feedArrayCount = new JSONArray(status);
+
+                                        listCount = new ArrayList<>();
+
+                                        for (int i = 0; i < feedArrayCount.length(); i++) {
+                                            JSONObject json_data = feedArrayCount.getJSONObject(i);
+                                            String count = json_data.getString("votes");
+                                            listCount.add(count);
+                                            countArea.setText(count);
+
+                                        }
+
+                                    }
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
                         });
 
 
                     }
 
-                    if(-i == Id_arrowDown) {
+
+
+
+                    if(i+1 == Id_arrowDown) {
                         arrow_down.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                System.out.println(Id_arrowDown);
 
+                                JSONObject post_dict = new JSONObject();
+
+                                try {
+                                    post_dict.put("message_id", String.valueOf(Id_arrowDown));
+                                    post_dict.put("upvote", "False");
+                                    post_dict.put("downvote", "True");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Callback myCallback = new Callback();
+
+                                try {
+                                    String status = (myCallback.execution_Post("http://130.242.98.112:8000/vote/", token, "POST", post_dict.toString()));
+                                } catch (Exception e) {
+
+                                    System.out.println("Could not post feed");
+                                }
+
+                                try {
+                                    status = (myCallback.execution_Get("http://130.242.98.112:8000/messages/?id=" + String.valueOf(Id_arrowDown), token, "GET", "No JsonData"));
+                                    if (status == "false") {
+                                        Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        JSONArray feedArrayCount = new JSONArray(status);
+
+                                        listCount = new ArrayList<>();
+
+                                        for (int i = 0; i < feedArrayCount.length(); i++) {
+                                            JSONObject json_data = feedArrayCount.getJSONObject(i);
+                                            String count = json_data.getString("votes");
+                                            listCount.add(count);
+                                            countArea.setText(count);
+
+                                        }
+
+                                    }
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
                         });
 
 
                     }
 
                 }
-
-
-
-
-
-
-               /* arrow_up.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                            /*ÖKA VOTESEN*/
-
-                 //   }
-              //  });
-
-              /*  arrow_down.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                            /*MINSKA VOTESEN*/
-
-                  //  }
-               // });
 
             }
         }
@@ -371,7 +444,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 Callback myCallback = new Callback();
 
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.243.201.128:8000/messages/", token, "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://130.242.98.112:8000/messages/", token, "POST", post_dict.toString()));
                                     System.out.println(status);
                                 } catch (Exception e) {
 
