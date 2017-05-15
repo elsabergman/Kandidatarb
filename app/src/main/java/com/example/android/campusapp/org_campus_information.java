@@ -100,6 +100,7 @@ public class org_campus_information extends SlidingMenuActivity {
             String universities = (myCallback.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
             JSONArray myuniversities = new JSONArray(universities);
 
+
             for (int i = 0; i < myuniversities.length(); i++) {
                 JSONObject json_data = myuniversities.getJSONObject(i);
                 String name = json_data.getString("name");
@@ -137,7 +138,7 @@ public class org_campus_information extends SlidingMenuActivity {
                 e.printStackTrace();
             }
         }
-             /*add campuses to spinner list, with chosen campus as the first element */
+             /*add campuses to spinner list, with default campus as the first element */
              boolean resultOfComparison;
             final ArrayList<String> items_campus = new ArrayList<String>();
             items_campus.add(campusJson.toString());
