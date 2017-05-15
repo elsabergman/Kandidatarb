@@ -1,7 +1,6 @@
 package com.example.android.campusapp;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,30 +16,26 @@ import java.util.List;
  * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
  */
 
-public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_spinner_StateVO> {
+public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_events_spinner_StateVOTypes> {
     private Context mContext;
-    private ArrayList<todays_events_spinner_StateVO> listState;
-    private todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter;
+    private ArrayList<todays_events_spinner_StateVOTypes> listState;
+    private todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterTypes;
     private boolean isFromView = false;
+
     private todays_events sendTodaysEvents;
 
 
-
-
-
     //public static String[] checkedCampuses;
-    final ArrayList<String> items_checkedCampuses= new ArrayList<String>();
+    final ArrayList<String> items_checkedTypes= new ArrayList<String>();
     //private todays_events.view items_checkedCampuses; //our Fragment which connects to Callback
 
-    public todays_events_spinner_MyAdapter(Context context, int resource, List<todays_events_spinner_StateVO> objects) {
+    public todays_events_spinner_MyAdapterTypes(Context context, int resource, List<todays_events_spinner_StateVOTypes> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.listState = (ArrayList<todays_events_spinner_StateVO>) objects;
-        this.todayseventsspinnerMyAdapter = this;
+        this.listState = (ArrayList<todays_events_spinner_StateVOTypes>) objects;
+        this.todayseventsspinnerMyAdapterTypes = this;
 
         this.sendTodaysEvents = (todays_events) context;
-
-
 
 
     }
@@ -90,36 +85,33 @@ public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_
         }
 
 
-
         holder.mCheckBox.setTag(position);
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-
                 int getPosition = (Integer) buttonView.getTag();
 
                 if (isChecked == true) {
 
-
-
-
-
-
                     //Here we see the checked boxes and their name, put it in to a array and send it to todays_events
+
+
+
+
 
                     System.out.println("Denna position har namn "+listState.get(position).getTitle());
                     System.out.println("VI ÄR CHECKED?");
-                    if (items_checkedCampuses.contains(listState.get(position).getTitle())) {
+                    if (items_checkedTypes.contains(listState.get(position).getTitle())) {
                         System.out.println(isChecked);
                         System.out.println("Denna position har namn "+listState.get(position).getTitle()+ "och borde inte läggas in i listan");
-                        System.out.println("listan ser nu ut såhär: "+items_checkedCampuses);
+                        System.out.println("listan ser nu ut såhär: "+items_checkedTypes);
                     }
 
                     else{
-                        items_checkedCampuses.add(listState.get(position).getTitle());
-                        sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
+                        items_checkedTypes.add(listState.get(position).getTitle());
+                      //  todays_events sendTodaysEvents = new todays_events();
+                        sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
                     }
 
 
@@ -128,9 +120,9 @@ public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_
 
                 if (isChecked == false) {
                     System.out.println("VI ÄR INTE CHECKED?");
-                    items_checkedCampuses.remove(listState.get(position).getTitle());
+                    items_checkedTypes.remove(listState.get(position).getTitle());
                     //todays_events sendTodaysEvents = new todays_events();
-                    sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
+                    sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
 
                 }
 

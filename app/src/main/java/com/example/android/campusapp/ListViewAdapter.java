@@ -64,6 +64,7 @@ public class ListViewAdapter extends BaseAdapter {
     TextView txtFourth;
     TextView txtDescription;
     TextView txtURL;
+
     ListView listView;
     boolean isVisible;
     public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView){
@@ -114,7 +115,10 @@ public class ListViewAdapter extends BaseAdapter {
 
            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
 
+
         }
+
+
         final HashMap<String, String> map=list.get(position);
         txtFirst.setTextColor(Color.DKGRAY);
         txtSecond.setTextColor(Color.DKGRAY);
@@ -124,6 +128,9 @@ public class ListViewAdapter extends BaseAdapter {
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
+
+
+
 
         //txtFourth.setText(map.get(FOURTH_COLUMN));
         //txtDescription.setText(map.get(DESCRIPTION));

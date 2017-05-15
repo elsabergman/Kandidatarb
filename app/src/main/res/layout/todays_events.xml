@@ -78,8 +78,8 @@
             <ListView
                 android:id="@+id/todays_events_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/material_spinner1"
+                android:layout_height="190dp"
+                android:layout_below="@+id/material_spinner_type"
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
@@ -139,11 +139,24 @@
                 /> -->
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                android:id="@+id/material_spinner1"
+                android:id="@+id/material_spinner_campuses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Show filter options"
                 android:layout_below="@+id/todays_events"
+                app:met_floatingLabel="normal"
+                android:layout_marginTop="10dp"
+                android:textColorHint="#CFD8DC"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                />
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/material_spinner_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Show filter options"
+                android:layout_below="@+id/material_spinner_campuses"
                 app:met_floatingLabel="normal"
                 android:layout_marginTop="10dp"
                 android:textColorHint="#CFD8DC"

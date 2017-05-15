@@ -82,10 +82,12 @@ public class add_event extends SlidingMenuActivity {
         try {
             String default_options = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
-
             JSONObject myInfoObject = new JSONObject(default_options);
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
+
+
+
 
  /*----GET UNIVERSITY ---*/
 
@@ -295,6 +297,7 @@ public class add_event extends SlidingMenuActivity {
 
             String all_rooms = (myCallback.execution_Get("http://" + url + ":8000/campus-location/?campus=" + campusId, token, "GET", "No JsonData"));
 
+
             myRoomArray = new JSONArray(all_rooms);
             nameRoomList = new ArrayList<String>();
             idRoomList = new ArrayList<String>();
@@ -475,6 +478,7 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
+
 
                         String status = (myCallback.execution_Post("http://"+url+":8000/events/", token,"POST",post_dict.toString()));
 
