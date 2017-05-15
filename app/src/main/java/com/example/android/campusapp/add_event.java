@@ -83,7 +83,7 @@ public class add_event extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String status = (myCallback.execution_Get("http://130.242.107.7:8000/university/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.201.128:8000/university/", token, "GET", "No JsonData"));
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
@@ -267,7 +267,7 @@ public class add_event extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String all_rooms = (myCallback.execution_Get("http://130.242.107.7:8000/campus-location/?campus="+campusId, token, "GET", "No JsonData"));
+            String all_rooms = (myCallback.execution_Get("http://130.243.201.128:8000/campus-location/?campus="+campusId, token, "GET", "No JsonData"));
 
             myRoomArray = new JSONArray(all_rooms);
             nameRoomList = new ArrayList<String>();
@@ -448,7 +448,7 @@ public class add_event extends SlidingMenuActivity {
 
                     try {
 
-                        String status = (myCallback.execution_Post("http://130.242.107.7:8000/events/", token,"POST",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://130.243.201.128:8000/events/", token,"POST",post_dict.toString()));
 
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();

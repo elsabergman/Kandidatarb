@@ -228,7 +228,7 @@ public class student_settings extends student_SlidingMenuActivity {
         }
 
         final ArrayList<String> items_uni = new ArrayList<String>();
-        items_uni.add(universityJson);
+        items_uni.add("Change University?");
         for (int i=0; i<nameList.size(); i++) {
             items_uni.add(nameList.get(i));
         }

@@ -121,8 +121,6 @@ public class org_settings extends SlidingMenuActivity {
         });
 
         //Here vi initiate the spinners
-        //final Spinner spinnerSetCampus = (Spinner) findViewById(campusesSpinnerSettings);
-        //final Spinner spinnerSetUni = (Spinner) findViewById(universitySpinnerSettings);
         final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettings);
 
 
@@ -236,7 +234,7 @@ public class org_settings extends SlidingMenuActivity {
         }
 
         final ArrayList<String> items_uni = new ArrayList<String>();
-        items_uni.add(universityJson);
+        items_uni.add("Change University?");
         for (int i=0; i<nameList.size(); i++) {
             items_uni.add(nameList.get(i));
         }

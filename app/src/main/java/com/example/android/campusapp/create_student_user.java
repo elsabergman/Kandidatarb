@@ -18,12 +18,17 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import static com.android.volley.Request.Method.POST;
+
 
 /**
  * Created by Anna on 2017-04-19.
  */
 
 public class create_student_user extends AppCompatActivity {
+    String serverURL = "130.243.199.160";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +101,7 @@ public class create_student_user extends AppCompatActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post("http://130.238.242.123:8000/register/", "0" , "POST",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://"+serverURL+":8000/register/", "0" , "POST",post_dict.toString()));
                         if (status == "true") {
                             Intent intent = new Intent(create_student_user.this, login.class);
                             startActivity(intent);
