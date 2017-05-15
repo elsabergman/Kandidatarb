@@ -52,7 +52,7 @@ public class favorites extends student_SlidingMenuActivity {
     ImageView fav_heart;
 
     private ArrayList<HashMap<String, String>> list;
-    private ArrayList<HashMap<String, Integer>> total_list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class favorites extends student_SlidingMenuActivity {
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list=new ArrayList<HashMap<String,String>>();
-                total_list=new ArrayList<HashMap<String,Integer>>();
+
                 student_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
@@ -118,30 +118,12 @@ public class favorites extends student_SlidingMenuActivity {
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name );
-                  //  list.get(i).put(FOURTH_COLUMN,date);
-                    //total_list.get(i).put((HEART), (R.drawable.favorite_toggle));
+
                     list.get(i).put(DESCRIPTION, description);
-                   /* list.get(i).put(FOURTH_COLUMN, owner );
-                    list.get(i).put(DESCRIPTION, description);*/
 
-                    /*
-                    final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.fav_toggleButton);
-                    toggleButton.setChecked(false);
-                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.favorite_toggle));
-                    list.get(i).pu
-                    toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if (isChecked)
-                                toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.favorited));
-                            else
-                                toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.favorite_toggle));
-                        }
-                    });
 
-                    */
                 }
-                adapter=new student_ListViewAdapter(this, list, listView, total_list);
+                adapter=new student_ListViewAdapter(this, list, listView);
                 System.out.println(list);
                 listView.setAdapter(adapter);
 
