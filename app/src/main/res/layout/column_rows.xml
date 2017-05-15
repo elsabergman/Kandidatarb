@@ -73,6 +73,19 @@
         android:layout_marginBottom="5dp"
         android:visibility="gone"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/empty"
+        android:text="Your event list is empty. Create your events to make them appear here"
+        android:textSize="14sp"
+        android:autoLink="web"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
+
 </RelativeLayout>
 
     <!--<RelativeLayout android:id="@+id/container"

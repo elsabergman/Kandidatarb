@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class create_org_user extends AppCompatActivity {
-    String url = "130.242.98.112";
+    String url = "130.243.199.160";
     JSONArray myUniArray;
     ArrayList<String> nameList;
     ArrayList<String> idList;
