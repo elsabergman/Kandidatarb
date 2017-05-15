@@ -1,7 +1,10 @@
 package com.example.android.campusapp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -17,12 +20,22 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 
 public class SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    DrawerLayout drawer;
+    private TextView txtName, txtCampus;
     Button btn;
+    private NavigationView navigationView;
+    DrawerLayout drawer;
+    private View navHeader;
+    String first_name, campus_name;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +45,33 @@ public class SlidingMenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
+      navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+        txtName = (TextView) navHeader.findViewById(R.id.header_logged_in);
+        txtCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
 
+           /*-----------remember token--------------------*/
+        final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        /*----------------------------------------------*/
+        Callback myCallback = new Callback();
 
+        try {
+            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/",token , "GET", "No JsonData"));
+
+            JSONObject myProfile = new JSONObject(status);
+            first_name = myProfile.getString("first_name");
+            campus_name = myProfile.getJSONObject("campus").getString("campus_name");
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        txtName.setText(first_name);
+        txtCampus.setText(campus_name);
 
         btn.setOnClickListener(new View.OnClickListener() {
 
@@ -45,14 +83,6 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         });
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        }); */
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,7 +94,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @Override
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {

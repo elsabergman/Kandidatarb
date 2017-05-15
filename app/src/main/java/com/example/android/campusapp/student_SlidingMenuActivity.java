@@ -18,26 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
-
-import static com.example.android.campusapp.R.id.organization_nameInput;
-import static com.example.android.campusapp.R.id.textView2;
-import static com.example.android.campusapp.R.layout.nav_header_sliding_menu;
 
 
 public class student_SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
-
-
 
 
     DrawerLayout drawer;
@@ -52,6 +36,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.nav_header_sliding_menu);
         setContentView(R.layout.student_sliding_menu);
+        /*TextView user = (TextView) findViewById(R.id.header_logged_in);
+        user.setText("Elsa Bergman");*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -136,7 +122,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             public void onClick(View v) {
 
 
-                System.out.println("HEJ");
+
                 Intent intent = new Intent(student_SlidingMenuActivity.this, login.class);
                 startActivity(intent);
 
@@ -146,14 +132,6 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
         });
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
