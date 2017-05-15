@@ -201,9 +201,6 @@ public class org_campus_information extends SlidingMenuActivity {
                             }
 
 
-
-
-
                         }
                     }
 
