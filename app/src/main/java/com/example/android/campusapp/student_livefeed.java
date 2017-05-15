@@ -4,8 +4,6 @@ package com.example.android.campusapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -54,6 +52,15 @@ public class student_livefeed extends student_SlidingMenuActivity {
     private ArrayList<String> listContent;
     private ArrayList<String> listLocation;
     private ArrayList<String> listCount;
+    private ArrayList<String> neutralArray;
+    private ArrayList<String> greenArray;
+    private ArrayList<String> redArray;
+    private String before_voting;
+    private String after_voting;
+     ImageButton arrow_up;
+     ImageButton arrow_down;
+
+
     String url = "130.243.199.160";
 
 
@@ -84,11 +91,14 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
-          ImageButton arrow_up;
-         ImageButton arrow_down;
+
+
 
         //Hämtar alla inlägg från databasen och lägger de i list
         Callback myCallback = new Callback();
+
+
+
 
         try {
             status = (myCallback.execution_Get("http://" + url +":8000/messages/", token, "GET", "No JsonData"));
@@ -141,10 +151,11 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     final TextView countArea = new TextView(this);
 
                     descriptionArea.setText(listContent.get(i));
-                    descriptionArea.setTextSize(24);
+                    descriptionArea.setTextSize(21);
                     descriptionArea.setTextColor(Color.rgb(0, 0, 0));
                     descriptionArea.setHeight(200);
                     descriptionArea.setWidth(500);
+
 
                     locationArea.setText(listLocation.get(i));
                     locationArea.setTextSize(15);
@@ -159,23 +170,17 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     countArea.setTextColor(Color.rgb(0, 0, 0));
 
 
-
-                   JSONObject json_data = feedArrayCount.getJSONObject(i);
-
-                    final int id = Integer.parseInt(json_data.getString("id"));
-
-
                     feed.addView(descriptionArea);
                     feed.addView(locationArea);
 
 
                     feed.setBackgroundResource(R.color.white);
-                    feed.setAlpha((float) 0.3);
+                    feed.setAlpha((float) 0.45);
 
 
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, 300);
-                    lp.setMargins(0, 0, 0, 10);
+                    lp.setMargins(0, 0, 0, 15);
 
             /* Create up and down arrows and counter */
 
@@ -194,11 +199,9 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     voteArray.add(Id_arrowDown);
 
 
-                    System.out.println(voteArray);
-
                     pin.setImageResource(R.drawable.pin_live_feed);
-                    arrow_up.setImageResource(R.drawable.arrow_up);
-                    arrow_down.setImageResource(R.drawable.arrow_down);
+                    arrow_up.setBackgroundResource(R.drawable.arrow_up);
+                    arrow_down.setBackgroundResource(R.drawable.arrow_down);
 
                     ArrayList<ImageButton> buttons = new ArrayList<>();
 
@@ -211,14 +214,14 @@ public class student_livefeed extends student_SlidingMenuActivity {
                             RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
                     lp2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                    lp2.setMargins(0, 0, 130, 0);
+                    lp2.setMargins(0, 20, 150, 0);
 
                     RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
                     lp3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     lp3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                    lp3.setMargins(0, 0, 130, 0);
+                    lp3.setMargins(0, 0, 150, 20);
 
                     RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -253,12 +256,34 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                     ll.addView(feed, lp);
 
+
                     if(i+1 == Id_arrowUp) {
                         arrow_up.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
+
+
+                                try {
+                                    JSONArray neutralArrowArray = new JSONArray(status);
+
+                                    neutralArray = new ArrayList();
+                                    for (int i = 0; i < neutralArrowArray.length(); i++) {
+                                        JSONObject json_data = neutralArrowArray.getJSONObject(i);
+                                        before_voting = json_data.getString("votes");
+                                        neutralArray.add(before_voting);
+
+                                    }
+                                    System.out.println(neutralArray);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+
+
                                 JSONObject post_dict = new JSONObject();
+
 
                                 try {
                                     post_dict.put("message_id", String.valueOf(Id_arrowUp));
@@ -283,6 +308,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
                                         JSONArray feedArrayCount = new JSONArray(status);
+                                        System.out.println("efter upvote " + status);
 
                                         listCount = new ArrayList<>();
 
@@ -293,6 +319,40 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                             countArea.setText(count);
 
                                         }
+
+                                        try {
+                                            JSONArray greenArrowArray = new JSONArray(status);
+
+                                            greenArray = new ArrayList();
+                                            for (int i = 0; i < greenArrowArray.length(); i++) {
+                                                JSONObject json_data = greenArrowArray.getJSONObject(i);
+                                                after_voting = json_data.getString("votes");
+                                                greenArray.add(after_voting);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        System.out.println(before_voting);
+                                        System.out.println(after_voting);
+
+                                        int converter_before_voting = Integer.parseInt(before_voting.toString());
+                                        int converter_after_voting = Integer.parseInt(after_voting.toString());
+
+                                        System.out.println(converter_before_voting);
+                                        System.out.println(converter_after_voting);
+
+                                       if (converter_before_voting+1 == converter_after_voting){
+                                           System.out.println("hooho");
+                                           view.setBackgroundResource(R.drawable.arrow_up_green);
+
+                                        }
+                                        else{
+                                           arrow_up.setImageResource(R.drawable.arrow_up);
+
+                                       }
+
+
 
                                     }
                                 } catch (InterruptedException e) {
@@ -316,6 +376,22 @@ public class student_livefeed extends student_SlidingMenuActivity {
                         arrow_down.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+                                try {
+                                    JSONArray neutralArrowArray = new JSONArray(status);
+
+                                    neutralArray = new ArrayList();
+                                    for (int i = 0; i < neutralArrowArray.length(); i++) {
+                                        JSONObject json_data = neutralArrowArray.getJSONObject(i);
+                                        before_voting = json_data.getString("votes");
+                                        neutralArray.add(before_voting);
+
+                                    }
+                                    System.out.println(neutralArray);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
 
                                 JSONObject post_dict = new JSONObject();
 
@@ -349,6 +425,38 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                             String count = json_data.getString("votes");
                                             listCount.add(count);
                                             countArea.setText(count);
+
+                                        }
+
+                                        try {
+                                            JSONArray redArrowArray = new JSONArray(status);
+
+                                            redArray = new ArrayList();
+                                            for (int i = 0; i < redArrowArray.length(); i++) {
+                                                JSONObject json_data = redArrowArray.getJSONObject(i);
+                                                after_voting = json_data.getString("votes");
+                                                redArray.add(after_voting);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        System.out.println(before_voting);
+                                        System.out.println(after_voting);
+
+                                        int converter_before_voting = Integer.parseInt(before_voting.toString());
+                                        int converter_after_voting = Integer.parseInt(after_voting.toString());
+
+                                        System.out.println(converter_before_voting);
+                                        System.out.println(converter_after_voting);
+
+                                        if (converter_before_voting-1 == converter_after_voting){
+                                            view.setBackgroundResource(R.drawable.arrow_down_red);
+
+                                        }
+                                        else{
+                                            arrow_down.setImageResource(R.drawable.arrow_down);
+
 
                                         }
 

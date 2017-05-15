@@ -37,7 +37,7 @@ public class create_student_user extends AppCompatActivity {
     ArrayList<String> idCampusList;
     JSONArray myCampusArray;
     String theIdCampus;
-    String url = "130.242.98.112";
+    String url = "130.243.199.160";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -269,7 +269,7 @@ public class create_student_user extends AppCompatActivity {
 
                     }
                     catch (Exception e) {
-                        System.out.println("Could not create suer");
+                        System.out.println("Could not create user");
                     }
 
                 }
