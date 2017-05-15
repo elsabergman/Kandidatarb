@@ -9,10 +9,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+
 import android.widget.ImageView;
+
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -29,12 +30,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
+
 import static com.example.android.campusapp.Constants.URL;
+
 
 
 /**
@@ -52,9 +57,29 @@ public class todays_events extends student_SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> list;
     private ArrayList<HashMap<String, String>> total_list;
 
-    MaterialBetterSpinner materialBetterSpinner ;
+    //private String token;
 
-    String[] SPINNER_DATA = { "Type of Event:", "Promoting event", "Lunch event", "Evening event", "Case event", "Campus:", "Ångström", "Engelska Parken"};
+
+    MaterialBetterSpinner materialBetterSpinnerTypes;
+
+    String[] SPINNER_DATA_CAMPUSES = {"Campus:", "Ångström", "Engelska Parken", "ITC", "Ekonomikum"};
+    String[] SPINNER_DATA_TYPES = {"Type:", "Lunch Event", "Promoting Event", "Evening Event","Case Event","Other"};
+    String chosen_campuses;
+    String theId;
+    //String token;
+    String serverURL = "130.243.199.160";
+
+    private String token = null;
+
+    ArrayList<String> idList;
+    ArrayList<String> nameList;
+    ArrayList<String> nameListType;
+    ArrayList<String> idListType;
+
+
+
+    JSONArray myCampArray;
+    JSONArray myTypeArray;
 
 
 
@@ -66,10 +91,12 @@ public class todays_events extends student_SlidingMenuActivity {
         drawer.addView(contentView, 0);
 
         /*-----------remember token--------------------*/
-        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         System.out.println(token);
 
         /*----------------------------------------------*/
+
+
 
              /*---Fonts for our Logo---*/
         TextView header = (TextView) findViewById(R.id.todays_events);
@@ -78,19 +105,18 @@ public class todays_events extends student_SlidingMenuActivity {
         /*--------------------------*/
 
 
-
-
-
-
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.201.128:8000/events/", token, "GET", "No JsonData"));
+
+        try {
+
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
 
 
-            if (status == "false"){
+
+            if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
 
                 JSONArray myEventsArray = new JSONArray(status);
 
@@ -103,12 +129,12 @@ public class todays_events extends student_SlidingMenuActivity {
                  */
 
                 /* --- create hash map that all Json objects are inserted to --- */
-                list=new ArrayList<HashMap<String,String>>();
-                total_list=new ArrayList<HashMap<String,String>>();
+                list = new ArrayList<HashMap<String, String>>();
+                total_list = new ArrayList<HashMap<String, String>>();
                 ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
-                for(int i = 0; i < myEventsArray.length(); i++) {
+                for (int i = 0; i < myEventsArray.length(); i++) {
                     list.add(new HashMap<String, String>());
                 }
 
@@ -123,10 +149,12 @@ public class todays_events extends student_SlidingMenuActivity {
                     String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
+
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
 
                     list.get(i).put(THIRD_COLUMN,name);
                   //  list.get(i).put(FOURTH_COLUMN, name );
+
                     list.get(i).put(DESCRIPTION, description);
                     total_list.add(list.get(i));
                     if ( url != null) {
@@ -141,20 +169,16 @@ public class todays_events extends student_SlidingMenuActivity {
 
                     Log.d(name, "name");
                     Log.d(date, "date");
-                    Log.d(start_time,"start");
+                    Log.d(start_time, "start");
                     Log.d(end_time, "end");
-                    Log.d(description,"description");
+                    Log.d(description, "description");
                     // Log.d(id, "id");
 
 
                 }
 
-                adapter=new ListViewAdapter(this, list, listView);
+                adapter = new ListViewAdapter(this, list, listView);
                 listView.setAdapter(adapter);
-
-
-
-
 
 
             }
@@ -167,65 +191,327 @@ public class todays_events extends student_SlidingMenuActivity {
         }
 
 
-        materialBetterSpinner = (MaterialBetterSpinner)findViewById(R.id.material_spinner1);
+        /*----GET CAMPUSES ---*/
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA);
+         /*--spinner implementation--*/
+        Callback myCallbackUni = new Callback();
+        try {
 
-       // materialBetterSpinner.setAdapter(adapter1);
+            String status = (myCallbackUni.execution_Get("http://"+serverURL+":8000/campus/?university=1", token, "GET", "No JsonData"));
+
+            myCampArray = new JSONArray(status);
+            nameList = new ArrayList<String>();
+            idList = new ArrayList<String>();
+            System.out.println(myCampArray);
+
+
+            for (int i = 0; i < myCampArray.length(); i++) {
+                JSONObject json_data = myCampArray.getJSONObject(i);
+                String name = json_data.getString("name");
+                String id = json_data.getString("id");
+                nameList.add(i, name);
+                idList.add(i, id);
+
+
+            }
+
+            System.out.println(nameList);
+            System.out.println(idList);
+            System.out.println(nameList.get(0));
+
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        final ArrayList<String> items_camp = new ArrayList<String>();
+        items_camp.add("Change Campus?");
+        for (int i = 0; i < nameList.size(); i++) {
+            items_camp.add(nameList.get(i));
+        }
+        //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
+        final MaterialBetterSpinner materialBetterSpinnerCampuses = (MaterialBetterSpinner) findViewById(R.id.material_spinner_campuses);
+        //String SPINNER_DATA_TESTCAMPUS = items_camp.toArray();
+
+        String[] campusesStringArray = new String[items_camp.size()];
+        campusesStringArray = items_camp.toArray(campusesStringArray);
+
+        System.out.println("items_camp is " + items_camp);
+
+        //------------------------Campusese SPINNER START!!!------------------------------
+        ArrayAdapter<String> campadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, campusesStringArray);
+
+        materialBetterSpinnerCampuses.setAdapter(campadapter);
 
         ArrayList<todays_events_spinner_StateVO> listVOs = new ArrayList<>();
 
-        for (int i = 0; i < SPINNER_DATA.length; i++) {
+        for (int i = 0; i < campusesStringArray.length; i++) {
             todays_events_spinner_StateVO todayseventsspinnerStateVO = new todays_events_spinner_StateVO();
-            todayseventsspinnerStateVO.setTitle(SPINNER_DATA[i]);
+            todayseventsspinnerStateVO.setTitle(campusesStringArray[i]);
             todayseventsspinnerStateVO.setSelected(false);
             listVOs.add(todayseventsspinnerStateVO);
         }
-        todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0,
-                listVOs);
-        materialBetterSpinner.setAdapter(todayseventsspinnerMyAdapter); }
+        todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0, listVOs);
+        materialBetterSpinnerCampuses.setAdapter(todayseventsspinnerMyAdapter);
+
+
+        //------------------------campuses SPINNER!!!!! STOP--------------------------------
+
+        //--------STOP GET CAMPUSES--------
 
 
 
 
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //Här inne är vad som sker när en grej i listan väljs
-            Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-            toast.show();
+
+
+                /*----GET TYPES ---*/
+
+         /*--spinner implementation--*/
+        Callback myCallbackType = new Callback();
+        try {
+
+            String statustype = (myCallbackType.execution_Get("http://"+serverURL+":8000/campus/?university=1", token, "GET", "No JsonData"));
+
+            myTypeArray = new JSONArray(statustype);
+            nameListType = new ArrayList<String>();
+            idListType = new ArrayList<String>();
+            System.out.println(myTypeArray);
+
+
+            for (int i = 0; i < myTypeArray.length(); i++) {
+                JSONObject json_data = myTypeArray.getJSONObject(i);
+                String name = json_data.getString("name");
+                String id = json_data.getString("id");
+                nameListType.add(i, name);
+                idListType.add(i, id);
+
+
+            }
+
+            System.out.println(nameListType);
+            System.out.println(idListType);
+            System.out.println(nameListType.get(0));
+
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+        final ArrayList<String> items_type = new ArrayList<String>();
+        items_type.add("Change Type?");
+        for (int i = 0; i < nameListType.size(); i++) {
+            items_type.add(nameListType.get(i));
+
+      //  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+       //     //Här inne är vad som sker när en grej i listan väljs
+       //     Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
+       //     toast.show();
             /**Denna toast visar i en liten ruta vilken man valt*/
+
         }
+        //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
+        final MaterialBetterSpinner materialBetterSpinnerTypes = (MaterialBetterSpinner) findViewById(R.id.material_spinner_type);
+        //String SPINNER_DATA_TESTCAMPUS = items_camp.toArray();
 
-        /**   This part controls the spinner with checkboxes for choices,Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox    */
-     /*   final String[] select_qualification = {
-                "Choose to filter by...", "Promoting event", "Lunch event", "Evening event", "Case event",
-                "Other"};
-        Spinner spinner = (Spinner) findViewById(R.id.filterSpinner);
+        String[] typesStringArray = new String[items_type.size()];
+        typesStringArray = items_type.toArray(typesStringArray);
 
-        ArrayList<todays_events_spinner_StateVO> listVOs = new ArrayList<>();
+        System.out.println("items_type is " + items_type);
 
-        for (int i = 0; i < select_qualification.length; i++) {
-            todays_events_spinner_StateVO todayseventsspinnerStateVO = new todays_events_spinner_StateVO();
-            todayseventsspinnerStateVO.setTitle(select_qualification[i]);
+        //------------------------Types SPINNER START!!!------------------------------
+        ArrayAdapter<String> typeadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA_TYPES/*typesStringArray*/);
+
+        materialBetterSpinnerTypes.setAdapter(typeadapter);
+
+        ArrayList<todays_events_spinner_StateVOTypes> listVOsType = new ArrayList<>();
+
+        for (int i = 0; i < /*typesStringArray*/SPINNER_DATA_TYPES.length; i++) {
+            todays_events_spinner_StateVOTypes todayseventsspinnerStateVO = new todays_events_spinner_StateVOTypes();
+            todayseventsspinnerStateVO.setTitle(/*typesStringArray*/SPINNER_DATA_TYPES[i]);
             todayseventsspinnerStateVO.setSelected(false);
-            listVOs.add(todayseventsspinnerStateVO);
+            listVOsType.add(todayseventsspinnerStateVO);
         }
-        todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0,
-                listVOs);
-        spinner.setAdapter(todayseventsspinnerMyAdapter);
+        todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterType = new todays_events_spinner_MyAdapterTypes(todays_events.this, 0, listVOsType);
+        materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
+
+        //------------------------Types SPINNER!!!!! STOP--------------------------------
+
+        //-------------STOP GET TYPES-------------
+
+
+
+
+        //  materialBetterSpinnerCampuses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+
+
+    //System.out.println(todays_events_spinner_MyAdapter.items_checkedCampuses);
+        /*----------------REMOVE THIS COMMENT SO SOMETHING HAPPENS WHEN CLICKING?! /ARVID 12/5 *//*materialBetterSpinnerCampuses.addTextChangedListener(new
+
+
+
+
+    TextWatcher() {
+        @Override
+        public void beforeTextChanged (CharSequence s,int start, int count, int after){
+            System.out.println("YOU ARE IN BEFORETEXTCHANGED");
+
+
+
+        }
+
+        @Override
+        public void onTextChanged (CharSequence s,int start, int before, int count){
+            System.out.println("YOU ARE IN ONTEXTCHANGED");
+
+        }
+
+        @Override
+        public void afterTextChanged (Editable s){
+            System.out.println("YOU ARE IN AFTERTEXTCHANGED");
+
+        }
+
+
+
+
+
+
+    });
+*/
+
+
+}
+
+
+
+
+//-----------------------------SEND CAMPUS SORTING TO DATABASE----------------
+    public void sendInfoToDatabase(ArrayList<String> items_checkedCampuses) {
+        System.out.println("We now send this CAMPUSES to database from todays_events: "+items_checkedCampuses);
+
+                /*-----------remember token--------------------*/
+        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+        System.out.println(token);
+
+        /*----------------------------------------------*/
+
+        System.out.println("token inside sendInfoTodatbase is " + token);
 
     }
 
 
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Här inne är vad som sker när en grej i listan väljs
-        Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-        toast.show();    /**Denna toast visar i en liten ruta vilken man valt*/
-  //  }
+
+    public void sendInfoToDatabaseType(ArrayList<String> items_checkedTypes) {
+        System.out.println("We now send this TYPES to database from todays_events: "+items_checkedTypes);
+
+
+
+        System.out.println("token inside sendInfoTodatbaseType is " + token);
 
 
 
 
+        //---------------------TESTING RELOADING LIST OFEVENTS. PROBLEMS WITH TOKEN 12/5 ARVID
+
+
+        Callback myCallback = new Callback();
+
+        try {
+
+            System.out.println("We try to send url: "+"http://"+serverURL+":8000/events/"+items_checkedTypes);
+
+            String lunchlecturetry = "Lunch Lecture";
+            System.out.println("TOKEN IS: "+token);
+
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event=Lunch%20Lecture", token, "GET", "No JsonData"));
+            System.out.println("STATUS IS "+status);
+
+
+            if (status == "false") {
+                Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
+            } else {
+
+                JSONArray myEventsArray = new JSONArray(status);
+
+
+                ListView listView = (ListView) findViewById(R.id.todays_events_list);
+
+
+                /* --- create hash map that all Json objects are inserted to --- */
+                list = new ArrayList<HashMap<String, String>>();
+                total_list = new ArrayList<HashMap<String, String>>();
+                ListViewAdapter adapter;
+
+                /*create as many hash maps as needed */
+                for (int i = 0; i < myEventsArray.length(); i++) {
+                    list.add(new HashMap<String, String>());
+                }
+
+                for (int i = 0; i < myEventsArray.length(); i++) {
+                    JSONObject json_data = myEventsArray.getJSONObject(i);
+                    String date = json_data.getString("date");
+                    String name = json_data.getString("name_event");
+                    String start_time = json_data.getString("start_time");
+                    String end_time = json_data.getString("stop_time");
+                    String owner = json_data.getString("owner");
+                    String description = json_data.getString("description");
+                    //    String id =json_data.getString("id");
+                    list.get(i).put(FIRST_COLUMN, date);
+                    list.get(i).put(SECOND_COLUMN, start_time + "- " + end_time);
+                    list.get(i).put(THIRD_COLUMN, owner);
+                    list.get(i).put(FOURTH_COLUMN, name);
+                    list.get(i).put(DESCRIPTION, description);
+                    total_list.add(list.get(i));
+
+                    Log.d(name, "name");
+                    Log.d(date, "date");
+                    Log.d(start_time, "start");
+                    Log.d(end_time, "end");
+                    Log.d(description, "description");
+                    // Log.d(id, "id");
+
+
+                }
+
+                adapter = new ListViewAdapter(this, list, listView);
+                listView.setAdapter(adapter);
+
+
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        //---------------------STOP TESTING RELOADING LIST OF EVENTS--
+
+
+
+    }
 
 
 }

@@ -54,6 +54,8 @@ public class student_livefeed extends student_SlidingMenuActivity {
     private ArrayList<String> listContent;
     private ArrayList<String> listLocation;
     private ArrayList<String> listCount;
+    String url = "130.243.199.160";
+
 
 
 
@@ -89,7 +91,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
-            status = (myCallback.execution_Get("http://130.243.201.128:8000/messages/", token, "GET", "No JsonData"));
+            status = (myCallback.execution_Get("http://" + url +":8000/messages/", token, "GET", "No JsonData"));
             System.out.println(status);
             if (status == "false") {
                 Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
@@ -267,15 +269,16 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 }
                                 Callback myCallback = new Callback();
 
+
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.243.201.128:8000/vote/", token, "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://" + url +":8000/vote/", token, "POST", post_dict.toString()));
                                 } catch (Exception e) {
 
                                     System.out.println("Could not post feed");
                                 }
 
                                 try {
-                                    status = (myCallback.execution_Get("http://130.243.201.128:8000/messages/?id=" + String.valueOf(Id_arrowUp), token, "GET", "No JsonData"));
+                                    status = (myCallback.execution_Get("http://" + url +":8000/messages/?id=" + String.valueOf(Id_arrowUp), token, "GET", "No JsonData"));
                                     if (status == "false") {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
@@ -326,14 +329,14 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 Callback myCallback = new Callback();
 
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.243.201.128:8000/vote/", token, "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://" + url +":8000/vote/", token, "POST", post_dict.toString()));
                                 } catch (Exception e) {
 
                                     System.out.println("Could not post feed");
                                 }
 
                                 try {
-                                    status = (myCallback.execution_Get("http://130.243.201.128:8000/messages/?id=" + String.valueOf(Id_arrowDown), token, "GET", "No JsonData"));
+                                    status = (myCallback.execution_Get("http://" + url +":8000/messages/?id=" + String.valueOf(Id_arrowDown), token, "GET", "No JsonData"));
                                     if (status == "false") {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
@@ -444,7 +447,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                 Callback myCallback = new Callback();
 
                                 try {
-                                    String status = (myCallback.execution_Post("http://130.243.201.128:8000/messages/", token, "POST", post_dict.toString()));
+                                    String status = (myCallback.execution_Post("http://" + url +":8000/messages/", token, "POST", post_dict.toString()));
                                     System.out.println(status);
                                 } catch (Exception e) {
 
