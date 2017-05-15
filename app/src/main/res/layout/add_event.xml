@@ -265,6 +265,7 @@
         android:isScrollContainer="false"
         android:elevation="10dp"
         android:inputType="textMultiLine"
+        android:gravity="top|left"
         android:layout_below="@+id/eventDescriptionHeader"
         android:layout_centerHorizontal="true" />
 

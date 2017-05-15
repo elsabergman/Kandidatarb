@@ -91,7 +91,6 @@ public class org_campus_information extends SlidingMenuActivity {
         try {
             String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
 
-
             JSONObject myInfoObject = new JSONObject(status);
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             System.out.println(universityJson + " universityJson");
@@ -200,9 +199,6 @@ public class org_campus_information extends SlidingMenuActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
-
 
 
                         }
