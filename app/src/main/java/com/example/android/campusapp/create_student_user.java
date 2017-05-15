@@ -275,7 +275,7 @@ public class create_student_user extends AppCompatActivity {
 
                     }
                     catch (Exception e) {
-                        System.out.println("Could not create suer");
+                        System.out.println("Could not create user");
                     }
 
                 }

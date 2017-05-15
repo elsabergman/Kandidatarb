@@ -87,9 +87,12 @@ public class login extends Activity {
                     e.printStackTrace();
                 }
                 if (post_dict.length() > 0) {
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.199.160:8000/auth/token/");
+
 
 
                     new GetTokenLogin(login.this).execute(post_dict.toString(), "http://"+serverURL+":8000/auth/token/");
+
 
 
 
