@@ -3,24 +3,19 @@ package com.example.android.campusapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +34,7 @@ import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
-import static com.example.android.campusapp.R.id.parent;
+import static com.example.android.campusapp.Constants.URL;
 
 
 /**
@@ -90,7 +85,6 @@ public class todays_events extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try { String status = (myCallback.execution_Get("http://130.243.201.128:8000/events/", token, "GET", "No JsonData"));
-            System.out.println(status);
 
             if (status == "false"){
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
@@ -125,13 +119,24 @@ public class todays_events extends student_SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
+                    String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-                    list.get(i).put(THIRD_COLUMN,owner );
-                    list.get(i).put(FOURTH_COLUMN, name );
+
+                    list.get(i).put(THIRD_COLUMN,name);
+                  //  list.get(i).put(FOURTH_COLUMN, name );
                     list.get(i).put(DESCRIPTION, description);
                     total_list.add(list.get(i));
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+                    }
+
+                    else {
+
+                        list.get(i).put(URL, " ");
+                    }
 
                     Log.d(name, "name");
                     Log.d(date, "date");

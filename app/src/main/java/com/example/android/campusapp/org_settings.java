@@ -459,6 +459,7 @@ public class org_settings extends SlidingMenuActivity {
             try {
                 System.out.println("post_dict is " + post_dict.toString());
                 String status = (myCallback.execution_Post("http://130.243.201.128:8000/profile/", token, "PATCH", post_dict.toString()));
+
                 System.out.println("status in save is " + status);
                 System.out.println("token inside saveInfo is " + token);
                 if (status == "true") {
