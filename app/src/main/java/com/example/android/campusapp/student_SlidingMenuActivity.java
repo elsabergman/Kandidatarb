@@ -224,7 +224,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             startActivity(intent); //Skicka vidare till live feed
         }
         else if (id == R.id.nav_campus) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, student_campus_information.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, org_campus_information.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_manage) {
