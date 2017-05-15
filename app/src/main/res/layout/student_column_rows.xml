@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:drawSelectorOnTop="true"
+android:listSelector="@drawable/list_row_color"
+android:background="@drawable/list_row_color">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/dateEvent"
+    android:textStyle="bold"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_weight="1"/>
+
+<TextView
+    android:layout_width="65dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:id="@+id/nameEvent"
+    android:layout_toRightOf="@id/dateEvent"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"/>
+
+<TextView
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:id="@+id/Time"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_toRightOf="@id/nameEvent" />
+
+<ImageView
+    android:layout_height="wrap_content"
+    android:id="@+id/owner"
+    android:layout_weight="1"
+    android:layout_toRightOf="@id/Time"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_width="100dp" />
+
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/description"
+    android:textSize="17sp"
+    android:layout_below="@+id/dateEvent"
+    android:layout_marginTop="0dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginBottom="5dp"
+    android:visibility="gone"/>
+<!--<ToggleButton
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:id="@+id/fav_toggleButton"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:textOn=""
+    android:textOff=""/>-->
+
+
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/fav_image"
+    android:layout_toRightOf="@+id/owner"
+  />
+
+</RelativeLayout>
+<!--  android:background="@drawable/favorite_toggle"-->

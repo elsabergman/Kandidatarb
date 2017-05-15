@@ -138,7 +138,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
         try {
-            String status = (myCallback.execution_Get("http://130.243.201.128:8000/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
             System.out.println("status is " + status);
 
             if (status == "false") {
@@ -194,7 +194,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallbackUni = new Callback();
         try {
 
-            String status = (myCallbackUni.execution_Get("http://130.243.201.128:8000/university/", token, "GET", "No JsonData"));
+            String status = (myCallbackUni.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
@@ -287,7 +287,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String all_campuses = (myCallback.execution_Get("http://130.243.201.128:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+            String all_campuses = (myCallback.execution_Get("http://130.243.199.160:8000/campus/?university="+theId, token, "GET", "No JsonData"));
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
@@ -366,7 +366,7 @@ public class student_settings extends student_SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post("http://130.243.201.128:8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://130.243.199.160:8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
                         if (status == "true") {
                             Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
                         }if(status == "false"){
@@ -450,7 +450,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
             try {
                 System.out.println("post_dict is " + post_dict.toString());
-                String status = (myCallback.execution_Post("http://130.243.201.128:8000/profile/", token, "PATCH", post_dict.toString()));
+                String status = (myCallback.execution_Post("http://130.243.199.160:8000/profile/", token, "PATCH", post_dict.toString()));
                 System.out.println("status in save is " + status);
                 System.out.println("token inside saveInfoStudent is " + token);
                 if (status == "true") {

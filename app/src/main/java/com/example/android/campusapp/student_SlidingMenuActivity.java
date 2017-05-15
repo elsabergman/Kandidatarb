@@ -146,14 +146,14 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -224,7 +224,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             startActivity(intent); //Skicka vidare till live feed
         }
         else if (id == R.id.nav_campus) {
-            Intent intent = new Intent(student_SlidingMenuActivity.this, student_campus_information.class);
+            Intent intent = new Intent(student_SlidingMenuActivity.this, org_campus_information.class);
             startActivity(intent);
         }
         else if (id == R.id.nav_manage) {

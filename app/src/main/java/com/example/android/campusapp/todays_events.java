@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+
+import android.widget.ImageView;
+
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -28,11 +31,15 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
+
+import static com.example.android.campusapp.Constants.URL;
+
 
 
 /**
@@ -100,9 +107,11 @@ public class todays_events extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
+
         try {
 
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
+
 
 
             if (status == "false") {
@@ -137,13 +146,26 @@ public class todays_events extends student_SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
+                    String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-                    list.get(i).put(SECOND_COLUMN, start_time + "- " + end_time);
-                    list.get(i).put(THIRD_COLUMN, owner);
-                    list.get(i).put(FOURTH_COLUMN, name);
+
+                    list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
+
+                    list.get(i).put(THIRD_COLUMN,name);
+                  //  list.get(i).put(FOURTH_COLUMN, name );
+
                     list.get(i).put(DESCRIPTION, description);
                     total_list.add(list.get(i));
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+                    }
+
+                    else {
+
+                        list.get(i).put(URL, " ");
+                    }
 
                     Log.d(name, "name");
                     Log.d(date, "date");
@@ -291,10 +313,18 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
 
+
         final ArrayList<String> items_type = new ArrayList<String>();
         items_type.add("Change Type?");
         for (int i = 0; i < nameListType.size(); i++) {
             items_type.add(nameListType.get(i));
+
+      //  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+       //     //Här inne är vad som sker när en grej i listan väljs
+       //     Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
+       //     toast.show();
+            /**Denna toast visar i en liten ruta vilken man valt*/
+
         }
         //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
         final MaterialBetterSpinner materialBetterSpinnerTypes = (MaterialBetterSpinner) findViewById(R.id.material_spinner_type);

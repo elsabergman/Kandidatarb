@@ -59,6 +59,7 @@ public class add_event extends SlidingMenuActivity {
     EditText date;
     EditText starttime;
     EditText stoptime;
+    String url = "130.243.199.160";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,9 @@ public class add_event extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String status = (myCallback.execution_Get("http://130.243.201.128:8000/university/", token, "GET", "No JsonData"));
+
+            String status = (myCallback.execution_Get("http://"+ url+":8000/university/", token, "GET", "No JsonData"));
+
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
@@ -148,12 +151,6 @@ public class add_event extends SlidingMenuActivity {
 
 
                             }
-
-                        {
-
-
-
-                        }
                     }
                 }
             }
@@ -172,7 +169,7 @@ public class add_event extends SlidingMenuActivity {
                     Callback myCallback = new Callback();
                     try {
 
-                        String all_campuses = (myCallback.execution_Get("http://130.243.201.128:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+                        String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
 
 
                         myCampusArray = new JSONArray(all_campuses);
@@ -267,7 +264,9 @@ public class add_event extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String all_rooms = (myCallback.execution_Get("http://130.243.201.128:8000/campus-location/?campus="+campusId, token, "GET", "No JsonData"));
+
+            String all_rooms = (myCallback.execution_Get("http://"+url+":8000/campus-location/?campus="+campusId, token, "GET", "No JsonData"));
+
 
             myRoomArray = new JSONArray(all_rooms);
             nameRoomList = new ArrayList<String>();
@@ -448,7 +447,8 @@ public class add_event extends SlidingMenuActivity {
 
                     try {
 
-                        String status = (myCallback.execution_Post("http://130.243.201.128:8000/events/", token,"POST",post_dict.toString()));
+
+                        String status = (myCallback.execution_Post("http://"+url+":8000/events/", token,"POST",post_dict.toString()));
 
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();

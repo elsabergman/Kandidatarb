@@ -3,16 +3,13 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,22 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.android.campusapp.Constants.DESCRIPTION;
@@ -44,6 +28,7 @@ import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
+import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by elsabergman on 2017-04-10.
@@ -78,6 +63,10 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*----------------------------------------------*/
 
+        TextView header = (TextView) findViewById(R.id.your_events);
+        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
+        header.setTypeface(custom_font);
+
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
@@ -86,7 +75,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.201.128:8000/events/my-events/", token, "GET", "No JsonData"));
+        try { String status = (myCallback.execution_Get("http://130.243.199.160:8000/events/my-events/", token, "GET", "No JsonData"));
 
 
     if (status == "false"){
@@ -122,12 +111,25 @@ public class org_my_events extends SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
+                    String url = json_data.getString("external_url");
                 //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
-                    list.get(i).put(THIRD_COLUMN,owner );
-                    list.get(i).put(FOURTH_COLUMN, name );
+                    list.get(i).put(THIRD_COLUMN,name);
+                    //list.get(i).put(FOURTH_COLUMN, name );
                     list.get(i).put(DESCRIPTION, description);
+
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+                    }
+
+                    else {
+
+                        list.get(i).put(URL, url);
+                    }
+
+
                     total_list.add(list.get(i));
 
 
@@ -137,6 +139,7 @@ public class org_my_events extends SlidingMenuActivity {
                     Log.d(start_time,"start");
                     Log.d(end_time, "end");
                     Log.d(description,"description");
+                    Log.d(url, "external_url");
                    // Log.d(id, "id");
 
 

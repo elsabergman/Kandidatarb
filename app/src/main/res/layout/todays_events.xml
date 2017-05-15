@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:text="Find out what happens on your Campus! "
+                android:text="Find out what happens at Campus! "
                 android:theme="@style/org_header"
                 android:layout_marginTop="70dp"
                 android:padding="10dp"
@@ -84,6 +84,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:background="@color/white"
+                android:layout_marginBottom="10dp"
                 />
 
             <TextView
@@ -105,7 +106,15 @@
 
 
 
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/todays_events_list"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/testimage"
 
+                />
 
         <!--    <ImageButton
                 android:id="@+id/ib_close"
