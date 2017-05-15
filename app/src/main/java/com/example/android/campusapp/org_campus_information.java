@@ -89,7 +89,7 @@ public class org_campus_information extends SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://130.243.201.128:8000/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
 
 
             JSONObject myInfoObject = new JSONObject(status);
@@ -97,7 +97,7 @@ public class org_campus_information extends SlidingMenuActivity {
             System.out.println(universityJson + " universityJson");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
-            String universities = (myCallback.execution_Get("http://130.243.201.128:8000/university/", token, "GET", "No JsonData"));
+            String universities = (myCallback.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
             JSONArray myuniversities = new JSONArray(universities);
 
             for (int i = 0; i < myuniversities.length(); i++) {
@@ -109,7 +109,7 @@ public class org_campus_information extends SlidingMenuActivity {
                 }
 
             }
-            String all_campuses = (myCallback.execution_Get("http://130.243.201.128:8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
+            String all_campuses = (myCallback.execution_Get("http://130.243.199.160:8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
             myCampusArray = new JSONArray(all_campuses);
 
         } catch (InterruptedException e) {
