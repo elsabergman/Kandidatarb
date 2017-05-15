@@ -188,6 +188,7 @@ public class org_campus_information extends SlidingMenuActivity {
                                 String opening_hours = json_data.getString("opening_hours");
                                 image = json_data.getString("image");
 
+
                                 txtaddress.setText(street_address + ", " + postal_code + ", " + city);
                                 txtopening.setText(opening_hours);
                                 txtphone.setText(phone_number);
@@ -257,6 +258,7 @@ public class org_campus_information extends SlidingMenuActivity {
                     View customView = inflater.inflate(R.layout.popup_file, null);
 
                     iv = (ImageView) customView.findViewById(R.id.tv);
+
                     new DownloadImageTask(iv).execute(image); //calls class DownloadImageTask
 
 
