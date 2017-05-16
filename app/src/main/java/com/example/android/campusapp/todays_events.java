@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
+import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
@@ -68,6 +69,8 @@ public class todays_events extends student_SlidingMenuActivity {
     String theId;
     //String token;
     String serverURL = "130.243.199.160";
+    private String sendStringTypes = "";
+    private String sendStringCampuses ="";
 
     private String token = null;
 
@@ -131,7 +134,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -144,18 +147,15 @@ public class todays_events extends student_SlidingMenuActivity {
                     String name = json_data.getString("name_event");
                     String start_time = json_data.getString("start_time");
                     String end_time = json_data.getString("stop_time");
-                    String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-
                     list.get(i).put(THIRD_COLUMN,name);
-                  //  list.get(i).put(FOURTH_COLUMN, name );
-
                     list.get(i).put(DESCRIPTION, description);
+                    list.get(i).put(URL,url);
+                    list.get(i).put(FAVORITES,"Add to favorites");
                     total_list.add(list.get(i));
                     if ( url != null) {
 
@@ -177,7 +177,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 
 
@@ -227,10 +227,6 @@ public class todays_events extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
 
         final ArrayList<String> items_camp = new ArrayList<String>();
         items_camp.add("Change Campus?");
@@ -404,45 +400,63 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
 
-//-----------------------------SEND CAMPUS SORTING TO DATABASE----------------
+//-----------------------------GET CAMPUS SORTING TO DATABASE----------------
     public void sendInfoToDatabase(ArrayList<String> items_checkedCampuses) {
         System.out.println("We now send this CAMPUSES to database from todays_events: "+items_checkedCampuses);
 
-                /*-----------remember token--------------------*/
-        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
-        /*----------------------------------------------*/
+        sendStringCampuses = "";
+        boolean resultOfComparison;
+        //items_checkedTypes.add(items_checkedTypes.toString());
+        for (int k=0; k<items_checkedCampuses.size(); k++) {
+            resultOfComparison=items_checkedCampuses.get(k).equals(items_checkedCampuses.get(k));
+            sendStringCampuses = sendStringCampuses+((items_checkedCampuses.get(k))+"&");
+            sendStringCampuses = sendStringCampuses.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\\ ","&20").replaceAll("\\,","");
+            if(resultOfComparison == false) {
+                items_checkedCampuses.add(items_checkedCampuses.get(k));
+            }
+        }
 
-        System.out.println("token inside sendInfoTodatbase is " + token);
+
+        System.out.println("We try in senfInfoToDatabase to send url: "+"http://"+serverURL+":8000/events/?type_event="+sendStringCampuses);
+
 
     }
 
 
-
+//---------------------GET FROM DATABASE WITH FILTERING -------------
     public void sendInfoToDatabaseType(ArrayList<String> items_checkedTypes) {
-        System.out.println("We now send this TYPES to database from todays_events: "+items_checkedTypes);
+
+        //Here we makethe checked types to a string in the right format to send to database
+        sendStringTypes = "";
+        boolean resultOfComparison;
+        //items_checkedTypes.add(items_checkedTypes.toString());
+        for (int k=0; k<items_checkedTypes.size(); k++) {
+            resultOfComparison=items_checkedTypes.get(k).equals(items_checkedTypes.get(k));
+            sendStringTypes = sendStringTypes+((items_checkedTypes.get(k))+"&");
+            sendStringTypes = sendStringTypes.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\\ ","&20").replaceAll("\\,","");
+            if(resultOfComparison == false) {
+                items_checkedTypes.add(items_checkedTypes.get(k));
+            }
+        }
 
 
 
+        System.out.println("We now send this TYPES to database from todays_events: "+sendStringTypes);
         System.out.println("token inside sendInfoTodatbaseType is " + token);
+        System.out.println("We try in sendInfoToDatabaseTypes to send url: "+"http://"+serverURL+":8000/events/?type_event="+sendStringTypes);
 
-
-
-
-        //---------------------TESTING RELOADING LIST OFEVENTS. PROBLEMS WITH TOKEN 12/5 ARVID
-
-
-        Callback myCallback = new Callback();
+        //---------------------TESTING RELOADING LIST OFEVENTS
+    /*    Callback myCallback = new Callback();
 
         try {
 
-            System.out.println("We try to send url: "+"http://"+serverURL+":8000/events/"+items_checkedTypes);
+
 
             String lunchlecturetry = "Lunch Lecture";
             System.out.println("TOKEN IS: "+token);
 
-            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event=Lunch%20Lecture", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event="+sendStringTypes, token, "GET", "No JsonData"));
             System.out.println("STATUS IS "+status);
 
 
@@ -457,12 +471,12 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
                 /* --- create hash map that all Json objects are inserted to --- */
-                list = new ArrayList<HashMap<String, String>>();
+      /*          list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
                 ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
-                for (int i = 0; i < myEventsArray.length(); i++) {
+      /*          for (int i = 0; i < myEventsArray.length(); i++) {
                     list.add(new HashMap<String, String>());
                 }
 
@@ -503,7 +517,7 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
 
