@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 
 import static com.example.android.campusapp.R.id.campusesSpinnerSettingsStud;
+import static com.example.android.campusapp.R.id.editSaveSwitch;
 import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
 
 //import static com.example.android.campusapp.R.id.campusesSpinner;
@@ -40,6 +41,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
     private TextView switchStatus;
     private Switch mySwitch;
+    private Switch editSaveSwitch;
 
     //EditText orgnameInput;
     EditText studemailInput;
@@ -113,6 +115,45 @@ public class student_settings extends student_SlidingMenuActivity {
 
             }
         });
+
+
+
+        //---------------TOGGLESWITCH FOR EDIT SAVE info---------------
+
+        //Create the switch for edit/save
+        //switchStatusEditSave = (TextView) findViewById(R.id.notifications);
+        editSaveSwitch = (Switch) findViewById(R.id.editSaveSwitchStudent);
+
+        //Here we make the switch to be on save on start of page
+        Boolean switchValueEditSave = false;
+        editSaveSwitch.setChecked(switchValueEditSave);
+        //attach a listener to check for changes in state
+        editSaveSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean switchValueEditSave) {
+                if (switchValueEditSave) {
+                    editSaveSwitch.setChecked(true);
+                    View editView = findViewById(R.id.editSaveSwitchStudent);
+                    editInfoStudent(editView);
+                    ((Switch) findViewById(R.id.editSaveSwitchStudent)).setText("Save");
+
+                } else {
+                    editSaveSwitch.setChecked(false);
+                    View saveView = findViewById(R.id.editSaveSwitchStudent);
+                    saveInfoStudent(saveView);
+                    ((Switch) findViewById(R.id.editSaveSwitchStudent)).setText("Edit");
+                }
+
+            }
+        });
+
+        // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
+
+
+
+
+
+
 
         //Here vi initiate the spinners
         final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
@@ -228,10 +269,30 @@ public class student_settings extends student_SlidingMenuActivity {
         }
 
         final ArrayList<String> items_uni = new ArrayList<String>();
-        items_uni.add("Change University?");
+      /*  items_uni.add("Change University?");
         for (int i=0; i<nameList.size(); i++) {
             items_uni.add(nameList.get(i));
         }
+        */
+
+
+              /*------------------add campuses to spinner list, with chosen campus as the first element */
+
+        boolean resultOfComparisonUni;
+        items_uni.add(universityJson.toString());
+        for (int k=0; k<nameList.size(); k++) {
+            resultOfComparisonUni=nameList.get(k).equals(items_uni.get(0));
+            System.out.println("resultOfComparisonUni is "+resultOfComparisonUni);
+            if(resultOfComparisonUni == false) {
+                items_uni.add(nameList.get(k));
+            }
+
+        }
+
+        //-------------------------------------------------------------------------------
+
+
+
         final Spinner uni_spinner = (Spinner) findViewById(R.id.universitySpinnerSettingsStud);
 
         System.out.println("items_uni is "+items_uni);
@@ -249,12 +310,12 @@ public class student_settings extends student_SlidingMenuActivity {
                 chosen_uni = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
 
 
-                if (chosen_uni != "Change University?") {
+              //  if (chosen_uni != "Change University?") {
 
 
                     for (int i = 0; i < myUniArray.length(); i++) {
                           /* if the chosen uni equals the uni in place i+1 (add 1 because first place is "Choose Uni...") */
-                        if (chosen_uni == items_uni.get(i+1)) {
+                        if (chosen_uni == items_uni.get(i/*+1*/)) {
                             theId = idList.get(i);
 
                             ChooseMyCampus(theId, token); //Call choose campus with the chosen university
@@ -268,7 +329,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
                         }
                     }
-                }
+                //}
             }
 
             @Override
@@ -316,10 +377,23 @@ public class student_settings extends student_SlidingMenuActivity {
         final Spinner spinner = (Spinner)findViewById(campusesSpinnerSettingsStud);
         //  String[] items_campus = new String[]{"Choose Campus"};
         final ArrayList<String> items_campus = new ArrayList<String>();
-        items_campus.add("Choose Campus...");
-        for (int i=0; i<nameCampusList.size(); i++) {
+        //items_campus.add("Choose Campus...");
+        /*for (int i=0; i<nameCampusList.size(); i++) {
             items_campus.add(nameCampusList.get(i));
+        }*/
+
+        boolean resultOfComparison;
+        items_campus.add(campusJson.toString());
+        for (int k=0; k<nameCampusList.size(); k++) {
+            resultOfComparison=nameCampusList.get(k).equals(items_campus.get(0));
+            System.out.println("resultOfComparison "+resultOfComparison);
+            if(resultOfComparison == false) {
+                items_campus.add(nameCampusList.get(k));
+            }
+
         }
+
+
 
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);
         campusadapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -335,19 +409,19 @@ public class student_settings extends student_SlidingMenuActivity {
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
 
-                if (chosen_campus != "Choose Campus...") {
+              //  if (chosen_campus != "Choose Campus...") {
 
                     for (int i = 0; i < myCampusArray.length(); i++) {
 
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
-                        if (chosen_campus == items_campus.get(i+1)) //Den kallar på ChooseRoom två gånger! fixa detta!
+                        if (chosen_campus == items_campus.get(i/*+1*/)) //Den kallar på ChooseRoom två gånger! fixa detta!
                         {
                             theIdCampus = idCampusList.get(i);
 
 
                         }
                     }
-                }
+               // }
 
 
                 JSONObject post_dict = new JSONObject(); //creates Json object
@@ -368,7 +442,7 @@ public class student_settings extends student_SlidingMenuActivity {
                     try {
                         String status = (myCallback.execution_Post("http://130.243.199.160:8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
                         if (status == "true") {
-                            Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
+                           // Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
                         }if(status == "false"){
                             Toast.makeText(student_settings.this, "Campus could not be updated", Toast.LENGTH_LONG).show();
                         }
@@ -462,7 +536,7 @@ public class student_settings extends student_SlidingMenuActivity {
                     studfirstnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
                     studlastnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
 
-                    Toast.makeText(student_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(student_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
                 }
                 if (status == "false") {
                     Toast.makeText(student_settings.this, "User could not be edited", Toast.LENGTH_LONG).show();

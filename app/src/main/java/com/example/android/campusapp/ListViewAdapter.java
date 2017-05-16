@@ -111,7 +111,7 @@ public class ListViewAdapter extends BaseAdapter {
             txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
             txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
             txtThird=(TextView) convertView.findViewById(R.id.Time);
-           // txtFourth=(TextView) convertView.findViewById(R.id.owner);
+            txtFourth=(TextView) convertView.findViewById(R.id.owner);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
             txtURL = (TextView) convertView.findViewById((R.id.url));
             txtCampus = (TextView) convertView.findViewById((R.id.campus_name));

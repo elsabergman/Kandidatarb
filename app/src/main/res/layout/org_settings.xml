@@ -21,7 +21,7 @@
         android:layout_height="wrap_content">
 
 
-        <TextView
+        <!--TextView
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
 
-            />
+            /-->
 
         <!--<TextView
             android:id="@+id/testDisplayText"
@@ -51,9 +51,9 @@
             android:theme="@style/header2"
             android:textColor="@color/white"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="120dp"/>
+            android:layout_marginTop="80dp"/>
 
-        <Button
+        <!--Button
             android:id="@+id/edit_my_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,9 +65,9 @@
             android:layout_marginLeft="120dp"
             android:minWidth="0dp"
             android:onClick="editInfo"
-            />
+            /-->
 
-        <Button
+        <!--Button
             android:id="@+id/display_my_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:onClick="saveInfo"
-            />
+            /-->
 
 
 
@@ -96,6 +96,19 @@
 
 
             />
+
+        <Switch
+            android:id="@+id/editSaveSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/darkest_blue"
+            android:text="Edit"
+            android:layout_alignRight="@id/background_myprofile"
+            android:layout_alignTop="@id/background_myprofile"
+
+          />
 
         <TextView
             android:id="@+id/firstName"
@@ -120,9 +133,10 @@
             android:layout_toRightOf="@id/firstName"
             android:layout_below="@id/my_profile"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
             android:focusable="false"
+            android:background="@android:color/transparent"
 
             />
 
@@ -149,9 +163,10 @@
             android:layout_toRightOf="@id/firstName"
             android:layout_below="@id/firstName"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
             android:focusable="false"
+            android:background="@android:color/transparent"
 
             />
 
@@ -160,7 +175,7 @@
             android:id="@+id/organization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/organzation"
+            android:text="Organsation"
             android:textSize="20sp"
             android:textColor="@color/darkest_blue"
             android:layout_below="@id/lastName"
@@ -173,15 +188,16 @@
             android:id="@+id/organization_nameInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Organization"
+            android:hint="Organisation"
             android:textSize="20sp"
             android:textColor="@color/darkest_blue"
             android:layout_toRightOf="@id/firstName"
             android:layout_below="@id/lastName"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
             android:focusable="false"
+            android:background="@android:color/transparent"
 
         />
 
@@ -202,15 +218,16 @@
             android:id="@+id/organization_emailInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="email"
+            android:hint="Email"
             android:textSize="20dp"
             android:textColor="@color/darkest_blue"
             android:layout_toRightOf="@id/firstName"
             android:layout_below="@id/organization"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
             android:focusable="false"
+            android:background="@android:color/transparent"
 
             />
 
@@ -237,9 +254,10 @@
             android:layout_toRightOf="@id/firstName"
             android:layout_below="@id/email"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:elevation="@dimen/activity_vertical_margin"
             android:focusable="false"
+            android:background="@android:color/transparent"
 
             />
 

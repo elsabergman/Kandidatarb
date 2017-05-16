@@ -18,32 +18,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.example.android.campusapp.R.id.organization_nameInput;
-import static com.example.android.campusapp.R.id.textView2;
-import static com.example.android.campusapp.R.layout.nav_header_sliding_menu;
-
 
 public class student_SlidingMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
-
-
-
     DrawerLayout drawer;
     Button btn;
     ProgressDialog dialog;
-    //TextView firstname;
+    private View navHeader;
+    String first_name, campus_name;
+    private TextView textName, textCampus;
+    private NavigationView navigationView;
 
 
 
@@ -52,69 +45,32 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.nav_header_sliding_menu);
         setContentView(R.layout.student_sliding_menu);
+        /*TextView user = (TextView) findViewById(R.id.header_logged_in);
+        user.setText("Elsa Bergman");*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
 
-        //TextView firstname = (TextView) findViewById(R.id.textView2);
-        //System.out.println("firstname is "+firstname.getText().toString());
 
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+     //   textName = (TextView) navHeader.findViewById(R.id.header_logged_in);
+     //   textCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
 
-        /* ------START Arvid fixat här men problem så kommenterar ut 9/5. Tanken är att ladda in namn in i headern i sliding menuen*/
-
-       /* LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View nameview = inflater.inflate(R.layout.nav_header_sliding_menu, null);*/
-
-       /* TextView firstname = (TextView) nameview.findViewById(R.id.textView2);
-        TextView lastname = (TextView) nameview.findViewById(R.id.textView);
-        System.out.println(firstname);
-        System.out.println(lastname);*/
-        //firstname.setText("AWESOME!!!!");
-        //lastname.setText("AWESOMESSON");
-
-
-
-
-        /*-----------remember token--------------------*/
-        String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println("token inside oncreate is "+token);
+           /*-----------remember token--------------------*/
+        final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
-
-
-
-
-         //-------------- HÄR har ARVID pausat att försöka komma åt  textView2 i nav_header_sliding_menu för att det går skit.  Problemet är att skapa firstname. Återkommer efter klar med settings! 9/5
-        /*TextView firstname = (TextView) findViewById(R.id.textView27);
-        //TextView firstname = ((TextView) findViewById(R.id.nametextview111).findViewById(R.id.textView2));
-
-        System.out.println("firstname outside try  is: " + firstname );
-
-        //-----------Here we get data from database to display once the page is loaded!-------------
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading....");
-        dialog.show();
-
         Callback myCallback = new Callback();
+
         try {
-            String status = (myCallback.execution_Get("http://130.238.242.71:8000/profile/", token, "GET", "No JsonData"));
-            System.out.println("status is "+status);
+            String status = (myCallback.execution_Get("http://130.243.177.4:8000/profile/", token , "GET", "No JsonData"));
 
-            if (status == "false"){
-                Toast.makeText(student_SlidingMenuActivity.this, "could not fetch user info from database", Toast.LENGTH_LONG).show();
-            }
-            else {
-                //Here we get separate objects from json string
-                JSONObject myInfoObject = new JSONObject(status);
-                System.out.println("This row is just after myinfoarray is created");
-
-                String firstnameJson = myInfoObject.getString("first_name");
-
-                System.out.println("first_name is "+firstnameJson);
-                System.out.println("firstname inside try is: " + firstname );
-
-                firstname.setText(firstnameJson);
-            }
+            JSONObject myProfile = new JSONObject(status);
+            first_name = myProfile.getString("first_name");
+            System.out.println(first_name + " first_name");
+            campus_name = myProfile.getJSONObject("campus").getString("campus_name");
+            System.out.println(campus_name + " campus_name");
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -124,36 +80,21 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        dialog.dismiss();
-
-        /*------------------Slut hämta data databasen till namnet i toppen -------------*/
-        /* ------SLUT Arvid fixat här men problem så kommenterar ut 9/5 */
-
+        textName.setText(first_name);
+        textCampus.setText(campus_name);
 
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-
-                System.out.println("HEJ");
                 Intent intent = new Intent(student_SlidingMenuActivity.this, login.class);
                 startActivity(intent);
-
-
 
             }
 
         });
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

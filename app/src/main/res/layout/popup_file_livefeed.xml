@@ -38,6 +38,14 @@
                 android:layout_centerHorizontal="true"
                 android:textSize="40sp"
                 android:id="@+id/header_livefeed"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* only 70 characters"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:id="@+id/header_condition"
+                android:layout_below="@id/header_livefeed"/>
         <EditText
             android:id="@+id/feed_text"
             android:layout_width="300dp"
@@ -46,6 +54,7 @@
             android:hint="Description"
             android:layout_below="@+id/header_livefeed"
             android:layout_marginTop="30dp"
+            android:maxLength="70"
             />
         <EditText
             android:id="@+id/feed_location"

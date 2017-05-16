@@ -78,7 +78,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.199.160:8000/events/my-events/", token, "GET", "No JsonData"));
+        try { String status = (myCallback.execution_Get("http://130.243.177.4:8000/events/my-events/", token, "GET", "No JsonData"));
 
 
     if (status == "false"){
@@ -98,7 +98,7 @@ public class org_my_events extends SlidingMenuActivity {
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list=new ArrayList<HashMap<String,String>>();
-                total_list=new ArrayList<HashMap<String,String>>();
+
                 ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
@@ -123,7 +123,7 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
-                    //list.get(i).put(FOURTH_COLUMN, name );
+
                     list.get(i).put(DESCRIPTION, description);
 
                     if ( url != null) {
@@ -142,9 +142,6 @@ public class org_my_events extends SlidingMenuActivity {
                         list.get(i).put(CAMPUS_NAME, campus_name);
                         list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
                     }
-
-
-                    total_list.add(list.get(i));
 
 
 

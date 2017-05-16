@@ -7,71 +7,97 @@ android:layout_height="wrap_content"
 android:drawSelectorOnTop="true"
 android:listSelector="@drawable/list_row_color"
 android:background="@drawable/list_row_color">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateEvent"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"/>
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/dateEvent"
-    android:textStyle="bold"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_weight="1"/>
+    <TextView
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/nameEvent"
+        android:layout_toRightOf="@id/dateEvent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
 
-<TextView
-    android:layout_width="65dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:id="@+id/nameEvent"
-    android:layout_toRightOf="@id/dateEvent"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="10dp"/>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/Time"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@id/nameEvent" />
 
-<TextView
-    android:layout_width="80dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:id="@+id/Time"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_toRightOf="@id/nameEvent" />
-
-<ImageView
-    android:layout_height="wrap_content"
-    android:id="@+id/owner"
-    android:layout_weight="1"
-    android:layout_toRightOf="@id/Time"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_width="100dp" />
-
-
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/description"
-    android:textSize="17sp"
-    android:layout_below="@+id/dateEvent"
-    android:layout_marginTop="0dp"
-    android:layout_marginLeft="3dp"
-    android:layout_marginBottom="5dp"
-    android:visibility="gone"/>
-<!--<ToggleButton
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:id="@+id/fav_toggleButton"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:textOn=""
-    android:textOff=""/>-->
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/owner"
+        android:layout_weight="1"
+        android:layout_toRightOf="@id/Time"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp"
+        android:layout_width="100dp" />
 
 
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/fav_image"
-    android:layout_toRightOf="@+id/owner"
-  />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:textSize="16sp"
+        android:layout_below="@+id/dateEvent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/url"
+        android:textSize="14sp"
+        android:layout_below="@+id/description"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fav"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/description"
+        android:onClick="onClick"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="7dp"
+   />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/remove_fav"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/description"
+        android:layout_marginRight="7dp"
+        android:onClick="onClick"
+
+        />
 
 </RelativeLayout>
 <!--  android:background="@drawable/favorite_toggle"-->

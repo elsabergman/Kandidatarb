@@ -41,11 +41,10 @@
         android:textSize="30dp"
         android:text="at"
         android:textColor="@color/icon_color"
-        android:layout_alignBaseline="@+id/title"
-        android:layout_alignBottom="@+id/title"
-        android:layout_toLeftOf="@+id/addition"
-        android:layout_toStartOf="@+id/addition" />
-    -->
+        android:layout_toLeftOf="@+id/title"
+        android:layout_below="@+id/campus_hat"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="4dp"/>
     <!-- Email Label -->
 
 
@@ -130,35 +129,7 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/loginFB"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addition"
-        android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:id="@+id/facebookIcon"
-            android:layout_width="22dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/facebook_icon"
-            />
-
-
-        <TextView
-            android:id="@+id/login_with_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login with Facebook"
-            android:textSize="15sp"
-            android:layout_toRightOf="@id/facebookIcon"
-            android:layout_marginTop="15dp"
-
-
-            />
-    </LinearLayout>
 -->
 
 </RelativeLayout>
