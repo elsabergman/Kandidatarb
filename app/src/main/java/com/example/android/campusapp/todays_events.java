@@ -68,6 +68,8 @@ public class todays_events extends student_SlidingMenuActivity {
     String theId;
     //String token;
     String serverURL = "130.243.199.160";
+    private String sendStringTypes = "";
+    private String sendStringCampuses ="";
 
     private String token = null;
 
@@ -404,45 +406,63 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
 
-//-----------------------------SEND CAMPUS SORTING TO DATABASE----------------
+//-----------------------------GET CAMPUS SORTING TO DATABASE----------------
     public void sendInfoToDatabase(ArrayList<String> items_checkedCampuses) {
         System.out.println("We now send this CAMPUSES to database from todays_events: "+items_checkedCampuses);
 
-                /*-----------remember token--------------------*/
-        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
-        /*----------------------------------------------*/
+        sendStringCampuses = "";
+        boolean resultOfComparison;
+        //items_checkedTypes.add(items_checkedTypes.toString());
+        for (int k=0; k<items_checkedCampuses.size(); k++) {
+            resultOfComparison=items_checkedCampuses.get(k).equals(items_checkedCampuses.get(k));
+            sendStringCampuses = sendStringCampuses+((items_checkedCampuses.get(k))+"&");
+            sendStringCampuses = sendStringCampuses.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\\ ","&20").replaceAll("\\,","");
+            if(resultOfComparison == false) {
+                items_checkedCampuses.add(items_checkedCampuses.get(k));
+            }
+        }
 
-        System.out.println("token inside sendInfoTodatbase is " + token);
+
+        System.out.println("We try in senfInfoToDatabase to send url: "+"http://"+serverURL+":8000/events/?type_event="+sendStringCampuses);
+
 
     }
 
 
-
+//---------------------GET FROM DATABASE WITH FILTERING -------------
     public void sendInfoToDatabaseType(ArrayList<String> items_checkedTypes) {
-        System.out.println("We now send this TYPES to database from todays_events: "+items_checkedTypes);
+
+        //Here we makethe checked types to a string in the right format to send to database
+        sendStringTypes = "";
+        boolean resultOfComparison;
+        //items_checkedTypes.add(items_checkedTypes.toString());
+        for (int k=0; k<items_checkedTypes.size(); k++) {
+            resultOfComparison=items_checkedTypes.get(k).equals(items_checkedTypes.get(k));
+            sendStringTypes = sendStringTypes+((items_checkedTypes.get(k))+"&");
+            sendStringTypes = sendStringTypes.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\\ ","&20").replaceAll("\\,","");
+            if(resultOfComparison == false) {
+                items_checkedTypes.add(items_checkedTypes.get(k));
+            }
+        }
 
 
 
+        System.out.println("We now send this TYPES to database from todays_events: "+sendStringTypes);
         System.out.println("token inside sendInfoTodatbaseType is " + token);
+        System.out.println("We try in sendInfoToDatabaseTypes to send url: "+"http://"+serverURL+":8000/events/?type_event="+sendStringTypes);
 
-
-
-
-        //---------------------TESTING RELOADING LIST OFEVENTS. PROBLEMS WITH TOKEN 12/5 ARVID
-
-
-        Callback myCallback = new Callback();
+        //---------------------TESTING RELOADING LIST OFEVENTS
+    /*    Callback myCallback = new Callback();
 
         try {
 
-            System.out.println("We try to send url: "+"http://"+serverURL+":8000/events/"+items_checkedTypes);
+
 
             String lunchlecturetry = "Lunch Lecture";
             System.out.println("TOKEN IS: "+token);
 
-            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event=Lunch%20Lecture", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event="+sendStringTypes, token, "GET", "No JsonData"));
             System.out.println("STATUS IS "+status);
 
 
@@ -457,12 +477,12 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
                 /* --- create hash map that all Json objects are inserted to --- */
-                list = new ArrayList<HashMap<String, String>>();
+      /*          list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
                 ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
-                for (int i = 0; i < myEventsArray.length(); i++) {
+      /*          for (int i = 0; i < myEventsArray.length(); i++) {
                     list.add(new HashMap<String, String>());
                 }
 
@@ -503,7 +523,7 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
 
