@@ -55,8 +55,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
-     //   textName = (TextView) navHeader.findViewById(R.id.header_logged_in);
-     //   textCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
+        textName = (TextView) navHeader.findViewById(R.id.header_logged_in);
+        textCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
 
            /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);

@@ -45,6 +45,7 @@ public class org_my_events extends SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
+    TextView textUser;
     String serverUrl = "130.243.199.160";
     private Date dateTime;
 
@@ -81,6 +82,13 @@ public class org_my_events extends SlidingMenuActivity {
 
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
 
+            String default_options = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
+
+            JSONObject myInfoObject = new JSONObject(default_options);
+            first_name = myInfoObject.getString("first_name");
+
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
 
     if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();

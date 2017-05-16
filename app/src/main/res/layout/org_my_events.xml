@@ -16,7 +16,7 @@
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello STS-sektionen!"
+        android:text=""
         android:theme="@style/org_header"
         android:textColor="#fff"
         android:layout_centerHorizontal="true"

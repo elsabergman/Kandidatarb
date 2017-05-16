@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -53,6 +54,7 @@ public class add_event extends SlidingMenuActivity {
     ArrayList<String> idCampusList;
     ArrayList<String> nameRoomList;
     ArrayList<String> idRoomList;
+    TextView textUser;
     JSONArray myRoomArray;
      EditText event_name;
     EditText company_name;
@@ -128,9 +130,12 @@ public class add_event extends SlidingMenuActivity {
             String default_options = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
             JSONObject myInfoObject = new JSONObject(default_options);
+            first_name = myInfoObject.getString("first_name");
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
 
 
 

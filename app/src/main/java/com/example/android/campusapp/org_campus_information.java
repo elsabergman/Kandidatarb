@@ -62,9 +62,7 @@ public class org_campus_information extends SlidingMenuActivity {
     ArrayList<String> nameCampusList;
     ArrayList<String> idCampusList;
     TextView txtaddress;
-    TextView txtopening;
-    TextView txtemail;
-    TextView txtphone;
+    TextView txtopening, txtemail,txtphone, textUser;
     String image;
     ImageView iv ;
     String serverUrl = "130.243.199.160";
@@ -91,14 +89,17 @@ public class org_campus_information extends SlidingMenuActivity {
 
         try {
 
+
             String status = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
 
 
             JSONObject myInfoObject = new JSONObject(status);
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             System.out.println(universityJson + " universityJson");
+            first_name = myInfoObject.getString("first_name");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
-
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
             String universities = (myCallback.execution_Get("http://"+serverUrl+":8000/university/", token, "GET", "No JsonData"));
             JSONArray myuniversities = new JSONArray(universities);
 

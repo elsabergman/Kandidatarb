@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:text="Hello STS-sektionen!"
+        android:text=""
         android:textSize="20sp"
         android:textColor="#fff"
 
