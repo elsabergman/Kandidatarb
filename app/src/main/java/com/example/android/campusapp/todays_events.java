@@ -72,6 +72,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String serverURL = "130.243.199.160";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
+    String University;
 
     private String token = null;
 
@@ -79,7 +80,7 @@ public class todays_events extends student_SlidingMenuActivity {
     ArrayList<String> nameList;
     ArrayList<String> nameListType;
     ArrayList<String> idListType;
-
+    TextView textUni;
 
 
     JSONArray myCampArray;
@@ -102,14 +103,35 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
 
-             /*---Fonts for our Logo---*/
-        TextView header = (TextView) findViewById(R.id.todays_events);
-        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
-        header.setTypeface(custom_font);
-        /*--------------------------*/
+
 
 
         Callback myCallback = new Callback();
+
+        String default_options = null;
+        try {
+            default_options = (myCallback.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
+            JSONObject myInfoObject = new JSONObject(default_options);
+            University = myInfoObject.getJSONObject("campus").getString("university_name");
+            textUni = (TextView) findViewById(R.id.todays_events);
+            textUni.setText("Find out what happens at " + University);
+
+                 /*---Fonts for our Logo---*/
+            TextView header = (TextView) findViewById(R.id.todays_events);
+            Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
+            header.setTypeface(custom_font);
+        /*--------------------------*/
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
 
 
         try {
@@ -151,7 +173,7 @@ public class todays_events extends student_SlidingMenuActivity {
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     String id_event = json_data.getString("id");
-                    //    String id =json_data.getString("id");
+                    System.out.println("event name " + name);
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name);

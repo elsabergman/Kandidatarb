@@ -73,11 +73,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
             txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
         }
-
-
-
         final HashMap<String, String> map=list.get(position);
-
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
@@ -88,7 +84,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
-
+                System.out.println(item + " hash map2");
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
                 final String id_event = item.get("id");

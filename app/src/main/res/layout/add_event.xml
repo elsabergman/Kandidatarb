@@ -91,7 +91,7 @@
         android:textColor="@color/black"
         android:textSize="17sp"
         android:inputType=""
-        android:hint="Relevant links"
+        android:hint="Relevant links (http://)"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/input_company_name"
         android:layout_alignParentLeft="true"

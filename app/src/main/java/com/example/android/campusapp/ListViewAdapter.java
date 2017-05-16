@@ -133,13 +133,6 @@ public class ListViewAdapter extends BaseAdapter {
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
 
-
-
-
-        //txtFourth.setText(map.get(FOURTH_COLUMN));
-        //txtDescription.setText(map.get(DESCRIPTION));
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -152,7 +145,7 @@ public class ListViewAdapter extends BaseAdapter {
                 String myUrl = item.get("Url");
                 String myCampus = item.get("campus_name");
                 String myRoom = item.get("campus_location_name");
-
+                System.out.println(myRoom);
                 System.out.println("My location" + myCampus);
                 System.out.println("My room" + myRoom);
 

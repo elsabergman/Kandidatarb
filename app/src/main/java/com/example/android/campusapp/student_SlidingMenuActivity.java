@@ -68,9 +68,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
 
             JSONObject myProfile = new JSONObject(status);
             first_name = myProfile.getString("first_name");
-            System.out.println(first_name + " first_name");
             campus_name = myProfile.getJSONObject("campus").getString("campus_name");
-            System.out.println(campus_name + " campus_name");
+
 
         } catch (ExecutionException e) {
             e.printStackTrace();
