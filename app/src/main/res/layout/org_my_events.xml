@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/description_info"
-        android:text="Can't see any events below? Create your first event in the toggle bar!"
+        android:text="Can't see any events below? Create your first event in the toggle menu!"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="40dp"

@@ -17,6 +17,11 @@ public class Constants {
     public static final String DESCRIPTION = "Description";
     public static final String HEART = "heart";
     public static final String URL = "Url";
+
+    public static final String CAMPUS_NAME = "campus_name";
+    public static final String CAMPUS_LOCATION_NAME = "campus_location_name";
+
     public static final String FAVORITES = "favorites";
     public static final String ID = "id";
+
 }

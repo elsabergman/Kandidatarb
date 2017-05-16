@@ -90,7 +90,9 @@ public class org_campus_information extends SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
+
             String status = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
+
 
             JSONObject myInfoObject = new JSONObject(status);
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");

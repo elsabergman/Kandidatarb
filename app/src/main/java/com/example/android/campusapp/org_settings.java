@@ -349,7 +349,10 @@ public class org_settings extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
+
+
             String all_campuses = (myCallback.execution_Get(url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
+
 
 
             myCampusArray = new JSONArray(all_campuses);

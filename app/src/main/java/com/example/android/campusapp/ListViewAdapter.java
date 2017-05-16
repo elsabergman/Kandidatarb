@@ -64,6 +64,8 @@ public class ListViewAdapter extends BaseAdapter {
     TextView txtFourth;
     TextView txtDescription;
     TextView txtURL;
+    TextView txtCampus;
+    TextView txtRoom;
 
     ListView listView;
     boolean isVisible;
@@ -112,6 +114,8 @@ public class ListViewAdapter extends BaseAdapter {
             txtFourth=(TextView) convertView.findViewById(R.id.owner);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
             txtURL = (TextView) convertView.findViewById((R.id.url));
+            txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
+            txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
 
            // listView = (ListView) convertView.findViewById(R.id.your_event_list);
 
@@ -146,14 +150,29 @@ public class ListViewAdapter extends BaseAdapter {
 
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
+                String myCampus = item.get("campus_name");
+                String myRoom = item.get("campus_location_name");
+
+                System.out.println("My location" + myCampus);
+                System.out.println("My room" + myRoom);
 
 
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));
+                txtCampus = (TextView) view.findViewById((R.id.campus_name));
+                txtRoom = (TextView) view.findViewById((R.id.location_place_room));
+
+
                 txtDescription.setTextColor(Color.DKGRAY);
                 txtDescription.setText("Description: " + myDescription + "     " + myUrl );
                 //txtURL.setText(myUrl);
                 //txtURL.setLinkTextColor(Color.DKGRAY);
+
+                txtCampus.setTextColor(Color.DKGRAY);
+                txtCampus.setText("Campus: " +myCampus);
+
+                txtRoom.setTextColor(Color.DKGRAY);
+                txtRoom.setText("Location: " +myRoom);
 
                /* if (myUrl!= ""){
 
@@ -169,7 +188,13 @@ public class ListViewAdapter extends BaseAdapter {
 
                     txtDescription.setVisibility(View.GONE);
                   // txtURL.setVisibility(View.GONE);
+                    txtCampus.setVisibility(View.GONE);
+                    txtRoom.setVisibility(View.GONE);
+
                     txtDescription.invalidate();
+                    txtCampus.invalidate();
+                    txtRoom.invalidate();
+
                    // txtURL.invalidate();
 
                     view.setBackgroundColor(Color.WHITE);
@@ -179,8 +204,14 @@ public class ListViewAdapter extends BaseAdapter {
                 {
                     txtDescription.setVisibility(View.VISIBLE);
                    //txtURL.setVisibility(View.VISIBLE);
+                    txtCampus.setVisibility(View.VISIBLE);
+                    txtRoom.setVisibility(View.VISIBLE);
+
                    txtDescription.invalidate();
                    // txtURL.invalidate();
+                    txtCampus.invalidate();
+                    txtRoom.invalidate();
+
 
                     view.setBackgroundResource(R.color.very_light_grey);
 

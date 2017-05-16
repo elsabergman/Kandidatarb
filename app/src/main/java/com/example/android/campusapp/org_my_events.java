@@ -23,6 +23,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+
+import static com.example.android.campusapp.Constants.CAMPUS_LOCATION_NAME;
+import static com.example.android.campusapp.Constants.CAMPUS_NAME;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
@@ -113,6 +116,10 @@ public class org_my_events extends SlidingMenuActivity {
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
+                    String location_name = json_data.getString("campus_location_name");
+                    String campus_name = json_data.getString("campus_name");
+
+
                 //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
@@ -123,11 +130,18 @@ public class org_my_events extends SlidingMenuActivity {
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
                     }
 
                     else {
 
                         list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
                     }
 
 
@@ -138,6 +152,9 @@ public class org_my_events extends SlidingMenuActivity {
                     Log.d(end_time, "end");
                     Log.d(description,"description");
                     Log.d(url, "external_url");
+                    Log.d(url, "campus_name");
+                    Log.d(url, "campus_location_name");
+
                    // Log.d(id, "id");
 
 

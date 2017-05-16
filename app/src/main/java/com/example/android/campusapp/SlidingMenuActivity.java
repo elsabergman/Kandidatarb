@@ -47,7 +47,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         Button btn = (Button) findViewById(R.id.logoutButton);
       navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
-        txtName = (TextView) navHeader.findViewById(R.id.header_logged_in);
+       txtName = (TextView) navHeader.findViewById(R.id.header_logged_in);
         txtCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
 
            /*-----------remember token--------------------*/
