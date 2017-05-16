@@ -89,7 +89,7 @@ public class org_campus_information extends SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.177.4:8000/profile/", token, "GET", "No JsonData"));
 
 
             JSONObject myInfoObject = new JSONObject(status);
