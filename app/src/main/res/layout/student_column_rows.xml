@@ -66,21 +66,38 @@ android:background="@drawable/list_row_color">
         android:layout_height="wrap_content"
         android:id="@+id/url"
         android:textSize="14sp"
-        android:autoLink="web"
         android:layout_below="@+id/description"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="3dp"
         android:layout_marginBottom="5dp"
         android:visibility="gone"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fav"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/description"
+        android:onClick="onClick"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="7dp"
+   />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/remove_fav"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/description"
+        android:layout_marginRight="7dp"
+        android:onClick="onClick"
 
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/fav_image"
-    android:layout_toRightOf="@+id/owner"
-  />
+        />
 
 </RelativeLayout>
 <!--  android:background="@drawable/favorite_toggle"-->

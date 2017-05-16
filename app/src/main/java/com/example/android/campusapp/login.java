@@ -27,7 +27,7 @@ public class login extends Activity {
     URLConnection urlConn;
     DataOutputStream printout;
     DataInputStream input;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.177.4";
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -87,7 +87,7 @@ public class login extends Activity {
                     e.printStackTrace();
                 }
                 if (post_dict.length() > 0) {
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.199.160:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://"+serverURL+":8000/auth/token/");
 
 
 

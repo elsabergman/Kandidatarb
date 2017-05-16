@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
+import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
@@ -67,7 +68,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String chosen_campuses;
     String theId;
     //String token;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.177.4";
 
     private String token = null;
 
@@ -131,7 +132,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -144,18 +145,15 @@ public class todays_events extends student_SlidingMenuActivity {
                     String name = json_data.getString("name_event");
                     String start_time = json_data.getString("start_time");
                     String end_time = json_data.getString("stop_time");
-                    String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-
                     list.get(i).put(THIRD_COLUMN,name);
-                  //  list.get(i).put(FOURTH_COLUMN, name );
-
                     list.get(i).put(DESCRIPTION, description);
+                    list.get(i).put(URL,url);
+                    list.get(i).put(FAVORITES,"Add to favorites");
                     total_list.add(list.get(i));
                     if ( url != null) {
 
@@ -177,7 +175,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 
 
@@ -227,10 +225,6 @@ public class todays_events extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
 
         final ArrayList<String> items_camp = new ArrayList<String>();
         items_camp.add("Change Campus?");

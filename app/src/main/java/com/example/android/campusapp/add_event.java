@@ -61,7 +61,7 @@ public class add_event extends SlidingMenuActivity {
     EditText date;
     EditText starttime;
     EditText stoptime;
-    String url = "130.243.199.160";
+    String url = "130.243.177.4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +233,6 @@ public class add_event extends SlidingMenuActivity {
             if (resultOfComparison_campus == false) {
                 items_campus.add(nameCampusList.get(k));
                 campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(k))+1);
-                System.out.println("campus_id " + campus_id);
                 id_campus.add(campus_id);
             }
         }
@@ -256,8 +255,9 @@ public class add_event extends SlidingMenuActivity {
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                             if (chosen_campus == items_campus.get(i))
                             {
+                                System.out.println(id_campus.get(i) +  " id_campus");
                                 theIdCampus = id_campus.get(i);
-
+                                System.out.println(theIdCampus);
                                 ChooseRoom(theIdCampus, token);
 
                         }
@@ -345,10 +345,11 @@ public class add_event extends SlidingMenuActivity {
                 if (chosen_room != "Choose Room...") {
 
 
-                    for (int i = 0; i < myRoomArray.length(); i++) {
+                    for (int i = 0; i < items_room.size(); i++) {
 
                         if (chosen_room == items_room.get(i)) {
-                            theIdRoom = idRoomList.get(i);
+                            theIdRoom = idRoomList.get(i-1);
+                            System.out.println(theIdRoom + " room id");
                             CreateMyEvent(theIdRoom, token);
                         }
 
@@ -381,12 +382,14 @@ public class add_event extends SlidingMenuActivity {
     /*----CREATE EVENT ----*/
 
     void CreateMyEvent(final String roomId, final String token) {
+
         ArrayList<String> type = new ArrayList<String>();
         type.add("Choose Type...");
-        type.add("Lunch Event");
-        type.add("Evening Event");
+        type.add("Lunch Lecture");
+        type.add("Evening Lecture");
         type.add("Case Event");
         type.add("Promoting Event");
+        type.add("Other");
 
         final Spinner spinner_type = (Spinner)findViewById(R.id.choose_type);
         ArrayAdapter<String> locationadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, type);
@@ -401,7 +404,7 @@ public class add_event extends SlidingMenuActivity {
                 //Här inne är vad som sker när en grej i listan väljs
 
                 chosen_location = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
-                if (chosen_location != "Choose Type...") {
+
 
                     Log.d("chosen location", chosen_location);
                     /**  @Override public void onAttach(Activity context) {
@@ -417,7 +420,7 @@ public class add_event extends SlidingMenuActivity {
                      */
 
                 }
-            }
+
             @Override
             public void onNothingSelected (AdapterView < ? > parent){
             }
