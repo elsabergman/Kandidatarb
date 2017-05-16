@@ -14,6 +14,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -36,7 +39,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
     ListView listView;
     boolean isVisible;
     String token;
-    ImageView txtFourth;
+    String serverURL = "130.243.199.160";
     public todaysEvents_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
         super();
         this.activity=activity;
@@ -88,6 +91,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
+                final String id_event = item.get("id");
 
 
                 txtDescription = (TextView) view.findViewById((R.id.description));
@@ -132,13 +136,19 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                     txtFavorites.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            JSONObject post_dict = new JSONObject(); //creates Json object
+
                             Callback myCallback = new Callback();
 
                             try {
-                                String status = (myCallback.execution_Get("http://130.243.199.160:8000/events/my-favourites/", token, "GET", "No JsonData"));
+                                post_dict.put("event_id", id_event);
+
+                                String status = (myCallback.execution_Post("http://"+serverURL+":8000/events/my-favourites/add/", token,"POST",post_dict.toString()));
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 

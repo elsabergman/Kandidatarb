@@ -42,6 +42,7 @@ public class org_my_events extends SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
+    String serverUrl = "130.243.199.160";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -75,7 +76,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.177.4:8000/events/my-events/", token, "GET", "No JsonData"));
+        try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
 
 
     if (status == "false"){

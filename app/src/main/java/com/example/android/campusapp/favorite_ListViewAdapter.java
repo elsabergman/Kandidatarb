@@ -5,6 +5,7 @@ package com.example.android.campusapp;
  */
 
            import android.app.Activity;
+           import android.content.Intent;
            import android.graphics.Color;
            import android.graphics.drawable.Drawable;
            import android.media.Image;
@@ -44,7 +45,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
         TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL;
         ListView listView;
         String token, id_event;
-        String serverURL = "130.243.177.4";
+        String serverURL = "130.243.199.160";
 
         public favorite_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
             super();
@@ -147,6 +148,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
                                 try {
                                     String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/my-favourites/delete/"+id_event+"/", token, "DELETE", "No JsonData"));
+
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 } catch (InterruptedException e) {

@@ -49,6 +49,7 @@ public class favorites extends student_SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
+    String serverUrl = "130.243.199.160";
     String id_event;
     private Date dateTime;
 
@@ -80,7 +81,7 @@ public class favorites extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.177.4:8000/events/my-favourites/", token, "GET", "No JsonData"));
+        try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-favourites/", token, "GET", "No JsonData"));
 
             if (status == "false"){
                 Toast.makeText(favorites.this, "could not fetch events", Toast.LENGTH_LONG).show();
@@ -129,6 +130,7 @@ public class favorites extends student_SlidingMenuActivity {
                 }
                 adapter=new favorite_ListViewAdapter(this, list, listView, token);
                 listView.setAdapter(adapter);
+
 
             }
         } catch (ExecutionException e) {

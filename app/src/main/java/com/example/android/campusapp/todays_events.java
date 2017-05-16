@@ -36,6 +36,7 @@ import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
@@ -116,7 +117,7 @@ public class todays_events extends student_SlidingMenuActivity {
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
 
 
-
+            System.out.println(status);
             if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             } else {
@@ -149,6 +150,7 @@ public class todays_events extends student_SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
+                    String id_event = json_data.getString("id");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
@@ -156,7 +158,8 @@ public class todays_events extends student_SlidingMenuActivity {
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(URL,url);
                     list.get(i).put(FAVORITES,"Add to favorites");
-                    total_list.add(list.get(i));
+                    list.get(i).put(ID,id_event);
+
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
