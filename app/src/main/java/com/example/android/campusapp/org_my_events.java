@@ -45,7 +45,8 @@ public class org_my_events extends SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
-    TextView textUser;
+    TextView textUser, descr, noEvents;
+    JSONArray events;
     String serverUrl = "130.243.199.160";
     private Date dateTime;
 
@@ -86,11 +87,23 @@ public class org_my_events extends SlidingMenuActivity {
 
             JSONObject myInfoObject = new JSONObject(default_options);
             first_name = myInfoObject.getString("first_name");
-
             textUser = (TextView) findViewById(R.id.welcome);
             textUser.setText("Hello " + first_name + "!");
+            events = myInfoObject.getJSONArray("my_events");
+            System.out.println(events + " events");
+            descr = (TextView) findViewById(R.id.description_info);
+            noEvents = (TextView) findViewById(R.id.description_list);
+            if (events.length() > 0 ){
+                descr.setText("Click on list row to show event description");
 
-    if (status == "false"){
+
+            }
+            else {
+                noEvents.setText("Can't see any events below? Create your first event by clicking on 'Create Events' in the toggle menu!");
+            }
+
+
+            if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             }
             else {
@@ -132,7 +145,6 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
-
                     list.get(i).put(DESCRIPTION, description);
 
                     if ( url != null) {
