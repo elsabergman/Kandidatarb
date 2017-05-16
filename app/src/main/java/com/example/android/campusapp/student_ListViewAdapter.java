@@ -5,6 +5,7 @@ package com.example.android.campusapp;
  */
 
            import android.app.Activity;
+           import android.graphics.Color;
            import android.graphics.drawable.Drawable;
            import android.media.Image;
            import android.support.v4.content.res.ResourcesCompat;
@@ -43,7 +44,8 @@ public class student_ListViewAdapter extends BaseAdapter{
         ListView listView;
         boolean isVisible;
         ImageView txtFourth;
-        public student_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, ArrayList<HashMap<String, Integer>> imageList){
+    TextView txtURL;
+        public student_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView){
             super();
             this.activity=activity;
             this.list=list;
@@ -71,39 +73,72 @@ public class student_ListViewAdapter extends BaseAdapter{
                 txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
                 txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
                 txtThird=(TextView) convertView.findViewById(R.id.Time);
-                txtFourth = (ImageView) convertView.findViewById(R.id.owner);
+              //  txtFourth = (ImageView) convertView.findViewById(R.id.owner);
                 heart=(ImageView) convertView.findViewById(R.id.fav_image);
                 txtDescription = (TextView) convertView.findViewById((R.id.description));
-                // listView = (ListView) convertView.findViewById(R.id.your_event_list);
+
             }
 
             final HashMap<String, String> map=list.get(position);
-            final HashMap<String, Integer> imagemap = imageList.get(position);
+
             txtFirst.setText(map.get(FIRST_COLUMN));
             txtSecond.setText(map.get(SECOND_COLUMN));
             txtThird.setText(map.get(THIRD_COLUMN));
-         //  txtFourth.setImageResource(map.get(FOURTH_COLUMN));
-            heart.setImageResource(imagemap.get(HEART));
             heart.setImageResource(R.drawable.favorite_toggle);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
+
                 public void onItemClick(AdapterView<?> parent, View view, int position,
                                         long id) {
                     HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
+                    System.out.println(item);
+
                     String myDescription = item.get("Description");
+                    String myUrl = item.get("Url");
+
+
                     txtDescription = (TextView) view.findViewById((R.id.description));
-                    txtDescription.setText(myDescription);
-                    if ( txtDescription.getVisibility() == View.VISIBLE)
+                    txtURL = (TextView) view.findViewById((R.id.url));
+                    txtDescription.setTextColor(Color.DKGRAY);
+                    txtDescription.setText("Description: " + myDescription + "     " + myUrl );
+                    //txtURL.setText(myUrl);
+                    //txtURL.setLinkTextColor(Color.DKGRAY);
+
+               /* if (myUrl!= ""){
+
+                    txtURL.setText(myUrl);
+                }
+
+                else {
+                    txtURL.setText(" ");
+                }*/
+
+                    if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                     {
+
                         txtDescription.setVisibility(View.GONE);
+                        // txtURL.setVisibility(View.GONE);
                         txtDescription.invalidate();
+                        // txtURL.invalidate();
+
+                        view.setBackgroundColor(Color.WHITE);
+
                     }
                     else
                     {
                         txtDescription.setVisibility(View.VISIBLE);
+                        //txtURL.setVisibility(View.VISIBLE);
                         txtDescription.invalidate();
+                        // txtURL.invalidate();
+
+                        view.setBackgroundResource(R.color.very_light_grey);
+
+
+
+
                     }
+
                 }
             });
             return convertView;
