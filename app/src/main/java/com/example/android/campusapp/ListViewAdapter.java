@@ -5,7 +5,11 @@ package com.example.android.campusapp;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +41,7 @@ import java.util.HashMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -45,6 +50,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
@@ -58,16 +66,9 @@ public class ListViewAdapter extends BaseAdapter {
 
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
-    TextView txtFirst;
-    TextView txtSecond;
-    TextView txtThird;
-    TextView txtFourth;
-    TextView txtDescription;
-    TextView txtURL;
-    TextView txtCampus;
-    TextView txtRoom;
-
+    TextView txtFirst,txtSecond, txtThird, txtFourth, txtDescription,txtURL,txtCampus,txtRoom, txtEdit;
     ListView listView;
+    private static org_my_events Org_my_events;
     boolean isVisible;
     public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView){
         super();
@@ -116,18 +117,16 @@ public class ListViewAdapter extends BaseAdapter {
             txtURL = (TextView) convertView.findViewById((R.id.url));
             txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
             txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
+            txtEdit = (TextView) convertView.findViewById((R.id.fav));
 
-           // listView = (ListView) convertView.findViewById(R.id.your_event_list);
-
-
+           // listView = (ListView) convertView.findViewById(R.id.your_event_list)
         }
 
-
         final HashMap<String, String> map=list.get(position);
+
         txtFirst.setTextColor(Color.DKGRAY);
         txtSecond.setTextColor(Color.DKGRAY);
         txtThird.setTextColor(Color.DKGRAY);
-
 
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
@@ -139,23 +138,28 @@ public class ListViewAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
-                System.out.println(item);
 
                 String myDescription = item.get("Description");
+                String myName = item.get("Third");
                 String myUrl = item.get("Url");
+                final String id_event = item.get("id");
                 String myCampus = item.get("campus_name");
                 String myRoom = item.get("campus_location_name");
-                System.out.println(myRoom);
+                System.out.println(myName + " name of event");
+              /*  System.out.println(myRoom);
                 System.out.println("My location" + myCampus);
-                System.out.println("My room" + myRoom);
+                System.out.println("My room" + myRoom);*/
 
 
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));
                 txtCampus = (TextView) view.findViewById((R.id.campus_name));
                 txtRoom = (TextView) view.findViewById((R.id.location_place_room));
+                txtEdit = (TextView) view.findViewById(R.id.edit);
 
-
+                SpannableString content = new SpannableString(item.get("edit"));
+                content.setSpan(new UnderlineSpan(), 0, item.get("edit").length(), 0);
+                txtEdit.setText(content);
                 txtDescription.setTextColor(Color.DKGRAY);
                 txtDescription.setText("Description: " + myDescription + "     " + myUrl );
                 //txtURL.setText(myUrl);
@@ -183,7 +187,7 @@ public class ListViewAdapter extends BaseAdapter {
                   // txtURL.setVisibility(View.GONE);
                     txtCampus.setVisibility(View.GONE);
                     txtRoom.setVisibility(View.GONE);
-
+                    txtEdit.setVisibility(View.GONE);
                     txtDescription.invalidate();
                     txtCampus.invalidate();
                     txtRoom.invalidate();
@@ -199,11 +203,25 @@ public class ListViewAdapter extends BaseAdapter {
                    //txtURL.setVisibility(View.VISIBLE);
                     txtCampus.setVisibility(View.VISIBLE);
                     txtRoom.setVisibility(View.VISIBLE);
-
+                    txtEdit.setVisibility(View.VISIBLE);
                    txtDescription.invalidate();
                    // txtURL.invalidate();
                     txtCampus.invalidate();
                     txtRoom.invalidate();
+                    txtEdit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(activity, EditEvent.class);
+                            Bundle b = new Bundle();
+                            b.putString("ID", id_event);
+                            intent.putExtras(b);
+                            activity.startActivity(intent);
+                            activity.finish();
+                          // activity.startActivity((new Intent(activity, EditEvent.class)));
+
+                        }
+                    });
 
 
                     view.setBackgroundResource(R.color.very_light_grey);

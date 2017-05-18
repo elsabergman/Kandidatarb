@@ -148,7 +148,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
                                 try {
                                     String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/my-favourites/delete/"+id_event+"/", token, "DELETE", "No JsonData"));
-
+                                    activity.startActivity((new Intent(activity, favorites.class)));
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 } catch (InterruptedException e) {

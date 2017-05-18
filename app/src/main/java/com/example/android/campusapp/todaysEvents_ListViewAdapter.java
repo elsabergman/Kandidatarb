@@ -1,6 +1,7 @@
 package com.example.android.campusapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -140,6 +142,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                                 post_dict.put("event_id", id_event);
 
                                 String status = (myCallback.execution_Post("http://"+serverURL+":8000/events/my-favourites/add/", token,"POST",post_dict.toString()));
+                                Toast.makeText(v.getContext(), "Event was added to your favorites", Toast.LENGTH_SHORT).show();
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             } catch (InterruptedException e) {

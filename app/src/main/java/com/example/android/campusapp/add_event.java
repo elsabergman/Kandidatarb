@@ -46,7 +46,7 @@ public class add_event extends SlidingMenuActivity {
     String theIdCampus;
     String theIdRoom;
     String chosen_room;
-    String chosen_location;
+    String chosen_type;
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;
@@ -100,10 +100,10 @@ public class add_event extends SlidingMenuActivity {
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
                 //Här inne är vad som sker när en grej i listan väljs
 
-                chosen_location = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
+                chosen_type = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
 
 
-                Log.d("chosen location", chosen_location);
+                Log.d("chosen location", chosen_type);
                 /**  @Override public void onAttach(Activity context) {
                 super.onAttach(context);
 
@@ -124,6 +124,7 @@ public class add_event extends SlidingMenuActivity {
 
 
         });
+        /* --- GET PROFILE INFORMATION ---- */
 
         Callback myCallback = new Callback();
         try {
@@ -138,10 +139,9 @@ public class add_event extends SlidingMenuActivity {
             textUser.setText("Hello " + first_name + "!");
 
 
+            /*----GET UNIVERSITY ---*/
 
- /*----GET UNIVERSITY ---*/
-
-         /*--spinner implementation--*/
+            /*--spinner implementation--*/
 
             try {
 
@@ -157,7 +157,6 @@ public class add_event extends SlidingMenuActivity {
                     String name = json_data.getString("name");
                     String id = json_data.getString("id");
                     nameList.add(i, name);
-
                 }
 
 
@@ -194,9 +193,9 @@ public class add_event extends SlidingMenuActivity {
             uni_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
             {
+                /* -- When item in spinner is chosen -- */
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Här inne är vad som sker när en grej i listan väljs
 
                     chosen_uni = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
 
@@ -282,7 +281,7 @@ public class add_event extends SlidingMenuActivity {
 
             if (resultOfComparison_campus == false) {
                 items_campus.add(nameCampusList.get(k));
-                campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(k))+1);
+                campus_id = String.valueOf(k+1);
                 id_campus.add(campus_id);
             }
         }
@@ -467,7 +466,7 @@ public class add_event extends SlidingMenuActivity {
 
 
                 try {
-                    post_dict.put("type_event", "Lunch Lecture");
+                    post_dict.put("type_event", chosen_type);
                     post_dict.put("name_event", eventname);
                     post_dict.put("description", eventdescription);
                     post_dict.put("date", dateEvent);
