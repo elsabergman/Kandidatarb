@@ -277,7 +277,7 @@ public class org_settings extends SlidingMenuActivity {
             items_uni.add(nameList.get(i));
         }*/
 
-        /*------------------add campuses to spinner list, with chosen campus as the first element */
+        /*------------------add universities to spinner list, with chosen uni as the first element */
 
         boolean resultOfComparisonUni;
         items_uni.add(universityJson.toString());
