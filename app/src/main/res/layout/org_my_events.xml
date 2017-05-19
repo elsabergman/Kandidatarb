@@ -16,7 +16,7 @@
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello STS-sektionen!"
+        android:text=""
         android:theme="@style/org_header"
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
@@ -43,11 +43,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/your_events"
-        android:text="Click on list row to show event description"
+        android:text=""
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         android:textSize="17sp"
         android:textColor="@color/white"
+
 />
 
     <TextView
@@ -55,18 +57,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/description_info"
-        android:text="Can't see any events below? Create your first event in the toggle bar!"
+        android:text=""
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="40dp"
-        android:textSize="14sp"
+        android:layout_marginTop="38dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="20sp"
         android:textColor="@color/white"
         />
     <ListView
         android:id="@+id/your_event_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description_list"
+        android:layout_below="@id/description_info"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
@@ -74,35 +77,6 @@
         android:layout_marginBottom="10dp"
 
         />
-
-
-    <!--
-
-    <TextView
-        android:id="@+id/your_events_engpark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Engelska parken:"
-        android:textColor="#fff"
-        android:theme="@style/org_header"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@id/your_event_list"/>
-
-    <ListView
-        android:id="@+id/most_favorite_list"
-        android:layout_width="match_parent"
-        android:layout_below="@id/your_event_list"
-        android:layout_height="120dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="@color/white"
-
-        />
-        -->
-
-
 
     <include layout="@layout/app_bar_sliding_menu" />
 

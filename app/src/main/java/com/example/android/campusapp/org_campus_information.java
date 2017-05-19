@@ -62,11 +62,10 @@ public class org_campus_information extends SlidingMenuActivity {
     ArrayList<String> nameCampusList;
     ArrayList<String> idCampusList;
     TextView txtaddress;
-    TextView txtopening;
-    TextView txtemail;
-    TextView txtphone;
+    TextView txtopening, txtemail,txtphone, textUser;
     String image;
     ImageView iv ;
+    String serverUrl = "130.243.199.160";
 
     /**
      * Here we control the spinner located in campus_information.xml for different campuses
@@ -89,14 +88,19 @@ public class org_campus_information extends SlidingMenuActivity {
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
+
+
+            String status = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
+
 
             JSONObject myInfoObject = new JSONObject(status);
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             System.out.println(universityJson + " universityJson");
+            first_name = myInfoObject.getString("first_name");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
-
-            String universities = (myCallback.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
+            String universities = (myCallback.execution_Get("http://"+serverUrl+":8000/university/", token, "GET", "No JsonData"));
             JSONArray myuniversities = new JSONArray(universities);
 
 
@@ -109,7 +113,7 @@ public class org_campus_information extends SlidingMenuActivity {
                 }
 
             }
-            String all_campuses = (myCallback.execution_Get("http://130.243.199.160:8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
+            String all_campuses = (myCallback.execution_Get("http://"+serverUrl+":8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
             myCampusArray = new JSONArray(all_campuses);
 
         } catch (InterruptedException e) {

@@ -259,26 +259,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                     if(i+1 == Id_arrowUp) {
                         arrow_up.setOnClickListener(new View.OnClickListener() {
+
                             @Override
                             public void onClick(View view) {
-
-
-
-                                try {
-                                    JSONArray neutralArrowArray = new JSONArray(status);
-
-                                    neutralArray = new ArrayList();
-                                    for (int i = 0; i < neutralArrowArray.length(); i++) {
-                                        JSONObject json_data = neutralArrowArray.getJSONObject(i);
-                                        before_voting = json_data.getString("votes");
-                                        neutralArray.add(before_voting);
-
-                                    }
-                                    System.out.println(neutralArray);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
+                                System.out.println(status);
 
 
 
@@ -308,51 +292,32 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
                                         JSONArray feedArrayCount = new JSONArray(status);
-                                        System.out.println("efter upvote " + status);
 
                                         listCount = new ArrayList<>();
 
-                                        for (int i = 0; i < feedArrayCount.length(); i++) {
-                                            JSONObject json_data = feedArrayCount.getJSONObject(i);
-                                            String count = json_data.getString("votes");
-                                            listCount.add(count);
-                                            countArea.setText(count);
+                                         JSONObject json_data_vote = feedArrayCount.getJSONObject(0);
+                                         String count = json_data_vote.getString("votes");
+                                         System.out.println(count);
+                                         listCount.add(count);
+                                         countArea.setText(count);
 
-                                        }
+                                         String upvote = json_data_vote.getJSONObject("my_vote").getString("upvote");
+                                         String downvote = json_data_vote.getJSONObject("my_vote").getString("downvote");
+                                        System.out.println(upvote+ "    " + downvote);
 
-                                        try {
-                                            JSONArray greenArrowArray = new JSONArray(status);
-
-                                            greenArray = new ArrayList();
-                                            for (int i = 0; i < greenArrowArray.length(); i++) {
-                                                JSONObject json_data = greenArrowArray.getJSONObject(i);
-                                                after_voting = json_data.getString("votes");
-                                                greenArray.add(after_voting);
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        System.out.println(before_voting);
-                                        System.out.println(after_voting);
-
-                                        int converter_before_voting = Integer.parseInt(before_voting.toString());
-                                        int converter_after_voting = Integer.parseInt(after_voting.toString());
-
-                                        System.out.println(converter_before_voting);
-                                        System.out.println(converter_after_voting);
-
-                                       if (converter_before_voting+1 == converter_after_voting){
+                                       if (upvote == "true" && downvote == "false"){
                                            System.out.println("hooho");
                                            view.setBackgroundResource(R.drawable.arrow_up_green);
 
                                         }
-                                        else{
-                                           arrow_up.setImageResource(R.drawable.arrow_up);
+                                        else if(downvote == "true" && upvote =="true"){
+                                           arrow_down.setImageResource(R.drawable.arrow_down_red);
 
                                        }
+                                       else{
+                                            view.setBackgroundResource(R.drawable.arrow_up);
 
-
+                                        }
 
                                     }
                                 } catch (InterruptedException e) {
@@ -377,22 +342,6 @@ public class student_livefeed extends student_SlidingMenuActivity {
                             @Override
                             public void onClick(View view) {
 
-                                try {
-                                    JSONArray neutralArrowArray = new JSONArray(status);
-
-                                    neutralArray = new ArrayList();
-                                    for (int i = 0; i < neutralArrowArray.length(); i++) {
-                                        JSONObject json_data = neutralArrowArray.getJSONObject(i);
-                                        before_voting = json_data.getString("votes");
-                                        neutralArray.add(before_voting);
-
-                                    }
-                                    System.out.println(neutralArray);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
                                 JSONObject post_dict = new JSONObject();
 
                                 try {
@@ -416,49 +365,36 @@ public class student_livefeed extends student_SlidingMenuActivity {
                                     if (status == "false") {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
+
                                         JSONArray feedArrayCount = new JSONArray(status);
 
                                         listCount = new ArrayList<>();
 
-                                        for (int i = 0; i < feedArrayCount.length(); i++) {
-                                            JSONObject json_data = feedArrayCount.getJSONObject(i);
-                                            String count = json_data.getString("votes");
-                                            listCount.add(count);
-                                            countArea.setText(count);
+                                        JSONObject json_data_vote = feedArrayCount.getJSONObject(0);
+                                        String count = json_data_vote.getString("votes");
+                                        System.out.println(count);
+                                        listCount.add(count);
+                                        countArea.setText(count);
 
-                                        }
+                                        System.out.println(status);
 
-                                        try {
-                                            JSONArray redArrowArray = new JSONArray(status);
+                                        String upvote = json_data_vote.getJSONObject("my_vote").getString("upvote");
+                                        String downvote = json_data_vote.getJSONObject("my_vote").getString("downvote");
 
-                                            redArray = new ArrayList();
-                                            for (int i = 0; i < redArrowArray.length(); i++) {
-                                                JSONObject json_data = redArrowArray.getJSONObject(i);
-                                                after_voting = json_data.getString("votes");
-                                                redArray.add(after_voting);
+
+                                            if (upvote == "true") {
+                                                arrow_up.setImageResource(R.drawable.arrow_up_green);
+
+                                            } else if (downvote == "true") {
+                                                view.setBackgroundResource(R.drawable.arrow_down_red);
+                                                arrow_up.setImageResource(R.drawable.arrow_up);
+
+
+                                            } else {
+                                                view.setBackgroundResource(R.drawable.arrow_down);
+
                                             }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
 
-                                        System.out.println(before_voting);
-                                        System.out.println(after_voting);
-
-                                        int converter_before_voting = Integer.parseInt(before_voting.toString());
-                                        int converter_after_voting = Integer.parseInt(after_voting.toString());
-
-                                        System.out.println(converter_before_voting);
-                                        System.out.println(converter_after_voting);
-
-                                        if (converter_before_voting-1 == converter_after_voting){
-                                            view.setBackgroundResource(R.drawable.arrow_down_red);
-
-                                        }
-                                        else{
-                                            arrow_down.setImageResource(R.drawable.arrow_down);
-
-
-                                        }
 
                                     }
                                 } catch (InterruptedException e) {

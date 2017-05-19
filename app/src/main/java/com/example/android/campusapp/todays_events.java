@@ -38,8 +38,10 @@ import static android.media.CamcorderProfile.get;
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
+import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
@@ -79,10 +81,14 @@ public class todays_events extends student_SlidingMenuActivity {
     String serverURL = "130.243.199.160";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
+
     private String universityJson;
     private String campusJson;
     private String universityIdDefault;
     private String chosen_campus;
+
+    String University;
+
 
     private String token = null;
     private String theId = "";
@@ -91,8 +97,12 @@ public class todays_events extends student_SlidingMenuActivity {
     ArrayList<String> nameList;
     ArrayList<String> nameListType;
     ArrayList<String> idListType;
+
     ArrayList<String> items_checkedTypesCopy = new ArrayList<String>();
 
+
+
+    TextView textUni;
 
 
 
@@ -120,14 +130,35 @@ public class todays_events extends student_SlidingMenuActivity {
         //Add empty string to araylist to not get null
         items_checkedTypesCopy.add("");
 
-             /*---Fonts for our Logo---*/
-        TextView header = (TextView) findViewById(R.id.todays_events);
-        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
-        header.setTypeface(custom_font);
-        /*--------------------------*/
+
 
 
         Callback myCallback = new Callback();
+
+        String default_options = null;
+        try {
+            default_options = (myCallback.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
+            JSONObject myInfoObject = new JSONObject(default_options);
+            University = myInfoObject.getJSONObject("campus").getString("university_name");
+            textUni = (TextView) findViewById(R.id.todays_events);
+            textUni.setText("Find out what happens at " + University);
+
+                 /*---Fonts for our Logo---*/
+            TextView header = (TextView) findViewById(R.id.todays_events);
+            Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
+            header.setTypeface(custom_font);
+        /*--------------------------*/
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
 
 
         try {
@@ -135,7 +166,7 @@ public class todays_events extends student_SlidingMenuActivity {
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
 
 
-
+            System.out.println(status);
             if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             } else {
@@ -153,7 +184,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -166,19 +197,18 @@ public class todays_events extends student_SlidingMenuActivity {
                     String name = json_data.getString("name_event");
                     String start_time = json_data.getString("start_time");
                     String end_time = json_data.getString("stop_time");
-                    String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
-                    //    String id =json_data.getString("id");
+                    String id_event = json_data.getString("id");
+                    System.out.println("event name " + name);
                     list.get(i).put(FIRST_COLUMN, date);
-
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-
                     list.get(i).put(THIRD_COLUMN,name);
-                  //  list.get(i).put(FOURTH_COLUMN, name );
-
                     list.get(i).put(DESCRIPTION, description);
-                    total_list.add(list.get(i));
+                    list.get(i).put(URL,url);
+                    list.get(i).put(FAVORITES,"Add to favorites");
+                    list.get(i).put(ID,id_event);
+
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
@@ -199,7 +229,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 
 
@@ -218,10 +248,10 @@ public class todays_events extends student_SlidingMenuActivity {
         Callback myCallback2 = new Callback();
 
         try {
-            String default_options = (myCallback2.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
+            String default_options2 = (myCallback2.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
 
 
-                JSONObject myInfoObject = new JSONObject(default_options);
+                JSONObject myInfoObject = new JSONObject(default_options2);
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
@@ -318,10 +348,6 @@ public class todays_events extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
 
         final ArrayList<String> items_camp = new ArrayList<String>();
         items_camp.add("All Campuses");

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -45,7 +46,7 @@ public class add_event extends SlidingMenuActivity {
     String theIdCampus;
     String theIdRoom;
     String chosen_room;
-    String chosen_location;
+    String chosen_type;
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;
@@ -53,6 +54,7 @@ public class add_event extends SlidingMenuActivity {
     ArrayList<String> idCampusList;
     ArrayList<String> nameRoomList;
     ArrayList<String> idRoomList;
+    TextView textUser;
     JSONArray myRoomArray;
      EditText event_name;
     EditText company_name;
@@ -78,20 +80,68 @@ public class add_event extends SlidingMenuActivity {
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
 
+        ArrayList<String> type = new ArrayList<String>();
+        type.add("Choose Type...");
+        type.add("Lunch Lecture");
+        type.add("Evening Lecture");
+        type.add("Case Event");
+        type.add("Promoting Event");
+        type.add("Other");
+
+        final Spinner spinner_type = (Spinner)findViewById(R.id.choose_type);
+        ArrayAdapter<String> locationadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, type);
+        locationadapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner_type.setAdapter(locationadapter);
+
+        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
+                //Här inne är vad som sker när en grej i listan väljs
+
+                chosen_type = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
+
+
+                Log.d("chosen location", chosen_type);
+                /**  @Override public void onAttach(Activity context) {
+                super.onAttach(context);
+
+                }
+
+                /**  public interface OnFragmentInteractionListener {
+                // TODO: Update argument type and name
+                void onFragmentInteraction(Uri uri);
+                }
+
+                 */
+
+            }
+
+            @Override
+            public void onNothingSelected (AdapterView < ? > parent){
+            }
+
+
+        });
+        /* --- GET PROFILE INFORMATION ---- */
+
         Callback myCallback = new Callback();
         try {
             String default_options = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
             JSONObject myInfoObject = new JSONObject(default_options);
+            first_name = myInfoObject.getString("first_name");
             universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
             campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
 
 
+            /*----GET UNIVERSITY ---*/
 
- /*----GET UNIVERSITY ---*/
-
-         /*--spinner implementation--*/
+            /*--spinner implementation--*/
 
             try {
 
@@ -107,7 +157,6 @@ public class add_event extends SlidingMenuActivity {
                     String name = json_data.getString("name");
                     String id = json_data.getString("id");
                     nameList.add(i, name);
-
                 }
 
 
@@ -144,9 +193,9 @@ public class add_event extends SlidingMenuActivity {
             uni_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
             {
+                /* -- When item in spinner is chosen -- */
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Här inne är vad som sker när en grej i listan väljs
 
                     chosen_uni = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
 
@@ -232,8 +281,7 @@ public class add_event extends SlidingMenuActivity {
 
             if (resultOfComparison_campus == false) {
                 items_campus.add(nameCampusList.get(k));
-                campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(k))+1);
-                System.out.println("campus_id " + campus_id);
+                campus_id = String.valueOf(k+1);
                 id_campus.add(campus_id);
             }
         }
@@ -256,8 +304,9 @@ public class add_event extends SlidingMenuActivity {
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                             if (chosen_campus == items_campus.get(i))
                             {
+                                System.out.println(id_campus.get(i) +  " id_campus");
                                 theIdCampus = id_campus.get(i);
-
+                                System.out.println(theIdCampus);
                                 ChooseRoom(theIdCampus, token);
 
                         }
@@ -345,10 +394,11 @@ public class add_event extends SlidingMenuActivity {
                 if (chosen_room != "Choose Room...") {
 
 
-                    for (int i = 0; i < myRoomArray.length(); i++) {
+                    for (int i = 0; i < items_room.size(); i++) {
 
                         if (chosen_room == items_room.get(i)) {
-                            theIdRoom = idRoomList.get(i);
+                            theIdRoom = idRoomList.get(i-1);
+                            System.out.println(theIdRoom + " room id");
                             CreateMyEvent(theIdRoom, token);
                         }
 
@@ -381,49 +431,8 @@ public class add_event extends SlidingMenuActivity {
     /*----CREATE EVENT ----*/
 
     void CreateMyEvent(final String roomId, final String token) {
-        ArrayList<String> type = new ArrayList<String>();
-        type.add("Choose Type...");
-        type.add("Lunch Event");
-        type.add("Evening Event");
-        type.add("Case Event");
-        type.add("Promoting Event");
-
-        final Spinner spinner_type = (Spinner)findViewById(R.id.choose_type);
-        ArrayAdapter<String> locationadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, type);
-       locationadapter.setDropDownViewResource(R.layout.spinner_layout);
-        spinner_type.setAdapter(locationadapter);
-
-        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-
-        {
-            @Override
-            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
-
-                chosen_location = spinner_type.getItemAtPosition(spinner_type.getSelectedItemPosition()).toString();
-                if (chosen_location != "Choose Type...") {
-
-                    Log.d("chosen location", chosen_location);
-                    /**  @Override public void onAttach(Activity context) {
-                    super.onAttach(context);
-
-                    }
-
-                    /**  public interface OnFragmentInteractionListener {
-                    // TODO: Update argument type and name
-                    void onFragmentInteraction(Uri uri);
-                    }
-
-                     */
-
-                }
-            }
-            @Override
-            public void onNothingSelected (AdapterView < ? > parent){
-            }
 
 
-        });
 
         Button btn = (Button) findViewById(R.id.create_event_button);
 
@@ -457,7 +466,7 @@ public class add_event extends SlidingMenuActivity {
 
 
                 try {
-                    post_dict.put("type_event", "Lunch Lecture");
+                    post_dict.put("type_event", chosen_type);
                     post_dict.put("name_event", eventname);
                     post_dict.put("description", eventdescription);
                     post_dict.put("date", dateEvent);

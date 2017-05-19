@@ -23,9 +23,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+
+import static com.example.android.campusapp.Constants.CAMPUS_LOCATION_NAME;
+import static com.example.android.campusapp.Constants.CAMPUS_NAME;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
+import static com.example.android.campusapp.Constants.EDIT;
+import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 import static com.example.android.campusapp.Constants.URL;
@@ -42,6 +48,9 @@ public class org_my_events extends SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
+    TextView textUser, descr, noEvents;
+    JSONArray events;
+    String serverUrl = "130.243.199.160";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -75,15 +84,35 @@ public class org_my_events extends SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-        try { String status = (myCallback.execution_Get("http://130.243.199.160:8000/events/my-events/", token, "GET", "No JsonData"));
+        try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
+
+            String default_options = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
+
+            JSONObject myInfoObject = new JSONObject(default_options);
+            first_name = myInfoObject.getString("first_name");
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
+            events = myInfoObject.getJSONArray("my_events");
+
+            descr = (TextView) findViewById(R.id.description_info);
+            noEvents = (TextView) findViewById(R.id.description_list);
+            if (events.length() > 0 ){
+                descr.setText("Click on list row to show event description");
 
 
-    if (status == "false"){
+            }
+            else {
+                noEvents.setText("Can't see any events below? Create your first event by clicking on 'Create Events' in the toggle menu!");
+            }
+
+
+            if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             }
             else {
 
                 JSONArray myEventsArray = new JSONArray(status);
+                System.out.println("Events array " + myEventsArray);
 
 
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
@@ -95,7 +124,7 @@ public class org_my_events extends SlidingMenuActivity {
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list=new ArrayList<HashMap<String,String>>();
-                total_list=new ArrayList<HashMap<String,String>>();
+
                 ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
@@ -112,34 +141,45 @@ public class org_my_events extends SlidingMenuActivity {
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
-                //    String id =json_data.getString("id");
+                    String location_name = json_data.getString("campus_location_name");
+                    String campus_name = json_data.getString("campus_name");
+                    String id_event =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "-" +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
-                    //list.get(i).put(FOURTH_COLUMN, name );
                     list.get(i).put(DESCRIPTION, description);
+                    list.get(i).put(EDIT,"Edit or remove event");
+                    list.get(i).put(ID,id_event);
+                    System.out.println(list + " list");
+
 
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
                     }
 
                     else {
 
                         list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
                     }
 
 
-                    total_list.add(list.get(i));
-
-
-
-                    Log.d(name, "name");
+                   /* Log.d(name, "name");
                     Log.d(date, "date");
                     Log.d(start_time,"start");
                     Log.d(end_time, "end");
                     Log.d(description,"description");
                     Log.d(url, "external_url");
+                    Log.d(campus_name, "campus_name");
+                    Log.d(location_name, "campus_location_name");*/
+
                    // Log.d(id, "id");
 
 

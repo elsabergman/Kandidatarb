@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:text="Hello STS-sektionen!"
+        android:text=""
         android:textSize="20sp"
         android:textColor="#fff"
 
@@ -235,7 +235,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_height="30dp"
-        android:text="Show On Map"
+        android:text="Show Campus Overview"
         android:padding="4dp"
         android:background="@drawable/border"
         android:elevation="10dp"

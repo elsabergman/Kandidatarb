@@ -73,6 +73,41 @@
         android:layout_marginBottom="5dp"
         android:visibility="gone"/>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campus_name"
+        android:textSize="14sp"
+        android:autoLink="web"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_place_room"
+        android:textSize="14sp"
+        android:autoLink="web"
+        android:layout_below="@+id/campus_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/location_place_room"
+        android:onClick="onClick"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="7dp"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
