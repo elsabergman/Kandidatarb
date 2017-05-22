@@ -97,7 +97,7 @@ public class org_my_events extends SlidingMenuActivity {
             descr = (TextView) findViewById(R.id.description_info);
             noEvents = (TextView) findViewById(R.id.description_list);
             if (events.length() > 0 ){
-                descr.setText("Click on list row to show event description");
+                descr.setText("Click on event to show further information");
 
 
             }

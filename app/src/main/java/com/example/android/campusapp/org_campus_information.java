@@ -103,6 +103,10 @@ public class org_campus_information extends SlidingMenuActivity {
             String universities = (myCallback.execution_Get("http://"+serverUrl+":8000/university/", token, "GET", "No JsonData"));
             JSONArray myuniversities = new JSONArray(universities);
 
+            first_name = myInfoObject.getString("first_name");
+            textUser = (TextView) findViewById(R.id.welcome);
+            textUser.setText("Hello " + first_name + "!");
+
 
             for (int i = 0; i < myuniversities.length(); i++) {
                 JSONObject json_data = myuniversities.getJSONObject(i);

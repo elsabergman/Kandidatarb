@@ -2,6 +2,7 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -52,6 +54,7 @@ public class favorites extends student_SlidingMenuActivity {
     String serverUrl = "130.243.199.160";
     String id_event;
     private Date dateTime;
+    TextView no_favs, descr;
 
     ImageView imageView;
     ImageView fav_heart;
@@ -73,10 +76,16 @@ public class favorites extends student_SlidingMenuActivity {
 
         /*----------------------------------------------*/
 
+                 /*---Fonts for our Logo---*/
+        TextView header = (TextView) findViewById(R.id.favorites);
+        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
+        header.setTypeface(custom_font);
+        /*--------------------------*/
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
+
 
 
         Callback myCallback = new Callback();
@@ -95,6 +104,19 @@ public class favorites extends student_SlidingMenuActivity {
                 JSONArray favoritesItemsArray = json_data.getJSONArray("favorites");
 
                 ListView listView = (ListView) findViewById(R.id.favorite_list);
+
+
+                descr = (TextView) findViewById(R.id.descr_info);
+                no_favs = (TextView) findViewById(R.id.no_favs);
+                if (favoritesItemsArray.length() > 0 ){
+                    descr.setText("Click on event to show further information");
+
+
+                }
+                else {
+                    no_favs.setText("Can't see any favorites? Add an event to your favorites on the 'All Events' page");
+                }
+
 
 
                 /* --- create hash map that all Json objects are inserted to --- */

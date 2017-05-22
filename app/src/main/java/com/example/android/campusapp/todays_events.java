@@ -136,7 +136,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
         try {
 
-            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/home-event/", token, "GET", "No JsonData"));
 
 
             System.out.println(status);
