@@ -65,7 +65,7 @@ public class org_campus_information extends SlidingMenuActivity {
     TextView txtopening, txtemail,txtphone, textUser;
     String image;
     ImageView iv ;
-    String serverUrl = "130.243.199.160";
+    String serverUrl = "130.243.182.165";
 
     /**
      * Here we control the spinner located in campus_information.xml for different campuses

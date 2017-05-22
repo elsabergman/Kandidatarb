@@ -48,14 +48,11 @@ public class student_campus_information extends student_SlidingMenuActivity {
         private PopupWindow mPopupWindow;
         String universityID;
         JSONArray myCampusArray;
-        ArrayList<String> nameCampusList;
-        ArrayList<String> idCampusList;
-        TextView txtaddress;
-        TextView txtopening;
-        TextView txtemail;
-        TextView txtphone;
+        ArrayList<String> nameCampusList, idCampusList;
+        TextView txtaddress, txtopening,txtemail,txtphone;
         String image;
-        ImageView iv ;
+        ImageView iv;
+    String url = "130.243.182.165";
 
         /**
          * Here we control the spinner located in campus_information.xml for different campuses
@@ -77,8 +74,9 @@ public class student_campus_information extends student_SlidingMenuActivity {
         /*CALL TO GET PREFERED UNIVERSITY AND CAMPUS */
             Callback myCallback = new Callback();
 
+
             try {
-                String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
+                String status = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
 
                 JSONObject myInfoObject = new JSONObject(status);
@@ -86,7 +84,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
                 System.out.println(universityJson + " universityJson");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
-                String universities = (myCallback.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
+                String universities = (myCallback.execution_Get("http://"+url+":8000/university/", token, "GET", "No JsonData"));
                 JSONArray myuniversities = new JSONArray(universities);
 
                 for (int i = 0; i < myuniversities.length(); i++) {
@@ -98,7 +96,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
                     }
 
                 }
-                String all_campuses = (myCallback.execution_Get("http://130.243.199.160:8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
+                String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
                 myCampusArray = new JSONArray(all_campuses);
 
             } catch (InterruptedException e) {

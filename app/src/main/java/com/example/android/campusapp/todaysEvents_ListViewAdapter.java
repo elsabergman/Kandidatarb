@@ -69,8 +69,9 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
             convertView=inflater.inflate(R.layout.student_column_rows, null);
 
 
+            txtFavorites = (TextView) convertView.findViewById((R.id.fav));
         }
-        else {
+       else {
             convertView = convertView;
         }
         txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
@@ -78,14 +79,13 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
         txtThird=(TextView) convertView.findViewById(R.id.Time);
         txtDescription = (TextView) convertView.findViewById((R.id.description));
         txtURL = (TextView) convertView.findViewById((R.id.url));
-        txtFavorites = (TextView) convertView.findViewById((R.id.fav));
+
 
         final HashMap<String, String> map=list.get(position);
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
-        System.out.println("position "+ position);
-        System.out.println("third column " + map.get(THIRD_COLUMN));
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -144,9 +144,15 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                             try {
                                 post_dict.put("event_id", id_event);
+                                System.out.println(token);
 
                                 String status = (myCallback.execution_Post("http://"+serverURL+":8000/events/my-favourites/add/", token,"POST",post_dict.toString()));
-                                Toast.makeText(v.getContext(), "Event was added to your favorites", Toast.LENGTH_SHORT).show();
+
+                                if (status == "true") {
+                                    Toast.makeText(v.getContext(), "Event was added to your favorites", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(v.getContext(), "Event could not be added to favorites", Toast.LENGTH_SHORT).show();
+                                }
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             } catch (InterruptedException e) {
