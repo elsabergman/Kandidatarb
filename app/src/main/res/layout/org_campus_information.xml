@@ -80,7 +80,7 @@
 
         android:text="Lägerhyddsvägen 1, 75237 Uppsala"
         android:id="@+id/the_address"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:elevation="10dp"
         android:textColor="@color/icon_color"
         android:layout_marginTop="10dp"

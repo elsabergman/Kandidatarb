@@ -50,7 +50,7 @@ public class org_my_events extends SlidingMenuActivity {
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
-    String serverUrl = "130.243.199.160";
+    String serverUrl = "130.243.182.165";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -97,7 +97,7 @@ public class org_my_events extends SlidingMenuActivity {
             descr = (TextView) findViewById(R.id.description_info);
             noEvents = (TextView) findViewById(R.id.description_list);
             if (events.length() > 0 ){
-                descr.setText("Click on list row to show event description");
+                descr.setText("Click on event to show further information");
 
 
             }

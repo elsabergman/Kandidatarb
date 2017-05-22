@@ -63,7 +63,7 @@ public class add_event extends SlidingMenuActivity {
     EditText date;
     EditText starttime;
     EditText stoptime;
-    String url = "130.243.199.160";
+    String url = "130.243.182.165";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +180,7 @@ public class add_event extends SlidingMenuActivity {
                 System.out.println(resultOfComparison_uni);
                 if (resultOfComparison_uni == false) {
                     items_uni.add(nameList.get(k));
-                    id_uni.add(String.valueOf(nameList.indexOf(items_uni.get(k))));
+                    id_uni.add(String.valueOf(k+1));
                 }
             }
 
@@ -240,10 +240,9 @@ public class add_event extends SlidingMenuActivity {
 
                         myCampusArray = new JSONArray(all_campuses);
                         nameCampusList = new ArrayList<String>();
+                        idList = new ArrayList<String>();
 
 
-
-                        nameCampusList.add(campusJson);
 
 
                         for (int i = 0; i < myCampusArray.length() ; i++) {
@@ -251,10 +250,8 @@ public class add_event extends SlidingMenuActivity {
 
                             String nameCampus = json_data.getString("name");
                             String idCampus = json_data.getString("id");
-                            if (nameCampus != nameCampusList.get(0)) {
                                 nameCampusList.add(i, nameCampus);
-
-                            }
+                                idList.add(i,idCampus);
 
 
                         }
@@ -266,24 +263,44 @@ public class add_event extends SlidingMenuActivity {
                         e.printStackTrace();
                     }
 
-
         final Spinner spinner = (Spinner)findViewById(R.id.choose_campus);
-      //  String[] items_campus = new String[]{"Choose Campus"};
-
         boolean resultOfComparison_campus;
         final ArrayList<String> items_campus = new ArrayList<String>();
         final ArrayList<String> id_campus = new ArrayList<String>();
-        items_campus.add(campusJson.toString());
-        String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0))+1);
-        id_campus.add(campus_id);
-        for (int k=0; k<nameCampusList.size(); k++) {
-            resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
 
-            if (resultOfComparison_campus == false) {
-                items_campus.add(nameCampusList.get(k));
-                campus_id = String.valueOf(k+1);
-                id_campus.add(campus_id);
+        /* -- if array of campuses at chosen university also contains the default campus,
+         the default campus should be added to the top of the spinner list.
+         After that the other campuses beloning to the chosen university should be listed.
+          */
+        if (myCampusArray.toString().contains("\"name\":\""+campusJson+"\"")) {
+            items_campus.add(campusJson.toString());
+
+            String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0)) + 1);
+            id_campus.add(campus_id); //fel med id för campus ultuna
+
+            for (int k = 0; k < nameCampusList.size(); k++) {
+                resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
+
+                if (resultOfComparison_campus == false) { //compare if default campus equals campus in list to avoid redundancy.
+                    items_campus.add(nameCampusList.get(k));
+                    campus_id = String.valueOf(k + 1);
+                    id_campus.add(campus_id);
+
+
+                }
             }
+        } /* if the default campus is not part of the campuses at the chosen university,
+        we want to display all campuses belonging to the chosen university and not the default campus. */
+        else {
+
+            for (int k = 0; k < nameCampusList.size(); k++) {
+
+                items_campus.add(nameCampusList.get(k));
+                String campus_id = String.valueOf(idList.get(k));
+                id_campus.add(campus_id);
+
+            }
+
         }
 
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);

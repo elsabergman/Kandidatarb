@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -33,6 +34,7 @@ import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
 import static com.example.android.campusapp.R.id.dateEvent;
 import static com.example.android.campusapp.R.id.languageSpinnerSettings;
+import static com.example.android.campusapp.R.id.myCampus;
 import static com.example.android.campusapp.R.id.organization_nameInput;
 import static com.example.android.campusapp.R.id.start_time;
 import static com.example.android.campusapp.R.id.uni_spinner;
@@ -66,7 +68,7 @@ public class org_settings extends SlidingMenuActivity {
     String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
-    String url = "http://130.243.199.160";
+    String url = "130.243.182.165";
 
 
     ArrayList<String> idList;
@@ -179,7 +181,7 @@ public class org_settings extends SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String status = (myCallback.execution_Get(url+":8000/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
             System.out.println("status is " + status);
 
@@ -230,19 +232,16 @@ public class org_settings extends SlidingMenuActivity {
 
 
 
- /*----GET UNIVERSITY ---*/
+            /*----GET UNIVERSITY ---*/
 
-         /*--spinner implementation--*/
-        Callback myCallbackUni = new Callback();
+            /*--spinner implementation--*/
+
         try {
 
-            String status = (myCallbackUni.execution_Get(url+":8000/university/", token, "GET", "No JsonData"));
-
+            String status = (myCallback.execution_Get("http://" +url+ ":8000/university/", token, "GET", "No JsonData"));
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
-            idList = new ArrayList<String>();
-            System.out.println(myUniArray);
 
 
 
@@ -252,14 +251,8 @@ public class org_settings extends SlidingMenuActivity {
                 String name = json_data.getString("name");
                 String id = json_data.getString("id");
                 nameList.add(i, name);
-                idList.add(i, id);
-
 
             }
-
-            System.out.println(nameList);
-            System.out.println(idList);
-            System.out.println(nameList.get(0));
 
 
         } catch (ExecutionException e) {
@@ -270,7 +263,10 @@ public class org_settings extends SlidingMenuActivity {
             e.printStackTrace();
         }
 
+            /*add campuses to spinner list, with default campus as the first element */
+        boolean resultOfComparison_uni;
         final ArrayList<String> items_uni = new ArrayList<String>();
+        final ArrayList<String> id_uni = new ArrayList<String>();
 
         //items_uni.add("Change University?");
        /* for (int i=0; i<nameList.size(); i++) {
@@ -281,22 +277,18 @@ public class org_settings extends SlidingMenuActivity {
 
         boolean resultOfComparisonUni;
         items_uni.add(universityJson.toString());
+        String uni_id = String.valueOf(nameList.indexOf(items_uni.get(0))+1);
+        id_uni.add(uni_id);
         for (int k=0; k<nameList.size(); k++) {
-            resultOfComparisonUni=nameList.get(k).equals(items_uni.get(0));
-            System.out.println("resultOfComparisonUni is "+resultOfComparisonUni);
-            if(resultOfComparisonUni == false) {
+            resultOfComparison_uni = nameList.get(k).equals(items_uni.get(0));
+            if (resultOfComparison_uni == false) {
                 items_uni.add(nameList.get(k));
+                id_uni.add(String.valueOf(k+1));
             }
-
         }
-
-        //-------------------------------------------------------------------------------
-
 
 
         final Spinner uni_spinner = (Spinner) findViewById(R.id.universitySpinnerSettings);
-
-        System.out.println("items_uni is "+items_uni);
 
         ArrayAdapter<String> uniadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_uni);
         uniadapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -304,69 +296,60 @@ public class org_settings extends SlidingMenuActivity {
         uni_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
         {
+            /* -- When item in spinner is chosen -- */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
 
                 chosen_uni = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
 
+                for (int i = 0; i < myUniArray.length(); i++) {
+                          /* if the chosen uni equals the uni in place i */
+                    if (chosen_uni == items_uni.get(i)) {
+                        theId = id_uni.get(i);
 
-              //  if (chosen_uni != "Change University?") {
-
-
-                    for (int i = 0; i < myUniArray.length(); i++) {
-                          /* if the chosen uni equals the uni in place i+1 (add 1 because first place is "Choose Uni...") */
-                        if (chosen_uni == items_uni.get(i/*+1*/)) {
-                            theId = idList.get(i);
-
-                            ChooseMyCampus(theId, token); //Call choose campus with the chosen university
+                        ChooseMyCampus(theId, token); //Call choose campus with the chosen university
 
 
-                        }
-
-                        {
-
-
-
-                        }
                     }
-                //}
+                }
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
     }
 
-        /*----GET CAMPUS ----*/
+
+    /*----GET CAMPUS ----*/
 
     void ChooseMyCampus(String theId, final String token) {
 
         Callback myCallback = new Callback();
         try {
 
-
-
-            String all_campuses = (myCallback.execution_Get(url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
-
+            String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
 
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
-            idCampusList = new ArrayList<String>();
+            idList = new ArrayList<String>();
 
+
+
+          //  nameCampusList.add(campusJson);
 
 
             for (int i = 0; i < myCampusArray.length() ; i++) {
                 JSONObject json_data = myCampusArray.getJSONObject(i);
+
                 String nameCampus = json_data.getString("name");
                 String idCampus = json_data.getString("id");
-                nameCampusList.add(i,nameCampus);
-                idCampusList.add(i,idCampus);
+                    nameCampusList.add(i, nameCampus);
+                    idList.add(i,idCampus);
+
 
 
             }
@@ -379,32 +362,45 @@ public class org_settings extends SlidingMenuActivity {
         }
 
 
-
-
-
-        final Spinner spinner = (Spinner)findViewById(campusesSpinnerSettings);
-        //  String[] items_campus = new String[]{"Choose Campus"};
+        final Spinner spinner = (Spinner)findViewById(R.id.campusesSpinnerSettings);
+        boolean resultOfComparison_campus;
         final ArrayList<String> items_campus = new ArrayList<String>();
-        //items_campus.add("Choose Campus...");
+        final ArrayList<String> id_campus = new ArrayList<String>();
 
-        boolean resultOfComparison;
-        items_campus.add(campusJson.toString());
-        for (int k=0; k<nameCampusList.size(); k++) {
-            resultOfComparison=nameCampusList.get(k).equals(items_campus.get(0));
-            System.out.println("resultOfComparison "+resultOfComparison);
-            if(resultOfComparison == false) {
+        /* -- if array of campuses at chosen university also contains the default campus,
+         the default campus should be added to the top of the spinner list.
+         After that the other campuses beloning to the chosen university should be listed.
+          */
+        if (myCampusArray.toString().contains("\"name\":\""+campusJson+"\"")) {
+            items_campus.add(campusJson.toString());
+
+            String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0)) + 1);
+            id_campus.add(campus_id); //fel med id för campus ultuna
+
+            for (int k = 0; k < nameCampusList.size(); k++) {
+                resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
+
+                if (resultOfComparison_campus == false) { //compare if default campus equals campus in list to avoid redundancy.
+                    items_campus.add(nameCampusList.get(k));
+                    campus_id = String.valueOf(k + 1);
+                    id_campus.add(campus_id);
+
+
+                }
+            }
+        } /* if the default campus is not part of the campuses at the chosen university,
+        we want to display all campuses belonging to the chosen university and not the default campus. */
+        else {
+
+            for (int k = 0; k < nameCampusList.size(); k++) {
+
                 items_campus.add(nameCampusList.get(k));
+                String campus_id = String.valueOf(idList.get(k)); //prova köra med detta efter lunch
+                id_campus.add(campus_id); //fel med id för campus ultuna
+
             }
 
         }
-
-       /* for (int i=0; i<nameCampusList.size(); i++) {
-            items_campus.add(nameCampusList.get(i));
-
-
-
-        }*/
-
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);
         campusadapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner.setAdapter(campusadapter);
@@ -418,20 +414,15 @@ public class org_settings extends SlidingMenuActivity {
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
-
-              //  if (chosen_campus != "Choose Campus...") {
-
-                    for (int i = 0; i < myCampusArray.length(); i++) {
+                for (int i = 0; i < myCampusArray.length(); i++) {
 
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
-                        if (chosen_campus == items_campus.get(i/*+1*/)) //Den kallar på ChooseRoom två gånger! fixa detta!
-                        {
-                            theIdCampus = idCampusList.get(i);
+                    if (chosen_campus == items_campus.get(i))
+                    {
+                        theIdCampus = id_campus.get(i);
 
-
-                        }
                     }
-               // }
+                }
 
 
                 JSONObject post_dict = new JSONObject(); //creates Json object
@@ -439,7 +430,7 @@ public class org_settings extends SlidingMenuActivity {
                 try {
 
                     post_dict.put("campus", theIdCampus);
-                    System.out.println("post_dict of theIdCampus is "+post_dict);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -450,7 +441,7 @@ public class org_settings extends SlidingMenuActivity {
 
                     try {
 
-                        String status = (myCallback.execution_Post(url+":8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://"+url+":8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
                         if (status == "true") {
                             //Toast.makeText(org_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
                         }if(status == "false"){
@@ -535,7 +526,7 @@ public class org_settings extends SlidingMenuActivity {
             try {
                 System.out.println("post_dict is " + post_dict.toString());
 
-                String status = (myCallback.execution_Post(url+":8000/profile/", token, "PATCH", post_dict.toString()));
+                String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
 
                 System.out.println("status in save is " + status);
                 System.out.println("token inside saveInfo is " + token);

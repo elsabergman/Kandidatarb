@@ -73,14 +73,27 @@
                 android:textSize="25sp"
                 android:gravity="center"/>
 
+            <TextView
+                android:id="@+id/descr_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/todays_events"
+                android:text="Click on an event to show further information"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="150dp"
+                android:textSize="17sp"
+                android:textColor="@color/white" />
+
+
 
 
             <ListView
                 android:id="@+id/todays_events_list"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_below="@+id/material_spinner_type"
-                android:layout_marginTop="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descr_info"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:background="@color/white"
@@ -105,16 +118,6 @@
                 android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
 
 
-
-            <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/todays_events_list"
-                android:layout_marginTop="30dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/testimage"
-
-                />
 
         <!--    <ImageButton
                 android:id="@+id/ib_close"

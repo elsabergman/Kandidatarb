@@ -32,30 +32,14 @@ import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
  */
 
 public class EditEvent extends SlidingMenuActivity {
-    String serverURL = "130.243.199.160";
-    String id_event, name, date, start_time_string, end_time_string, description_string, url;
+    String serverURL = "130.243.182.165";
+    String id_event, name, url, theId,chosen_type,theIdCampus,theIdRoom, chosen_room,chosen_campus,chosen_uni, location;
     EditText event_name, date_event, company_visiting, start_time, end_time, relevant_links, description;
-    String theId;
-    String chosen_type;
-    String theIdCampus;
-    String theIdRoom;
-    String chosen_room;
-    String chosen_campus;
-    JSONArray myUniArray;
-    JSONArray myRoomArray;
-    String chosen_uni;
-    ArrayList<String> idList;
-    ArrayList<String> nameList;
-    JSONArray myCampusArray;
-    ArrayList<String> nameCampusList;
-    ArrayList<String> idCampusList;
-    ArrayList<String> nameRoomList;
-    ArrayList<String> idRoomList;
-    String location;
-
+    JSONArray myUniArray,myRoomArray,myCampusArray;
+    ArrayList<String> idList,nameList,nameCampusList,idCampusList,nameRoomList,idRoomList;
     String universityJson = "Change University?";
     String campusJson;
-    ;
+
 
 
     @Override
@@ -131,7 +115,6 @@ public class EditEvent extends SlidingMenuActivity {
         if (b != null)
             id_event = b.getString("ID");
         Button btn = (Button) findViewById(R.id.remove_event_button);
-        System.out.println(id_event + " id i Edit event");
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,9 +429,6 @@ public class EditEvent extends SlidingMenuActivity {
                 String idRoom = json_data.getString("id");
                 nameRoomList.add(i, nameRoom);
                 idRoomList.add(i, idRoom);
-
-
-                System.out.println(nameRoomList + " nameRoomLisr");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -557,7 +537,11 @@ public class EditEvent extends SlidingMenuActivity {
                     post_dict.put("date", dateEvent);
                     post_dict.put("start_time", start_time);
                     post_dict.put("stop_time", stop_time);
-                    post_dict.put("external_url", relevantlinks);
+                    if (relevantlinks.equals("null")){
+                        post_dict.put("external_url", " ");
+                    } else{
+                    post_dict.put("external_url", relevantlinks);}
+
                     post_dict.put("campus_location", roomId);
 
                     System.out.println(post_dict);
