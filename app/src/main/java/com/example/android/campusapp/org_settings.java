@@ -267,6 +267,15 @@ public class org_settings extends SlidingMenuActivity {
         boolean resultOfComparison_uni;
         final ArrayList<String> items_uni = new ArrayList<String>();
         final ArrayList<String> id_uni = new ArrayList<String>();
+
+        //items_uni.add("Change University?");
+       /* for (int i=0; i<nameList.size(); i++) {
+            items_uni.add(nameList.get(i));
+        }*/
+
+        /*------------------add universities to spinner list, with chosen uni as the first element */
+
+        boolean resultOfComparisonUni;
         items_uni.add(universityJson.toString());
         String uni_id = String.valueOf(nameList.indexOf(items_uni.get(0))+1);
         id_uni.add(uni_id);

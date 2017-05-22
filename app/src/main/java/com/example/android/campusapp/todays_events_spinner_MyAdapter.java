@@ -118,8 +118,9 @@ public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_
                     }
 
                     else{
+                        //items_checkedCampuses is sent to todays_events
                         items_checkedCampuses.add(listState.get(position).getTitle());
-                        sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
+                       // sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
                     }
 
 
@@ -130,7 +131,7 @@ public class todays_events_spinner_MyAdapter extends ArrayAdapter<todays_events_
                     System.out.println("VI ÄR INTE CHECKED?");
                     items_checkedCampuses.remove(listState.get(position).getTitle());
                     //todays_events sendTodaysEvents = new todays_events();
-                    sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
+                   // sendTodaysEvents.sendInfoToDatabase(items_checkedCampuses);
 
                 }
 

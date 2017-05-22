@@ -37,7 +37,6 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
         this.sendTodaysEvents = (todays_events) context;
 
-
     }
 
     @Override
@@ -76,29 +75,48 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
         holder.mCheckBox.setChecked(listState.get(position).isSelected());
         isFromView = false;
 
-        if ((position == 0)) {
+
+        if (items_checkedTypes.contains(listState.get(position).getTitle())) {
+            holder.mCheckBox.setChecked(listState.get(position).isSelected());
+        }
+
+
+
+        /*if ((position == 0)) {
             holder.mCheckBox.setVisibility(View.INVISIBLE);
 
-        } else {
-            holder.mCheckBox.setVisibility(View.VISIBLE);
 
+        }*/
+        //if in list it is checked
+       /* if (items_checkedTypes.contains(listState.get(position).getTitle())) {
+            holder.mCheckBox.setVisibility(View.INVISIBLE);
+            isChecked = true;
+        }*/
+
+
+        else {
+            holder.mCheckBox.setVisibility(View.VISIBLE);
         }
+
+
+
 
 
         holder.mCheckBox.setTag(position);
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+
+
+
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int getPosition = (Integer) buttonView.getTag();
 
+
                 if (isChecked == true) {
 
                     //Here we see the checked boxes and their name, put it in to a array and send it to todays_events
-
-
-
-
 
                     System.out.println("Denna position har namn "+listState.get(position).getTitle());
                     System.out.println("VI ÄR CHECKED?");
@@ -109,9 +127,11 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
                     }
 
                     else{
+                        //items_checkedTypes is sent to todays_events
                         items_checkedTypes.add(listState.get(position).getTitle());
                       //  todays_events sendTodaysEvents = new todays_events();
                         sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
+                        System.out.println("Sent to sendinfotodatabasetype "+items_checkedTypes);
                     }
 
 
