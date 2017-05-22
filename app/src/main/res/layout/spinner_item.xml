@@ -9,13 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:textSize="15sp"
         android:text="text"
-        android:textAlignment="gravity" />
+        android:textAlignment="gravity"
+        android:textColor="@color/black"
+        />
 
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:buttonTint="@color/black"
+        />
 </RelativeLayout>

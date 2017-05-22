@@ -78,7 +78,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String chosen_campuses;
 
 
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.182.165";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
 
@@ -506,7 +506,11 @@ public class todays_events extends student_SlidingMenuActivity {
         materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
 
-        //------------------------Types SPINNER!!!!! STOP--------------------------------
+
+
+
+
+            //------------------------Types SPINNER!!!!! STOP--------------------------------
 
         //-------------STOP GET TYPES-------------
 

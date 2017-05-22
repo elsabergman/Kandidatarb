@@ -27,7 +27,7 @@ public class login extends Activity {
     URLConnection urlConn;
     DataOutputStream printout;
     DataInputStream input;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.182.165";
 
     public void onCreate(Bundle savedInstanceState) {
 

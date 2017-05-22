@@ -162,7 +162,7 @@
                 android:textColor="@color/black"
                 android:text="Sort by type: "
                 android:theme="@style/org_header"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:padding="0dp"
                 android:textSize="15sp"
@@ -189,7 +189,6 @@
                 android:hint="Show options"
                 android:layout_below="@+id/material_spinner_campuses"
                 android:layout_toRightOf="@id/sortCampusText"
-                app:met_floatingLabel="normal"
                 android:layout_marginTop="0dp"
                 android:layout_marginLeft="5dp"
                 android:textColorHint="@color/black"
@@ -199,6 +198,7 @@
                 app:met_helperTextColor="@color/black"
                 app:met_textColorHint = "@color/black"
                 />
+            <!--Dena rad i betterspinern app:met_floatingLabel="normal"-->
 
    ¨
 
