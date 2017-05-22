@@ -61,7 +61,7 @@ public class student_settings extends student_SlidingMenuActivity {
     String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
-    String url = "130.243.199.160";
+    String url = "130.243.182.165";
 
 
 

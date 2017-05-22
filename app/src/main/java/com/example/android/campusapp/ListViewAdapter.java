@@ -109,19 +109,21 @@ public class ListViewAdapter extends BaseAdapter {
 
             convertView=inflater.inflate(R.layout.column_rows, null);
 
-            txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
-            txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-            txtThird=(TextView) convertView.findViewById(R.id.Time);
-            txtFourth=(TextView) convertView.findViewById(R.id.owner);
-            txtDescription = (TextView) convertView.findViewById((R.id.description));
-            txtURL = (TextView) convertView.findViewById((R.id.url));
-            txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
-            txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
-            txtEdit = (TextView) convertView.findViewById((R.id.fav));
 
            // listView = (ListView) convertView.findViewById(R.id.your_event_list)
+        } else {
+            convertView = convertView;
         }
 
+        txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
+        txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
+        txtThird=(TextView) convertView.findViewById(R.id.Time);
+        txtFourth=(TextView) convertView.findViewById(R.id.owner);
+        txtDescription = (TextView) convertView.findViewById((R.id.description));
+        txtURL = (TextView) convertView.findViewById((R.id.url));
+        txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
+        txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
+        txtEdit = (TextView) convertView.findViewById((R.id.fav));
         final HashMap<String, String> map=list.get(position);
 
         txtFirst.setTextColor(Color.DKGRAY);

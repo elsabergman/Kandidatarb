@@ -41,7 +41,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
     ListView listView;
     boolean isVisible;
     String token;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.182.165";
     public todaysEvents_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
         super();
         this.activity=activity;
@@ -67,30 +67,34 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
         final LayoutInflater inflater=activity.getLayoutInflater();
         if(convertView == null){
             convertView=inflater.inflate(R.layout.student_column_rows, null);
-            txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
-            txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-            txtThird=(TextView) convertView.findViewById(R.id.Time);
-            txtDescription = (TextView) convertView.findViewById((R.id.description));
-            txtURL = (TextView) convertView.findViewById((R.id.url));
-            txtFavorites = (TextView) convertView.findViewById((R.id.fav));
+
 
         }
+        else {
+            convertView = convertView;
+        }
+        txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
+        txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
+        txtThird=(TextView) convertView.findViewById(R.id.Time);
+        txtDescription = (TextView) convertView.findViewById((R.id.description));
+        txtURL = (TextView) convertView.findViewById((R.id.url));
+        txtFavorites = (TextView) convertView.findViewById((R.id.fav));
+
         final HashMap<String, String> map=list.get(position);
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
-
+        System.out.println("position "+ position);
+        System.out.println("third column " + map.get(THIRD_COLUMN));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
-                System.out.println(item + " hash map2");
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
                 final String id_event = item.get("id");
-
 
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));

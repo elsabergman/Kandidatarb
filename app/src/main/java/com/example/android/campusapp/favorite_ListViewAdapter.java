@@ -73,16 +73,19 @@ public class favorite_ListViewAdapter extends BaseAdapter{
             final LayoutInflater inflater=activity.getLayoutInflater();
             if(convertView == null){
                 convertView=inflater.inflate(R.layout.student_column_rows, null);
-                txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
-                txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-                txtThird=(TextView) convertView.findViewById(R.id.Time);
-                txtDescription = (TextView) convertView.findViewById((R.id.description));
-                txtURL = (TextView) convertView.findViewById((R.id.url));
-                txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
+
+            } else {
+                convertView = convertView;
             }
 
 
+            txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
+            txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
+            txtThird=(TextView) convertView.findViewById(R.id.Time);
+            txtDescription = (TextView) convertView.findViewById((R.id.description));
+            txtURL = (TextView) convertView.findViewById((R.id.url));
+            txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
             final HashMap<String, String> map=list.get(position);
 

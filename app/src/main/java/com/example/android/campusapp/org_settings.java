@@ -68,7 +68,7 @@ public class org_settings extends SlidingMenuActivity {
     String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
-    String url = "130.243.199.160";
+    String url = "130.243.182.165";
 
 
     ArrayList<String> idList;

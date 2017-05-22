@@ -78,7 +78,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String chosen_campuses;
 
 
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.182.165";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
 
@@ -573,7 +573,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -591,13 +591,12 @@ public class todays_events extends student_SlidingMenuActivity {
                     String url = json_data.getString("external_url");
                     //    String id =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-
                     list.get(i).put(THIRD_COLUMN,name);
                     //  list.get(i).put(FOURTH_COLUMN, name );
 
                     list.get(i).put(DESCRIPTION, description);
+                    list.get(i).put(FAVORITES,"add event to favorites");
                     total_list.add(list.get(i));
                     if ( url != null) {
 
@@ -609,17 +608,18 @@ public class todays_events extends student_SlidingMenuActivity {
                         list.get(i).put(URL, " ");
                     }
 
-                    Log.d(name, "name");
+                  /*  Log.d(name, "name");
                     Log.d(date, "date");
                     Log.d(start_time, "start");
                     Log.d(end_time, "end");
-                    Log.d(description, "description");
+                    Log.d(description, "description"); */
                     // Log.d(id, "id");
 
 
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+                System.out.println("list to listadapter " + list);
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 
 
