@@ -80,7 +80,10 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
 
         if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-            holder.mCheckBox.setChecked(listState.get(position).isSelected());
+            System.out.println("tite checked "+listState.get(position).getTitle());
+            System.out.println("tite checked status "+listState.get(position).isSelected());
+
+            //holder.mCheckBox.setChecked(listState.get(position).isSelected());
         }
 
 
@@ -96,15 +99,47 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
             //holder.mCheckBox.setChecked(false);
             System.out.println("Putting holder.mCheckBox.setChecked(false);");
             //holder.mCheckBox.setVisibility(View.INVISIBLE);
-            holder.mCheckBox.setChecked(true);
-        }*/
+            //holder.mCheckBox.setChecked(true);
+            //items_checkedTypes.get(position).setSelected(true);
+
+            //Gör en lösning där vi går igenom hela items_checkedTypes och kollar om det finns i listState.get(position) och om det gör det så setSelected(true) på den liststetegrejen. Arvid 22/5
+*/
+      /*      for(int i = 0; i < listState.size(); i++){
+
+                String testitemliststate = listState.get(i).getTitle();
+
+               // items_checkedTypes.get(i);
+
+                if (items_checkedTypes.contains(testitemliststate)/*   equals(items_checkedTypes.get(i).toString())*/ {
 
 
 
-        else {
+                   /* listState.get(i).setSelected(true);
+                    System.out.println("liststate setselected(true);");
+
+                }
+
+                else{
+
+
+                }*/
+
+            }
+
+           /* if (listState.get(position).getTitle().equals(items_checkedTypes.toString())) {
+
+                listState.get(position).setSelected(true);
+
+            }*/
+
+        /*}*/
+
+
+
+ /*       else {
             holder.mCheckBox.setVisibility(View.VISIBLE);
         }
-
+*/
 
 
 
@@ -139,6 +174,8 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
                 if (isChecked == true) {
 
+                    //listState.get(position).setSelected(true);
+
                     //Here we see the checked boxes and their name, put it in to a array and send it to todays_events
 
                     System.out.println("Denna position har namn "+listState.get(position).getTitle());
@@ -147,7 +184,6 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
                         System.out.println(isChecked);
                         System.out.println("Denna position har namn "+listState.get(position).getTitle()+ "och borde inte läggas in i listan");
                         System.out.println("listan ser nu ut såhär: "+items_checkedTypes);
-
                     }
 
                     else{
@@ -157,13 +193,12 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
                         System.out.println("Sent to sendinfotodatabasetype "+items_checkedTypes);
                     }
 
-                }
-
-
-                if (isChecked == false) {
+                } else {
                     System.out.println("VI ÄR INTE CHECKED?");
                     items_checkedTypes.remove(listState.get(position).getTitle());
                     sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
+
+                    //listState.get(position).setSelected(false);
                 }
 
             }

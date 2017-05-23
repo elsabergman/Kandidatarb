@@ -493,6 +493,8 @@ public class todays_events extends student_SlidingMenuActivity {
         //------------------------Types SPINNER START!!!------------------------------
         ArrayAdapter<String> typeadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA_TYPES/*typesStringArray*/);
 
+        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
+
         materialBetterSpinnerTypes.setAdapter(typeadapter);
 
         ArrayList<todays_events_spinner_StateVOTypes> listVOsType = new ArrayList<>();
