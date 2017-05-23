@@ -33,7 +33,6 @@ package com.example.android.campusapp;
            import static com.example.android.campusapp.Constants.FAVORITES;
            import static com.example.android.campusapp.Constants.FIRST_COLUMN;
            import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
-           import static com.example.android.campusapp.Constants.HEART;
            import static com.example.android.campusapp.Constants.SECOND_COLUMN;
         import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
@@ -73,16 +72,19 @@ public class favorite_ListViewAdapter extends BaseAdapter{
             final LayoutInflater inflater=activity.getLayoutInflater();
             if(convertView == null){
                 convertView=inflater.inflate(R.layout.student_column_rows, null);
-                txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
-                txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
-                txtThird=(TextView) convertView.findViewById(R.id.Time);
-                txtDescription = (TextView) convertView.findViewById((R.id.description));
-                txtURL = (TextView) convertView.findViewById((R.id.url));
-                txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
+
+            } else {
+                convertView = convertView;
             }
 
 
+            txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
+            txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
+            txtThird=(TextView) convertView.findViewById(R.id.Time);
+            txtDescription = (TextView) convertView.findViewById((R.id.description));
+            txtURL = (TextView) convertView.findViewById((R.id.url));
+            txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
             final HashMap<String, String> map=list.get(position);
 
@@ -148,7 +150,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
                                 try {
                                     String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/my-favourites/delete/"+id_event+"/", token, "DELETE", "No JsonData"));
-
+                                    activity.startActivity((new Intent(activity, favorites.class)));
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 } catch (InterruptedException e) {
