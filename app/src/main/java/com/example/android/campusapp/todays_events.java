@@ -69,7 +69,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String chosen_campuses;
     String theId;
     //String token;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.243.182.165";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
     String University;

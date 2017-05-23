@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post:"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/post"
+        />
+
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_below="@+id/post"
+            android:orientation="vertical"
+            android:layout_width="400dp"
+            android:layout_height="500dp"
+            android:layout_marginBottom="400dp"
+            android:layout_marginTop="10dp"
+            />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments: (for newest comment, scroll down)"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="155dp"
+        android:id="@+id/comment_header"
+        />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_above="@+id/comment_field"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/comments"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:focusableInTouchMode="false"
+            >
+
+        </LinearLayout>
+
+        </ScrollView>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/comment_field"
+        android:background="@color/white"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+
+
+        />
+
+    <Button
+        android:id="@+id/comment_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POST"
+        android:layout_toRightOf="@+id/comment_field"
+        android:layout_alignParentBottom="true"
+        android:background="@color/icon_color"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+
+
+
+        />
+
+
+
+    </RelativeLayout>

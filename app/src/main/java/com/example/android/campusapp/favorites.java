@@ -49,7 +49,7 @@ public class favorites extends student_SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
-    String serverUrl = "130.243.199.160";
+    String serverUrl = "130.243.182.165";
     String id_event;
     private Date dateTime;
 
