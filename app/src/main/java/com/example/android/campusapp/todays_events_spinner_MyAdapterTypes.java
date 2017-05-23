@@ -12,6 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.button;
+import static com.example.android.campusapp.R.layout.spinner_item;
+
 /**
  * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
  */
@@ -57,7 +60,7 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
         final ViewHolder holder;
         if (convertView == null) {
             LayoutInflater layoutInflator = LayoutInflater.from(mContext);
-            convertView = layoutInflator.inflate(R.layout.spinner_item, null);
+            convertView = layoutInflator.inflate(spinner_item, null);
             holder = new ViewHolder();
             holder.mTextView = (TextView) convertView
                     .findViewById(R.id.text);
@@ -81,17 +84,21 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
         }
 
 
-
         /*if ((position == 0)) {
             holder.mCheckBox.setVisibility(View.INVISIBLE);
-
-
         }*/
+
         //if in list it is checked
        /* if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-            holder.mCheckBox.setVisibility(View.INVISIBLE);
-            isChecked = true;
+            //holder.mCheckBox.setVisibility(View.INVISIBLE);
+            //boolean isChecked = true;
+            //todays_events_spinner_StateVOTypes.isSelected();
+            //holder.mCheckBox.setChecked(false);
+            System.out.println("Putting holder.mCheckBox.setChecked(false);");
+            //holder.mCheckBox.setVisibility(View.INVISIBLE);
+            holder.mCheckBox.setChecked(true);
         }*/
+
 
 
         else {
@@ -102,11 +109,27 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
 
 
+
         holder.mCheckBox.setTag(position);
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 
+       /*     @Override
+            public void performClick(CompoundButton buttonView, boolean isChecked) {
 
+
+            }
+            private boolean mOpenInitiated = false;
+            @Override
+            public boolean performClick() {
+                // register that the Spinner was opened so we have a status
+                // indicator for when the container holding this Spinner may lose focus
+                mOpenInitiated = true;
+                if (mListener != null) {
+                    mListener.onSpinnerOpened(this);
+                }
+                return super.performClick();
+            }*/
 
 
             @Override
@@ -124,16 +147,15 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
                         System.out.println(isChecked);
                         System.out.println("Denna position har namn "+listState.get(position).getTitle()+ "och borde inte läggas in i listan");
                         System.out.println("listan ser nu ut såhär: "+items_checkedTypes);
+
                     }
 
                     else{
                         //items_checkedTypes is sent to todays_events
                         items_checkedTypes.add(listState.get(position).getTitle());
-                      //  todays_events sendTodaysEvents = new todays_events();
                         sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
                         System.out.println("Sent to sendinfotodatabasetype "+items_checkedTypes);
                     }
-
 
                 }
 
@@ -141,16 +163,14 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
                 if (isChecked == false) {
                     System.out.println("VI ÄR INTE CHECKED?");
                     items_checkedTypes.remove(listState.get(position).getTitle());
-                    //todays_events sendTodaysEvents = new todays_events();
                     sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
-
                 }
-
-
-
 
             }
         });
+
+
+
         return convertView;
     }
 
@@ -158,5 +178,7 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
     private class ViewHolder {
         private TextView mTextView;
         private CheckBox mCheckBox;
+
+
     }
 }

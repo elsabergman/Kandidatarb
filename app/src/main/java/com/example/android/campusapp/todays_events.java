@@ -507,7 +507,11 @@ public class todays_events extends student_SlidingMenuActivity {
         materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
 
-        //------------------------Types SPINNER!!!!! STOP--------------------------------
+
+
+
+
+            //------------------------Types SPINNER!!!!! STOP--------------------------------
 
         //-------------STOP GET TYPES-------------
 
