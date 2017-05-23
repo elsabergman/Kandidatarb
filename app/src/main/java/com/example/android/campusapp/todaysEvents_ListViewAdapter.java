@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
-
+import static com.example.android.campusapp.Constants.ID;
 /**
  * Created by elsabergman on 2017-05-16.
  */
@@ -80,11 +80,11 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
         txtDescription = (TextView) convertView.findViewById((R.id.description));
         txtURL = (TextView) convertView.findViewById((R.id.url));
 
-
         final HashMap<String, String> map=list.get(position);
         txtFirst.setText(map.get(FIRST_COLUMN));
         txtSecond.setText(map.get(SECOND_COLUMN));
         txtThird.setText(map.get(THIRD_COLUMN));
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,8 +94,9 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
                 String myDescription = item.get("Description");
                 String myUrl = item.get("Url");
-                final String id_event = item.get("id");
+               final String id_event = item.get("id");
 
+                System.out.println("MITT ID " + id_event);
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));
                 txtFavorites = (TextView) view.findViewById(R.id.fav);
@@ -144,7 +145,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                             try {
                                 post_dict.put("event_id", id_event);
-                                System.out.println(token);
+                                System.out.println(post_dict + "JSON FILE");
 
                                 String status = (myCallback.execution_Post("http://"+serverURL+":8000/events/my-favourites/add/", token,"POST",post_dict.toString()));
 

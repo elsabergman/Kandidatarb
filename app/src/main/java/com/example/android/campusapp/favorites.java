@@ -33,8 +33,7 @@ import java.util.concurrent.ExecutionException;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
-import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
-import static com.example.android.campusapp.Constants.HEART;
+
 import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
