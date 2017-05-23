@@ -46,7 +46,6 @@ import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
 import static com.example.android.campusapp.Constants.URL;
-import static com.example.android.campusapp.R.id.url;
 //import static com.example.android.campusapp.todays_events_spinner_MyAdapterTypes.items_checkedTypes;
 
 
@@ -201,7 +200,6 @@ public class todays_events extends student_SlidingMenuActivity {
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     String id_event = json_data.getString("id");
-                    System.out.println("event name " + name);
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
@@ -220,17 +218,10 @@ public class todays_events extends student_SlidingMenuActivity {
                         list.get(i).put(URL, " ");
                     }
 
-                    Log.d(name, "name");
-                    Log.d(date, "date");
-                    Log.d(start_time, "start");
-                    Log.d(end_time, "end");
-                    Log.d(description, "description");
-                    // Log.d(id, "id");
-
-
                 }
 
-                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
+
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView, token);
                 listView.setAdapter(adapter);
 
 
@@ -593,12 +584,11 @@ public class todays_events extends student_SlidingMenuActivity {
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
-                    //    String id =json_data.getString("id");
+                    String id_event =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
-                    //  list.get(i).put(FOURTH_COLUMN, name );
-
+                    list.get(i).put(ID,id_event);
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(FAVORITES,"add event to favorites");
                     total_list.add(list.get(i));
@@ -612,17 +602,10 @@ public class todays_events extends student_SlidingMenuActivity {
                         list.get(i).put(URL, " ");
                     }
 
-                  /*  Log.d(name, "name");
-                    Log.d(date, "date");
-                    Log.d(start_time, "start");
-                    Log.d(end_time, "end");
-                    Log.d(description, "description"); */
-                    // Log.d(id, "id");
 
 
                 }
 
-                System.out.println("list to listadapter " + list);
                 adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 

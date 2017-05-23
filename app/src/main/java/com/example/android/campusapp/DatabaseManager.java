@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
 
 
 import static android.content.ContentValues.TAG;
@@ -89,8 +90,8 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
 
             }
 
-            System.out.println(type);
             if(type == "POST" || type == "PATCH" || type == "PUT") {
+
                 urlConnection.setDoOutput(true);
             /* Write message on stream */
                 Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));

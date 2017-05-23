@@ -81,7 +81,7 @@
                 android:text="Click on an event to show further information"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="100dp"
                 android:textSize="17sp"
                 android:textColor="@color/white" />
 
