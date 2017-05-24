@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
@@ -38,7 +40,7 @@ import java.util.concurrent.ExecutionException;
  * Created by Anna on 2017-04-24.
  */
 
-public class student_livefeed extends student_SlidingMenuActivity {
+public class student_livefeed extends student_SlidingMenuActivity implements Serializable  {
 
     private Context mContext;
     private Activity mActivity;
@@ -50,8 +52,14 @@ public class student_livefeed extends student_SlidingMenuActivity {
     String token;
     String status;
     private ArrayList<String> listContent;
+    private ArrayList<String> listID;
     private ArrayList<String> listLocation;
     private ArrayList<String> listCount;
+    private ArrayList<ArrayList> listComments_message;
+    private ArrayList<String> listComments;
+    private ArrayList<String> listCommentCount;
+
+
     private ArrayList<String> neutralArray;
     private ArrayList<String> greenArray;
     private ArrayList<String> redArray;
@@ -59,9 +67,11 @@ public class student_livefeed extends student_SlidingMenuActivity {
     private String after_voting;
      ImageButton arrow_up;
      ImageButton arrow_down;
+    ImageButton comment;
+    String comment_content;
 
 
-    String url = "130.243.199.160";
+    String url = "130.243.182.165";
 
 
 
@@ -89,16 +99,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
     void createFeed() {
 
-
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
-
-
 
         //Hämtar alla inlägg från databasen och lägger de i list
         Callback myCallback = new Callback();
-
-
-
 
         try {
             status = (myCallback.execution_Get("http://" + url +":8000/messages/", token, "GET", "No JsonData"));
@@ -107,37 +111,59 @@ public class student_livefeed extends student_SlidingMenuActivity {
                 Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
             } else {
 
-                JSONArray feedArrayDescription = new JSONArray(status);
-                JSONArray feedArrayLocation = new JSONArray(status);
-                JSONArray feedArrayCount = new JSONArray(status);
+                JSONArray feedArray = new JSONArray(status);
+
+
+                listID = new ArrayList<>();
+
 
 
                 listContent = new ArrayList<>();
                 listLocation = new ArrayList<>();
                 listCount = new ArrayList<>();
+                listComments_message = new ArrayList<>();
+                listCommentCount = new ArrayList<>();
 
 
-                for (int i = 0; i < feedArrayDescription.length(); i++) {
-                    JSONObject json_data = feedArrayDescription.getJSONObject(i);
+
+
+
+                for (int i = 0; i < feedArray.length(); i++) {
+                    JSONObject json_data = feedArray.getJSONObject(i);
                     String content = json_data.getString("content");
                     listContent.add(content);
 
-                }
+                    String ID = json_data.getString("id");
+                    listID.add(ID);
 
-
-                for (int i = 0; i < feedArrayLocation.length(); i++) {
-                    JSONObject json_data = feedArrayLocation.getJSONObject(i);
                     String location = json_data.getString("location");
                     listLocation.add(location);
 
-                }
-
-               for (int i = 0; i < feedArrayCount.length(); i++) {
-                    JSONObject json_data = feedArrayCount.getJSONObject(i);
                     String count = json_data.getString("votes");
                     listCount.add(count);
 
+
+
+                    JSONArray values = json_data.getJSONArray("comments");
+
+                    listComments = new ArrayList<>();
+
+                    for(int j = 0; j<values.length();j++){
+                        JSONObject comment = values.getJSONObject(j);
+
+                        comment_content = comment.getString("content");
+
+                        listComments.add(comment_content);
+                    }
+
+                    listComments_message.add(listComments);
+
+
+                    listCommentCount.add(String.valueOf(listComments.size()));
+
                 }
+
+
 
                 ArrayList voteArray = new ArrayList<>();
 
@@ -146,16 +172,17 @@ public class student_livefeed extends student_SlidingMenuActivity {
                 for (int i = listContent.size()-1; i >= 0; i--) {
 
                     RelativeLayout feed = new RelativeLayout(this);
-                    TextView descriptionArea = new TextView(this);
+                    final TextView descriptionArea = new TextView(this);
                     TextView locationArea = new TextView(this);
                     final TextView countArea = new TextView(this);
+                    TextView commentArea = new TextView(this);
+                    TextView commentCountArea = new TextView(this);
 
                     descriptionArea.setText(listContent.get(i));
                     descriptionArea.setTextSize(21);
                     descriptionArea.setTextColor(Color.rgb(0, 0, 0));
                     descriptionArea.setHeight(200);
                     descriptionArea.setWidth(500);
-
 
                     locationArea.setText(listLocation.get(i));
                     locationArea.setTextSize(15);
@@ -169,9 +196,16 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     countArea.setWidth(200);
                     countArea.setTextColor(Color.rgb(0, 0, 0));
 
+                    commentCountArea.setText(listCommentCount.get(i));
+                    commentCountArea.setTextSize(20);
+                    commentCountArea.setHeight(200);
+                    commentCountArea.setWidth(200);
+                    commentCountArea.setTextColor(Color.rgb(0, 0, 0));
+
 
                     feed.addView(descriptionArea);
                     feed.addView(locationArea);
+                    feed.addView(commentCountArea);
 
 
                     feed.setBackgroundResource(R.color.white);
@@ -185,8 +219,10 @@ public class student_livefeed extends student_SlidingMenuActivity {
             /* Create up and down arrows and counter */
 
                     ImageView pin = new ImageView(this);
+                    comment = new ImageButton(this);
                     arrow_up = new ImageButton(this);
                     arrow_down = new ImageButton(this);
+
 
                     arrow_up.setId(i+1);
                     arrow_down.setId(i+1);
@@ -200,6 +236,8 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
 
                     pin.setImageResource(R.drawable.pin_live_feed);
+                    comment.setBackgroundResource(R.drawable.comments_live_feed);
+
                     arrow_up.setBackgroundResource(R.drawable.arrow_up);
                     arrow_down.setBackgroundResource(R.drawable.arrow_down);
 
@@ -239,6 +277,17 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     RelativeLayout.LayoutParams lp7 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     lp7.setMargins(20, 20, 0, 0);
 
+                    RelativeLayout.LayoutParams lp8 = new RelativeLayout.LayoutParams(70, 70);
+                    lp8.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    lp8.setMargins(300,0,0,0);
+
+                    RelativeLayout.LayoutParams lp9 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp9.setMargins(320, 250, 0, 0);
+
+                    RelativeLayout.LayoutParams lp10 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp10.setMargins(380, 240, 0, 0);
+
+
 
                     arrow_up.setLayoutParams(lp2);
                     arrow_down.setLayoutParams(lp3);
@@ -246,15 +295,60 @@ public class student_livefeed extends student_SlidingMenuActivity {
                     pin.setLayoutParams(lp5);
                     locationArea.setLayoutParams(lp6);
                     descriptionArea.setLayoutParams(lp7);
+                    comment.setLayoutParams(lp8);
+                    commentArea.setLayoutParams(lp9);
+                    commentCountArea.setLayoutParams(lp10);
 
 
                     feed.addView(arrow_up);
                     feed.addView(arrow_down);
+                    feed.addView(comment);
                     feed.addView(pin);
                     feed.addView(countArea);
 
 
                     ll.addView(feed, lp);
+
+
+                    /*Click on comment and get to other page*/
+
+                    final int u = i;
+
+                    comment.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+
+                            //Intent intent = new Intent(student_livefeed.this, student_comments.class);
+                            //startActivity(intent);
+
+
+                            Intent intent = new Intent(student_livefeed.this, student_comments.class);
+                            intent.putExtra("content", listContent.get(u));
+                            intent.putExtra("id", listID.get(u));
+
+                            ArrayList <Object> object = listComments_message.get(u);
+                            Bundle args = new Bundle();
+                            args.putSerializable("comments", (Serializable)object);
+                            intent.putExtra("comments", args);
+
+
+
+
+
+
+
+                            startActivity(intent);
+
+
+
+
+
+
+                        }
+                        });
+
+                    /*Upvote-listener*/
 
 
                     if(i+1 == Id_arrowUp) {
@@ -297,7 +391,9 @@ public class student_livefeed extends student_SlidingMenuActivity {
 
                                          JSONObject json_data_vote = feedArrayCount.getJSONObject(0);
                                          String count = json_data_vote.getString("votes");
-                                         System.out.println(count);
+
+
+
                                          listCount.add(count);
                                          countArea.setText(count);
 
@@ -423,6 +519,8 @@ public class student_livefeed extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
@@ -468,7 +566,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
                             mPopupWindow.setElevation(5.0f);
                         }
 
-                      Button add_post = (Button) customView.findViewById(R.id.post_added);
+                      Button add_post = (Button) customView.findViewById(R.id.comment_added);
                         add_post.setOnClickListener(new View.OnClickListener(){
                         @Override
                          public void onClick(View view) {
