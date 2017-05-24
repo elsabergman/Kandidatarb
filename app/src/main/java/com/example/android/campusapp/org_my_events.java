@@ -68,7 +68,6 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
         /*----------------------------------------------*/
 
@@ -112,8 +111,6 @@ public class org_my_events extends SlidingMenuActivity {
             else {
 
                 JSONArray myEventsArray = new JSONArray(status);
-                System.out.println("Events array " + myEventsArray);
-
 
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
 
@@ -150,8 +147,6 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(EDIT,"Edit or remove event");
                     list.get(i).put(ID,id_event);
-                    System.out.println(list + " list");
-
 
                     if ( url != null) {
 

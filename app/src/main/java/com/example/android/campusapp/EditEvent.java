@@ -55,7 +55,6 @@ public class EditEvent extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
         /*----------------------------------------------*/
 
@@ -197,7 +196,7 @@ public class EditEvent extends SlidingMenuActivity {
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
             idList = new ArrayList<String>();
-            System.out.println(myUniArray);
+
 
 
 
@@ -212,9 +211,7 @@ public class EditEvent extends SlidingMenuActivity {
 
             }
 
-            System.out.println(nameList);
-            System.out.println(idList);
-            System.out.println(nameList.get(0));
+
 
 
         } catch (ExecutionException e) {
@@ -238,7 +235,6 @@ public class EditEvent extends SlidingMenuActivity {
         items_uni.add(universityJson.toString());
         for (int k=0; k<nameList.size(); k++) {
             resultOfComparisonUni=nameList.get(k).equals(items_uni.get(0));
-            System.out.println("resultOfComparisonUni is "+resultOfComparisonUni);
             if(resultOfComparisonUni == false) {
                 items_uni.add(nameList.get(k));
             }
@@ -251,7 +247,6 @@ public class EditEvent extends SlidingMenuActivity {
 
         final Spinner uni_spinner = (Spinner) findViewById(R.id.edit_university);
 
-        System.out.println("items_uni is "+items_uni);
 
         ArrayAdapter<String> uniadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_uni);
         uniadapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -335,15 +330,12 @@ public class EditEvent extends SlidingMenuActivity {
 
         final Spinner spinner = (Spinner)findViewById(R.id.edit_campus);
         //  String[] items_campus = new String[]{"Choose Campus"};
-        System.out.println(nameCampusList);
         boolean resultOfComparison_campus;
         final ArrayList<String> items_campus = new ArrayList<String>();
         final ArrayList<String> id_campus = new ArrayList<String>();
         items_campus.add(location);
-        System.out.println(items_campus + " default");
         String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0))+1); //+1 since arraylists start at 0
         id_campus.add(campus_id);
-        System.out.println("first campus id" + id_campus);
         for (int k=0; k<nameCampusList.size(); k++) {
             resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
 
@@ -353,8 +345,6 @@ public class EditEvent extends SlidingMenuActivity {
                 id_campus.add(campus_id);
             }
         }
-        System.out.println(id_campus + " all campus id");
-        System.out.println(items_campus + "all items_campus");
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);
         campusadapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner.setAdapter(campusadapter);
@@ -367,16 +357,13 @@ public class EditEvent extends SlidingMenuActivity {
                 //Här inne är vad som sker när en grej i listan väljs
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                System.out.println(chosen_campus);
 
                 for (int i = 0; i < myCampusArray.length(); i++) {
 
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                     if (chosen_campus == items_campus.get(i))
                     {
-                        System.out.println(id_campus.get(i) +  " id_campus");
                         theIdCampus = id_campus.get(i);
-                        System.out.println(theIdCampus);
                         ChooseRoom(theIdCampus, token);
 
                     }
@@ -467,7 +454,6 @@ public class EditEvent extends SlidingMenuActivity {
 
                         if (chosen_room == items_room.get(i)) {
                             theIdRoom = idRoomList.get(i-1);
-                            System.out.println(theIdRoom + " room id");
                             CreateMyEvent(theIdRoom, token);
                         }
 
@@ -529,7 +515,6 @@ public class EditEvent extends SlidingMenuActivity {
 
                 JSONObject post_dict = new JSONObject(); //creates Json object
 
-                System.out.println(relevantlinks);
                 try {
                     post_dict.put("type_event", chosen_type);
                     post_dict.put("name_event", eventname);
@@ -543,8 +528,6 @@ public class EditEvent extends SlidingMenuActivity {
                     post_dict.put("external_url", relevantlinks);}
 
                     post_dict.put("campus_location", roomId);
-
-                    System.out.println(post_dict);
 
 
                 } catch (JSONException e) {

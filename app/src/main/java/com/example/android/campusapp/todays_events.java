@@ -55,27 +55,18 @@ import static com.example.android.campusapp.Constants.URL;
 public class todays_events extends student_SlidingMenuActivity {
 
     private todays_events_spinner_MyAdapterTypes activiateTypesSpinner;
-
     private Context mContext;
     private Activity mActivity;
-
     private RelativeLayout mRelativeLayout;
     private Button mButton;
-
     private PopupWindow mPopupWindow;
     private ArrayList<HashMap<String, String>> list;
     private ArrayList<HashMap<String, String>> total_list;
-
-
-
-
-
     MaterialBetterSpinner materialBetterSpinnerTypes;
 
     String[] SPINNER_DATA_CAMPUSES = {"Campus:", "Ångström", "Engelska Parken", "ITC", "Ekonomikum"};
     String[] SPINNER_DATA_TYPES = {/*"Type:",*/ "Lunch Lecture", "Promoting Event", "Evening Event","Case Event","Other"};
     String chosen_campuses;
-
 
     String serverURL = "130.243.182.165";
     private String sendStringTypes = "";
@@ -85,32 +76,19 @@ public class todays_events extends student_SlidingMenuActivity {
     private String campusJson;
     private String universityIdDefault;
     private String chosen_campus;
-
     String University;
-
-
     private String token = null;
     private String theId = "";
-
     ArrayList<String> idList;
     ArrayList<String> nameList;
     ArrayList<String> nameListType;
     ArrayList<String> idListType;
-
     ArrayList<String> items_checkedTypesCopy = new ArrayList<String>();
-
-
-
     TextView textUni;
-
-
-
     JSONArray myCampArray;
     JSONArray myTypeArray;
     JSONArray myUniArray;
     ArrayList<String> nameListUni;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,12 +103,8 @@ public class todays_events extends student_SlidingMenuActivity {
 
         /*----------------------------------------------*/
 
-
         //Add empty string to araylist to not get null
         items_checkedTypesCopy.add("");
-
-
-
 
         Callback myCallback = new Callback();
 
@@ -412,16 +386,11 @@ public class todays_events extends student_SlidingMenuActivity {
         });
 
 
-        //------------------------campuses SPINNER!!!!! STOP--------------------------------
+        //------------------------campuses SPINNER STOP--------------------------------
 
         //--------STOP GET CAMPUSES--------
 
-
-
-
-
-
-                /*----GET TYPES ---*/
+                /*----GET TYPES from database ---*/
 
          /*--spinner implementation--*/
         Callback myCallbackType = new Callback();
@@ -472,13 +441,9 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
         }
-        //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
         final MaterialBetterSpinner materialBetterSpinnerTypes = (MaterialBetterSpinner) findViewById(R.id.material_spinner_type);
-        //String SPINNER_DATA_TESTCAMPUS = items_camp.toArray();
-
         String[] typesStringArray = new String[items_type.size()];
         typesStringArray = items_type.toArray(typesStringArray);
-
         System.out.println("items_type is " + items_type);
 
         //------------------------Types SPINNER START!!!------------------------------
@@ -499,18 +464,81 @@ public class todays_events extends student_SlidingMenuActivity {
         todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterType = new todays_events_spinner_MyAdapterTypes(todays_events.this, 0, listVOsType);
         materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
+        materialBetterSpinnerTypes.setOnClickListener(new AdapterView.OnClickListener()
+
+                                                             {
+                                                                 @Override
+                                                                 public void onClick(View v) {
+
+                                                                     for (int i = 0; i < /*typesStringArray*/SPINNER_DATA_TYPES.length; i++) {
+                                                                        if(items_checkedTypesCopy.contains(SPINNER_DATA_TYPES[i])){
+                                                                         todays_events_spinner_StateVOTypes todayseventsspinnerStateVO = new todays_events_spinner_StateVOTypes();
+                                                                         todayseventsspinnerStateVO.setTitle(/*typesStringArray*/SPINNER_DATA_TYPES[i]);
+                                                                         todayseventsspinnerStateVO.setSelected(true);
+                                                                            System.out.println("ONCLICKED  SPUINNER INSIDE!!!");
+                                                                        }
+                                                                     }
 
 
+                                                                     System.out.println("ONCLICKED  SPUINNER!!!");
+                                                                     //if (SPINNER_DATA_CAMPUSES.contains(items_checkedTypesCopy)
 
 
+                                                                    /* System.out.println("KKKKKKKKK");
+                                                                     ViewHolder temp = (ViewHolder) v.getTag();
+                                                                     temp.mCheckBox.setChecked(!temp.mCheckBox.isChecked());
+
+                                                                     int len = items_checkedTypes.size();
+                                                                     for (int i = 0; i < len; i++)
+                                                                     {
+                                                                         System.out.println("HHHHHHHHHHHH");
+                                                                         if (i == position)
+                                                                         {
+                                                                             (listState.get(position)).setSelected(!(listState.get(position)).isSelected());
+                                                                             //Log.i("TAG", "On Click Selected : " + (listState.get(position)).getTitle() + " : " + (listState.get(position)).isSelected());
+                                                                             System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
+                                                                             break;
+                                                                         }
+                                                                     }*/
+
+
+                                                                 }
+
+
+                                                                /* @Override
+                                                                 public void onNothingSelected(AdapterView<?> parent) {
+
+                                                                 }*/
+                                                             });
+
+
+       /* convertView.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+
+                System.out.println("KKKKKKKKK");
+                ViewHolder temp = (ViewHolder) v.getTag();
+                temp.mCheckBox.setChecked(!temp.mCheckBox.isChecked());
+
+                int len = items_checkedTypes.size();
+                for (int i = 0; i < len; i++)
+                {
+                    System.out.println("HHHHHHHHHHHH");
+                    if (i == position)
+                    {
+                        (listState.get(position)).setSelected(!(listState.get(position)).isSelected());
+                        //Log.i("TAG", "On Click Selected : " + (listState.get(position)).getTitle() + " : " + (listState.get(position)).isSelected());
+                        System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
+                        break;
+                    }
+                }
+            }
+        });*/
 
             //------------------------Types SPINNER!!!!! STOP--------------------------------
 
         //-------------STOP GET TYPES-------------
-
-
-
-
 }
 
 

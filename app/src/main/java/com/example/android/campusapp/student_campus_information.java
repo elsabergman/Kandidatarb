@@ -81,7 +81,6 @@ public class student_campus_information extends student_SlidingMenuActivity {
 
                 JSONObject myInfoObject = new JSONObject(status);
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
-                System.out.println(universityJson + " universityJson");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
                 String universities = (myCallback.execution_Get("http://"+url+":8000/university/", token, "GET", "No JsonData"));
@@ -128,10 +127,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
             boolean resultOfComparison;
             final ArrayList<String> items_campus = new ArrayList<String>();
             items_campus.add(campusJson.toString());
-            System.out.println(items_campus);
             for (int k=0; k<nameCampusList.size(); k++) {
                 resultOfComparison=nameCampusList.get(k).equals(items_campus.get(0));
-                System.out.println(resultOfComparison);
                 if(resultOfComparison == false) {
                     items_campus.add(nameCampusList.get(k));
                 }
@@ -152,8 +149,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
                     //Här inne är vad som sker när en grej i listan väljs
 
             /*Toast to show what campus is selected */
-                    Toast toast = Toast.makeText(student_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(student_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
+                    //toast.show();
                     String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
                     for (int i=0; i<myCampusArray.length(); i++) {

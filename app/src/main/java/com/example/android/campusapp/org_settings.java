@@ -89,7 +89,6 @@ public class org_settings extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println("token inside oncreate is " + token);
         /*----------------------------------------------*/
 
         //Create the switch for notifications on/off
@@ -109,15 +108,15 @@ public class org_settings extends SlidingMenuActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", true).apply();
                     mySwitch.setChecked(true);
-                    Toast toast = Toast.makeText(org_settings.this, "Notifications on", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(org_settings.this, "Notifications on", Toast.LENGTH_SHORT);
+                    //toast.show();
 
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", false).apply();
                     mySwitch.setChecked(false);
-                    Toast toast = Toast.makeText(org_settings.this, "Notifications off", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(org_settings.this, "Notifications off", Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
 
             }
@@ -183,14 +182,11 @@ public class org_settings extends SlidingMenuActivity {
 
             String status = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
-            System.out.println("status is " + status);
-
             if (status == "false") {
                 Toast.makeText(org_settings.this, "could not fetch user info", Toast.LENGTH_LONG).show();
             } else {
                 //Here we get separate objects from json string
                 JSONObject myInfoObject = new JSONObject(status);
-                System.out.println("This row is just after myinfoarray is created");
 
                 String usernameJson = myInfoObject.getString("username");
                 String emailJson = myInfoObject.getString("email");
@@ -199,12 +195,6 @@ public class org_settings extends SlidingMenuActivity {
                 String lastnameJson = myInfoObject.getString("last_name");
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
-
-                System.out.println("emailJson is "+emailJson);
-                System.out.println("username is " + usernameJson);
-                System.out.println("orgname is"+orgnameJson);
-                System.out.println("universityname is "+universityJson);
-                System.out.println("campusname is "+campusJson);
 
                 orgnameInput.setText(orgnameJson, TextView.BufferType.EDITABLE);
                 orgemailInput.setText(emailJson, TextView.BufferType.EDITABLE);
@@ -505,7 +495,6 @@ public class org_settings extends SlidingMenuActivity {
 
          /*-----------remember token in saveInfo method--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println("token inside saveInfo is " + token);
         /*----------------------------------------------*/
 
 
@@ -524,12 +513,9 @@ public class org_settings extends SlidingMenuActivity {
             Callback myCallback = new Callback();
 
             try {
-                System.out.println("post_dict is " + post_dict.toString());
 
                 String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
 
-                System.out.println("status in save is " + status);
-                System.out.println("token inside saveInfo is " + token);
                 if (status == "true") {
 
                     orgfirstnameInput.setFocusable(false);

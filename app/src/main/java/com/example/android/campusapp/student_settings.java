@@ -83,7 +83,6 @@ public class student_settings extends student_SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println("token inside oncreate is " + token);
         /*----------------------------------------------*/
 
         //Create the switch for notifications on/off
@@ -103,15 +102,15 @@ public class student_settings extends student_SlidingMenuActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", true).apply();
                     mySwitch.setChecked(true);
-                    Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
+                    //toast.show();
 
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", false).apply();
                     mySwitch.setChecked(false);
-                    Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
+                    //toast.show();
                 }
 
             }
@@ -181,15 +180,12 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
             String status = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
-            System.out.println("status is " + status);
 
             if (status == "false") {
                 Toast.makeText(student_settings.this, "could not fetch user info", Toast.LENGTH_LONG).show();
             } else {
                 //Here we get separate objects from json string
                 JSONObject myInfoObject = new JSONObject(status);
-                System.out.println("This row is just after myinfoarray is created");
-
                 String usernameJson = myInfoObject.getString("username");
                 String emailJson = myInfoObject.getString("email");
                 //String orgnameJson = myInfoObject.getString("org_name");
@@ -198,11 +194,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
-                System.out.println("emailJson is "+emailJson);
-                System.out.println("username is " + usernameJson);
-                //System.out.println("orgname is"+orgnameJson);
-                System.out.println("universityname is "+universityJson);
-                System.out.println("campusname is "+campusJson);
 
                 //orgnameInput.setText(orgnameJson, TextView.BufferType.EDITABLE);
                 studemailInput.setText(emailJson, TextView.BufferType.EDITABLE);
@@ -415,7 +406,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 try {
 
                     post_dict.put("campus", theIdCampus);
-                    System.out.println("post_dict of theIdCampus is " + post_dict);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -489,7 +479,6 @@ public class student_settings extends student_SlidingMenuActivity {
 
          /*-----------remember token in saveInfoStudent method--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println("token inside saveInfoStudent is " + token);
         /*----------------------------------------------*/
 
 
@@ -508,12 +497,9 @@ public class student_settings extends student_SlidingMenuActivity {
             Callback myCallback = new Callback();
 
             try {
-                System.out.println("post_dict is " + post_dict.toString());
-                String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
-                System.out.println("status in save is " + status);
-                System.out.println("token inside saveInfoStudent is " + token);
-                if (status == "true") {
 
+                String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
+                if (status == "true") {
                     studfirstnameInput.setFocusable(false);
                     studfirstnameInput.setClickable(false);
                     studlastnameInput.setFocusable(false);
@@ -521,14 +507,12 @@ public class student_settings extends student_SlidingMenuActivity {
                     studfirstnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
                     studlastnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
 
-                   // Toast.makeText(student_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
                 }
                 if (status == "false") {
                     Toast.makeText(student_settings.this, "User could not be edited", Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
 
-                System.out.println("Could not edit user info");
             }
 
 

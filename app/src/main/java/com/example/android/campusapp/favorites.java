@@ -71,8 +71,6 @@ public class favorites extends student_SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
-
         /*----------------------------------------------*/
 
                  /*---Fonts for our Logo---*/

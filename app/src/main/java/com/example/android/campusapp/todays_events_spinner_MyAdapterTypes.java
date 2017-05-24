@@ -1,6 +1,7 @@
 package com.example.android.campusapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.button;
+import static android.R.attr.data;
 import static com.example.android.campusapp.R.layout.spinner_item;
 
 /**
@@ -73,15 +75,47 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
         holder.mTextView.setText(listState.get(position).getTitle());
 
+
+        //TEST
+
+        //holder.mCheckBox.setChecked(listState.get(position).isSelected());
+
+        convertView.setOnClickListener(new View.OnClickListener()
+                                       {
+                                           public void onClick(View v)
+                                           {
+
+                                               System.out.println("KKKKKKKKK");
+                                               ViewHolder temp = (ViewHolder) v.getTag();
+                                               temp.mCheckBox.setChecked(!temp.mCheckBox.isChecked());
+
+                                               int len = items_checkedTypes.size();
+                                               for (int i = 0; i < len; i++)
+                                               {
+                                                   System.out.println("HHHHHHHHHHHH");
+                                                   if (i == position)
+                                                   {
+                                                       (listState.get(position)).setSelected(!(listState.get(position)).isSelected());
+                                                       //Log.i("TAG", "On Click Selected : " + (listState.get(position)).getTitle() + " : " + (listState.get(position)).isSelected());
+                                                       System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
+                                                       break;
+                                                   }
+                                               }
+                                           }
+                                       });
+
+        //END TEST
+
+
+
         // To check weather checked event fire from getview() or user input
         isFromView = true;
         holder.mCheckBox.setChecked(listState.get(position).isSelected());
         isFromView = false;
 
-
         if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-            System.out.println("tite checked "+listState.get(position).getTitle());
-            System.out.println("tite checked status "+listState.get(position).isSelected());
+            System.out.println("title checked "+listState.get(position).getTitle());
+            System.out.println("title checked status "+listState.get(position).isSelected());
 
             //holder.mCheckBox.setChecked(listState.get(position).isSelected());
         }

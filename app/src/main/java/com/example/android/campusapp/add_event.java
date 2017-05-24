@@ -210,7 +210,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
             id_uni.add(uni_id);
             for (int k=0; k<nameList.size(); k++) {
                 resultOfComparison_uni = nameList.get(k).equals(items_uni.get(0));
-                System.out.println(resultOfComparison_uni);
                 if (resultOfComparison_uni == false) {
                     items_uni.add(nameList.get(k));
                     id_uni.add(String.valueOf(k+1));
@@ -236,8 +235,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                           /* if the chosen uni equals the uni in place i */
                             if (chosen_uni == items_uni.get(i)) {
                                 theId = id_uni.get(i);
-                                System.out.println(theId);
-                                System.out.println(chosen_uni);
 
                                 ChooseMyCampus(theId, token); //Call choose campus with the chosen university
 
@@ -354,9 +351,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                             if (chosen_campus == items_campus.get(i))
                             {
-                                System.out.println(id_campus.get(i) +  " id_campus");
                                 theIdCampus = id_campus.get(i);
-                                System.out.println(theIdCampus);
                                 ChooseRoom(theIdCampus, token);
 
                         }
@@ -448,7 +443,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                         if (chosen_room == items_room.get(i)) {
                             theIdRoom = idRoomList.get(i-1);
-                            System.out.println(theIdRoom + " room id");
                             CreateMyEvent(theIdRoom, token);
                         }
 
@@ -524,8 +518,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                     post_dict.put("stop_time", event_time_to);
                     post_dict.put("external_url", relevantlinks);
                     post_dict.put("campus_location", roomId);
-
-                    System.out.println(post_dict);
 
 
                 } catch (JSONException e) {
