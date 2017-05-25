@@ -194,7 +194,7 @@
                 android:id="@+id/urgent_matters_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Urgent matters? \n 8-17, Mon-Fri, +46225866 \n Or shoot us an email at support@atcampus.comn"
+                android:text="Urgent matters? \n 8-17, Mon-Fri, +46225866 \n Or shoot us an email at info.atcampus@gmail.com"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/phone_symbol"
                 android:layout_marginLeft="5dp"

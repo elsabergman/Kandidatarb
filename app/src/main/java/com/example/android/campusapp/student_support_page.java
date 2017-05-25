@@ -56,7 +56,7 @@ public class student_support_page extends student_SlidingMenuActivity {
                 String phonenumber = phoneNumber_Edit.getText().toString();
                 String messagetext = messageText_Edit.getText().toString();
                 String spinnertext = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                String adminemail = "arvid.grans.0731@student.uu.se";
+                String adminemail = "info.atcampus@gmail.com";
 
 
 

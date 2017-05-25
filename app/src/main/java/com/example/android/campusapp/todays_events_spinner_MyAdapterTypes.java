@@ -18,7 +18,7 @@ import static android.R.attr.data;
 import static com.example.android.campusapp.R.layout.spinner_item;
 
 /**
- * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
+ * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Basic code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
  */
 
 public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_events_spinner_StateVOTypes> {
@@ -26,11 +26,7 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
     private ArrayList<todays_events_spinner_StateVOTypes> listState;
     private todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterTypes;
     private boolean isFromView = false;
-
     private todays_events sendTodaysEvents;
-
-
-    //public static String[] checkedCampuses;
     final ArrayList<String> items_checkedTypes= new ArrayList<String>();
     //private todays_events.view items_checkedCampuses; //our Fragment which connects to Callback
 
@@ -75,109 +71,10 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
         holder.mTextView.setText(listState.get(position).getTitle());
 
-
-        //TEST
-
-        //holder.mCheckBox.setChecked(listState.get(position).isSelected());
-
-        convertView.setOnClickListener(new View.OnClickListener()
-                                       {
-                                           public void onClick(View v)
-                                           {
-
-                                               System.out.println("KKKKKKKKK");
-                                               ViewHolder temp = (ViewHolder) v.getTag();
-                                               temp.mCheckBox.setChecked(!temp.mCheckBox.isChecked());
-
-                                               int len = items_checkedTypes.size();
-                                               for (int i = 0; i < len; i++)
-                                               {
-                                                   System.out.println("HHHHHHHHHHHH");
-                                                   if (i == position)
-                                                   {
-                                                       (listState.get(position)).setSelected(!(listState.get(position)).isSelected());
-                                                       //Log.i("TAG", "On Click Selected : " + (listState.get(position)).getTitle() + " : " + (listState.get(position)).isSelected());
-                                                       System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
-                                                       break;
-                                                   }
-                                               }
-                                           }
-                                       });
-
-        //END TEST
-
-
-
         // To check weather checked event fire from getview() or user input
         isFromView = true;
         holder.mCheckBox.setChecked(listState.get(position).isSelected());
         isFromView = false;
-
-        if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-            System.out.println("title checked "+listState.get(position).getTitle());
-            System.out.println("title checked status "+listState.get(position).isSelected());
-
-            //holder.mCheckBox.setChecked(listState.get(position).isSelected());
-        }
-
-
-        /*if ((position == 0)) {
-            holder.mCheckBox.setVisibility(View.INVISIBLE);
-        }*/
-
-        //if in list it is checked
-       /* if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-            //holder.mCheckBox.setVisibility(View.INVISIBLE);
-            //boolean isChecked = true;
-            //todays_events_spinner_StateVOTypes.isSelected();
-            //holder.mCheckBox.setChecked(false);
-            System.out.println("Putting holder.mCheckBox.setChecked(false);");
-            //holder.mCheckBox.setVisibility(View.INVISIBLE);
-            //holder.mCheckBox.setChecked(true);
-            //items_checkedTypes.get(position).setSelected(true);
-
-            //Gör en lösning där vi går igenom hela items_checkedTypes och kollar om det finns i listState.get(position) och om det gör det så setSelected(true) på den liststetegrejen. Arvid 22/5
-*/
-      /*      for(int i = 0; i < listState.size(); i++){
-
-                String testitemliststate = listState.get(i).getTitle();
-
-               // items_checkedTypes.get(i);
-
-                if (items_checkedTypes.contains(testitemliststate)/*   equals(items_checkedTypes.get(i).toString())*/ {
-
-
-
-                   /* listState.get(i).setSelected(true);
-                    System.out.println("liststate setselected(true);");
-
-                }
-
-                else{
-
-
-                }*/
-
-            }
-
-           /* if (listState.get(position).getTitle().equals(items_checkedTypes.toString())) {
-
-                listState.get(position).setSelected(true);
-
-            }*/
-
-        /*}*/
-
-
-
- /*       else {
-            holder.mCheckBox.setVisibility(View.VISIBLE);
-        }
-*/
-
-
-
-
 
         holder.mCheckBox.setTag(position);
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -208,27 +105,19 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
                 if (isChecked == true) {
 
-                    //listState.get(position).setSelected(true);
-
                     //Here we see the checked boxes and their name, put it in to a array and send it to todays_events
 
-                    System.out.println("Denna position har namn "+listState.get(position).getTitle());
-                    System.out.println("VI ÄR CHECKED?");
                     if (items_checkedTypes.contains(listState.get(position).getTitle())) {
-                        System.out.println(isChecked);
-                        System.out.println("Denna position har namn "+listState.get(position).getTitle()+ "och borde inte läggas in i listan");
-                        System.out.println("listan ser nu ut såhär: "+items_checkedTypes);
+                    //Do nothing
                     }
 
                     else{
                         //items_checkedTypes is sent to todays_events
                         items_checkedTypes.add(listState.get(position).getTitle());
                         sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
-                        System.out.println("Sent to sendinfotodatabasetype "+items_checkedTypes);
                     }
 
                 } else {
-                    System.out.println("VI ÄR INTE CHECKED?");
                     items_checkedTypes.remove(listState.get(position).getTitle());
                     sendTodaysEvents.sendInfoToDatabaseType(items_checkedTypes);
 
@@ -238,11 +127,8 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
             }
         });
 
-
-
         return convertView;
     }
-
 
     private class ViewHolder {
         private TextView mTextView;
