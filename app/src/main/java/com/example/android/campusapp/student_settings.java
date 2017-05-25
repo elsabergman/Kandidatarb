@@ -511,6 +511,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Button btn = (Button) findViewById(R.id.change_password_button);
         btn.setOnClickListener(new View.OnClickListener() {
 
+
             public void onClick(View v) {
                 Intent intent1 = new Intent(student_settings.this, change_password.class);
                 startActivity(intent1);
@@ -521,3 +522,14 @@ public class student_settings extends student_SlidingMenuActivity {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
