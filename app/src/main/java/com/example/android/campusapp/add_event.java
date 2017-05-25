@@ -135,17 +135,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
 
                 Log.d("chosen location", chosen_type);
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
 
             }
 
@@ -300,13 +289,13 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
         /* -- if array of campuses at chosen university also contains the default campus,
          the default campus should be added to the top of the spinner list.
-         After that the other campuses beloning to the chosen university should be listed.
+         After that the other campuses belonging to the chosen university should be listed.
           */
         if (myCampusArray.toString().contains("\"name\":\""+campusJson+"\"")) {
             items_campus.add(campusJson.toString());
 
             String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0)) + 1);
-            id_campus.add(campus_id); //fel med id för campus ultuna
+            id_campus.add(campus_id); //fel med id för campus Ultuna
 
             for (int k = 0; k < nameCampusList.size(); k++) {
                 resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
@@ -342,7 +331,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //This is what happens when an item in the list is chosen
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
@@ -356,20 +345,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                         }
                     }
-
-
-
-                    /**  @Override public void onAttach(Activity context) {
-                    super.onAttach(context);
-
-                    }
-
-                    /**  public interface OnFragmentInteractionListener {
-                    // TODO: Update argument type and name
-                    void onFragmentInteraction(Uri uri);
-                    }
-
-                     */
 
                 }
 
@@ -433,7 +408,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //In here is what happens when an item in the list is selected
 
                 chosen_room = spinner_room.getItemAtPosition(spinner_room.getSelectedItemPosition()).toString();
                 if (chosen_room != "Choose Room...") {
@@ -448,18 +423,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                     }
                 }
-
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
 
             }
             @Override
@@ -502,7 +465,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                 String eventdescription = description.getText().toString(); //saves password input from user
 
-               String dateEvent = date.getText().toString(); //saves password input from user
+                String dateEvent = date.getText().toString(); //saves password input from user
                 String start_time = starttime.getText().toString(); //saves password input from user
                 String stop_time = stoptime.getText().toString(); //saves password input from user
 
@@ -536,8 +499,8 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(add_event.this, org_my_events.class);
-                            startActivity(intent);
-                        }if(status == "false"){
+                            startActivity(intent);}
+                        if(status == "false"){
                             Toast.makeText(add_event.this, "event could not be created", Toast.LENGTH_LONG).show();
                         }
                     } catch (InterruptedException e) {

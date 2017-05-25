@@ -38,29 +38,6 @@
                 />
 
 
-
-         <!--   <View
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="95dp"
-                android:background="@android:color/darker_gray"
-
-                />-->
-
-
-
-          <!--  <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/three_dots"
-                android:layout_marginTop="55dp"
-
-
-                />-->
-
             <TextView
                 android:id="@+id/todays_events"
                 android:layout_width="wrap_content"
@@ -116,30 +93,6 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
-
-
-
-        <!--    <ImageButton
-                android:id="@+id/ib_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/exit_button"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@null"
-                /> -->
-
-
-
-         <!--   <Spinner
-                android:id="@+id/filterSpinner"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/todays_events"
-
-                /> -->
 
 
 
@@ -201,9 +154,7 @@
                 app:met_helperTextColor="@color/black"
                 app:met_textColorHint = "@color/black"
                 />
-            <!--Dena rad i betterspinern app:met_floatingLabel="normal"-->
-
-   ¨
+            <!--This row in betterspinern app:met_floatingLabel="normal"-->
 
             <View
                 android:layout_width="wrap_content"
