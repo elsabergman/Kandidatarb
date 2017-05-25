@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -88,6 +90,19 @@ public class student_settings extends student_SlidingMenuActivity {
         //Create the switch for notifications on/off
         switchStatus = (TextView) findViewById(R.id.notifications);
         mySwitch = (Switch) findViewById(R.id.mySwitchStud);
+
+        /*----- if change password button is clicked, redirect to change password page --*/
+        final Button change_pwd_button = (Button) findViewById(R.id.change_password_button_student);
+
+        change_pwd_button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent Intents = new Intent(student_settings.this, change_password.class);
+                startActivity(Intents);
+                //setContentView(R.layout.forgot_password);
+            }
+
+        });
 
         //Here we makes the app remember earlier decision of user for notifications settings
         final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
@@ -179,7 +194,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
         try {
-            String status = (myCallback.execution_Get("http://130.243.199.160:8000/profile/", token, "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.238.243.228:8000/profile/", token, "GET", "No JsonData"));
             System.out.println("status is " + status);
 
             if (status == "false") {
@@ -235,7 +250,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallbackUni = new Callback();
         try {
 
-            String status = (myCallbackUni.execution_Get("http://130.243.199.160:8000/university/", token, "GET", "No JsonData"));
+            String status = (myCallbackUni.execution_Get("http://130.238.243.228:8000/university/", token, "GET", "No JsonData"));
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
@@ -348,7 +363,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
-            String all_campuses = (myCallback.execution_Get("http://130.243.199.160:8000/campus/?university="+theId, token, "GET", "No JsonData"));
+            String all_campuses = (myCallback.execution_Get("http://130.238.243.228:8000/campus/?university="+theId, token, "GET", "No JsonData"));
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
@@ -440,7 +455,7 @@ public class student_settings extends student_SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-                        String status = (myCallback.execution_Post("http://130.243.199.160:8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
+                        String status = (myCallback.execution_Post("http://130.238.243.228:8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
                         if (status == "true") {
                            // Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
                         }if(status == "false"){
@@ -524,7 +539,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
             try {
                 System.out.println("post_dict is " + post_dict.toString());
-                String status = (myCallback.execution_Post("http://130.243.199.160:8000/profile/", token, "PATCH", post_dict.toString()));
+                String status = (myCallback.execution_Post("http://130.238.243.228:8000/profile/", token, "PATCH", post_dict.toString()));
                 System.out.println("status in save is " + status);
                 System.out.println("token inside saveInfoStudent is " + token);
                 if (status == "true") {
@@ -552,9 +567,17 @@ public class student_settings extends student_SlidingMenuActivity {
     }
 
 
-    //---------This function should send the user to a page for changing password
+    //---------This function sends the user to a page for changing password
     public void editPasswordStud(View view) {
-        Toast.makeText(student_settings.this, "You clicked change password button! WOHO!", Toast.LENGTH_LONG).show();
+        Button btn = (Button) findViewById(R.id.change_password_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent1 = new Intent(student_settings.this, change_password.class);
+                startActivity(intent1);
+            }
+
+        });
     }
 
 

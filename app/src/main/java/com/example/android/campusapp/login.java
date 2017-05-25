@@ -27,7 +27,7 @@ public class login extends Activity {
     URLConnection urlConn;
     DataOutputStream printout;
     DataInputStream input;
-    String serverURL = "130.243.199.160";
+    String serverURL = "130.238.243.228";
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -47,6 +47,16 @@ public class login extends Activity {
 
         loginFunctions(); //Handles all login code
 
+        /*----- if forgot password button is clicked, redirect to forgot password page --*/
+        TextView forgotPwd = (TextView) findViewById(R.id.forgotPwd);
+        forgotPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(login.this, forgot_password.class);
+                startActivity(intent1);
+            }
+        });
+
         /*----if create user button is clicked, redirect to create user page --*/
         TextView createUser = (TextView) findViewById(R.id.createUser);
         createUser.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +66,9 @@ public class login extends Activity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 
     /*---handles all login function --*/
@@ -87,11 +100,11 @@ public class login extends Activity {
                     e.printStackTrace();
                 }
                 if (post_dict.length() > 0) {
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.243.199.160:8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://130.238.243.228:8000/auth/token/");
 
 
 
-                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://"+serverURL+":8000/auth/token/");
+                    new GetTokenLogin(login.this).execute(post_dict.toString(), "http://"+serverURL+"130.238.243.228:8000/auth/token/");
 
 
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -66,7 +67,7 @@ public class org_settings extends SlidingMenuActivity {
     String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
-    String url = "http://130.243.199.160";
+    String url = "http://130.238.243.228";
 
 
     ArrayList<String> idList;
@@ -561,10 +562,19 @@ public class org_settings extends SlidingMenuActivity {
     }
 
 
-    //---------This function should send the user to a page for changing password
+    //---------This function sends the user to a page for changing password
     public void editPassword(View view) {
-        Toast.makeText(org_settings.this, "You clicked change password button! WOHO!", Toast.LENGTH_LONG).show();
+        Button btn = (Button) findViewById(R.id.change_password_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent1 = new Intent(org_settings.this, change_password.class);
+                startActivity(intent1);
+            }
+
+        });
     }
+
 }
 
 

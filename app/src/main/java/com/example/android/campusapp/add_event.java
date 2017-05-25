@@ -61,7 +61,7 @@ public class add_event extends SlidingMenuActivity {
     EditText date;
     EditText starttime;
     EditText stoptime;
-    String url = "130.243.199.160";
+    String url = "130.238.243.228";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

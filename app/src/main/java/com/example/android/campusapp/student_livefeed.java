@@ -61,7 +61,7 @@ public class student_livefeed extends student_SlidingMenuActivity {
      ImageButton arrow_down;
 
 
-    String url = "130.243.199.160";
+    String url = "130.238.243.228";
 
 
 
