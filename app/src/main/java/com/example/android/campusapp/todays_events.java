@@ -189,10 +189,8 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 }
 
-
                 adapter = new todaysEvents_ListViewAdapter(this, list, listView, token);
                 listView.setAdapter(adapter);
-
 
             }
         } catch (ExecutionException e) {
@@ -203,7 +201,7 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-  //------------------GET UNIVEFSITY ID TO USE WHEN GET CAMPUS
+  //------------------GET UNIVERSITY ID TO USE WHEN GET CAMPUS
 
         Callback myCallback2 = new Callback();
 
@@ -290,7 +288,6 @@ public class todays_events extends student_SlidingMenuActivity {
                 String id = json_data.getString("id");
                 nameList.add(i, name);
                 idList.add(i, id);
-
 
             }
 
@@ -395,11 +392,6 @@ public class todays_events extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
-
 
         final ArrayList<String> items_type = new ArrayList<String>();
         items_type.add("Change Type?");

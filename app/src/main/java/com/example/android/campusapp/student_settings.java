@@ -43,7 +43,7 @@ public class student_settings extends student_SlidingMenuActivity {
     private Switch mySwitch;
     private Switch editSaveSwitch;
 
-    //EditText orgnameInput;
+
     EditText studemailInput;
     EditText studusernameInput;
     EditText studfirstnameInput;
@@ -102,26 +102,21 @@ public class student_settings extends student_SlidingMenuActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", true).apply();
                     mySwitch.setChecked(true);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
-                    //toast.show();
+
 
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", false).apply();
                     mySwitch.setChecked(false);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
-                    //toast.show();
                 }
 
             }
         });
 
 
-
         //---------------TOGGLESWITCH FOR EDIT SAVE info---------------
 
         //Create the switch for edit/save
-        //switchStatusEditSave = (TextView) findViewById(R.id.notifications);
         editSaveSwitch = (Switch) findViewById(R.id.editSaveSwitchStudent);
 
         //Here we make the switch to be on save on start of page
@@ -150,11 +145,6 @@ public class student_settings extends student_SlidingMenuActivity {
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
 
 
-
-
-
-
-
         //Here vi initiate the spinners
         final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
 
@@ -162,12 +152,11 @@ public class student_settings extends student_SlidingMenuActivity {
 
         /*-------------------- SET MY PROFILE INFO ---------------*/
 
-        //orgnameInput = (EditText) findViewById(R.id.organization_nameInput);
+
         studemailInput = (EditText) findViewById(R.id.organization_emailInput_student);
         studusernameInput = (EditText) findViewById(R.id.organization_username_input_student);
         studfirstnameInput = (EditText) findViewById(R.id.firstName_Input_student);
         studlastnameInput = (EditText) findViewById(R.id.lastName_Input_student);
-
 
 
 
@@ -219,8 +208,6 @@ public class student_settings extends student_SlidingMenuActivity {
         dialog.dismiss();
 
 
-
-
             /*----GET UNIVERSITY ---*/
 
             /*--spinner implementation--*/
@@ -231,8 +218,6 @@ public class student_settings extends student_SlidingMenuActivity {
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
-
-
 
 
             for (int i = 0; i < myUniArray.length(); i++) {
@@ -318,10 +303,6 @@ public class student_settings extends student_SlidingMenuActivity {
             idList = new ArrayList<String>();
 
 
-
-            //  nameCampusList.add(campusJson);
-
-
             for (int i = 0; i < myCampusArray.length() ; i++) {
                 JSONObject json_data = myCampusArray.getJSONObject(i);
 
@@ -329,8 +310,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 String idCampus = json_data.getString("id");
                 nameCampusList.add(i, nameCampus);
                 idList.add(i,idCampus);
-
-
 
             }
         } catch (InterruptedException e) {
@@ -340,7 +319,6 @@ public class student_settings extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         final Spinner spinner = (Spinner)findViewById(R.id.campusesSpinnerSettingsStud);
         boolean resultOfComparison_campus;
@@ -364,7 +342,6 @@ public class student_settings extends student_SlidingMenuActivity {
                     items_campus.add(nameCampusList.get(k));
                     campus_id = String.valueOf(k + 1);
                     id_campus.add(campus_id);
-
 
                 }
             }
@@ -390,7 +367,7 @@ public class student_settings extends student_SlidingMenuActivity {
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //In here is what happens when an item in the list is clicked
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
@@ -431,18 +408,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 }
 
 
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
-
             }
                 @Override
                 public void onNothingSelected (AdapterView < ? > parent){
@@ -452,10 +417,6 @@ public class student_settings extends student_SlidingMenuActivity {
         });
 
     }
-
-
-
-
 
 
 
@@ -528,16 +489,3 @@ public class student_settings extends student_SlidingMenuActivity {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

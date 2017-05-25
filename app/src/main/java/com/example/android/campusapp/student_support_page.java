@@ -59,9 +59,6 @@ public class student_support_page extends student_SlidingMenuActivity {
                 String adminemail = "info.atcampus@gmail.com";
 
 
-
-
-
                 if ((organizationname.equals("")) || (emailaddress.equals("")) || (phonenumber.equals("")) || (messagetext.equals(""))) {
 
                     notCompleteFilledForm.setText("Fill in all fields");
@@ -82,8 +79,6 @@ public class student_support_page extends student_SlidingMenuActivity {
                     } catch (android.content.ActivityNotFoundException ex) {
                         Toast.makeText(student_support_page.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
                     }
-
-
 
 
                 }

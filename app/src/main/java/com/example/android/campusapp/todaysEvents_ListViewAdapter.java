@@ -155,12 +155,9 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                         }
                     });
-                    
+
 
                     view.setBackgroundResource(R.color.very_light_grey);
-
-
-
 
                 }
 

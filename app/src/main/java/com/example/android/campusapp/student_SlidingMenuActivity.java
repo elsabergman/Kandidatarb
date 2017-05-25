@@ -43,11 +43,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.nav_header_sliding_menu);
-        setContentView(R.layout.student_sliding_menu);
-        /*TextView user = (TextView) findViewById(R.id.header_logged_in);
-        user.setText("Elsa Bergman");*/
 
+        setContentView(R.layout.student_sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
