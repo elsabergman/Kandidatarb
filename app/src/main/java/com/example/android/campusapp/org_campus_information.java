@@ -167,11 +167,10 @@ public class org_campus_information extends SlidingMenuActivity {
             {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Här inne är vad som sker när en grej i listan väljs
+                    //In here is what happens when an item in the list is chosen
 
             /*Toast to show what campus is selected */
-                    //Toast toast = Toast.makeText(org_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-                    //toast.show();
+
                     String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
                     for (int i=0; i<myCampusArray.length(); i++) {

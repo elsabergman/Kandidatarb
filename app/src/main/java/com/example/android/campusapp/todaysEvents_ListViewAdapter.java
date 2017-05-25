@@ -106,16 +106,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                 SpannableString content = new SpannableString(item.get("favorites"));
                 content.setSpan(new UnderlineSpan(), 0, item.get("favorites").length(), 0);
                 txtFavorites.setText(content);
-                //txtURL.setLinkTextColor(Color.DKGRAY);
 
-               /* if (myUrl!= ""){
-
-                    txtURL.setText(myUrl);
-                }
-
-                else {
-                    txtURL.setText(" ");
-                }*/
 
                 if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                 {
@@ -124,7 +115,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                     txtURL.setVisibility(View.GONE);
                     txtFavorites.setVisibility(View.GONE);
                     txtDescription.invalidate();
-                    // txtURL.invalidate();
+
 
                     view.setBackgroundColor(Color.WHITE);
 
@@ -164,8 +155,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                         }
                     });
-
-                    // txtURL.invalidate();
+                    
 
                     view.setBackgroundResource(R.color.very_light_grey);
 
