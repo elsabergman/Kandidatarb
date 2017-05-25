@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,20 +28,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
+import static android.media.CamcorderProfile.get;
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.HEAD;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
+import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
 import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
 import static com.example.android.campusapp.Constants.URL;
-
+//import static com.example.android.campusapp.todays_events_spinner_MyAdapterTypes.items_checkedTypes;
 
 
 /**
@@ -47,41 +54,46 @@ import static com.example.android.campusapp.Constants.URL;
  */
 public class todays_events extends student_SlidingMenuActivity {
 
+    private todays_events_spinner_MyAdapterTypes activiateTypesSpinner;
     private Context mContext;
     private Activity mActivity;
-
     private RelativeLayout mRelativeLayout;
     private Button mButton;
-
     private PopupWindow mPopupWindow;
     private ArrayList<HashMap<String, String>> list;
     private ArrayList<HashMap<String, String>> total_list;
-
-    //private String token;
-
-
     MaterialBetterSpinner materialBetterSpinnerTypes;
 
     String[] SPINNER_DATA_CAMPUSES = {"Campus:", "Ångström", "Engelska Parken", "ITC", "Ekonomikum"};
-    String[] SPINNER_DATA_TYPES = {"Type:", "Lunch Event", "Promoting Event", "Evening Event","Case Event","Other"};
+    String[] SPINNER_DATA_TYPES = {/*"Type:",*/ "Lunch Lecture", "Promoting Event", "Evening Event","Case Event","Other"};
     String chosen_campuses;
-    String theId;
+
     //String token;
-    String serverURL = "130.238.243.228";
 
+
+    String serverURL = "130.243.181.70";
+    private String sendStringTypes = "";
+    private String sendStringCampuses ="";
+
+    private String universityJson;
+    private String campusJson;
+    private String universityIdDefault;
+    private String chosen_campus;
+    String University;
     private String token = null;
-
+    private String theId = "";
     ArrayList<String> idList;
     ArrayList<String> nameList;
     ArrayList<String> nameListType;
     ArrayList<String> idListType;
-
-
-
+    ArrayList<String> items_checkedTypesCopy = new ArrayList<String>();
+    TextView textUni;
     JSONArray myCampArray;
     JSONArray myTypeArray;
+    JSONArray myUniArray;
+    ArrayList<String> nameListUni;
 
-
+    ArrayList<todays_events_spinner_StateVOTypes> listVOsType = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,27 +104,38 @@ public class todays_events extends student_SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
-
         /*----------------------------------------------*/
 
-
-
-             /*---Fonts for our Logo---*/
-        TextView header = (TextView) findViewById(R.id.todays_events);
-        Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
-        header.setTypeface(custom_font);
-        /*--------------------------*/
-
+        //Add empty string to araylist to not get null
+        items_checkedTypesCopy.add("");
 
         Callback myCallback = new Callback();
 
+        String default_options = null;
+        try {
+            default_options = (myCallback.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
+            JSONObject myInfoObject = new JSONObject(default_options);
+            University = myInfoObject.getJSONObject("campus").getString("university_name");
+            textUni = (TextView) findViewById(R.id.todays_events);
+            textUni.setText("Find out what happens at " + University);
+
+                 /*---Fonts for our Logo---*/
+            TextView header = (TextView) findViewById(R.id.todays_events);
+            Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
+            header.setTypeface(custom_font);
+        /*--------------------------*/
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try {
 
-            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/", token, "GET", "No JsonData"));
-
-
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/home-event/", token, "GET", "No JsonData"));
 
             if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
@@ -131,7 +154,7 @@ public class todays_events extends student_SlidingMenuActivity {
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -144,19 +167,17 @@ public class todays_events extends student_SlidingMenuActivity {
                     String name = json_data.getString("name_event");
                     String start_time = json_data.getString("start_time");
                     String end_time = json_data.getString("stop_time");
-                    String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
-                    //    String id =json_data.getString("id");
+                    String id_event = json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
-
                     list.get(i).put(THIRD_COLUMN,name);
-                  //  list.get(i).put(FOURTH_COLUMN, name );
-
                     list.get(i).put(DESCRIPTION, description);
-                    total_list.add(list.get(i));
+                    list.get(i).put(URL,url);
+                    list.get(i).put(FAVORITES,"Add to favorites");
+                    list.get(i).put(ID,id_event);
+
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
@@ -167,17 +188,10 @@ public class todays_events extends student_SlidingMenuActivity {
                         list.get(i).put(URL, " ");
                     }
 
-                    Log.d(name, "name");
-                    Log.d(date, "date");
-                    Log.d(start_time, "start");
-                    Log.d(end_time, "end");
-                    Log.d(description, "description");
-                    // Log.d(id, "id");
-
-
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView, token);
                 listView.setAdapter(adapter);
 
 
@@ -190,19 +204,85 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
+  //------------------GET UNIVEFSITY ID TO USE WHEN GET CAMPUS
 
-        /*----GET CAMPUSES ---*/
+        Callback myCallback2 = new Callback();
+
+        try {
+            String default_options2 = (myCallback2.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
+
+
+                JSONObject myInfoObject = new JSONObject(default_options2);
+                universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
+                campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+ /*----GET USERS DEFAULT UNIVERSITY ---*/
+            try {
+
+                String status = (myCallback.execution_Get("http://" + serverURL + ":8000/university/", token, "GET", "No JsonData"));
+
+                myUniArray = new JSONArray(status);
+                nameListUni = new ArrayList<String>();
+
+
+
+                for (int i = 0; i < myUniArray.length(); i++) {
+                    JSONObject json_data = myUniArray.getJSONObject(i);
+                    String name = json_data.getString("name");
+                    String id = json_data.getString("id");
+                    nameListUni.add(i, name);
+                }
+
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        boolean resultOfComparison_uni;
+        final ArrayList<String> items_uni = new ArrayList<String>();
+        final ArrayList<String> id_uni = new ArrayList<String>();
+        items_uni.add(universityJson.toString());
+        String uni_id = String.valueOf(nameListUni.indexOf(items_uni.get(0))+1);
+        id_uni.add(uni_id);
+        for (int k=0; k<nameListUni.size(); k++) {
+            resultOfComparison_uni = nameListUni.get(k).equals(items_uni.get(0));
+            System.out.println(resultOfComparison_uni);
+            if (resultOfComparison_uni == false) {
+                items_uni.add(nameListUni.get(k));
+                id_uni.add(String.valueOf(nameListUni.indexOf(items_uni.get(k))));
+            }
+        }
+
+        universityIdDefault = id_uni.get(0);
+
+
+        /*----GET CAMPUSES on users default university---*/
 
          /*--spinner implementation--*/
-        Callback myCallbackUni = new Callback();
+        Callback myCallbackCampuses = new Callback();
         try {
-
-            String status = (myCallbackUni.execution_Get("http://"+serverURL+":8000/campus/?university=1", token, "GET", "No JsonData"));
+            //Get
+            String status = (myCallbackCampuses.execution_Get("http://"+serverURL+":8000/campus/?university="+universityIdDefault, token, "GET", "No JsonData"));
 
             myCampArray = new JSONArray(status);
             nameList = new ArrayList<String>();
             idList = new ArrayList<String>();
-            System.out.println(myCampArray);
 
 
             for (int i = 0; i < myCampArray.length(); i++) {
@@ -228,62 +308,74 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-
-
-
-
         final ArrayList<String> items_camp = new ArrayList<String>();
-        items_camp.add("Change Campus?");
+        items_camp.add("All Campuses");
         for (int i = 0; i < nameList.size(); i++) {
             items_camp.add(nameList.get(i));
         }
-        //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
-        final MaterialBetterSpinner materialBetterSpinnerCampuses = (MaterialBetterSpinner) findViewById(R.id.material_spinner_campuses);
-        //String SPINNER_DATA_TESTCAMPUS = items_camp.toArray();
+
+        final Spinner spinnerCampuses = (Spinner) findViewById(R.id.material_spinner_campuses);
 
         String[] campusesStringArray = new String[items_camp.size()];
         campusesStringArray = items_camp.toArray(campusesStringArray);
 
-        System.out.println("items_camp is " + items_camp);
-
         //------------------------Campusese SPINNER START!!!------------------------------
-        ArrayAdapter<String> campadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, campusesStringArray);
-
-        materialBetterSpinnerCampuses.setAdapter(campadapter);
-
-        ArrayList<todays_events_spinner_StateVO> listVOs = new ArrayList<>();
-
-        for (int i = 0; i < campusesStringArray.length; i++) {
-            todays_events_spinner_StateVO todayseventsspinnerStateVO = new todays_events_spinner_StateVO();
-            todayseventsspinnerStateVO.setTitle(campusesStringArray[i]);
-            todayseventsspinnerStateVO.setSelected(false);
-            listVOs.add(todayseventsspinnerStateVO);
-        }
-        todays_events_spinner_MyAdapter todayseventsspinnerMyAdapter = new todays_events_spinner_MyAdapter(todays_events.this, 0, listVOs);
-        materialBetterSpinnerCampuses.setAdapter(todayseventsspinnerMyAdapter);
 
 
-        //------------------------campuses SPINNER!!!!! STOP--------------------------------
+        final Spinner uni_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
+
+        ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, campusesStringArray);
+        //ArrayAdapter<String> uniadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_uni);
+        campusadapter.setDropDownViewResource(R.layout.spinner_layout);
+        uni_spinner.setAdapter(campusadapter);
+        uni_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Här inne är vad som sker när en grej i listan väljs
+
+                chosen_campus = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
+
+
+                for (int i = 0; i < myCampArray.length(); i++) {
+
+                         /* if the chosen uni equals the uni in place i+1 (add 1 because first place is "ALL universities") */
+                    if (chosen_campus.equals(items_camp.get(i+1))/* == items_camp.get(i+1)*/) {
+                        theId = "";
+                        theId = "campus_id="+idList.get(i)+"&";
+                        sendInfoToDatabaseType(items_checkedTypesCopy);
+                    }
+                    /*else*/ if(chosen_campus.equals("All Campuses")){
+                        theId = "";
+                        sendInfoToDatabaseType(items_checkedTypesCopy);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        //------------------------campuses SPINNER STOP--------------------------------
 
         //--------STOP GET CAMPUSES--------
 
-
-
-
-
-
-                /*----GET TYPES ---*/
+                /*----GET TYPES from database ---*/
 
          /*--spinner implementation--*/
         Callback myCallbackType = new Callback();
         try {
 
-            String statustype = (myCallbackType.execution_Get("http://"+serverURL+":8000/campus/?university=1", token, "GET", "No JsonData"));
+            String statustype = (myCallbackType.execution_Get("http://"+serverURL+":8000/campus/?university="+universityIdDefault, token, "GET", "No JsonData"));
 
             myTypeArray = new JSONArray(statustype);
             nameListType = new ArrayList<String>();
             idListType = new ArrayList<String>();
-            System.out.println(myTypeArray);
 
 
             for (int i = 0; i < myTypeArray.length(); i++) {
@@ -295,10 +387,6 @@ public class todays_events extends student_SlidingMenuActivity {
 
 
             }
-
-            System.out.println(nameListType);
-            System.out.println(idListType);
-            System.out.println(nameListType.get(0));
 
 
         } catch (ExecutionException e) {
@@ -319,28 +407,15 @@ public class todays_events extends student_SlidingMenuActivity {
         for (int i = 0; i < nameListType.size(); i++) {
             items_type.add(nameListType.get(i));
 
-      //  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       //     //Här inne är vad som sker när en grej i listan väljs
-       //     Toast toast = Toast.makeText(todays_events.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-       //     toast.show();
-            /**Denna toast visar i en liten ruta vilken man valt*/
-
         }
-        //final Spinner camp_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
         final MaterialBetterSpinner materialBetterSpinnerTypes = (MaterialBetterSpinner) findViewById(R.id.material_spinner_type);
-        //String SPINNER_DATA_TESTCAMPUS = items_camp.toArray();
-
         String[] typesStringArray = new String[items_type.size()];
         typesStringArray = items_type.toArray(typesStringArray);
-
-        System.out.println("items_type is " + items_type);
 
         //------------------------Types SPINNER START!!!------------------------------
         ArrayAdapter<String> typeadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA_TYPES/*typesStringArray*/);
 
         materialBetterSpinnerTypes.setAdapter(typeadapter);
-
-        ArrayList<todays_events_spinner_StateVOTypes> listVOsType = new ArrayList<>();
 
         for (int i = 0; i < /*typesStringArray*/SPINNER_DATA_TYPES.length; i++) {
             todays_events_spinner_StateVOTypes todayseventsspinnerStateVO = new todays_events_spinner_StateVOTypes();
@@ -351,115 +426,55 @@ public class todays_events extends student_SlidingMenuActivity {
         todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterType = new todays_events_spinner_MyAdapterTypes(todays_events.this, 0, listVOsType);
         materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
-
-        //------------------------Types SPINNER!!!!! STOP--------------------------------
+            //------------------------Types SPINNER!!!!! STOP--------------------------------
 
         //-------------STOP GET TYPES-------------
-
-
-
-
-        //  materialBetterSpinnerCampuses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-
-
-
-    //System.out.println(todays_events_spinner_MyAdapter.items_checkedCampuses);
-        /*----------------REMOVE THIS COMMENT SO SOMETHING HAPPENS WHEN CLICKING?! /ARVID 12/5 *//*materialBetterSpinnerCampuses.addTextChangedListener(new
-
-
-
-
-    TextWatcher() {
-        @Override
-        public void beforeTextChanged (CharSequence s,int start, int count, int after){
-            System.out.println("YOU ARE IN BEFORETEXTCHANGED");
-
-
-
-        }
-
-        @Override
-        public void onTextChanged (CharSequence s,int start, int before, int count){
-            System.out.println("YOU ARE IN ONTEXTCHANGED");
-
-        }
-
-        @Override
-        public void afterTextChanged (Editable s){
-            System.out.println("YOU ARE IN AFTERTEXTCHANGED");
-
-        }
-
-
-
-
-
-
-    });
-*/
-
-
 }
 
-
-
-
-//-----------------------------SEND CAMPUS SORTING TO DATABASE----------------
-    public void sendInfoToDatabase(ArrayList<String> items_checkedCampuses) {
-        System.out.println("We now send this CAMPUSES to database from todays_events: "+items_checkedCampuses);
-
-                /*-----------remember token--------------------*/
-        token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
-
-        /*----------------------------------------------*/
-
-        System.out.println("token inside sendInfoTodatbase is " + token);
-
-    }
-
-
-
+//---------------------GET FROM DATABASE WITH FILTERING,  this is called from todays_events_spinner_MyAdapterTypes.java -------------
     public void sendInfoToDatabaseType(ArrayList<String> items_checkedTypes) {
-        System.out.println("We now send this TYPES to database from todays_events: "+items_checkedTypes);
+        items_checkedTypesCopy =  items_checkedTypes;
 
+        //Here we makethe checked types to a string in the right format to send to database
+        sendStringTypes = "";
+        boolean resultOfComparison;
+        //items_checkedTypes.add(items_checkedTypes.toString());
+        for (int k=0; k<items_checkedTypes.size(); k++) {
+            resultOfComparison=items_checkedTypes.get(k).equals(items_checkedTypes.get(k));
+            sendStringTypes = sendStringTypes+((items_checkedTypes.get(k))+",");
+            sendStringTypes = sendStringTypes.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\\ ","%20");
+            if(resultOfComparison == false) {
+                items_checkedTypes.add(items_checkedTypes.get(k));
+            }
+        }
+        if (sendStringTypes != null && sendStringTypes.length() > 0 && sendStringTypes.charAt(sendStringTypes.length()-1)==',') {
+            sendStringTypes = sendStringTypes.substring(0, sendStringTypes.length()-1);
+        }
 
-
-        System.out.println("token inside sendInfoTodatbaseType is " + token);
-
-
-
-
-        //---------------------TESTING RELOADING LIST OFEVENTS. PROBLEMS WITH TOKEN 12/5 ARVID
-
-
+        //---------------------TESTING RELOADING LIST OFEVENTS
         Callback myCallback = new Callback();
+
 
         try {
 
-            System.out.println("We try to send url: "+"http://"+serverURL+":8000/events/"+items_checkedTypes);
-
-            String lunchlecturetry = "Lunch Lecture";
-            System.out.println("TOKEN IS: "+token);
-
-            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?type_event=Lunch%20Lecture", token, "GET", "No JsonData"));
-            System.out.println("STATUS IS "+status);
-
+            String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?"+theId+"type_event__in="+sendStringTypes, token, "GET", "No JsonData"));
 
             if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             } else {
 
                 JSONArray myEventsArray = new JSONArray(status);
-
-
                 ListView listView = (ListView) findViewById(R.id.todays_events_list);
 
+                /*list = the list that will store all hashMaps
+                hashMap = stores all information about a specific event
+                total_list = the list that will be displayed
+                 */
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
                 total_list = new ArrayList<HashMap<String, String>>();
-                ListViewAdapter adapter;
+                todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
                 for (int i = 0; i < myEventsArray.length(); i++) {
@@ -474,25 +489,28 @@ public class todays_events extends student_SlidingMenuActivity {
                     String end_time = json_data.getString("stop_time");
                     String owner = json_data.getString("owner");
                     String description = json_data.getString("description");
-                    //    String id =json_data.getString("id");
+                    String url = json_data.getString("external_url");
+                    String id_event =json_data.getString("id");
                     list.get(i).put(FIRST_COLUMN, date);
-                    list.get(i).put(SECOND_COLUMN, start_time + "- " + end_time);
-                    list.get(i).put(THIRD_COLUMN, owner);
-                    list.get(i).put(FOURTH_COLUMN, name);
+                    list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
+                    list.get(i).put(THIRD_COLUMN,name);
+                    list.get(i).put(ID,id_event);
                     list.get(i).put(DESCRIPTION, description);
+                    list.get(i).put(FAVORITES,"add event to favorites");
                     total_list.add(list.get(i));
+                    if ( url != null) {
 
-                    Log.d(name, "name");
-                    Log.d(date, "date");
-                    Log.d(start_time, "start");
-                    Log.d(end_time, "end");
-                    Log.d(description, "description");
-                    // Log.d(id, "id");
+                        list.get(i).put(URL, url);
+                    }
 
+                    else {
+
+                        list.get(i).put(URL, " ");
+                    }
 
                 }
 
-                adapter = new ListViewAdapter(this, list, listView);
+                adapter = new todaysEvents_ListViewAdapter(this, list, listView,token);
                 listView.setAdapter(adapter);
 
 
@@ -506,12 +524,8 @@ public class todays_events extends student_SlidingMenuActivity {
         }
 
 
-
-        //---------------------STOP TESTING RELOADING LIST OF EVENTS--
-
-
+        //------------END RELOADING LIST OF EVENTS
 
     }
-
 
 }

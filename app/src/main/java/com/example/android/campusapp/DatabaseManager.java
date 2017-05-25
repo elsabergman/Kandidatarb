@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
 
 
 import static android.content.ContentValues.TAG;
@@ -89,8 +90,8 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
 
             }
 
-            System.out.println(type);
             if(type == "POST" || type == "PATCH" || type == "PUT") {
+
                 urlConnection.setDoOutput(true);
             /* Write message on stream */
                 Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
@@ -101,7 +102,6 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             }
 
             int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
-            System.out.println(code);
 
             /* If Response code is not a 2XX, we want to stop running the code here */
             if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {

@@ -38,49 +38,39 @@
                 />
 
 
-
-         <!--   <View
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="95dp"
-                android:background="@android:color/darker_gray"
-
-                />-->
-
-
-
-          <!--  <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/three_dots"
-                android:layout_marginTop="55dp"
-
-
-                />-->
-
             <TextView
                 android:id="@+id/todays_events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:text="Find out what happens at Campus! "
+                android:text=""
                 android:theme="@style/org_header"
                 android:layout_marginTop="70dp"
                 android:padding="10dp"
                 android:textSize="25sp"
                 android:gravity="center"/>
 
+            <TextView
+                android:id="@+id/descr_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/todays_events"
+                android:text="Click on an event to show further information"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="100dp"
+                android:textSize="17sp"
+                android:textColor="@color/white" />
+
+
 
 
             <ListView
                 android:id="@+id/todays_events_list"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_below="@+id/material_spinner_type"
-                android:layout_marginTop="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descr_info"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:background="@color/white"
@@ -106,65 +96,65 @@
 
 
 
-            <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/todays_events_list"
-                android:layout_marginTop="30dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/testimage"
-
-                />
-
-        <!--    <ImageButton
-                android:id="@+id/ib_close"
+            <TextView
+                android:id="@+id/sortCampusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/exit_button"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@null"
-                /> -->
-
-
-
-         <!--   <Spinner
-                android:id="@+id/filterSpinner"
-                android:layout_width="300dp"
-                android:layout_height="40dp"
+                android:layout_below="@id/todays_events"
+                android:textColor="@color/black"
+                android:text="Sort by campus: "
+                android:theme="@style/org_header"
                 android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/todays_events"
+                android:layout_marginLeft="10dp"
+                android:padding="0dp"
+                android:textSize="15sp"
+                android:gravity="center"/>
 
-                /> -->
-
-            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                android:id="@+id/material_spinner_campuses"
+            <TextView
+                android:id="@+id/sortTypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/sortCampusText"
+                android:textColor="@color/black"
+                android:text="Sort by type: "
+                android:theme="@style/org_header"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:padding="0dp"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <Spinner
+                android:id="@+id/material_spinner_campuses"
+                android:layout_width="185dp"
+                android:layout_height="40dp"
                 android:hint="Show filter options"
                 android:layout_below="@+id/todays_events"
-                app:met_floatingLabel="normal"
-                android:layout_marginTop="10dp"
-                android:textColorHint="#CFD8DC"
+                android:layout_toRightOf="@id/sortCampusText"
+                android:layout_marginTop="0dp"
+                android:textColorHint="@color/light_grey"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
+                android:elevation="@dimen/activity_vertical_margin"
                 />
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/material_spinner_type"
-                android:layout_width="wrap_content"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-                android:hint="Show filter options"
+                android:hint="Show options"
                 android:layout_below="@+id/material_spinner_campuses"
-                app:met_floatingLabel="normal"
-                android:layout_marginTop="10dp"
-                android:textColorHint="#CFD8DC"
+                android:layout_toRightOf="@id/sortCampusText"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
+                app:met_hideUnderline="true"
+                app:met_helperTextColor="@color/black"
+                app:met_textColorHint = "@color/black"
                 />
-
-   ¨
+            <!--This row in betterspinern app:met_floatingLabel="normal"-->
 
             <View
                 android:layout_width="wrap_content"

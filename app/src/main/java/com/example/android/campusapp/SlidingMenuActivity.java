@@ -37,7 +37,6 @@ public class SlidingMenuActivity extends AppCompatActivity
     String first_name, campus_name;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -47,7 +46,7 @@ public class SlidingMenuActivity extends AppCompatActivity
         Button btn = (Button) findViewById(R.id.logoutButton);
       navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
-        txtName = (TextView) navHeader.findViewById(R.id.header_logged_in);
+       txtName = (TextView) navHeader.findViewById(R.id.header_logged_in);
         txtCampus = (TextView) navHeader.findViewById(R.id.myChosenCampus);
 
            /*-----------remember token--------------------*/
@@ -56,7 +55,9 @@ public class SlidingMenuActivity extends AppCompatActivity
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://130.238.243.228:8000/profile/",token , "GET", "No JsonData"));
+
+            String status = (myCallback.execution_Get("http://130.243.182.165:8000/profile/",token , "GET", "No JsonData"));
+
 
             JSONObject myProfile = new JSONObject(status);
             first_name = myProfile.getString("first_name");
