@@ -87,7 +87,9 @@ public class favorites extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
+
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-favourites/", token, "GET", "No JsonData"));
+
 
             if (status == "false"){
                 Toast.makeText(favorites.this, "could not fetch events", Toast.LENGTH_LONG).show();

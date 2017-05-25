@@ -41,7 +41,9 @@ public class create_student_user extends AppCompatActivity {
     ArrayList<String> idCampusList;
     JSONArray myCampusArray;
     String theIdCampus;
+
     String url = "130.243.134.198";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
