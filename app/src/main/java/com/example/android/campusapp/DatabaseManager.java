@@ -1,7 +1,20 @@
 package com.example.android.campusapp;
 
 /**
- * Created by elsabergman on 2017-04-18.
+ * Name: DatabaseManager.java
+ * Author: Elsa Bergman
+ *
+ * This class handles the connection to the database. A token, the Json data that is to be sent to the database, the url which is used
+ * to set up the connection and the type of request the user wishes to make are passed as parameters. If no json data is to be sent
+ * (i.e the user wants to make a get or delete request), a string saying "no Json data" will be passed since the same amount of
+ * parameters have to be used at all times.
+ *
+ * The DatabaseManager class sets up a HTTP connection and sends data on an output stream. This class can also receive
+ * data on an input stream. If the database sends back a response code that is not 2XX (marking that everything worked the way it should),
+ * the return value will be "false". This value is passed back to the user to let them know that their request was not executed in the
+ * intended way. Otherwise, the return value will be "true" or the actual json data that was requested, depending on what type of request
+ * was being made.
+ *
  */
 
 import android.os.AsyncTask;
@@ -50,14 +63,10 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
 
     }
 
-
     /*This method runs in the background and is called in Callback by databasemanager.execute */
     protected String doInBackground(Object... params) {
         String JsonResponse = null;
         String JsonDATA = null;
-
-        /*JSON data from class that calls DatabaseManager*/
-       
 
         /*The URL that we connect to*/
         String urlen = (String) params[0];
@@ -68,6 +77,7 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
         /*type of request, POST or GET */
         String type = (String) params[2];
 
+       /*JSON data from class that calls DatabaseManager*/
         JsonDATA = (String) params[3];
 
 
@@ -102,16 +112,9 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             }
 
             int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
-            System.out.println(code);
 
-            /* If Response code is not a 2XX, we want to stop running the code here */
-            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
-                Log.v(TAG, "OK");
-            } else {
 
-                status = "false";
-                return status;
-            }
+
 
             /*Input stream. The message that is returned from the database is being sent on this stream*/
             InputStream inputStream = null;
@@ -129,7 +132,7 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
                 // Nothing to do.
                 return null;
             }
-            /*read the content of the input stream */
+            /*read the content of the input stream from the database*/
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String inputLine;
@@ -143,6 +146,14 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             JsonResponse = buffer.toString();//response data
 
             Log.i(TAG, JsonResponse);
+              /* If Response code is not a 2XX, we want to return false + error message */
+            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
+                Log.v(TAG, "OK");
+            } else {
+
+                status = "false";
+                return status + " " + JsonResponse;
+            }
 
             if (type == "POST" || type == "PATCH" || type == "PUT") {
 

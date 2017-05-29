@@ -21,28 +21,6 @@
             android:layout_height="wrap_content">
 
 
-            <!--TextView
-                android:id="@+id/welcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello STS-sektionen!"
-                android:theme="@style/org_header"
-                android:textColor="#fff"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
-
-                /-->
-
-            <!--<TextView
-                android:id="@+id/testDisplayText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
-                android:layout_toRightOf="@+id/display_my_profile_button"
-                />  -->
-
-
-
             <TextView
                 android:id="@+id/my_profile"
                 android:layout_width="wrap_content"
@@ -52,34 +30,6 @@
                 android:textColor="@color/white"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="80dp"/>
-
-            <!--Button
-                android:id="@+id/edit_my_profile_button_student"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_toRightOf="@+id/my_profile"
-                android:layout_marginTop="120dp"
-                android:textSize="10sp"
-                android:minHeight="0dp"
-                android:layout_marginLeft="120dp"
-                android:minWidth="0dp"
-                android:onClick="editInfoStudent"
-                /-->
-
-            <!--Button
-                android:id="@+id/display_my_profile_button_student"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_toRightOf="@+id/edit_my_profile_button_student"
-                android:layout_marginTop="120dp"
-                android:textSize="10sp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:onClick="saveInfoStudent"
-                /-->
-
 
 
             <View
@@ -92,8 +42,6 @@
                 android:layout_below="@id/my_profile"
                 android:alpha="0.3"
                 android:elevation="@dimen/activity_vertical_margin"
-
-
 
                 />
 
@@ -428,34 +376,6 @@
 
         </RelativeLayout>
     </ScrollView>
-
-    <!--  <ImageView
-          android:id="@+id/campus_settings_img"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/settings_toggle"
-          android:adjustViewBounds="true"
-          android:layout_below="@id/organization_password"
-          android:layout_toRightOf="@id/default_campus_choice"
-          android:layout_marginTop="15dp"
-          android:maxWidth="35dp"
-          android:maxHeight="35dp"
-
-          />
-      <ImageView
-          android:id="@+id/language_settings_img"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/settings_toggle"
-          android:adjustViewBounds="true"
-          android:layout_below="@id/default_campus_choice"
-          android:layout_toRightOf="@id/default_campus_choice"
-          android:maxWidth="35dp"
-          android:maxHeight="35dp"
-          android:layout_marginTop="15dp"
-
-          />-->
-
 
 
     <include layout="@layout/app_bar_sliding_menu" />

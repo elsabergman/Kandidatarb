@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by Anna on 2017-05-08.
+ * Created by Anna on 2017-05-08. This java file takes care of the student_campus_information.xml file. This file displays information about the chosen campus
  */
 
 public class student_campus_information extends student_SlidingMenuActivity {
@@ -52,7 +52,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
         TextView txtaddress, txtopening,txtemail,txtphone;
         String image;
         ImageView iv;
-    String url = "130.243.181.70";
+    //url for connection to database
+    String url = "212.25.147.115";
 
         /**
          * Here we control the spinner located in campus_information.xml for different campuses
@@ -81,12 +82,12 @@ public class student_campus_information extends student_SlidingMenuActivity {
 
                 JSONObject myInfoObject = new JSONObject(status);
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
-                System.out.println(universityJson + " universityJson");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
                 String universities = (myCallback.execution_Get("http://"+url+":8000/university/", token, "GET", "No JsonData"));
                 JSONArray myuniversities = new JSONArray(universities);
 
+                //Get id for university
                 for (int i = 0; i < myuniversities.length(); i++) {
                     JSONObject json_data = myuniversities.getJSONObject(i);
                     String name = json_data.getString("name");
@@ -96,6 +97,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
                     }
 
                 }
+                //Get the campuses for this university
                 String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
                 myCampusArray = new JSONArray(all_campuses);
 
@@ -111,7 +113,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
             nameCampusList = new ArrayList<String>();
             idCampusList = new ArrayList<String>();
 
-
+            //Sort the id and names of campuses
             for (int i = 0; i < myCampusArray.length(); i++) {
                 JSONObject json_data = null;
                 try {
@@ -128,10 +130,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
             boolean resultOfComparison;
             final ArrayList<String> items_campus = new ArrayList<String>();
             items_campus.add(campusJson.toString());
-            System.out.println(items_campus);
             for (int k=0; k<nameCampusList.size(); k++) {
                 resultOfComparison=nameCampusList.get(k).equals(items_campus.get(0));
-                System.out.println(resultOfComparison);
                 if(resultOfComparison == false) {
                     items_campus.add(nameCampusList.get(k));
                 }
@@ -149,13 +149,12 @@ public class student_campus_information extends student_SlidingMenuActivity {
             {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Här inne är vad som sker när en grej i listan väljs
+                    //In here is what happens when an item in the list is chosen
 
-            /*Toast to show what campus is selected */
-                    Toast toast = Toast.makeText(student_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    //make string of chosen item
                     String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
+                    //put information in fields to display the chosen campus information for the user.
                     for (int i=0; i<myCampusArray.length(); i++) {
                         if ((CAMPUSTEXT.equals(nameCampusList.get(i)))) {
                             try {
@@ -186,32 +185,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
-
-
-
                         }
                     }
-
-
-
-
-                    /**  @Override public void onAttach(Activity context) {
-                    super.onAttach(context);
-
-
-                    }
-
-
-                    /**  public interface OnFragmentInteractionListener {
-                    // TODO: Update argument type and name
-                    void onFragmentInteraction(Uri uri);
-                    }
-
-                     */
-
-
                 }
 
                 @Override
@@ -252,19 +227,6 @@ public class student_campus_information extends student_SlidingMenuActivity {
                     final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.background_popup);
                     back_dim_layout.setVisibility(View.VISIBLE); /*set faded background */
 
-                /*
-                    public PopupWindow (View contentView, int width, int height)
-                        Create a new non focusable popup window which can display the contentView.
-                        The dimension of the window must be passed to this constructor.
-
-                        The popup does not provide any background. This should be handled by
-                        the content view.
-
-                    Parameters
-                        contentView : the popup's content
-                        width : the popup's width
-                        height : the popup's height
-                */
                     // Initialize a new instance of popup window
                     mPopupWindow = new PopupWindow(
                             customView,
@@ -282,10 +244,6 @@ public class student_campus_information extends student_SlidingMenuActivity {
                     ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
 
 
-
-
-
-
                     // Set a click listener for the popup window close button
                     closeButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -296,20 +254,6 @@ public class student_campus_information extends student_SlidingMenuActivity {
                         }
                     });
 
-                /*
-                    public void showAtLocation (View parent, int gravity, int x, int y)
-                        Display the content view in a popup window at the specified location. If the
-                        popup window cannot fit on screen, it will be clipped.
-                        Learn WindowManager.LayoutParams for more information on how gravity and the x
-                        and y parameters are related. Specifying a gravity of NO_GRAVITY is similar
-                        to specifying Gravity.LEFT | Gravity.TOP.
-
-                    Parameters
-                        parent : a parent view to get the getWindowToken() token from
-                        gravity : the gravity which controls the placement of the popup window
-                        x : the popup's x location offset
-                        y : the popup's y location offset
-                */
                     // Finally, show the popup window at the center location of root relative layout
                     mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
                 }

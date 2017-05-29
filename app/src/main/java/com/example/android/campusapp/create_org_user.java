@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class create_org_user extends AppCompatActivity {
     String url = "130.243.181.70";
+
     JSONArray myUniArray;
     ArrayList<String> nameList;
     ArrayList<String> idList;
@@ -232,6 +233,7 @@ public class create_org_user extends AppCompatActivity {
                         try {
                         //post all information (post_dict) to the database
                             String status = (myCallback.execution_Post("http://"+url+":8000/register/", "0" , "POST", post_dict.toString()));
+
                             if (status == "true") {
 
                                 //if the posting to the databse was successfull, go to the login-page

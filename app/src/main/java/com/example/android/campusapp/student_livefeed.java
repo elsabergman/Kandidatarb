@@ -74,8 +74,6 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
     String url = "212.25.147.115";
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

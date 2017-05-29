@@ -36,31 +36,32 @@ import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 import static com.example.android.campusapp.Constants.URL;
 
-/**
- * Created by elsabergman on 2017-04-10.
- */
+/** Name: org_my_events.java
+ * Author: Elsa Bergman and Frida Kornsäter
+ * Connects to: ListViewAdapter.java
+ *
+ * This class fetches all events that an organisation user has made and allows the user to see the events that he or she has made in
+ * order by when in time they will happen. This class adds all information that is going to be displayed in lists to hash maps and
+ * later calls ListViewAdapter.java with the hash maps as a parameter */
 
 public class org_my_events extends SlidingMenuActivity {
-    ListView firstRow;
-    ListView secondRow;
-    ListView thirdRow;
 
-    ProgressDialog dialog;
-    RecyclerView  mRecyclerView;
+    /* instance variables */
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
-    String serverUrl = "130.243.181.70";
-    private Date dateTime;
 
+    String serverUrl = "212.25.151.161";
     private ArrayList<HashMap<String, String>> list;
-    private ArrayList<HashMap<String, String>> total_list;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
 
+        /* launch layout with sliding menu */
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.org_my_events, null);
 
@@ -68,37 +69,38 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
-
         /*----------------------------------------------*/
 
+        /* ---- Font implementation for header ---- */
         TextView header = (TextView) findViewById(R.id.your_events);
         Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         header.setTypeface(custom_font);
+        /*----------------------------------------------*/
 
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading....");
-        dialog.show();
-
-
+        /* fetch all events that the user has created on his or her account */
         Callback myCallback = new Callback();
-
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
 
+            /* fetch profile information about the user */
             String default_options = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
 
+            /* save profile information as json object and retrieve first name in order to display the user's first name on top
+            of the page */
             JSONObject myInfoObject = new JSONObject(default_options);
             first_name = myInfoObject.getString("first_name");
             textUser = (TextView) findViewById(R.id.welcome);
             textUser.setText("Hello " + first_name + "!");
             events = myInfoObject.getJSONArray("my_events");
 
+            /*  This code checks what type of message should be displayed on the page. If the user has not created any events,
+            a text telling them how to create an event will appear. Otherwise, a text that tells the user how to show more information
+            about an event will appear.
+             */
             descr = (TextView) findViewById(R.id.description_info);
             noEvents = (TextView) findViewById(R.id.description_list);
             if (events.length() > 0 ){
                 descr.setText("Click on event to show further information");
-
 
             }
             else {
@@ -106,32 +108,31 @@ public class org_my_events extends SlidingMenuActivity {
             }
 
 
+
+            /* if the DatabaseManager class returns false, we want to let the user know that the events could not be fetched */
             if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             }
             else {
 
                 JSONArray myEventsArray = new JSONArray(status);
-                System.out.println("Events array " + myEventsArray);
-
 
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
 
                 /*list = the list that will store all hashMaps
                 hashMap = stores all information about a specific event
-                total_list = the list that will be displayed
                  */
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list=new ArrayList<HashMap<String,String>>();
 
-                ListViewAdapter adapter;
+                ListViewAdapter adapter; // the adapter that displays the events in different columns.
 
                 /*create as many hash maps as needed */
                 for(int i = 0; i < myEventsArray.length(); i++) {
                     list.add(new HashMap<String, String>());
                 }
-
+                /* add information to the hashmap, one hashmap for each event */
                 for (int i = 0; i < myEventsArray.length(); i++) {
                     JSONObject json_data = myEventsArray.getJSONObject(i);
                     String date = json_data.getString("date");
@@ -150,48 +151,16 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(EDIT,"Edit or remove event");
                     list.get(i).put(ID,id_event);
-                    System.out.println(list + " list");
-
-
-                    if ( url != null) {
-
-                        list.get(i).put(URL, url);
-
-                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
-                        list.get(i).put(CAMPUS_NAME, campus_name);
+                    list.get(i).put(URL, url);
+                    list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                    list.get(i).put(CAMPUS_NAME, campus_name);
 
 
                     }
 
-                    else {
-
-                        list.get(i).put(URL, url);
-                        list.get(i).put(CAMPUS_NAME, campus_name);
-                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
-                    }
-
-
-                   /* Log.d(name, "name");
-                    Log.d(date, "date");
-                    Log.d(start_time,"start");
-                    Log.d(end_time, "end");
-                    Log.d(description,"description");
-                    Log.d(url, "external_url");
-                    Log.d(campus_name, "campus_name");
-                    Log.d(location_name, "campus_location_name");*/
-
-                   // Log.d(id, "id");
-
-
-                }
-
+                /* connect to listViewAdapter which will display all events in the way specified in ListViewAdapter.java */
                 adapter=new ListViewAdapter(this, list, listView);
                 listView.setAdapter(adapter);
-
-
-
-
-
 
             }
         } catch (ExecutionException e) {
@@ -202,10 +171,6 @@ public class org_my_events extends SlidingMenuActivity {
             e.printStackTrace();
         }
 
-
-
-
-        dialog.dismiss();
 
         }
 
