@@ -71,7 +71,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
     String comment_content;
 
 
-    String url = "130.243.182.165";
+    String url = "212.25.147.115";
 
 
 

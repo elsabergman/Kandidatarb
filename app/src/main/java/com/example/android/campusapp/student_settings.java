@@ -16,16 +16,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
-
 import static com.example.android.campusapp.R.id.campusesSpinnerSettingsStud;
 import static com.example.android.campusapp.R.id.editSaveSwitch;
 import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
@@ -34,7 +30,7 @@ import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
 
 
 /**
- * Created by elsabergman on 2017-04-07.
+ * Created by elsabergman on 2017-04-07. This file loads data from back-end to front-end with user information to display in settings pange. It then lets the user change this information and update the database.
  */
 
 public class student_settings extends student_SlidingMenuActivity {
@@ -61,7 +57,7 @@ public class student_settings extends student_SlidingMenuActivity {
     String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
-    String url = "130.243.181.70";
+    String url = "212.25.147.115";
 
 
 

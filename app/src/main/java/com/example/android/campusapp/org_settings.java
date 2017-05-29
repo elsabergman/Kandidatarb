@@ -41,7 +41,7 @@ import static com.example.android.campusapp.R.id.uni_spinner;
 import static com.example.android.campusapp.R.id.universitySpinnerSettings;
 
 /**
- * Created by elsabergman on 2017-04-07.
+ * Created by elsabergman on 2017-04-07. This file loads data from back-end to front-end with user information to display in settings pange. It then lets the user change this information and update the database.
  */
 
 public class org_settings extends SlidingMenuActivity {
@@ -69,7 +69,6 @@ public class org_settings extends SlidingMenuActivity {
     String universityJson = "Change University?";
     String campusJson;
     String url = "130.243.182.165";
-
 
     ArrayList<String> idList;
     ArrayList<String> nameList;
