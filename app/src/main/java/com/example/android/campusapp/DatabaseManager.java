@@ -102,7 +102,6 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             }
 
             int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
-            System.out.println(code);
 
 
 

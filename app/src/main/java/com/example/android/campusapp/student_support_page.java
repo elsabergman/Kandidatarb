@@ -26,7 +26,7 @@ public class student_support_page extends student_SlidingMenuActivity {
         super.onCreate(savedInstanceState);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.org_support_page, null);
+        View contentView = inflater.inflate(R.layout.student_support_page, null);
 
         drawer.addView(contentView, 0);
 
@@ -56,10 +56,7 @@ public class student_support_page extends student_SlidingMenuActivity {
                 String phonenumber = phoneNumber_Edit.getText().toString();
                 String messagetext = messageText_Edit.getText().toString();
                 String spinnertext = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                String adminemail = "arvid.grans.0731@student.uu.se";
-
-
-
+                String adminemail = "info.atcampus@gmail.com";
 
 
                 if ((organizationname.equals("")) || (emailaddress.equals("")) || (phonenumber.equals("")) || (messagetext.equals(""))) {
@@ -75,15 +72,13 @@ public class student_support_page extends student_SlidingMenuActivity {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("message/rfc822");
                     i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adminemail});
-                    i.putExtra(Intent.EXTRA_SUBJECT, "Support Errand Regarding: "+spinnertext+" from "+organizationname);
-                    i.putExtra(Intent.EXTRA_TEXT   , messagetext+"\n \n From: "+organizationname+" \nContact details,"+" email: "+emailaddress+", phone: "+phonenumber);
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Support Errand Regarding: "+spinnertext+" issues from "+organizationname);
+                    i.putExtra(Intent.EXTRA_TEXT   , messagetext+"\n \n From: "+organizationname+" \nemail: "+emailaddress+" \nphone: "+phonenumber);
                     try {
                         startActivity(Intent.createChooser(i, "Send mail..."));
                     } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(student_support_page.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(student_support_page.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
                     }
-
-
 
 
                 }

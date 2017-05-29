@@ -43,11 +43,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.nav_header_sliding_menu);
-        setContentView(R.layout.student_sliding_menu);
-        /*TextView user = (TextView) findViewById(R.id.header_logged_in);
-        user.setText("Elsa Bergman");*/
 
+        setContentView(R.layout.student_sliding_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button btn = (Button) findViewById(R.id.logoutButton);
@@ -64,7 +61,8 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://84.217.82.109:8000/profile/", token , "GET", "No JsonData"));
+
+            String status = (myCallback.execution_Get("http://212.25.147.115:8000/profile/", token , "GET", "No JsonData"));
 
             JSONObject myProfile = new JSONObject(status);
             first_name = myProfile.getString("first_name");

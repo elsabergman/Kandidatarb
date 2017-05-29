@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class create_org_user extends AppCompatActivity {
-    String url = "130.243.199.160";
+    String url = "130.238.243.228";
     JSONArray myUniArray;
     ArrayList<String> nameList;
     ArrayList<String> idList;
@@ -254,7 +254,7 @@ public class create_org_user extends AppCompatActivity {
 
                             String status = (myCallback.execution_Post("http://"+url+":8000/register/", "0" , "POST", post_dict.toString()));
 
-                            System.out.println(status);
+
                             if (status == "true") {
                                 Intent intent = new Intent(create_org_user.this, login.class);
                                 startActivity(intent);

@@ -146,7 +146,6 @@ public class ListViewAdapter extends BaseAdapter {
                 final String id_event = item.get("id");
                 String myCampus = item.get("campus_name");
                 String myRoom = item.get("campus_location_name");
-                System.out.println(myName + " name of event");
 
 
                 txtDescription = (TextView) view.findViewById((R.id.description));

@@ -55,7 +55,10 @@ public class SlidingMenuActivity extends AppCompatActivity
         Callback myCallback = new Callback();
 
         try {
-            String status = (myCallback.execution_Get("http://84.217.82.109:8000/profile/",token , "GET", "No JsonData"));
+
+            String status = (myCallback.execution_Get("http://212.25.147.115:8000/profile/",token , "GET", "No JsonData"));
+
+
 
             JSONObject myProfile = new JSONObject(status);
             first_name = myProfile.getString("first_name");

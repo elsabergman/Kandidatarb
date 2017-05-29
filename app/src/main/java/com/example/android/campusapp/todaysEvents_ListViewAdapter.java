@@ -42,7 +42,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
     ListView listView;
     boolean isVisible;
     String token;
-    String serverURL = "84.217.82.109";
+    String serverURL = "130.243.181.70";
     public todaysEvents_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
         super();
         this.activity=activity;
@@ -110,6 +110,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                 txtDescription.setTextColor(Color.DKGRAY);
                 txtDescription.setText("Description: " + myDescription);
                 txtURL.setText(myUrl);
+
                 if (faved.equals("Add to favorites")) {
                     SpannableString content = new SpannableString(item.get("favorites"));
                     content.setSpan(new UnderlineSpan(), 0, item.get("favorites").length(), 0);
@@ -124,6 +125,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
 
                 txtRoom.setTextColor(Color.DKGRAY);
                 txtRoom.setText("Location: " +myRoom);
+
 
                 if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                 {
@@ -198,13 +200,10 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
                         });
                     }
 
-                    // txtURL.invalidate();
-
-
-
-            }
+                }
         });
         return convertView;
     }
 }
+
 

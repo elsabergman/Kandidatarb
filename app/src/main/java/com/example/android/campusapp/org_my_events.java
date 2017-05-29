@@ -50,7 +50,7 @@ public class org_my_events extends SlidingMenuActivity {
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
-    String serverUrl = "84.217.82.109";
+    String serverUrl = "212.25.147.115";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -68,7 +68,6 @@ public class org_my_events extends SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
         /*----------------------------------------------*/
 
@@ -83,6 +82,7 @@ public class org_my_events extends SlidingMenuActivity {
 
 
         Callback myCallback = new Callback();
+
 
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
 
@@ -106,14 +106,13 @@ public class org_my_events extends SlidingMenuActivity {
             }
 
 
+
             if (status == "false"){
                 Toast.makeText(org_my_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             }
             else {
 
                 JSONArray myEventsArray = new JSONArray(status);
-
-
 
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
 

@@ -41,7 +41,7 @@ import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
  */
 
 public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    String serverURL = "84.217.82.109";
+    String serverURL = "212.25.151.161";
     String id_event, name, url, theId,chosen_type,theIdCampus,theIdRoom, chosen_room,chosen_campus,chosen_uni, location,event_date, event_time_to, event_time_from;;
     EditText event_name, date_event, company_visiting, start_time, end_time, relevant_links, description;
     JSONArray myUniArray,myRoomArray,myCampusArray;
@@ -70,7 +70,6 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
 
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-        System.out.println(token);
 
         /*----------------------------------------------*/
 
@@ -228,6 +227,10 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
 
+            idList = new ArrayList<String>();
+
+
+
 
 
             for (int i = 0; i < myUniArray.length(); i++) {
@@ -257,6 +260,7 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
             resultOfComparison_uni = nameList.get(k).equals(items_uni.get(0));
             System.out.println(resultOfComparison_uni);
             if (resultOfComparison_uni == false) {
+
                 items_uni.add(nameList.get(k));
                 id_uni.add(String.valueOf(k+1));
             }
@@ -365,6 +369,7 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
 
             for (int k = 0; k < nameCampusList.size(); k++) {
 
+
                 items_campus.add(nameCampusList.get(k));
                 String campus_id = String.valueOf(idList.get(k));
                 id_campus.add(campus_id);
@@ -391,7 +396,6 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                     if (chosen_campus == items_campus.get(i))
                     {
-                        System.out.println(id_campus.get(i) +  " id_campus");
                         theIdCampus = id_campus.get(i);
 
                         ChooseRoom(theIdCampus, token);
@@ -523,7 +527,6 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
 
                 JSONObject post_dict = new JSONObject(); //creates Json object
 
-                System.out.println(relevantlinks);
                 try {
                     post_dict.put("type_event", chosen_type);
                     post_dict.put("name_event", eventname);
@@ -537,6 +540,7 @@ public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.O
                         post_dict.put("visiting_organisation"," ");
                     } else{
                     post_dict.put("visiting_organisation", companyname);}
+
 
 
                 } catch (JSONException e) {

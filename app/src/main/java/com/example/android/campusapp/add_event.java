@@ -66,7 +66,8 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
     private EditText from;
     private EditText time_from, time_to;
     EditText event_name,company_name,relevant_links,description,datee,starttime,stoptime, edittext;
-    String url = "130.243.182.165";
+    String url = "212.25.151.161";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +138,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                 Log.d("chosen location", chosen_type);
 
-
             }
 
             @Override
@@ -201,7 +201,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
             id_uni.add(uni_id);
             for (int k=0; k<nameList.size(); k++) {
                 resultOfComparison_uni = nameList.get(k).equals(items_uni.get(0));
-                System.out.println(resultOfComparison_uni);
                 if (resultOfComparison_uni == false) {
                     items_uni.add(nameList.get(k));
                     id_uni.add(String.valueOf(k+1));
@@ -227,8 +226,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                           /* if the chosen uni equals the uni in place i */
                             if (chosen_uni == items_uni.get(i)) {
                                 theId = id_uni.get(i);
-                                System.out.println(theId);
-                                System.out.println(chosen_uni);
 
                                 ChooseMyCampus(theId, token); //Call choose campus with the chosen university
 
@@ -294,13 +291,13 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
         /* -- if array of campuses at chosen university also contains the default campus,
          the default campus should be added to the top of the spinner list.
-         After that the other campuses beloning to the chosen university should be listed.
+         After that the other campuses belonging to the chosen university should be listed.
           */
         if (myCampusArray.toString().contains("\"name\":\""+campusJson+"\"")) {
             items_campus.add(campusJson.toString());
 
             String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0)) + 1);
-            id_campus.add(campus_id); //fel med id för campus ultuna
+            id_campus.add(campus_id); //fel med id för campus Ultuna
 
             for (int k = 0; k < nameCampusList.size(); k++) {
                 resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
@@ -336,7 +333,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //This is what happens when an item in the list is chosen
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
@@ -345,15 +342,11 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
                             if (chosen_campus == items_campus.get(i))
                             {
-                                System.out.println(id_campus.get(i) +  " id_campus");
                                 theIdCampus = id_campus.get(i);
-                                System.out.println(theIdCampus);
                                 ChooseRoom(theIdCampus, token);
 
                         }
                     }
-
-
 
 
                 }
@@ -418,7 +411,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //In here is what happens when an item in the list is selected
 
                 chosen_room = spinner_room.getItemAtPosition(spinner_room.getSelectedItemPosition()).toString();
                 if (chosen_room != "Choose Room...") {
@@ -428,24 +421,11 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                         if (chosen_room == items_room.get(i)) {
                             theIdRoom = idRoomList.get(i-1);
-                            System.out.println(theIdRoom + " room id");
                             CreateMyEvent(theIdRoom, token);
                         }
 
                     }
                 }
-
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
 
             }
             @Override
@@ -488,7 +468,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
                 String eventdescription = description.getText().toString(); //saves password input from user
 
-               String dateEvent = date.getText().toString(); //saves password input from user
+                String dateEvent = date.getText().toString(); //saves password input from user
                 String start_time = starttime.getText().toString(); //saves password input from user
                 String stop_time = stoptime.getText().toString(); //saves password input from user
 
@@ -504,8 +484,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                     post_dict.put("stop_time", event_time_to);
                     post_dict.put("external_url", relevantlinks);
                     post_dict.put("campus_location", roomId);
-
-                    System.out.println(post_dict);
 
 
                 } catch (JSONException e) {
@@ -524,8 +502,8 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
                         if (status == "true") {
                             Toast.makeText(add_event.this, "Event created successfully!", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(add_event.this, org_my_events.class);
-                            startActivity(intent);
-                        }if(status == "false"){
+                            startActivity(intent);}
+                        if(status == "false"){
                             Toast.makeText(add_event.this, "event could not be created", Toast.LENGTH_LONG).show();
                         }
                     } catch (InterruptedException e) {
