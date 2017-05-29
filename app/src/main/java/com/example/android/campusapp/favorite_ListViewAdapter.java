@@ -38,7 +38,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
         TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL,txtCampus,txtRoom;;
         ListView listView;
         String token, id_event;
-        String serverURL = "130.243.182.165";
+        String serverURL = "212.25.151.161";
 
         public favorite_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
             super();

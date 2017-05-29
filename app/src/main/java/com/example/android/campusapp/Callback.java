@@ -5,6 +5,15 @@ import android.support.v4.app.Fragment;
 import java.util.concurrent.ExecutionException;
 
 /**
+ * Name: Callback.java
+ * Author: Elsa Bergman
+ * This file handles the connection to DatabaseManager, a class that in turn connects to the database
+ * by sending and retrieving information. Callback has two methods, one that is called when the user wants to make
+ * a post or patch request to the database and one that is called when the user wants to make a get or delete request.
+ * Callback also extends Fragment which takes care of the return message that is delivered from the database via DatabaseManager.
+ *
+ *
+ *
  * Created by elsabergman on 2017-04-27.
  */
 
