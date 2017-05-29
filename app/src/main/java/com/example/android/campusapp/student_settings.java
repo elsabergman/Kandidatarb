@@ -24,11 +24,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import static com.example.android.campusapp.R.id.campusesSpinnerSettingsStud;
-import static com.example.android.campusapp.R.id.editSaveSwitch;
-import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
-
-//import static com.example.android.campusapp.R.id.campusesSpinner;
 
 
 /**
@@ -56,8 +51,6 @@ public class student_settings extends student_SlidingMenuActivity {
     JSONArray myUniArray;
     String theId;
     String theIdCampus;
-    String theIdRoom;
-    String chosen_room;
     String universityJson = "Change University?";
     String campusJson;
 
@@ -68,7 +61,6 @@ public class student_settings extends student_SlidingMenuActivity {
     ArrayList<String> nameList;
     JSONArray myCampusArray;
     ArrayList<String> nameCampusList;
-    ArrayList<String> idCampusList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +88,6 @@ public class student_settings extends student_SlidingMenuActivity {
             public void onClick(View v) {
                 Intent Intents = new Intent(student_settings.this, change_password.class);
                 startActivity(Intents);
-                //setContentView(R.layout.forgot_password);
             }
 
         });
@@ -158,8 +149,7 @@ public class student_settings extends student_SlidingMenuActivity {
         });
 
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
-        //Here vi initiate the spinners
-        final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
+
         /*-------------------- SET MY PROFILE INFO ---------------*/
 
 
