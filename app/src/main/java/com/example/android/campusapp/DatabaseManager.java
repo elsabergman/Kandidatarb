@@ -104,14 +104,8 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             int code = urlConnection.getResponseCode(); //Response code from database telling front end if connection could be established
             System.out.println(code);
 
-            /* If Response code is not a 2XX, we want to stop running the code here */
-            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
-                Log.v(TAG, "OK");
-            } else {
 
-                status = "false";
-                return status;
-            }
+
 
             /*Input stream. The message that is returned from the database is being sent on this stream*/
             InputStream inputStream = null;
@@ -143,6 +137,14 @@ class DatabaseManager extends AsyncTask<Object, Object, String> {
             JsonResponse = buffer.toString();//response data
 
             Log.i(TAG, JsonResponse);
+              /* If Response code is not a 2XX, we want to return false + error message */
+            if ((Character.toLowerCase(String.valueOf(code).charAt(0)) == '2')) {
+                Log.v(TAG, "OK");
+            } else {
+
+                status = "false";
+                return status + " " + JsonResponse;
+            }
 
             if (type == "POST" || type == "PATCH" || type == "PUT") {
 

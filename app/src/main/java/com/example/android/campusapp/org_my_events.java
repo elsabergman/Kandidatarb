@@ -50,7 +50,7 @@ public class org_my_events extends SlidingMenuActivity {
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
-    String serverUrl = "130.243.182.165";
+    String serverUrl = "84.217.82.109";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -112,7 +112,7 @@ public class org_my_events extends SlidingMenuActivity {
             else {
 
                 JSONArray myEventsArray = new JSONArray(status);
-                System.out.println("Events array " + myEventsArray);
+
 
 
                 ListView listView = (ListView) findViewById(R.id.your_event_list);
@@ -150,7 +150,6 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(EDIT,"Edit or remove event");
                     list.get(i).put(ID,id_event);
-                    System.out.println(list + " list");
 
 
                     if ( url != null) {

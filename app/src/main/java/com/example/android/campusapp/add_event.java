@@ -85,6 +85,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
         /*----------------------------------------------*/
 
+        /* ----- Date picker and Time picker implementation ----- */
         Intent intent = getIntent(); //gaunam
         //    User user = (User) intent.getSerializableExtra("user");
 
@@ -135,17 +136,7 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
 
                 Log.d("chosen location", chosen_type);
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
 
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
 
             }
 
@@ -364,17 +355,6 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
 
 
 
-                    /**  @Override public void onAttach(Activity context) {
-                    super.onAttach(context);
-
-                    }
-
-                    /**  public interface OnFragmentInteractionListener {
-                    // TODO: Update argument type and name
-                    void onFragmentInteraction(Uri uri);
-                    }
-
-                     */
 
                 }
 
