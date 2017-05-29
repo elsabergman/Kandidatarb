@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -109,8 +110,6 @@ public class ListViewAdapter extends BaseAdapter {
 
             convertView=inflater.inflate(R.layout.column_rows, null);
 
-
-           // listView = (ListView) convertView.findViewById(R.id.your_event_list)
         } else {
             convertView = convertView;
         }
@@ -148,6 +147,7 @@ public class ListViewAdapter extends BaseAdapter {
                 String myCampus = item.get("campus_name");
                 String myRoom = item.get("campus_location_name");
 
+
                 txtDescription = (TextView) view.findViewById((R.id.description));
                 txtURL = (TextView) view.findViewById((R.id.url));
                 txtCampus = (TextView) view.findViewById((R.id.campus_name));
@@ -159,8 +159,6 @@ public class ListViewAdapter extends BaseAdapter {
                 txtEdit.setText(content);
                 txtDescription.setTextColor(Color.DKGRAY);
                 txtDescription.setText("Description: " + myDescription + "     " + myUrl );
-                //txtURL.setText(myUrl);
-                //txtURL.setLinkTextColor(Color.DKGRAY);
 
                 txtCampus.setTextColor(Color.DKGRAY);
                 txtCampus.setText("Campus: " +myCampus);
@@ -168,28 +166,26 @@ public class ListViewAdapter extends BaseAdapter {
                 txtRoom.setTextColor(Color.DKGRAY);
                 txtRoom.setText("Location: " +myRoom);
 
-               /* if (myUrl!= ""){
-
-                    txtURL.setText(myUrl);
-                }
-
-                else {
-                    txtURL.setText(" ");
-                }*/
 
                 if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                 {
 
                     txtDescription.setVisibility(View.GONE);
-                  // txtURL.setVisibility(View.GONE);
                     txtCampus.setVisibility(View.GONE);
                     txtRoom.setVisibility(View.GONE);
                     txtEdit.setVisibility(View.GONE);
                     txtDescription.invalidate();
                     txtCampus.invalidate();
                     txtRoom.invalidate();
+                    if (list.size() < 2) {
+                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(listView.getWidth(), 145);
+                        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                        lp.setMargins(0, 600, 0, 0);
+                        // lp.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-                   // txtURL.invalidate();
+                        listView.setLayoutParams(lp);
+                    }
+
 
                     view.setBackgroundColor(Color.WHITE);
 
@@ -197,14 +193,19 @@ public class ListViewAdapter extends BaseAdapter {
               else
                 {
                     txtDescription.setVisibility(View.VISIBLE);
-                   //txtURL.setVisibility(View.VISIBLE);
                     txtCampus.setVisibility(View.VISIBLE);
                     txtRoom.setVisibility(View.VISIBLE);
                     txtEdit.setVisibility(View.VISIBLE);
                    txtDescription.invalidate();
-                   // txtURL.invalidate();
                     txtCampus.invalidate();
                     txtRoom.invalidate();
+                    if (list.size() < 2) {
+                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(listView.getWidth(), 395);
+                        //  lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                        lp.setMargins(0, 600, 0, 0);
+                        listView.setLayoutParams(lp);
+                    }
                     txtEdit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -215,7 +216,6 @@ public class ListViewAdapter extends BaseAdapter {
                             intent.putExtras(b);
                             activity.startActivity(intent);
                             activity.finish();
-                          // activity.startActivity((new Intent(activity, EditEvent.class)));
 
                         }
                     });

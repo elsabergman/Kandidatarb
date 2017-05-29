@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -39,7 +41,7 @@ public class student_settings extends student_SlidingMenuActivity {
     private Switch mySwitch;
     private Switch editSaveSwitch;
 
-    //EditText orgnameInput;
+
     EditText studemailInput;
     EditText studusernameInput;
     EditText studfirstnameInput;
@@ -85,6 +87,19 @@ public class student_settings extends student_SlidingMenuActivity {
         switchStatus = (TextView) findViewById(R.id.notifications);
         mySwitch = (Switch) findViewById(R.id.mySwitchStud);
 
+        /*----- if change password button is clicked, redirect to change password page --*/
+        final Button change_pwd_button = (Button) findViewById(R.id.change_password_button_student);
+
+        change_pwd_button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent Intents = new Intent(student_settings.this, change_password.class);
+                startActivity(Intents);
+                //setContentView(R.layout.forgot_password);
+            }
+
+        });
+
         //Here we makes the app remember earlier decision of user for notifications settings
         final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
         Boolean switchValue = sharedPref2.getBoolean("notification", false);
@@ -98,26 +113,21 @@ public class student_settings extends student_SlidingMenuActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", true).apply();
                     mySwitch.setChecked(true);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
-                    //toast.show();
+
 
                 } else {
                     SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
                     sharedPref2.edit().putBoolean("notification", false).apply();
                     mySwitch.setChecked(false);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
-                    //toast.show();
                 }
 
             }
         });
 
 
-
         //---------------TOGGLESWITCH FOR EDIT SAVE info---------------
 
         //Create the switch for edit/save
-        //switchStatusEditSave = (TextView) findViewById(R.id.notifications);
         editSaveSwitch = (Switch) findViewById(R.id.editSaveSwitchStudent);
 
         //Here we make the switch to be on save on start of page
@@ -146,11 +156,6 @@ public class student_settings extends student_SlidingMenuActivity {
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
 
 
-
-
-
-
-
         //Here vi initiate the spinners
         final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
 
@@ -158,12 +163,11 @@ public class student_settings extends student_SlidingMenuActivity {
 
         /*-------------------- SET MY PROFILE INFO ---------------*/
 
-        //orgnameInput = (EditText) findViewById(R.id.organization_nameInput);
+
         studemailInput = (EditText) findViewById(R.id.organization_emailInput_student);
         studusernameInput = (EditText) findViewById(R.id.organization_username_input_student);
         studfirstnameInput = (EditText) findViewById(R.id.firstName_Input_student);
         studlastnameInput = (EditText) findViewById(R.id.lastName_Input_student);
-
 
 
 
@@ -175,6 +179,7 @@ public class student_settings extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
         try {
+
             String status = (myCallback.execution_Get("http://"+url+":8000/profile/", token, "GET", "No JsonData"));
 
             if (status == "false") {
@@ -215,20 +220,18 @@ public class student_settings extends student_SlidingMenuActivity {
         dialog.dismiss();
 
 
-
-
             /*----GET UNIVERSITY ---*/
 
             /*--spinner implementation--*/
 
         try {
 
+
             String status = (myCallback.execution_Get("http://" +url+ ":8000/university/", token, "GET", "No JsonData"));
+
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
-
-
 
 
             for (int i = 0; i < myUniArray.length(); i++) {
@@ -306,16 +309,14 @@ public class student_settings extends student_SlidingMenuActivity {
         Callback myCallback = new Callback();
         try {
 
+
             String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
+
 
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
             idList = new ArrayList<String>();
-
-
-
-            //  nameCampusList.add(campusJson);
 
 
             for (int i = 0; i < myCampusArray.length() ; i++) {
@@ -326,8 +327,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 nameCampusList.add(i, nameCampus);
                 idList.add(i,idCampus);
 
-
-
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -336,7 +335,6 @@ public class student_settings extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         final Spinner spinner = (Spinner)findViewById(R.id.campusesSpinnerSettingsStud);
         boolean resultOfComparison_campus;
@@ -360,7 +358,6 @@ public class student_settings extends student_SlidingMenuActivity {
                     items_campus.add(nameCampusList.get(k));
                     campus_id = String.valueOf(k + 1);
                     id_campus.add(campus_id);
-
 
                 }
             }
@@ -386,7 +383,7 @@ public class student_settings extends student_SlidingMenuActivity {
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //In here is what happens when an item in the list is clicked
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
@@ -411,7 +408,9 @@ public class student_settings extends student_SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
+
                         String status = (myCallback.execution_Post("http://"+url+":8000/profile/update-campus/", token, "PATCH", post_dict.toString()));
+
                         if (status == "true") {
                             // Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
                         }
@@ -427,18 +426,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 }
 
 
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
-
             }
                 @Override
                 public void onNothingSelected (AdapterView < ? > parent){
@@ -448,10 +435,6 @@ public class student_settings extends student_SlidingMenuActivity {
         });
 
     }
-
-
-
-
 
 
 
@@ -494,6 +477,8 @@ public class student_settings extends student_SlidingMenuActivity {
 
             try {
 
+
+
                 String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
                 if (status == "true") {
                     studfirstnameInput.setFocusable(false);
@@ -517,15 +502,22 @@ public class student_settings extends student_SlidingMenuActivity {
     }
 
 
-    //---------This function should send the user to a page for changing password
+    //---------This function sends the user to a page for changing password
     public void editPasswordStud(View view) {
-        Toast.makeText(student_settings.this, "You clicked change password button! WOHO!", Toast.LENGTH_LONG).show();
+        Button btn = (Button) findViewById(R.id.change_password_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+
+            public void onClick(View v) {
+                Intent intent1 = new Intent(student_settings.this, change_password.class);
+                startActivity(intent1);
+            }
+
+        });
     }
 
 
 }
-
-
 
 
 

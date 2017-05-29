@@ -6,14 +6,11 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import android.widget.ImageView;
 
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -27,26 +24,19 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-
-import static android.media.CamcorderProfile.get;
-import static com.android.volley.Request.Method.GET;
-import static com.android.volley.Request.Method.HEAD;
+import static com.example.android.campusapp.Constants.CAMPUS_LOCATION_NAME;
+import static com.example.android.campusapp.Constants.CAMPUS_NAME;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
-import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
 import static com.example.android.campusapp.Constants.ID;
 import static com.example.android.campusapp.Constants.SECOND_COLUMN;
 import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
 import static com.example.android.campusapp.Constants.URL;
-//import static com.example.android.campusapp.todays_events_spinner_MyAdapterTypes.items_checkedTypes;
 
 
 /**
@@ -55,13 +45,10 @@ import static com.example.android.campusapp.Constants.URL;
 public class todays_events extends student_SlidingMenuActivity {
 
     private todays_events_spinner_MyAdapterTypes activiateTypesSpinner;
-    private Context mContext;
-    private Activity mActivity;
-    private RelativeLayout mRelativeLayout;
-    private Button mButton;
-    private PopupWindow mPopupWindow;
+
     private ArrayList<HashMap<String, String>> list;
-    private ArrayList<HashMap<String, String>> total_list;
+
+
     MaterialBetterSpinner materialBetterSpinnerTypes;
 
     String[] SPINNER_DATA_CAMPUSES = {"Campus:", "Ångström", "Engelska Parken", "ITC", "Ekonomikum"};
@@ -74,23 +61,17 @@ public class todays_events extends student_SlidingMenuActivity {
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
 
-    private String universityJson;
-    private String campusJson;
-    private String universityIdDefault;
-    private String chosen_campus;
+    private String universityJson,campusJson,universityIdDefault,chosen_campus;
+
     String University;
     private String token = null;
     private String theId = "";
-    ArrayList<String> idList;
-    ArrayList<String> nameList;
-    ArrayList<String> nameListType;
-    ArrayList<String> idListType;
+
+
+    ArrayList<String> idList, nameList,nameListType,idListType,nameListUni;
     ArrayList<String> items_checkedTypesCopy = new ArrayList<String>();
     TextView textUni;
-    JSONArray myCampArray;
-    JSONArray myTypeArray;
-    JSONArray myUniArray;
-    ArrayList<String> nameListUni;
+    JSONArray myCampArray,myTypeArray,myUniArray, favoritesItemsArray;
 
     ArrayList<todays_events_spinner_StateVOTypes> listVOsType = new ArrayList<>();
 
@@ -103,6 +84,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
         /*-----------remember token--------------------*/
         token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
+
         /*----------------------------------------------*/
 
         //Add empty string to araylist to not get null
@@ -132,6 +114,26 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
+
+
+        try { String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/my-favourites/", token, "GET", "No JsonData"));
+
+
+                JSONArray myFavoritesArray = new JSONArray(status);
+
+                JSONObject json_data = myFavoritesArray.getJSONObject(myFavoritesArray.length() - 1);
+
+                 favoritesItemsArray = json_data.getJSONArray("favorites");
+            System.out.println("FAV " + favoritesItemsArray);
+            } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         try {
 
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/home-event/", token, "GET", "No JsonData"));
@@ -152,7 +154,6 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
-                total_list = new ArrayList<HashMap<String, String>>();
                 todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
@@ -169,30 +170,42 @@ public class todays_events extends student_SlidingMenuActivity {
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     String id_event = json_data.getString("id");
+                    String location_name = json_data.getString("campus_location_name");
+                    String campus_name = json_data.getString("campus_name");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(URL,url);
-                    list.get(i).put(FAVORITES,"Add to favorites");
+                    if (favoritesItemsArray.toString().contains("\"name_event\":\""+name+"\"")) {
+                        list.get(i).put(FAVORITES,"Saved to favorites");
+                    }else {
+                        list.get(i).put(FAVORITES,"Add to favorites");
+                    }
+
                     list.get(i).put(ID,id_event);
 
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
                     }
 
                     else {
 
-                        list.get(i).put(URL, " ");
+                        list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
                     }
 
                 }
 
-
                 adapter = new todaysEvents_ListViewAdapter(this, list, listView, token);
                 listView.setAdapter(adapter);
-
 
             }
         } catch (ExecutionException e) {
@@ -203,7 +216,7 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-  //------------------GET UNIVEFSITY ID TO USE WHEN GET CAMPUS
+  //------------------GET UNIVERSITY ID TO USE WHEN GET CAMPUS
 
         Callback myCallback2 = new Callback();
 
@@ -290,7 +303,6 @@ public class todays_events extends student_SlidingMenuActivity {
                 String id = json_data.getString("id");
                 nameList.add(i, name);
                 idList.add(i, id);
-
 
             }
 
@@ -396,11 +408,6 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-
-
-
-
-
         final ArrayList<String> items_type = new ArrayList<String>();
         items_type.add("Change Type?");
         for (int i = 0; i < nameListType.size(); i++) {
@@ -458,6 +465,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?"+theId+"type_event__in="+sendStringTypes, token, "GET", "No JsonData"));
 
+
             if (status == "false") {
                 Toast.makeText(todays_events.this, "could not fetch events", Toast.LENGTH_LONG).show();
             } else {
@@ -472,7 +480,6 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 /* --- create hash map that all Json objects are inserted to --- */
                 list = new ArrayList<HashMap<String, String>>();
-                total_list = new ArrayList<HashMap<String, String>>();
                 todaysEvents_ListViewAdapter adapter;
 
                 /*create as many hash maps as needed */
@@ -495,16 +502,31 @@ public class todays_events extends student_SlidingMenuActivity {
                     list.get(i).put(THIRD_COLUMN,name);
                     list.get(i).put(ID,id_event);
                     list.get(i).put(DESCRIPTION, description);
-                    list.get(i).put(FAVORITES,"add event to favorites");
-                    total_list.add(list.get(i));
+                    if (favoritesItemsArray.toString().contains("\"name_event\":\""+name+"\"")) {
+                        list.get(i).put(FAVORITES,"Saved to favorites");
+                    }else {
+                        list.get(i).put(FAVORITES,"Add to favorites");
+                    }
+
+                    String location_name = json_data.getString("campus_location_name");
+                    String campus_name = json_data.getString("campus_name");
+
+
                     if ( url != null) {
 
                         list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
                     }
 
                     else {
 
-                        list.get(i).put(URL, " ");
+                        list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
                     }
 
                 }

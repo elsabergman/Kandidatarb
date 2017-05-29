@@ -78,6 +78,8 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
 
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

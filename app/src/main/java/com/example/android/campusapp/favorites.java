@@ -30,6 +30,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import java.util.concurrent.ExecutionException;
+
+import static com.example.android.campusapp.Constants.CAMPUS_LOCATION_NAME;
+import static com.example.android.campusapp.Constants.CAMPUS_NAME;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
@@ -50,7 +53,7 @@ public class favorites extends student_SlidingMenuActivity {
     ProgressDialog dialog;
     RecyclerView  mRecyclerView;
     String status;
-    String serverUrl = "130.243.182.165";
+    String serverUrl = "84.217.82.109";
     String id_event;
     private Date dateTime;
     TextView no_favs, descr;
@@ -87,7 +90,9 @@ public class favorites extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
+
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-favourites/", token, "GET", "No JsonData"));
+
 
             if (status == "false"){
                 Toast.makeText(favorites.this, "could not fetch events", Toast.LENGTH_LONG).show();
@@ -134,16 +139,38 @@ public class favorites extends student_SlidingMenuActivity {
                     String name = items.getString("name_event");
                     String start_time = items.getString("start_time");
                     String end_time = items.getString("stop_time");
-                    String external_url = items.getString("external_url");
+                    String url = items.getString("external_url");
                     String description = items.getString("description");
                     String id_event = items.getString("id");
+                    String location_name = items.getString("campus_location_name");
+                    String campus_name = items.getString("campus_name");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name );
                     list.get(i).put(DESCRIPTION, description);
-                    list.get(i).put(URL,external_url);
+                    list.get(i).put(URL, url);
                     list.get(i).put(FAVORITES,"Remove from favorites");
                     list.get(i).put(ID,id_event);
+
+
+
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
+                    }
+
+                    else {
+
+                        list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                    }
+
 
 
                 }

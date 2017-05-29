@@ -146,11 +146,9 @@ public class student_campus_information extends student_SlidingMenuActivity {
             {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Här inne är vad som sker när en grej i listan väljs
+                    //In here is what happens when an item in the list is chosen
 
             /*Toast to show what campus is selected */
-                    //Toast toast = Toast.makeText(student_campus_information.this, parent.getSelectedItem().toString(), Toast.LENGTH_SHORT);
-                    //toast.show();
                     String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
                     for (int i=0; i<myCampusArray.length(); i++) {
@@ -183,32 +181,8 @@ public class student_campus_information extends student_SlidingMenuActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
-
-
-
                         }
                     }
-
-
-
-
-                    /**  @Override public void onAttach(Activity context) {
-                    super.onAttach(context);
-
-
-                    }
-
-
-                    /**  public interface OnFragmentInteractionListener {
-                    // TODO: Update argument type and name
-                    void onFragmentInteraction(Uri uri);
-                    }
-
-                     */
-
-
                 }
 
                 @Override
@@ -277,10 +251,6 @@ public class student_campus_information extends student_SlidingMenuActivity {
 
                     // Get a reference for the custom view close button
                     ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-
-
-
 
 
                     // Set a click listener for the popup window close button

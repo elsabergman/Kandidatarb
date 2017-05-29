@@ -50,7 +50,7 @@ public class org_my_events extends SlidingMenuActivity {
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
-    String serverUrl = "130.243.182.165";
+    String serverUrl = "212.25.147.115";
     private Date dateTime;
 
     private ArrayList<HashMap<String, String>> list;
@@ -83,6 +83,7 @@ public class org_my_events extends SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
+
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-events/", token, "GET", "No JsonData"));
 
             String default_options = (myCallback.execution_Get("http://"+serverUrl+":8000/profile/", token, "GET", "No JsonData"));
@@ -103,6 +104,7 @@ public class org_my_events extends SlidingMenuActivity {
             else {
                 noEvents.setText("Can't see any events below? Create your first event by clicking on 'Create Events' in the toggle menu!");
             }
+
 
 
             if (status == "false"){
@@ -147,6 +149,7 @@ public class org_my_events extends SlidingMenuActivity {
                     list.get(i).put(DESCRIPTION, description);
                     list.get(i).put(EDIT,"Edit or remove event");
                     list.get(i).put(ID,id_event);
+
 
                     if ( url != null) {
 

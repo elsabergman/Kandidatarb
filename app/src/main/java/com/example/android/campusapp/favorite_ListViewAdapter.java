@@ -7,32 +7,26 @@ package com.example.android.campusapp;
            import android.app.Activity;
            import android.content.Intent;
            import android.graphics.Color;
-           import android.graphics.drawable.Drawable;
-           import android.media.Image;
-           import android.preference.PreferenceManager;
-           import android.support.v4.content.res.ResourcesCompat;
+
            import android.text.SpannableString;
            import android.text.style.UnderlineSpan;
            import android.view.LayoutInflater;
            import android.view.View;
            import android.view.ViewGroup;
+
            import android.widget.AdapterView;
            import android.widget.BaseAdapter;
-           import android.widget.ImageButton;
-           import android.widget.ImageView;
-           import android.widget.ListView;
-           import android.widget.TextView;
-           import android.widget.ToggleButton;
 
-           import org.w3c.dom.Text;
+           import android.widget.ListView;
+           import android.widget.RelativeLayout;
+           import android.widget.TextView;
 
            import java.util.ArrayList;
            import java.util.HashMap;
            import java.util.concurrent.ExecutionException;
 
-           import static com.example.android.campusapp.Constants.FAVORITES;
            import static com.example.android.campusapp.Constants.FIRST_COLUMN;
-           import static com.example.android.campusapp.Constants.FOURTH_COLUMN;
+
            import static com.example.android.campusapp.Constants.SECOND_COLUMN;
         import static com.example.android.campusapp.Constants.THIRD_COLUMN;
 
@@ -41,7 +35,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
         public ArrayList<HashMap<String, String>> list;
         Activity activity;
-        TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL;
+        TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL,txtCampus,txtRoom;;
         ListView listView;
         String token, id_event;
         String serverURL = "130.243.182.165";
@@ -84,6 +78,8 @@ public class favorite_ListViewAdapter extends BaseAdapter{
             txtThird=(TextView) convertView.findViewById(R.id.Time);
             txtDescription = (TextView) convertView.findViewById((R.id.description));
             txtURL = (TextView) convertView.findViewById((R.id.url));
+            txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
+            txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
             txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
             final HashMap<String, String> map=list.get(position);
@@ -97,50 +93,67 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
                 public void onItemClick(AdapterView<?> parent, View view, int position,
                                         long id) {
+
+
+
                     HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
 
                     String myDescription = item.get("Description");
                     String myUrl = item.get("Url");
                     final String id_event = item.get("id");
+                    String myCampus = item.get("campus_name");
+                    String myRoom = item.get("campus_location_name");
 
                     txtDescription = (TextView) view.findViewById((R.id.description));
                     txtURL = (TextView) view.findViewById((R.id.url));
                     txtFavorites = (TextView) view.findViewById(R.id.fav);
                     txtDescription.setTextColor(Color.DKGRAY);
+                    txtCampus = (TextView) view.findViewById((R.id.campus_name));
+                    txtRoom = (TextView) view.findViewById((R.id.location_place_room));
                     txtDescription.setText("Description: " + myDescription);
                     txtURL.setText(myUrl);
                     SpannableString content = new SpannableString(item.get("favorites"));
                     content.setSpan(new UnderlineSpan(), 0, item.get("favorites").length(), 0);
                     txtFavorites.setText(content);
-                    //txtURL.setLinkTextColor(Color.DKGRAY);
 
-               /* if (myUrl!= ""){
+                    txtCampus.setTextColor(Color.DKGRAY);
+                    txtCampus.setText("Campus: " +myCampus);
 
-                    txtURL.setText(myUrl);
-                }
-
-                else {
-                    txtURL.setText(" ");
-                }*/
+                    txtRoom.setTextColor(Color.DKGRAY);
+                    txtRoom.setText("Location: " +myRoom);
 
                     if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                     {
+                        if (list.size() < 2) {
+                            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(listView.getWidth(), 175);
+                            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                            lp.setMargins(0, 500, 0, 0);
+
+                            listView.setLayoutParams(lp);
+                        }
 
                         txtDescription.setVisibility(View.GONE);
                         txtURL.setVisibility(View.GONE);
                         txtFavorites.setVisibility(View.GONE);
                         txtDescription.invalidate();
-                        // txtURL.invalidate();
+
 
                         view.setBackgroundColor(Color.WHITE);
 
                     }
                     else
                     {
+
                         txtDescription.setVisibility(View.VISIBLE);
                         txtURL.setVisibility(View.VISIBLE);
                         txtFavorites.setVisibility(View.VISIBLE);
                         txtDescription.invalidate();
+                        if (list.size() < 2) {
+                            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(listView.getWidth(), 320);
+                            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                            lp.setMargins(0, 500, 0, 0);
+                            listView.setLayoutParams(lp);
+                        }
 
                         /*remove from favorites */
                         txtFavorites.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +173,6 @@ public class favorite_ListViewAdapter extends BaseAdapter{
                             }
                         });
 
-                        // txtURL.invalidate();
 
                         view.setBackgroundResource(R.color.very_light_grey);
 
@@ -173,5 +185,6 @@ public class favorite_ListViewAdapter extends BaseAdapter{
             });
             return convertView;
         }
+
     }
 
