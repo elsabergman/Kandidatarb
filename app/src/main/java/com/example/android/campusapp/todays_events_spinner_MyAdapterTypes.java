@@ -18,7 +18,9 @@ import static android.R.attr.data;
 import static com.example.android.campusapp.R.layout.spinner_item;
 
 /**
- * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. Basic code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
+ * Created by argr0731 on 2017-04-13. This Adapter handles the spinner with checkboxes in todays_events. This is linked to todays_events_spinner_StateVOTypes.java which collects the calls from this class.
+ *
+ * Basic code from Ironman post on stackexchange Jul 14 2016: http://stackoverflow.com/questions/38417984/android-spinner-dropdown-checkbox
  */
 
 public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_events_spinner_StateVOTypes> {
@@ -35,7 +37,6 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
         this.mContext = context;
         this.listState = (ArrayList<todays_events_spinner_StateVOTypes>) objects;
         this.todayseventsspinnerMyAdapterTypes = this;
-
         this.sendTodaysEvents = (todays_events) context;
 
     }
@@ -105,7 +106,7 @@ public class todays_events_spinner_MyAdapterTypes extends ArrayAdapter<todays_ev
 
                 if (isChecked == true) {
 
-                    //Here we see the checked boxes and their name, put it in to a array and send it to todays_events
+                    //Here we see the checked boxes and their name, put it in to a array and send it to todays_events to update sorting of list
 
                     if (items_checkedTypes.contains(listState.get(position).getTitle())) {
                     //Do nothing
