@@ -32,7 +32,7 @@ import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
  */
 
 public class EditEvent extends SlidingMenuActivity {
-    String serverURL = "130.243.182.165";
+    String serverURL = "130.243.181.70";
     String id_event, name, url, theId,chosen_type,theIdCampus,theIdRoom, chosen_room,chosen_campus,chosen_uni, location;
     EditText event_name, date_event, company_visiting, start_time, end_time, relevant_links, description;
     JSONArray myUniArray,myRoomArray,myCampusArray;

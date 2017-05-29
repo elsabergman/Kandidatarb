@@ -52,7 +52,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
         TextView txtaddress, txtopening,txtemail,txtphone;
         String image;
         ImageView iv;
-    String url = "130.243.182.165";
+    String url = "130.243.181.70";
 
         /**
          * Here we control the spinner located in campus_information.xml for different campuses
