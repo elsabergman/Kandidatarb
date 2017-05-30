@@ -28,8 +28,9 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by elsabergman on 2017-04-07. This file loads data from back-end to front-end with user information to display in settings pange. It then lets the user change this information and update the database.
- *  This page is linked to toe org_settings.xml
+ * Created by elsabergman on 2017-04-07.
+ * This file loads data from back-end to front-end with user information to display in settings page. It then lets the user change this information and update the database.
+ *  This page is linked to org_settings.xml
  */
 
 public class org_settings extends SlidingMenuActivity {
