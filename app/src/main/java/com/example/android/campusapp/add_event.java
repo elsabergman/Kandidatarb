@@ -68,8 +68,8 @@ public class add_event extends SlidingMenuActivity implements DatePickerDialog.O
     private EditText from;
     private EditText time_from, time_to;
     EditText event_name,company_name,relevant_links,description,datee,starttime,stoptime, edittext;
-    String url = "212.25.151.161";
 
+    String url = "212.25.151.161";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

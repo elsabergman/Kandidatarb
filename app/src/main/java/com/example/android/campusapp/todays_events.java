@@ -41,22 +41,21 @@ import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by elsabergman on 2017-03-31.
+ * This file connects to todays_events.xml and shows events coming up for student user.
+ *
+ * We also control the sorting spinners from here to sort what events are shown.
+ * The types spinner is connected to todays_events_spinner_MyAdapterTypes.java and todays_events_StateVOTypes to create a multi choice spinner.
+ * The sorting is done via different "GET" calls to the database depending on user input.
  */
 public class todays_events extends student_SlidingMenuActivity {
 
     private todays_events_spinner_MyAdapterTypes activiateTypesSpinner;
-
     private ArrayList<HashMap<String, String>> list;
-
-
     MaterialBetterSpinner materialBetterSpinnerTypes;
 
-    String[] SPINNER_DATA_CAMPUSES = {"Campus:", "Ångström", "Engelska Parken", "ITC", "Ekonomikum"};
     String[] SPINNER_DATA_TYPES = {/*"Type:",*/ "Lunch Lecture", "Promoting Event", "Evening Event","Case Event","Other"};
     String chosen_campuses;
-
-    //String token;
-
+    //url for connection with database
     String serverURL = "212.25.147.115";
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
@@ -66,7 +65,6 @@ public class todays_events extends student_SlidingMenuActivity {
     String University;
     private String token = null;
     private String theId = "";
-
 
     ArrayList<String> idList, nameList,nameListType,idListType,nameListUni;
     ArrayList<String> items_checkedTypesCopy = new ArrayList<String>();
@@ -87,9 +85,10 @@ public class todays_events extends student_SlidingMenuActivity {
 
         /*----------------------------------------------*/
 
-        //Add empty string to araylist to not get null
+        //Add empty string to copy of araylist of the checked types in the array to not get null
         items_checkedTypesCopy.add("");
 
+        //Get the chosen university for the user and show it in header
         Callback myCallback = new Callback();
 
         String default_options = null;
@@ -114,17 +113,14 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-
-
+        //Get the users favourited events
         try { String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/my-favourites/", token, "GET", "No JsonData"));
-
 
                 JSONArray myFavoritesArray = new JSONArray(status);
 
                 JSONObject json_data = myFavoritesArray.getJSONObject(myFavoritesArray.length() - 1);
 
                  favoritesItemsArray = json_data.getJSONArray("favorites");
-            System.out.println("FAV " + favoritesItemsArray);
             } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -133,9 +129,8 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-
+        //Get all events on the users default university
         try {
-
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/home-event/", token, "GET", "No JsonData"));
 
             if (status == "false") {
@@ -161,6 +156,7 @@ public class todays_events extends student_SlidingMenuActivity {
                     list.add(new HashMap<String, String>());
                 }
 
+                //Put the information of the event in right places in the objects of the list of events
                 for (int i = 0; i < myEventsArray.length(); i++) {
                     JSONObject json_data = myEventsArray.getJSONObject(i);
                     String date = json_data.getString("date");
@@ -216,14 +212,11 @@ public class todays_events extends student_SlidingMenuActivity {
             e.printStackTrace();
         }
 
-  //------------------GET UNIVERSITY ID TO USE WHEN GET CAMPUS
-
+  //------------------GET CAMPUS ID TO USE WHEN GET UNIVERSITY ID-----
         Callback myCallback2 = new Callback();
 
         try {
             String default_options2 = (myCallback2.execution_Get("http://"+serverURL+":8000/profile/", token, "GET", "No JsonData"));
-
-
                 JSONObject myInfoObject = new JSONObject(default_options2);
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
@@ -241,13 +234,9 @@ public class todays_events extends student_SlidingMenuActivity {
 
  /*----GET USERS DEFAULT UNIVERSITY ---*/
             try {
-
                 String status = (myCallback.execution_Get("http://" + serverURL + ":8000/university/", token, "GET", "No JsonData"));
-
                 myUniArray = new JSONArray(status);
                 nameListUni = new ArrayList<String>();
-
-
 
                 for (int i = 0; i < myUniArray.length(); i++) {
                     JSONObject json_data = myUniArray.getJSONObject(i);
@@ -255,7 +244,6 @@ public class todays_events extends student_SlidingMenuActivity {
                     String id = json_data.getString("id");
                     nameListUni.add(i, name);
                 }
-
 
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -266,6 +254,7 @@ public class todays_events extends student_SlidingMenuActivity {
             }
 
 
+        //makes two lists of names and id of university for spinner. Also makes default university as default in position 0.
         boolean resultOfComparison_uni;
         final ArrayList<String> items_uni = new ArrayList<String>();
         final ArrayList<String> id_uni = new ArrayList<String>();
@@ -274,7 +263,6 @@ public class todays_events extends student_SlidingMenuActivity {
         id_uni.add(uni_id);
         for (int k=0; k<nameListUni.size(); k++) {
             resultOfComparison_uni = nameListUni.get(k).equals(items_uni.get(0));
-            System.out.println(resultOfComparison_uni);
             if (resultOfComparison_uni == false) {
                 items_uni.add(nameListUni.get(k));
                 id_uni.add(String.valueOf(nameListUni.indexOf(items_uni.get(k))));
@@ -289,13 +277,11 @@ public class todays_events extends student_SlidingMenuActivity {
          /*--spinner implementation--*/
         Callback myCallbackCampuses = new Callback();
         try {
-            //Get
+            //Get the campuses and names of these campuses
             String status = (myCallbackCampuses.execution_Get("http://"+serverURL+":8000/campus/?university="+universityIdDefault, token, "GET", "No JsonData"));
-
             myCampArray = new JSONArray(status);
             nameList = new ArrayList<String>();
             idList = new ArrayList<String>();
-
 
             for (int i = 0; i < myCampArray.length(); i++) {
                 JSONObject json_data = myCampArray.getJSONObject(i);
@@ -306,9 +292,6 @@ public class todays_events extends student_SlidingMenuActivity {
 
             }
 
-            System.out.println(nameList);
-            System.out.println(idList);
-            System.out.println(nameList.get(0));
 
 
         } catch (ExecutionException e) {
@@ -325,12 +308,13 @@ public class todays_events extends student_SlidingMenuActivity {
             items_camp.add(nameList.get(i));
         }
 
+        //make the spinner
         final Spinner spinnerCampuses = (Spinner) findViewById(R.id.material_spinner_campuses);
 
         String[] campusesStringArray = new String[items_camp.size()];
         campusesStringArray = items_camp.toArray(campusesStringArray);
 
-        //------------------------Campusese SPINNER START!!!------------------------------
+        //------------------------Campuses spinner start. Populates the spinner------------------------------
 
 
         final Spinner uni_spinner = (Spinner) findViewById(R.id.material_spinner_campuses);
@@ -344,7 +328,7 @@ public class todays_events extends student_SlidingMenuActivity {
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //Here we control what happens in the campuses spinner
 
                 chosen_campus = uni_spinner.getItemAtPosition(uni_spinner.getSelectedItemPosition()).toString();
 
@@ -352,13 +336,16 @@ public class todays_events extends student_SlidingMenuActivity {
                 for (int i = 0; i < myCampArray.length(); i++) {
 
                          /* if the chosen uni equals the uni in place i+1 (add 1 because first place is "ALL universities") */
-                    if (chosen_campus.equals(items_camp.get(i+1))/* == items_camp.get(i+1)*/) {
+                    if (chosen_campus.equals(items_camp.get(i+1))) {
                         theId = "";
+                        //Make the id url-friendly for requests
                         theId = "campus_id="+idList.get(i)+"&";
+                        //calls the function sendInfoToDatabaseType to GET again the sorted events
                         sendInfoToDatabaseType(items_checkedTypesCopy);
                     }
                     /*else*/ if(chosen_campus.equals("All Campuses")){
                         theId = "";
+                        //calls the function sendInfoToDatabaseType to GET again the unsorted events
                         sendInfoToDatabaseType(items_checkedTypesCopy);
                     }
                 }
@@ -378,7 +365,7 @@ public class todays_events extends student_SlidingMenuActivity {
 
                 /*----GET TYPES from database ---*/
 
-         /*--spinner implementation--*/
+         /*--types spinner implementation, get info to populate types spinner--*/
         Callback myCallbackType = new Callback();
         try {
 
@@ -418,11 +405,11 @@ public class todays_events extends student_SlidingMenuActivity {
         String[] typesStringArray = new String[items_type.size()];
         typesStringArray = items_type.toArray(typesStringArray);
 
-        //------------------------Types SPINNER START!!!------------------------------
-        ArrayAdapter<String> typeadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA_TYPES/*typesStringArray*/);
+        //------------------------Types spinner start------------------------------
+        ArrayAdapter<String> typeadapter = new ArrayAdapter<String>(todays_events.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA_TYPES);
 
         materialBetterSpinnerTypes.setAdapter(typeadapter);
-
+        //populate and make multi choice spinner with checkboxes not checked
         for (int i = 0; i < /*typesStringArray*/SPINNER_DATA_TYPES.length; i++) {
             todays_events_spinner_StateVOTypes todayseventsspinnerStateVO = new todays_events_spinner_StateVOTypes();
             todayseventsspinnerStateVO.setTitle(/*typesStringArray*/SPINNER_DATA_TYPES[i]);
@@ -432,19 +419,20 @@ public class todays_events extends student_SlidingMenuActivity {
         todays_events_spinner_MyAdapterTypes todayseventsspinnerMyAdapterType = new todays_events_spinner_MyAdapterTypes(todays_events.this, 0, listVOsType);
         materialBetterSpinnerTypes.setAdapter(todayseventsspinnerMyAdapterType);
 
-            //------------------------Types SPINNER!!!!! STOP--------------------------------
+            //------------------------Types spinner end-------------------------------
 
         //-------------STOP GET TYPES-------------
 }
 
-//---------------------GET FROM DATABASE WITH FILTERING,  this is called from todays_events_spinner_MyAdapterTypes.java -------------
+//---------------------GET FROM DATABASE WITH FILTERING, this is called from todays_events_spinner_MyAdapterTypes.java -------------
     public void sendInfoToDatabaseType(ArrayList<String> items_checkedTypes) {
         items_checkedTypesCopy =  items_checkedTypes;
 
         //Here we makethe checked types to a string in the right format to send to database
         sendStringTypes = "";
         boolean resultOfComparison;
-        //items_checkedTypes.add(items_checkedTypes.toString());
+
+        //This for loop makes the info from checked types into a url-friendly string!
         for (int k=0; k<items_checkedTypes.size(); k++) {
             resultOfComparison=items_checkedTypes.get(k).equals(items_checkedTypes.get(k));
             sendStringTypes = sendStringTypes+((items_checkedTypes.get(k))+",");
@@ -457,12 +445,11 @@ public class todays_events extends student_SlidingMenuActivity {
             sendStringTypes = sendStringTypes.substring(0, sendStringTypes.length()-1);
         }
 
-        //---------------------TESTING RELOADING LIST OFEVENTS
         Callback myCallback = new Callback();
 
 
         try {
-
+            //makes a new get to only get the sorted events! Both sorted on campus and on types
             String status = (myCallback.execution_Get("http://"+serverURL+":8000/events/?"+theId+"type_event__in="+sendStringTypes, token, "GET", "No JsonData"));
 
 
@@ -497,6 +484,8 @@ public class todays_events extends student_SlidingMenuActivity {
                     String description = json_data.getString("description");
                     String url = json_data.getString("external_url");
                     String id_event =json_data.getString("id");
+
+                    //Insert info on right place in list
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name);
