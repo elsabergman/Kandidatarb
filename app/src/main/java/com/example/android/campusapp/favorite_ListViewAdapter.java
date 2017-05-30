@@ -2,6 +2,8 @@ package com.example.android.campusapp;
 
 /**
  * Created by elsabergman on 2017-05-11.
+ * Code added by Elsa Bergman and Frida Kornsäter
+ * The below code sets the layout forr the favorite page.
  */
 
            import android.app.Activity;
@@ -37,9 +39,11 @@ public class favorite_ListViewAdapter extends BaseAdapter{
         Activity activity;
         TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL,txtCampus,txtRoom;;
         ListView listView;
+
         String token, id_event;
 
         String serverURL = "212.25.151.161";
+
 
         public favorite_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
             super();
@@ -69,19 +73,12 @@ public class favorite_ListViewAdapter extends BaseAdapter{
                 convertView=inflater.inflate(R.layout.student_column_rows, null);
 
 
-            } else {
-                convertView = convertView;
             }
 
 
             txtFirst=(TextView) convertView.findViewById(R.id.dateEvent);
             txtSecond=(TextView) convertView.findViewById(R.id.nameEvent);
             txtThird=(TextView) convertView.findViewById(R.id.Time);
-            txtDescription = (TextView) convertView.findViewById((R.id.description));
-            txtURL = (TextView) convertView.findViewById((R.id.url));
-            txtCampus = (TextView) convertView.findViewById((R.id.campus_name));
-            txtRoom = (TextView) convertView.findViewById((R.id.location_place_room));
-            txtFavorites = (TextView) convertView.findViewById((R.id.fav));
 
             final HashMap<String, String> map=list.get(position);
 
@@ -105,6 +102,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
                     String myCampus = item.get("campus_name");
                     String myRoom = item.get("campus_location_name");
 
+                    /*-----------Import and assign values to variables--------------------*/
                     txtDescription = (TextView) view.findViewById((R.id.description));
                     txtURL = (TextView) view.findViewById((R.id.url));
                     txtFavorites = (TextView) view.findViewById(R.id.fav);
@@ -122,6 +120,10 @@ public class favorite_ListViewAdapter extends BaseAdapter{
 
                     txtRoom.setTextColor(Color.DKGRAY);
                     txtRoom.setText("Location: " +myRoom);
+
+
+                    /*-----------Design functionalities depending on how the txtDescription is set--------------------*/
+
 
                     if ( (txtDescription.getVisibility() == View.VISIBLE)  )
                     {
@@ -156,7 +158,7 @@ public class favorite_ListViewAdapter extends BaseAdapter{
                             listView.setLayoutParams(lp);
                         }
 
-                        /*remove from favorites */
+                        /*------------------remove from favorites -----------------------------*/
                         txtFavorites.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
