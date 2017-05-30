@@ -55,7 +55,7 @@ public class org_settings extends SlidingMenuActivity {
     String universityJson = "Change University?";
     String campusJson;
     //url for connection to database
-    String url = "130.243.182.165";
+    String url = "212.25.151.161";
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;

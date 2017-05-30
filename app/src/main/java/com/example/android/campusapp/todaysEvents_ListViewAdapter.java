@@ -45,7 +45,7 @@ public class todaysEvents_ListViewAdapter extends BaseAdapter {
     TextView txtFirst, txtSecond, txtThird,txtDescription, txtFavorites, txtURL,txtCampus,txtRoom, txtFaved;
     ListView listView;
     String token;
-    String serverURL = "130.243.181.70";
+    String serverURL = "212.25.151.161";
     public todaysEvents_ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, ListView listView, String token){
         super();
         this.activity=activity;

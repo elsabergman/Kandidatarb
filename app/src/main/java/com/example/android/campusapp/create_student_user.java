@@ -43,7 +43,7 @@ public class create_student_user extends AppCompatActivity {
     ArrayList<String> idCampusList;
     JSONArray myCampusArray;
     String theIdCampus;
-    String url = "212.25.147.115";
+    String url = "212.25.151.161";
 
 
     @Override

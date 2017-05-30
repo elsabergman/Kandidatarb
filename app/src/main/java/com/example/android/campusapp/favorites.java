@@ -52,7 +52,7 @@ public class favorites extends student_SlidingMenuActivity {
     ProgressDialog dialog;
     String status;
 
-    String serverUrl = "84.217.82.109";
+    String serverUrl = "212.25.151.161";
 
     TextView no_favs, descr;
 

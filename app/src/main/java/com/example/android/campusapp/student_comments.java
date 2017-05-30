@@ -41,7 +41,7 @@ public class student_comments extends Activity {
     String id;
     private ArrayList <ArrayList> listComments_message;
     private Activity mActivity =  student_comments.this;
-    String url = "212.25.147.115";
+    String url = "212.25.151.161";
     String token;
     int message_id;
     ScrollView scroll;

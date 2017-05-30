@@ -53,7 +53,7 @@ public class student_campus_information extends student_SlidingMenuActivity {
         String image;
         ImageView iv;
     //url for connection to database
-    String url = "212.25.147.115";
+    String url = "212.25.151.161";
 
         /**
          * Here we control the spinner located in campus_information.xml for different campuses
