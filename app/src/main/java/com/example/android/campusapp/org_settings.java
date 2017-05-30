@@ -56,7 +56,7 @@ public class org_settings extends SlidingMenuActivity {
     String universityJson = "Change University?";
     String campusJson;
     //url for connection to database
-    String url = "130.243.182.165";
+    String url = "212.25.151.161";
     ArrayList<String> idList;
     ArrayList<String> nameList;
     JSONArray myCampusArray;
@@ -74,35 +74,6 @@ public class org_settings extends SlidingMenuActivity {
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
-
-        //Create the switch for notifications on/off
-        switchStatus = (TextView) findViewById(R.id.notifications);
-        mySwitch = (Switch) findViewById(R.id.mySwitch);
-
-        //Here we make the app remember earlier decision of user for notifications settings. This uses sharedPreferences and is not implemented with the back-end.
-        final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
-        Boolean switchValue = sharedPref2.getBoolean("notification", false);
-        mySwitch.setChecked(switchValue);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            //Here we check/uncheck the switch and remember the value
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //Puts "on" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", true).apply();
-                    mySwitch.setChecked(true);
-
-                } else {
-                    //Puts "off" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", false).apply();
-                    mySwitch.setChecked(false);
-                }
-
-            }
-        });
 
 
         //--------------- START TOGGLESWITCH FOR EDIT SAVE info---------------

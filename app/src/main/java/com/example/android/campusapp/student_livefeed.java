@@ -72,7 +72,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
     ImageButton comment;
     String comment_content;
 
-    String url = "212.25.147.115";
+    String url = "212.25.151.161";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

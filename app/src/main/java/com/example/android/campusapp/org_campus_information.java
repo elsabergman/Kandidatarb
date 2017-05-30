@@ -68,7 +68,7 @@ public class org_campus_information extends SlidingMenuActivity {
 
 
     //url for connection to database
-    String serverUrl = "130.243.182.165";
+    String serverUrl = "212.25.151.161";
 
     /**
      * Here we control the spinner located in campus_information.xml for different campuses
