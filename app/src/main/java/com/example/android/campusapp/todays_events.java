@@ -57,7 +57,8 @@ public class todays_events extends student_SlidingMenuActivity {
     String chosen_campuses;
 
     //url for connection with database
-    String serverURL = "212.25.147.115";
+    String serverURL = "212.25.151.161";
+
 
     private String sendStringTypes = "";
     private String sendStringCampuses ="";

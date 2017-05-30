@@ -52,11 +52,7 @@ public class org_settings extends SlidingMenuActivity {
     private Switch mySwitch;
     private Switch editSaveSwitch;
 
-    EditText orgnameInput;
-    EditText orgemailInput;
-    EditText orgusernameInput;
-    EditText orgfirstnameInput;
-    EditText orglastnameInput;
+    EditText orgnameInput, orgemailInput, orgusernameInput, orgfirstnameInput, orglastnameInput;
 
     ProgressDialog dialog;
 
@@ -64,20 +60,13 @@ public class org_settings extends SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> uniList;
     String chosen_uni;
     JSONArray myUniArray;
-    String theId;
-    String theIdCampus;
-    String theIdRoom;
-    String chosen_room;
+    String theId,theIdCampus, campusJson;
     String universityJson = "Change University?";
-    String campusJson;
     //url for connection to database
-    String url = "130.243.182.165";
+    String url = "212.25.151.161";
 
-    ArrayList<String> idList;
-    ArrayList<String> nameList;
+    ArrayList<String> idList,nameList, nameCampusList;
     JSONArray myCampusArray;
-    ArrayList<String> nameCampusList;
-    ArrayList<String> idCampusList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -429,7 +418,7 @@ public class org_settings extends SlidingMenuActivity {
 
                         String status = (myCallback.execution_Post("http://"+url+":8000/profile/update-campus/", token,"PATCH",post_dict.toString()));
                         if (status == "true") {
-                            //Toast.makeText(org_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
+
                         }if(status == "false"){
                             //Failed to update campus. Notifies the user.
                             Toast.makeText(org_settings.this, "Campus could not be updated", Toast.LENGTH_LONG).show();

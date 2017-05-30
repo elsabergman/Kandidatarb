@@ -43,10 +43,7 @@ public class student_settings extends student_SlidingMenuActivity {
     private Switch editSaveSwitch;
 
 
-    EditText studemailInput;
-    EditText studusernameInput;
-    EditText studfirstnameInput;
-    EditText studlastnameInput;
+    EditText studemailInput,studusernameInput, studfirstnameInput, studlastnameInput;
 
     ProgressDialog dialog;
 
@@ -54,21 +51,17 @@ public class student_settings extends student_SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> uniList;
     String chosen_uni;
     JSONArray myUniArray;
-    String theId;
-    String theIdCampus;
-    String theIdRoom;
-    String chosen_room;
+    String theId,theIdCampus,campusJson;
+
     String universityJson = "Change University?";
-    String campusJson;
+
 
     //url for connection to database
-    String url = "212.25.147.115";
+    String url = "212.25.151.161";
 
-    ArrayList<String> idList;
-    ArrayList<String> nameList;
+    ArrayList<String> idList,nameList,nameCampusList;
     JSONArray myCampusArray;
-    ArrayList<String> nameCampusList;
-    ArrayList<String> idCampusList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
