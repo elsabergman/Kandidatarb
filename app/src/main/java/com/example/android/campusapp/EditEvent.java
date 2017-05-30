@@ -49,6 +49,7 @@ import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
  * from a calendar and time picker.
  */
 
+
 public class EditEvent extends SlidingMenuActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     /*instance variables */
     String serverURL = "212.25.151.161";

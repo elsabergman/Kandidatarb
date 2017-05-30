@@ -31,7 +31,6 @@ public class login extends Activity {
     DataInputStream input;
     String serverURL = "212.25.151.161";
 
-
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

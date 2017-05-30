@@ -66,6 +66,7 @@ public class org_campus_information extends SlidingMenuActivity {
     String image;
     ImageView iv ;
 
+
     //url for connection to database
     String serverUrl = "130.243.182.165";
 

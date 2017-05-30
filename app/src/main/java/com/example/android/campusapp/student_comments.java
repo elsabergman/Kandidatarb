@@ -1,5 +1,14 @@
 package com.example.android.campusapp;
-
+/**
+ * Created by Anna on 2017-05-18.
+ * This page is where the commenting happens. Firstly it gets the the message content from the live feed so it
+ * shows the the right information when clicking on the comment symbol att the message in the live feed. Then there is
+ * a comments area below which shows all the comments which have been commented on the post. In the bottom om the page,
+ * there is a text field where the user can add his or her own comment. After clicking post, the comment is added in the
+ * comment area.
+ *
+ * The class has two methods: displayingComments() and addComments()
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,12 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Anna on 2017-05-18.
- */
+
 
 public class student_comments extends Activity {
     ArrayList<Object> comments;
@@ -40,42 +46,33 @@ public class student_comments extends Activity {
     int message_id;
     ScrollView scroll;
 
-
-
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
-
-          /*-----------remember token--------------------*/
+        /*-----------remember token--------------------*/
         token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
-    /*----------------------------------------------*/
-
+        /*----------------------------------------------*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_comments);
+
+        /* gets the information from student_livefeed */
 
         Bundle bundle = getIntent().getExtras();
         content = bundle.getString("content");
         id = bundle.getString("id");
         message_id = Integer.parseInt(id);
 
-         scroll = (ScrollView) findViewById(R.id.scroll);
-
+        scroll = (ScrollView) findViewById(R.id.scroll);
         scroll.fullScroll(ScrollView.FOCUS_DOWN);
-
 
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("comments");
 
+        /* creates a list for the comments, which has a certain length*/
+
         comments = (ArrayList<Object>) args.getSerializable("comments");
 
-        System.out.println("i andra klassen " + content);
-        System.out.println("i andra klassen " + comments);
-
-
-
-        createComments();
+        displayComments();
+        addComments();
     }
 
 
@@ -83,24 +80,28 @@ public class student_comments extends Activity {
 
 
 
-    void createComments() {
-
+    void displayComments() {
+        /* connects the headers to the xml-files id */
         TextView post_header = (TextView) findViewById(R.id.post);
         TextView comment_header = (TextView) findViewById(R.id.comment_header);
+        /*sets font style*/
         Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         post_header.setTypeface(custom_font);
         comment_header.setTypeface(custom_font);
+
+        /* connects the linear layouts to the xml-files id */
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
 
         LinearLayout commentsArea_out = (LinearLayout) findViewById(R.id.comments);
 
+        /* creates message area and sets style */
+        final RelativeLayout message = new RelativeLayout(this);
+        message.setBackgroundResource(R.color.white);
+        message.setAlpha((float) 0.7);
+
+        /*creates description area and sets style and adds it to the message*/
         final TextView descriptionArea = new TextView(this);
-
-        final RelativeLayout post = new RelativeLayout(this);
-        post.setBackgroundResource(R.color.white);
-        post.setAlpha((float) 0.7);
-
 
         descriptionArea.setText(content);
         descriptionArea.setTextSize(21);
@@ -113,18 +114,18 @@ public class student_comments extends Activity {
 
         descriptionArea.setLayoutParams(lp);
 
-        post.addView(descriptionArea);
+        message.addView(descriptionArea);
 
-
+        /* goes through all comments*/
 
         for (int i = 0 ; i <= comments.size()-1; i++) {
+            /* creates comment area and sets style and it to the commentsArea_out*/
             RelativeLayout comment = new RelativeLayout(this);
 
             final TextView commentArea = new TextView(this);
 
             comment.setBackgroundResource(R.color.white);
             comment.setAlpha((float) 0.5);
-
 
             commentArea.setText((String) comments.get(i));
             commentArea.setTextSize(15);
@@ -146,16 +147,22 @@ public class student_comments extends Activity {
 
         }
 
+        //add comment to the linear layout
+        ll.addView(message);
 
-        ll.addView(post);
 
 
-        /*Add comment*/
 
+
+    }
+
+    void addComments(){
+    /* connect the button to the XMLfile's button id and add a click listener*/
         Button add_post = (Button) findViewById(R.id.comment_added);
         add_post.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //connect the text field to til XMLfile's text field id
                 final EditText comment_post = (EditText) findViewById(R.id.comment_field);
 
 
@@ -173,22 +180,23 @@ public class student_comments extends Activity {
                     Callback myCallback = new Callback();
 
                     try {
+                        /* post content and the message_id to the database*/
                         String status = (myCallback.execution_Post("http://" + url +":8000/messages/comments/", token, "POST", post_dict.toString()));
-                        System.out.println(status);
+
                     } catch (Exception e) {
 
-                        System.out.println("Could not post feed");
+                        System.out.println("Could not message feed");
                     }
 
                 }
+                /* clears the list "comments" */
                 comments.clear();
-                System.out.println("gamla " + comments);
 
                 Callback myCallback = new Callback();
 
                 try {
+                    /* gets the new comments from the database */
                     String status = (myCallback.execution_Get("http://" + url + ":8000/messages/", token, "GET", "No JsonData"));
-                    System.out.println(status);
                     if (status == "false") {
                         Toast.makeText(student_comments.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                     } else {
@@ -197,14 +205,15 @@ public class student_comments extends Activity {
 
                         listComments_message = new ArrayList<>();
 
-
-                        for (int i = 0; i < commentArray.length(); i++) {
+                    //adds all comments to a listComments for each message and adds these lists to listComments_message
+                       for (int i = 0; i < commentArray.length(); i++) {
                             JSONObject json_data = commentArray.getJSONObject(i);
 
                             JSONArray values = json_data.getJSONArray("comments");
 
                             listComments = new ArrayList<>();
 
+                           //adds all comments to a listComments for each message
                             for(int j = 0; j<values.length();j++){
                                 JSONObject comment = values.getJSONObject(j);
 
@@ -212,18 +221,16 @@ public class student_comments extends Activity {
 
                                 listComments.add(comment_content);
                             }
+                            //adds lists to the listComments_message
                             listComments_message.add(listComments);
                         }
 
-
-
-                        for(int i = 0; i < listComments_message.get(message_id-2).size(); i++ ){
-                            comments.add(listComments_message.get(message_id-2).get(i));
+                        // adds all comments for the specific message
+                        for(int i = 0; i < listComments_message.get(message_id-1).size(); i++ ){
+                            comments.add(listComments_message.get(message_id-1).get(i));
                         }
-                        System.out.println("nya" +comments);
-                        Toast.makeText(student_comments.this, "Scroll down to see your post", Toast.LENGTH_LONG).show();
-
-
+                        //confirmation
+                        Toast.makeText(student_comments.this, "Scroll down to see your message", Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -236,6 +243,7 @@ public class student_comments extends Activity {
                 }
 
                 mActivity.recreate();
+                // sets the text filed to nothing after posting a comments
                 comment_post.setText("");
 
 
@@ -243,7 +251,5 @@ public class student_comments extends Activity {
 
 
         });
-
-
     }
 }

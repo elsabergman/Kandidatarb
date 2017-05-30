@@ -54,7 +54,6 @@ public class student_settings extends student_SlidingMenuActivity {
     String theIdCampus;
     String universityJson = "Change University?";
     String campusJson;
-
     //url for connection to database
     String url = "212.25.147.115";
 
