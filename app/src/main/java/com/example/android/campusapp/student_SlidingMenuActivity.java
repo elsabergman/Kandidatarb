@@ -79,7 +79,6 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         Callback myCallback = new Callback();
 
         try {
-
             /*fetch profile information about user logged in */
             String status = (myCallback.execution_Get("http://212.25.151.161:8000/profile/", token , "GET", "No JsonData"));
 

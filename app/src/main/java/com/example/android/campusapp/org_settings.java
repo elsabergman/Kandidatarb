@@ -5,10 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,24 +24,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
-import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
-import static com.example.android.campusapp.R.id.campusesSpinnerSettings;
-import static com.example.android.campusapp.R.id.dateEvent;
-import static com.example.android.campusapp.R.id.languageSpinnerSettings;
-import static com.example.android.campusapp.R.id.myCampus;
-import static com.example.android.campusapp.R.id.organization_nameInput;
-import static com.example.android.campusapp.R.id.start_time;
-import static com.example.android.campusapp.R.id.uni_spinner;
-import static com.example.android.campusapp.R.id.universitySpinnerSettings;
-
 /**
- * Created by elsabergman on 2017-04-07. This file loads data from back-end to front-end with user information to display in settings pange. It then lets the user change this information and update the database.
- *  This page is linked to toe org_settings.xml
+ * Created by elsabergman on 2017-04-07.
+ * This file loads data from back-end to front-end with user information to display in settings page. It then lets the user change this information and update the database.
+ *  This page is linked to org_settings.xml
  */
 
 public class org_settings extends SlidingMenuActivity {
@@ -60,13 +47,16 @@ public class org_settings extends SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> uniList;
     String chosen_uni;
     JSONArray myUniArray;
+
     String theId,theIdCampus, campusJson;
+
     String universityJson = "Change University?";
     //url for connection to database
     String url = "212.25.151.161";
 
     ArrayList<String> idList,nameList, nameCampusList;
     JSONArray myCampusArray;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,39 +67,9 @@ public class org_settings extends SlidingMenuActivity {
         View contentView = inflater.inflate(R.layout.org_settings, null);
         drawer.addView(contentView, 0);
 
-
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
-
-        //Create the switch for notifications on/off
-        switchStatus = (TextView) findViewById(R.id.notifications);
-        mySwitch = (Switch) findViewById(R.id.mySwitch);
-
-        //Here we make the app remember earlier decision of user for notifications settings. This uses sharedPreferences and is not implemented with the back-end.
-        final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
-        Boolean switchValue = sharedPref2.getBoolean("notification", false);
-        mySwitch.setChecked(switchValue);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            //Here we check/uncheck the switch and remember the value
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //Puts "on" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", true).apply();
-                    mySwitch.setChecked(true);
-
-                } else {
-                    //Puts "off" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", false).apply();
-                    mySwitch.setChecked(false);
-                }
-
-            }
-        });
 
 
         //--------------- START TOGGLESWITCH FOR EDIT SAVE info---------------
@@ -142,12 +102,6 @@ public class org_settings extends SlidingMenuActivity {
 
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
 
-
-
-
-
-        //Here vi initiate the spinners
-        final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettings);
 
 
 
@@ -195,9 +149,6 @@ public class org_settings extends SlidingMenuActivity {
                 orglastnameInput.setText(lastnameJson, TextView.BufferType.EDITABLE);
 
 
-                //------------Raden under ska sätta så användarens värde på university spinnern sätts till valda när den går in på sidan. Men setSelection funkar ej /Arvid 9/5
-                //uni_spinner.setSelection(nameList.indexOf(universityJson));
-
             }
 
         } catch (ExecutionException e) {
@@ -224,7 +175,6 @@ public class org_settings extends SlidingMenuActivity {
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
-
 
 
 
@@ -265,7 +215,6 @@ public class org_settings extends SlidingMenuActivity {
             }
         }
 
-
         final Spinner uni_spinner = (Spinner) findViewById(R.id.universitySpinnerSettings);
 
         ArrayAdapter<String> uniadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_uni);
@@ -292,7 +241,6 @@ public class org_settings extends SlidingMenuActivity {
                 }
             }
 
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -310,12 +258,9 @@ public class org_settings extends SlidingMenuActivity {
 
             String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
 
-
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
             idList = new ArrayList<String>();
-
-
 
             for (int i = 0; i < myCampusArray.length() ; i++) {
                 JSONObject json_data = myCampusArray.getJSONObject(i);
@@ -471,7 +416,7 @@ public class org_settings extends SlidingMenuActivity {
         /*----------------------------------------------*/
 
 
-        //Here the connection to the database is managed to save the input made by the user.
+        //Här nedanför sker kopplingen till databasen med JASON osv
         JSONObject post_dict = new JSONObject();
 
         try {
@@ -497,8 +442,6 @@ public class org_settings extends SlidingMenuActivity {
                     orglastnameInput.setClickable(false);
                     orgfirstnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
                     orglastnameInput.setTextColor(this.getResources().getColor(R.color.darkest_blue));
-
-                    //Toast.makeText(org_settings.this, "My profile sucessfully edited", Toast.LENGTH_LONG).show();
                 }
                 if (status == "false") {
                     Toast.makeText(org_settings.this, "User could not be edited", Toast.LENGTH_LONG).show();

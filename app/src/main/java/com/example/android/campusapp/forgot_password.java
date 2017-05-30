@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 public class forgot_password extends AppCompatActivity {
 
-    String url = "130.238.243.228";
+    String url = "212.25.151.161";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

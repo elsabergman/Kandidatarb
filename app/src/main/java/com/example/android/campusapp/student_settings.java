@@ -24,16 +24,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import static com.example.android.campusapp.R.id.campusesSpinnerSettingsStud;
-import static com.example.android.campusapp.R.id.editSaveSwitch;
-import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
-
-//import static com.example.android.campusapp.R.id.campusesSpinner;
 
 
 /**
- * Created by elsabergman on 2017-04-07. This file loads data from back-end to front-end with user information to display in settings page. It then lets the user change this information and update the database.
- *This page is linked to toe student_settings.xml
+ * Created by elsabergman on 2017-04-07.
+ * This file loads data from back-end to front-end with user information to display in settings page. It then lets the user change this information and update the database.
+ * This page is linked to student_settings.xml
  */
 
 public class student_settings extends student_SlidingMenuActivity {
@@ -51,6 +47,7 @@ public class student_settings extends student_SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> uniList;
     String chosen_uni;
     JSONArray myUniArray;
+
     String theId,theIdCampus,campusJson;
 
     String universityJson = "Change University?";
@@ -61,8 +58,6 @@ public class student_settings extends student_SlidingMenuActivity {
 
     ArrayList<String> idList,nameList,nameCampusList;
     JSONArray myCampusArray;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -76,49 +71,6 @@ public class student_settings extends student_SlidingMenuActivity {
         /*-----------remember token--------------------*/
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
-
-        //Create the switch for notifications on/off
-        switchStatus = (TextView) findViewById(R.id.notifications);
-        mySwitch = (Switch) findViewById(R.id.mySwitchStud);
-
-        /*----- if change password button is clicked, redirect to change password page --*/
-        final Button change_pwd_button = (Button) findViewById(R.id.change_password_button_student);
-
-        change_pwd_button.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent Intents = new Intent(student_settings.this, change_password.class);
-                startActivity(Intents);
-                //setContentView(R.layout.forgot_password);
-            }
-
-        });
-
-        //Here we make the app remember earlier decision of user for notifications settings. This uses sharedPreferences and is not implemented with the back-end.
-        final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
-        Boolean switchValue = sharedPref2.getBoolean("notification", false);
-        mySwitch.setChecked(switchValue);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            //Here we check/uncheck the switch and remember the value
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //Puts "on" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", true).apply();
-                    mySwitch.setChecked(true);
-
-
-                } else {
-                    //Puts "off" notifications.
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", false).apply();
-                    mySwitch.setChecked(false);
-                }
-
-            }
-        });
 
 
         //---------------TOGGLESWITCH FOR EDIT SAVE info---------------
@@ -151,8 +103,7 @@ public class student_settings extends student_SlidingMenuActivity {
         });
 
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
-        //Here vi initiate the spinners
-        final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
+
         /*-------------------- SET MY PROFILE INFO ---------------*/
 
 

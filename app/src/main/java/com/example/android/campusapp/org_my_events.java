@@ -50,6 +50,7 @@ public class org_my_events extends SlidingMenuActivity {
     String status;
     TextView textUser, descr, noEvents;
     JSONArray events;
+
     String serverUrl = "212.25.151.161";
     private ArrayList<HashMap<String, String>> list;
 

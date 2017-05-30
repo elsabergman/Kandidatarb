@@ -44,22 +44,18 @@ import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by fridakornsater on 2017-04-19.
+ * Code added on ny by Elsa Bergman and Frida Kornsäter.
+ * Below is the code for the functions that enable the favorite function for the student user.
  */
 public class favorites extends student_SlidingMenuActivity {
-    ListView firstRow;
-    ListView secondRow;
-    ListView thirdRow;
 
     ProgressDialog dialog;
-    RecyclerView  mRecyclerView;
     String status;
+
     String serverUrl = "212.25.151.161";
-    String id_event;
-    private Date dateTime;
+
     TextView no_favs, descr;
 
-    ImageView imageView;
-    ImageView fav_heart;
 
     private ArrayList<HashMap<String, String>> list;
 
@@ -76,7 +72,7 @@ public class favorites extends student_SlidingMenuActivity {
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
 
-                 /*---Fonts for our Logo---*/
+        /*---Fonts for our Logo---*/
         TextView header = (TextView) findViewById(R.id.favorites);
         Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         header.setTypeface(custom_font);
@@ -90,7 +86,7 @@ public class favorites extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-
+        /*---Get the favourites page from the database---*/
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-favourites/", token, "GET", "No JsonData"));
 
 
@@ -106,10 +102,14 @@ public class favorites extends student_SlidingMenuActivity {
                 JSONArray favoritesItemsArray = json_data.getJSONArray("favorites");
 
                 ListView listView = (ListView) findViewById(R.id.favorite_list);
-
+        /*--------------------------*/
 
                 descr = (TextView) findViewById(R.id.descr_info);
                 no_favs = (TextView) findViewById(R.id.no_favs);
+
+                /*--- Show different texts depending on if the user has an favorited event or not ---*/
+
+
                 if (favoritesItemsArray.length() > 0 ){
                     descr.setText("Click on event to show further information");
 
@@ -118,6 +118,7 @@ public class favorites extends student_SlidingMenuActivity {
                 else {
                     no_favs.setText("Can't see any favorites? Add an event to your favorites on the 'All Events' page");
                 }
+                 /*--------------------------*/
 
 
 

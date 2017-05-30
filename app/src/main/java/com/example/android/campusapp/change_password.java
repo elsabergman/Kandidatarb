@@ -31,7 +31,7 @@ public class change_password extends AppCompatActivity {
     DataOutputStream printout;
     DataInputStream input;
 
-    String url = "130.238.243.228";
+    String url = "212.25.151.161";
 
     String group_name;
 
