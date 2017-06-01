@@ -69,7 +69,7 @@ public class SlidingMenuActivity extends AppCompatActivity
 
         try {
             /*fetch profile information about user logged in */
-            String status = (myCallback.execution_Get("http://212.25.151.161:8000/profile/",token , "GET", "No JsonData"));
+            String status = (myCallback.execution_Get("http://130.243.180.38:8000/profile/",token , "GET", "No JsonData"));
 
 
             /* save profile information as Json object and retrieve first name and default campus of user logged in */
@@ -122,28 +122,8 @@ public class SlidingMenuActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search_bar, menu); // implement search option to action bar
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
 
     /* handles all items in navigation drawer and what happens if one of them is clicked */
     @Override

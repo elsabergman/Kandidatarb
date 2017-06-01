@@ -29,7 +29,7 @@ public class login extends Activity {
 
     /* instance variables */
     DataInputStream input;
-    String serverURL = "212.25.151.161";
+    String serverURL = "130.243.180.38";
 
     public void onCreate(Bundle savedInstanceState) {
 

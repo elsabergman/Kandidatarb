@@ -56,7 +56,7 @@ public class todays_events extends student_SlidingMenuActivity {
     String[] SPINNER_DATA_TYPES = {/*"Type:",*/ "Lunch Lecture", "Promoting Event", "Evening Event","Case Event","Other"};
     String chosen_campuses;
     //url for connection with database
-    String serverURL = "212.25.151.161";
+    String serverURL = "130.243.180.38";
 
     private String sendStringTypes = "";
     private String sendStringCampuses ="";
