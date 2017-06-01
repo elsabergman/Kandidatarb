@@ -7,6 +7,10 @@ import java.util.concurrent.ExecutionException;
 /**
  * Name: Callback.java
  * Author: Elsa Bergman
+ * Some of this code is written with help from Simon Zettervall and davidcondrey for code they have written on Stack Overflow
+ * on March 17th 2013 and October 9th 2014. See link below.
+ * https://stackoverflow.com/questions/15271271/android-callback-asynctask-to-fragmentnot-activity
+ *
  * This file handles the connection to DatabaseManager, a class that in turn connects to the database
  * by sending and retrieving information. Callback has two methods, one that is called when the user wants to make
  * a post or patch request to the database and one that is called when the user wants to make a get or delete request.

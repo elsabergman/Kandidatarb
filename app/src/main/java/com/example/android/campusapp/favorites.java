@@ -45,6 +45,8 @@ import static com.example.android.campusapp.Constants.URL;
 /**
  * Created by fridakornsater on 2017-04-19.
  * Code added on ny by Elsa Bergman and Frida Kornsäter.
+ *  Some of the code in this file is written with help from Rajat Ghai who wrote about multiple column listviews on
+ * January 18, 2015, see link: http://techlovejump.com/android-multicolumn-listview/
  * Below is the code for the functions that enable the favorite function for the student user.
  */
 public class favorites extends student_SlidingMenuActivity {

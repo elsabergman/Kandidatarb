@@ -43,7 +43,10 @@ import static com.android.volley.Request.Method.HEAD;
 
 /**
  * Created by Anna on 2017-04-04.
- * Code added by Anna Eriksson, Elsa Bergman and Frida Kornsäter
+ * Code created by Anna Eriksson, Elsa Bergman and Frida Kornsäter
+ * Some code for date picker is taken from code that Mike M uploaded on April 13 2014,
+ * see link https://stackoverflow.com/questions/23040790/android-calendar-view-date-picker
+ *
  * The below code is used when an Organization user wants to add a new event.
  */
 

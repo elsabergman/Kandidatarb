@@ -41,6 +41,10 @@ import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by elsabergman on 2017-03-31.
+ *
+ * Some of the code in this file is written with help from Rajat Ghai who wrote about multiple column listviews on
+ * January 18, 2015, see link: http://techlovejump.com/android-multicolumn-listview/
+ *
  * This file connects to todays_events.xml and shows events coming up for student user.
  *
  * We also control the sorting spinners from here to sort what events are shown.

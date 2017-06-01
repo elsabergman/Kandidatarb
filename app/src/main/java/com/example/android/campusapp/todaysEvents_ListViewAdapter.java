@@ -3,6 +3,10 @@ package com.example.android.campusapp;
 /**
  * Name: todaysEvents_listViewAdapter.java
  * Authors: Elsa Bergman and Frida Kornsäter
+ *
+ *  Some of the code in this file is written with help from Rajat Ghai who wrote about multiple column listviews on
+ * January 18, 2015, see link: http://techlovejump.com/android-multicolumn-listview/
+ *
  *Connects to: todays_events.java (displays events retrieved from database in list form), Constants.java (handles all column rows), favorites.java
  *  (if user wants to add an event to his or her favorites)
  *

@@ -2,8 +2,11 @@ package com.example.android.campusapp;
 
 /**
  * Created by elsabergman on 2017-05-11.
+ *  Some of the code in this file is written with help from Rajat Ghai who wrote about multiple column listviews on
+ * January 18, 2015, see link: http://techlovejump.com/android-multicolumn-listview/
+ *
  * Code added by Elsa Bergman and Frida Kornsäter
- * The below code sets the layout forr the favorite page.
+ * The below code sets the layout for the favorite page.
  */
 
            import android.app.Activity;

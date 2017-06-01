@@ -3,6 +3,8 @@ package com.example.android.campusapp;
 /**
  * Name: DatabaseManager.java
  * Author: Elsa Bergman
+ * Parts of this code is written with the help of code found in the link below. Unfortunately the author's name remains unknown.
+ * http://www.codexpedia.com/android/asynctask-and-httpurlconnection-sample-in-android/
  *
  * This class handles the connection to the database. A token, the Json data that is to be sent to the database, the url which is used
  * to set up the connection and the type of request the user wishes to make are passed as parameters. If no json data is to be sent

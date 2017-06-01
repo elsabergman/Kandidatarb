@@ -3,6 +3,7 @@ package com.example.android.campusapp;
 
 /* Name: student_SlidingMenuActivity.java
 * Author: Elsa Bergman
+* This code is written using Android studio's built in NavigationDrawerActivity and rewriting some code to better fit our needs.
 * Connects to: All pages in the system that a student user can see when the user is logged in.
 *
 * In this class, the sliding menu present on every page that the user can see when he or she is logged in is implemented. This class

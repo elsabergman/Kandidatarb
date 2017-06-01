@@ -40,6 +40,9 @@ import static com.example.android.campusapp.Constants.URL;
  * Author: Elsa Bergman and Frida Kornsäter
  * Connects to: ListViewAdapter.java
  *
+ * Some of the code in this file is written with help from Rajat Ghai who wrote about multiple column listviews on
+ * January 18, 2015, see link: http://techlovejump.com/android-multicolumn-listview/
+ *
  * This class fetches all events that an organisation user has made and allows the user to see the events that he or she has made in
  * order by when in time they will happen. This class adds all information that is going to be displayed in lists to hash maps and
  * later calls ListViewAdapter.java with the hash maps as a parameter */
