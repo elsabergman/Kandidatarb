@@ -24,6 +24,13 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by angelicaelvin on 2017-05-16.
  */
+/*
+Name: change_password.java
+Author: Angelica Elvin
+
+This class is used in order for a user to change password.
+It is called from settings class.
+ */
 
 public class change_password extends AppCompatActivity {
 
@@ -106,6 +113,10 @@ public class change_password extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                /*--- if statement which checks if the user is an organisation or student
+                This decides which settings page the user should be ridirected to after changing password.
+                 */
 
                 if (group_name.equals("Organisation")){
                     Intent intent1 = new Intent(change_password.this, org_settings.class);

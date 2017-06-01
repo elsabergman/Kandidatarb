@@ -1,28 +1,26 @@
 package com.example.android.campusapp;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by angelicaelvin on 2017-05-16.
+ */
+
+/*
+Name: fogot_password.java
+Author: Angelica Elvin
+
+This class is used in order for a user to recieve a new password if the old password is forgotten.
+It is called from both login class and change_password class.
  */
 
 public class forgot_password extends AppCompatActivity {
