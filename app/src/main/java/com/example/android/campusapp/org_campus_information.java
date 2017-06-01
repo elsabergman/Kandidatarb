@@ -45,7 +45,7 @@ import static com.example.android.campusapp.R.id.custom;
 import static com.example.android.campusapp.R.id.spinner1;
 
 /**
- * Created by argr0731 on 2017-04-10.
+ * Created by argr0731 on 2017-04-10. This java file takes care of the org_campus_information.xml file. This file displays information about the chosen campus
  */
 
 public class org_campus_information extends SlidingMenuActivity {
@@ -65,7 +65,10 @@ public class org_campus_information extends SlidingMenuActivity {
     TextView txtopening, txtemail,txtphone, textUser;
     String image;
     ImageView iv ;
-    String serverUrl = "130.243.182.165";
+
+
+    //url for connection to database
+    String serverUrl = "212.25.151.161";
 
     /**
      * Here we control the spinner located in campus_information.xml for different campuses
@@ -106,7 +109,7 @@ public class org_campus_information extends SlidingMenuActivity {
             textUser = (TextView) findViewById(R.id.welcome);
             textUser.setText("Hello " + first_name + "!");
 
-
+            //Get id for university
             for (int i = 0; i < myuniversities.length(); i++) {
                 JSONObject json_data = myuniversities.getJSONObject(i);
                 String name = json_data.getString("name");
@@ -116,6 +119,7 @@ public class org_campus_information extends SlidingMenuActivity {
                 }
 
             }
+            //Get the campuses for this university
             String all_campuses = (myCallback.execution_Get("http://"+serverUrl+":8000/campus/?university=" + universityID, token, "GET", "No JsonData"));
             myCampusArray = new JSONArray(all_campuses);
 
@@ -131,7 +135,7 @@ public class org_campus_information extends SlidingMenuActivity {
         nameCampusList = new ArrayList<String>();
         idCampusList = new ArrayList<String>();
 
-
+        //Sort the id and names of campuses
         for (int i = 0; i < myCampusArray.length(); i++) {
             JSONObject json_data = null;
             try {
@@ -170,9 +174,10 @@ public class org_campus_information extends SlidingMenuActivity {
                     //In here is what happens when an item in the list is chosen
 
             /*Toast to show what campus is selected */
-
+                    //make string of chosen item
                     String CAMPUSTEXT = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
+                    //put information in fields to display the chosen campus information for the user.
                     for (int i=0; i<myCampusArray.length(); i++) {
                         if ((CAMPUSTEXT.equals(nameCampusList.get(i)))) {
                             try {
@@ -352,14 +357,17 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... urls) {
         String urldisplay = urls[0];
         Bitmap mIcon11 = null;
+        Bitmap resized = null;
         try {
+
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
+            resized = Bitmap.createScaledBitmap(mIcon11, 470, 900, true);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
-        return mIcon11;
+        return resized;
     }
 
     @Override

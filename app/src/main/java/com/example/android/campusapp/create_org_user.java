@@ -20,12 +20,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-/**
+/** Name: create_org_user.java
+ * Author: Anna Eriksson, Arvid Gräns, Elsa Bergman
+ * This page have one function, to create a organisation user. It has several fields which the user has to fill in and
+ * then two spinners where the user can choose university and campus. Depending on which university the user chooses, it will
+ * change the campuses in the spinners as well.
  * Created by Anna on 2017-04-19.
  */
 
 public class create_org_user extends AppCompatActivity {
-    String url = "130.238.243.228";
+
+    String url = "212.25.151.161";
+
     JSONArray myUniArray;
     ArrayList<String> nameList;
     ArrayList<String> idList;
@@ -45,6 +51,7 @@ public class create_org_user extends AppCompatActivity {
         final String confirmationMethod = null;
         Callback myCallback = new Callback();
         try {
+            //gets the information from the database
             String status = (myCallback.execution_Get("http://" + url + ":8000/university/", "0", "GET", "No JsonData"));
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
@@ -62,6 +69,7 @@ public class create_org_user extends AppCompatActivity {
         for (int i = 0; i < myUniArray.length(); i++) {
             JSONObject json_data = null;
             try {
+                //adds name and id to separate list
                 json_data = myUniArray.getJSONObject(i);
                 String name = json_data.getString("name");
                 String id = json_data.getString("id");
@@ -76,19 +84,19 @@ public class create_org_user extends AppCompatActivity {
         for (int i = 0; i < nameList.size(); i++) {
             items_uni.add(nameList.get(i));
         }
+        //connects spinner to the XMLfile
         final Spinner dropdown_uni = (Spinner) findViewById(R.id.uni_spinner);
         ArrayAdapter<String> adapter_uni = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items_uni);
         dropdown_uni.setAdapter(adapter_uni);
         dropdown_uni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
         {
+            //when choosing an item in spinnew
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+
 
                 chosen_uni = dropdown_uni.getItemAtPosition(dropdown_uni.getSelectedItemPosition()).toString();
-
-
 
                     for (int i = 0; i < myUniArray.length(); i++) {
                           /* if the chosen uni equals the uni in place i+1 (add 1 because first place is "Choose Uni...") */
@@ -96,7 +104,6 @@ public class create_org_user extends AppCompatActivity {
                             theId = idList.get(i);
 
                             ChooseMyCampus(theId); //Call choose campus with the chosen university
-
 
                         }
                     }
@@ -114,22 +121,20 @@ public class create_org_user extends AppCompatActivity {
 
         Callback myCallback = new Callback();
         try {
-
+        //gets information from the database
             String all_campuses = (myCallback.execution_Get("http://" + url + ":8000/campus/?university=" + theId, "0", "GET", "No JsonData"));
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
             idCampusList = new ArrayList<String>();
 
-
+            // adds name and id to lists
             for (int i = 0; i < myCampusArray.length(); i++) {
                 JSONObject json_data = myCampusArray.getJSONObject(i);
                 String nameCampus = json_data.getString("name");
                 String idCampus = json_data.getString("id");
                 nameCampusList.add(i, nameCampus);
                 idCampusList.add(i, idCampus);
-
-
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -139,9 +144,8 @@ public class create_org_user extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+//connects spinners to id:s in XMLfile
         final Spinner dropdown_campus = (Spinner) findViewById(R.id.campus_spinner);
-        //  String[] items_campus = new String[]{"Choose Campus"};
         final ArrayList<String> items_campus = new ArrayList<String>();
         for (int i = 0; i < nameCampusList.size(); i++) {
             items_campus.add(nameCampusList.get(i));
@@ -155,7 +159,7 @@ public class create_org_user extends AppCompatActivity {
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //choosing item in spinner
 
                 chosen_campus = dropdown_campus.getItemAtPosition(dropdown_campus.getSelectedItemPosition()).toString();
 
@@ -163,7 +167,7 @@ public class create_org_user extends AppCompatActivity {
                     for (int i = 0; i < myCampusArray.length(); i++) {
 
                         /* if the chosen campus equals the campus in place i+1 (add 1 because first place is "Choose Campus...") */
-                        if (chosen_campus == items_campus.get(i)) //Den kallar på ChooseRoom två gånger! fixa detta!
+                        if (chosen_campus == items_campus.get(i))
                         {
                             theIdCampus = idCampusList.get(i);
                             create_org_user(theIdCampus);
@@ -171,31 +175,13 @@ public class create_org_user extends AppCompatActivity {
 
                         }
                     }
-
-
-
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
-
             }
-
+            // if nothing is chosen, do nothing
             @Override
             public void onNothingSelected (AdapterView < ? > parent){
             }
 
-
         });
-
-
 
     }
 
@@ -212,6 +198,7 @@ public class create_org_user extends AppCompatActivity {
         //  final EditText phone = (EditText) findViewById(R.id.phone);
         final TextView txtViewNotComplete = (TextView) findViewById(R.id.wrongInputUser);
 
+        //connect button id to XML file
         Button button = (Button) findViewById(R.id.createUserBtn);
 
         button.setOnClickListener(new View.OnClickListener(){
@@ -224,7 +211,6 @@ public class create_org_user extends AppCompatActivity {
                 String email2 = email_Edit.getText().toString();
                 String username = username_Edit.getText().toString();
                 String password = password_Edit.getText().toString();
-                // String phone = phone.getText().toString();
 
 
                 JSONObject post_dict = new JSONObject();
@@ -240,9 +226,6 @@ public class create_org_user extends AppCompatActivity {
                     post_dict.put("groups","Organisation");
                     post_dict.put("campus", idCampus);
 
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -251,15 +234,17 @@ public class create_org_user extends AppCompatActivity {
                         Callback myCallback = new Callback();
 
                         try {
-
+                        //post all information (post_dict) to the database
                             String status = (myCallback.execution_Post("http://"+url+":8000/register/", "0" , "POST", post_dict.toString()));
 
-
                             if (status == "true") {
+
+                                //if the posting to the databse was successfull, go to the login-page
                                 Intent intent = new Intent(create_org_user.this, login.class);
                                 startActivity(intent);
                                 Toast.makeText(create_org_user.this, "User sucessfully created", Toast.LENGTH_LONG).show();
                             }if (status =="false") {
+                                //otherwise
                                 Toast.makeText(create_org_user.this, "User could not be created", Toast.LENGTH_LONG).show();
 
                             }
@@ -271,13 +256,7 @@ public class create_org_user extends AppCompatActivity {
 
                         System.out.println("Could not create user");
                     }
-
-
                 }
-
-
-
-
             }
         });
     }

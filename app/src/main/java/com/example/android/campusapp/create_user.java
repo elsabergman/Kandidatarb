@@ -1,11 +1,16 @@
 package com.example.android.campusapp;
+
+
+/* Name: create_user.java
+ * Author: Anna Eriksson
+Creates the page between the login-page and the create user-page. At this page, the user only chooses which kind of user
+ * he or she wants to be. So this code has only two click listeners, one which gets the user to the create student-page
+   * and one that gets the user to the create org-page. These buttons are connected to the XML-file's buttons*/
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioButton;
 
 public class create_user extends AppCompatActivity {
 

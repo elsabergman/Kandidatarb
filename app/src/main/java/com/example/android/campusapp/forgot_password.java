@@ -25,7 +25,7 @@ It is called from both login class and change_password class.
 
 public class forgot_password extends AppCompatActivity {
 
-    String url = "130.238.243.228";
+    String url = "212.25.151.161";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

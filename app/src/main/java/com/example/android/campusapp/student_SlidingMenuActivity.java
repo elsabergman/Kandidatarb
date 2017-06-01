@@ -1,5 +1,21 @@
 package com.example.android.campusapp;
 
+
+/* Name: student_SlidingMenuActivity.java
+* Author: Elsa Bergman
+* Connects to: All pages in the system that a student user can see when the user is logged in.
+*
+* In this class, the sliding menu present on every page that the user can see when he or she is logged in is implemented. This class
+* implements a sliding menu with items that the user can click in order to get redirected to new pages. The items are the names of the
+* pages that a student user can see. At the bottom of the sliding menu, there is a log out button that the user can press to log
+* out of the system. On top of the sliding menu, the first name of the user as well as the user's default campus is visible.
+*
+* All pages that the student user can access the sliding menu from has an extension of the student_SlidingMenuActivity class
+ * in their java files.
+
+ */
+
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -43,16 +59,15 @@ public class student_SlidingMenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.nav_header_sliding_menu);
-        setContentView(R.layout.student_sliding_menu);
-        /*TextView user = (TextView) findViewById(R.id.header_logged_in);
-        user.setText("Elsa Bergman");*/
 
+        setContentView(R.layout.student_sliding_menu);
+        /*get Toolbar widget from app_bar_sliding_menu.xml */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+         /* log out button implementation */
         Button btn = (Button) findViewById(R.id.logoutButton);
 
-
+        /* implement navigationView in order to show first_name and default campus of user logged in  */
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
         textName = (TextView) navHeader.findViewById(R.id.header_logged_in);
@@ -64,10 +79,11 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         Callback myCallback = new Callback();
 
         try {
+            /*fetch profile information about user logged in */
+            String status = (myCallback.execution_Get("http://130.243.180.38:8000/profile/", token , "GET", "No JsonData"));
 
-            String status = (myCallback.execution_Get("http://130.243.181.70:8000/profile/", token , "GET", "No JsonData"));
 
-
+            /* save profile information as Json object and retrieve first name and default campus of user logged in */
             JSONObject myProfile = new JSONObject(status);
             first_name = myProfile.getString("first_name");
             campus_name = myProfile.getJSONObject("campus").getString("campus_name");
@@ -81,10 +97,12 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
+        /* display first name and default campus of user logged in */
         textName.setText(first_name);
         textCampus.setText(campus_name);
 
 
+        /* if user clicks on log out button, redirect to login page */
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -97,6 +115,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         });
 
 
+        /* implement drawer (Sliding Menu) and navigation listener that will listen to see if navigation drawer is opened or not  */
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -117,44 +136,19 @@ public class student_SlidingMenuActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search_bar, menu);
-        return true;
 
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
+    /* handles all items in navigation drawer and what happens if one of them is clicked */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_calendar) {
-            // Handle the camera action
 
             Intent intent = new Intent(student_SlidingMenuActivity.this, todays_events.class);
             startActivity(intent);
-
-
 
         }
         else if (id == R.id.nav_favourites) {
@@ -178,6 +172,7 @@ public class student_SlidingMenuActivity extends AppCompatActivity
             startActivity(intent);
         }
 
+         /*close drawer */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

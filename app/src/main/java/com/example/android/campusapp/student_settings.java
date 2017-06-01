@@ -18,25 +18,18 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 
-import static com.example.android.campusapp.R.id.campusesSpinnerSettingsStud;
-import static com.example.android.campusapp.R.id.editSaveSwitch;
-import static com.example.android.campusapp.R.id.languageSpinnerSettingsStud;
-
-//import static com.example.android.campusapp.R.id.campusesSpinner;
-
-
 /**
  * Created by elsabergman on 2017-04-07.
+ * This file loads data from back-end to front-end with user information to display in settings page. It then lets the user change this information and update the database.
+ * This page is linked to student_settings.xml
  */
 
 public class student_settings extends student_SlidingMenuActivity {
@@ -45,11 +38,8 @@ public class student_settings extends student_SlidingMenuActivity {
     private Switch mySwitch;
     private Switch editSaveSwitch;
 
-    //EditText orgnameInput;
-    EditText studemailInput;
-    EditText studusernameInput;
-    EditText studfirstnameInput;
-    EditText studlastnameInput;
+
+    EditText studemailInput,studusernameInput, studfirstnameInput, studlastnameInput;
 
     ProgressDialog dialog;
 
@@ -57,22 +47,17 @@ public class student_settings extends student_SlidingMenuActivity {
     private ArrayList<HashMap<String, String>> uniList;
     String chosen_uni;
     JSONArray myUniArray;
-    String theId;
-    String theIdCampus;
-    String theIdRoom;
-    String chosen_room;
+
+    String theId,theIdCampus,campusJson;
+
     String universityJson = "Change University?";
-    String campusJson;
-    String url = "130.243.181.70";
 
 
+    //url for connection to database
+    String url = "212.25.151.161";
 
-    ArrayList<String> idList;
-    ArrayList<String> nameList;
+    ArrayList<String> idList,nameList,nameCampusList;
     JSONArray myCampusArray;
-    ArrayList<String> nameCampusList;
-    ArrayList<String> idCampusList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -87,59 +72,12 @@ public class student_settings extends student_SlidingMenuActivity {
         final String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
 
-        //Create the switch for notifications on/off
-        switchStatus = (TextView) findViewById(R.id.notifications);
-        mySwitch = (Switch) findViewById(R.id.mySwitchStud);
-
-        /*----- if change password button is clicked, redirect to change password page --*/
-        final Button change_pwd_button = (Button) findViewById(R.id.change_password_button_student);
-
-        change_pwd_button.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent Intents = new Intent(student_settings.this, change_password.class);
-                startActivity(Intents);
-                //setContentView(R.layout.forgot_password);
-            }
-
-        });
-
-        //Here we makes the app remember earlier decision of user for notifications settings
-        final SharedPreferences sharedPref2 = getSharedPreferences("toggleExample", Context.MODE_PRIVATE);
-        Boolean switchValue = sharedPref2.getBoolean("notification", false);
-        mySwitch.setChecked(switchValue);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            //Here we check/uncheck the switch and remember the value
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", true).apply();
-                    mySwitch.setChecked(true);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications on", Toast.LENGTH_SHORT);
-                    //toast.show();
-
-                } else {
-                    SharedPreferences.Editor editor = getSharedPreferences("toggleExample", MODE_PRIVATE).edit();
-                    sharedPref2.edit().putBoolean("notification", false).apply();
-                    mySwitch.setChecked(false);
-                    //Toast toast = Toast.makeText(student_settings.this, "Notifications off", Toast.LENGTH_SHORT);
-                    //toast.show();
-                }
-
-            }
-        });
-
-
 
         //---------------TOGGLESWITCH FOR EDIT SAVE info---------------
-
         //Create the switch for edit/save
-        //switchStatusEditSave = (TextView) findViewById(R.id.notifications);
         editSaveSwitch = (Switch) findViewById(R.id.editSaveSwitchStudent);
 
-        //Here we make the switch to be on save on start of page
+        //Here we make the switch to be on "save" and the text to display "Edit" when starting the page.
         Boolean switchValueEditSave = false;
         editSaveSwitch.setChecked(switchValueEditSave);
         //attach a listener to check for changes in state
@@ -147,12 +85,14 @@ public class student_settings extends student_SlidingMenuActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean switchValueEditSave) {
                 if (switchValueEditSave) {
+                    //Here the user checks the switchbutton and enables the editing. the text chagnes to "Save"
                     editSaveSwitch.setChecked(true);
                     View editView = findViewById(R.id.editSaveSwitchStudent);
                     editInfoStudent(editView);
                     ((Switch) findViewById(R.id.editSaveSwitchStudent)).setText("Save");
 
                 } else {
+                    //here the user unchecks the switchbutton and the text is set to "Edit"
                     editSaveSwitch.setChecked(false);
                     View saveView = findViewById(R.id.editSaveSwitchStudent);
                     saveInfoStudent(saveView);
@@ -164,25 +104,13 @@ public class student_settings extends student_SlidingMenuActivity {
 
         // ------------------END TOGGLESWITCH FOR EDIT SAVE INFO
 
-
-
-
-
-
-
-        //Here vi initiate the spinners
-        final Spinner spinnerSetLanguage = (Spinner) findViewById(languageSpinnerSettingsStud);
-
-
-
         /*-------------------- SET MY PROFILE INFO ---------------*/
 
-        //orgnameInput = (EditText) findViewById(R.id.organization_nameInput);
+
         studemailInput = (EditText) findViewById(R.id.organization_emailInput_student);
         studusernameInput = (EditText) findViewById(R.id.organization_username_input_student);
         studfirstnameInput = (EditText) findViewById(R.id.firstName_Input_student);
         studlastnameInput = (EditText) findViewById(R.id.lastName_Input_student);
-
 
 
 
@@ -204,22 +132,16 @@ public class student_settings extends student_SlidingMenuActivity {
                 JSONObject myInfoObject = new JSONObject(status);
                 String usernameJson = myInfoObject.getString("username");
                 String emailJson = myInfoObject.getString("email");
-                //String orgnameJson = myInfoObject.getString("org_name");
                 String firstnameJson = myInfoObject.getString("first_name");
                 String lastnameJson = myInfoObject.getString("last_name");
                 universityJson = myInfoObject.getJSONObject("campus").getString("university_name");
                 campusJson = myInfoObject.getJSONObject("campus").getString("campus_name");
 
-
-                //orgnameInput.setText(orgnameJson, TextView.BufferType.EDITABLE);
+                //Fill the edittextfields with data from database.
                 studemailInput.setText(emailJson, TextView.BufferType.EDITABLE);
                 studusernameInput.setText(usernameJson, TextView.BufferType.EDITABLE);
                 studfirstnameInput.setText(firstnameJson, TextView.BufferType.EDITABLE);
                 studlastnameInput.setText(lastnameJson, TextView.BufferType.EDITABLE);
-
-
-                //------------Raden under ska sätta så användarens värde på university spinnern sätts till valda när den går in på sidan. Men setSelection funkar ej /Arvid 9/5
-                //uni_spinner.setSelection(nameList.indexOf(universityJson));
 
             }
 
@@ -235,22 +157,15 @@ public class student_settings extends student_SlidingMenuActivity {
         dialog.dismiss();
 
 
-
-
             /*----GET UNIVERSITY ---*/
-
             /*--spinner implementation--*/
 
         try {
-
-
             String status = (myCallback.execution_Get("http://" +url+ ":8000/university/", token, "GET", "No JsonData"));
 
 
             myUniArray = new JSONArray(status);
             nameList = new ArrayList<String>();
-
-
 
 
             for (int i = 0; i < myUniArray.length(); i++) {
@@ -260,7 +175,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 nameList.add(i, name);
 
             }
-
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -294,7 +208,7 @@ public class student_settings extends student_SlidingMenuActivity {
         uni_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 
         {
-            /* -- When item in spinner is chosen -- */
+            /* -- When item in spinner is chosen, check position and call choose campus for that university -- */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -306,8 +220,6 @@ public class student_settings extends student_SlidingMenuActivity {
                         theId = id_uni.get(i);
 
                         ChooseMyCampus(theId, token); //Call choose campus with the chosen university
-
-
                     }
                 }
             }
@@ -327,20 +239,11 @@ public class student_settings extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
         try {
-
-
             String all_campuses = (myCallback.execution_Get("http://"+url+":8000/campus/?university="+theId, token, "GET", "No JsonData"));
-
-
 
             myCampusArray = new JSONArray(all_campuses);
             nameCampusList = new ArrayList<String>();
             idList = new ArrayList<String>();
-
-
-
-            //  nameCampusList.add(campusJson);
-
 
             for (int i = 0; i < myCampusArray.length() ; i++) {
                 JSONObject json_data = myCampusArray.getJSONObject(i);
@@ -350,8 +253,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 nameCampusList.add(i, nameCampus);
                 idList.add(i,idCampus);
 
-
-
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -360,7 +261,6 @@ public class student_settings extends student_SlidingMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         final Spinner spinner = (Spinner)findViewById(R.id.campusesSpinnerSettingsStud);
         boolean resultOfComparison_campus;
@@ -375,7 +275,7 @@ public class student_settings extends student_SlidingMenuActivity {
             items_campus.add(campusJson.toString());
 
             String campus_id = String.valueOf(nameCampusList.indexOf(items_campus.get(0)) + 1);
-            id_campus.add(campus_id); //fel med id för campus ultuna
+            id_campus.add(campus_id);
 
             for (int k = 0; k < nameCampusList.size(); k++) {
                 resultOfComparison_campus = nameCampusList.get(k).equals(items_campus.get(0));
@@ -385,32 +285,35 @@ public class student_settings extends student_SlidingMenuActivity {
                     campus_id = String.valueOf(k + 1);
                     id_campus.add(campus_id);
 
-
                 }
             }
-        } /* if the default campus is not part of the campuses at the chosen university,
+        }
+
+        /* if the default campus is not part of the campuses at the chosen university,
         we want to display all campuses belonging to the chosen university and not the default campus. */
         else {
 
             for (int k = 0; k < nameCampusList.size(); k++) {
 
                 items_campus.add(nameCampusList.get(k));
-                String campus_id = String.valueOf(idList.get(k)); //prova köra med detta efter lunch
-                id_campus.add(campus_id); //fel med id för campus ultuna
+                String campus_id = String.valueOf(idList.get(k));
+                id_campus.add(campus_id);
 
             }
 
         }
+
+        //Creates adapter for spinner
         ArrayAdapter<String> campusadapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, items_campus);
         campusadapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner.setAdapter(campusadapter);
 
+        //Listens on the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-
         {
             @Override
             public void onItemSelected (AdapterView < ? > parent, View view,int position, long id) {
-                //Här inne är vad som sker när en grej i listan väljs
+                //In here is what happens when an item in the list is clicked.
 
                 chosen_campus = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
 
@@ -424,7 +327,7 @@ public class student_settings extends student_SlidingMenuActivity {
                 }
                 JSONObject post_dict = new JSONObject(); //creates Json object
                 try {
-
+                    //prepares to send the chosen campus to database
                     post_dict.put("campus", theIdCampus);
 
                 } catch (JSONException e) {
@@ -435,13 +338,14 @@ public class student_settings extends student_SlidingMenuActivity {
                     Callback myCallback = new Callback();
 
                     try {
-
+                        //Updates campus
                         String status = (myCallback.execution_Post("http://"+url+":8000/profile/update-campus/", token, "PATCH", post_dict.toString()));
 
                         if (status == "true") {
-                            // Toast.makeText(student_settings.this, "Campus successfully updated", Toast.LENGTH_LONG).show();
+                            // Updates campus
                         }
                         if (status == "false") {
+                            //Failed to update campus. Notifies the user.
                             Toast.makeText(student_settings.this, "Campus could not be updated", Toast.LENGTH_LONG).show();
                         }
                     } catch (InterruptedException e) {
@@ -453,18 +357,6 @@ public class student_settings extends student_SlidingMenuActivity {
                 }
 
 
-                /**  @Override public void onAttach(Activity context) {
-                super.onAttach(context);
-
-                }
-
-                /**  public interface OnFragmentInteractionListener {
-                // TODO: Update argument type and name
-                void onFragmentInteraction(Uri uri);
-                }
-
-                 */
-
             }
                 @Override
                 public void onNothingSelected (AdapterView < ? > parent){
@@ -474,10 +366,6 @@ public class student_settings extends student_SlidingMenuActivity {
         });
 
     }
-
-
-
-
 
 
 
@@ -504,7 +392,7 @@ public class student_settings extends student_SlidingMenuActivity {
         /*----------------------------------------------*/
 
 
-        //Här nedanför sker kopplingen till databasen med JASON osv
+        //Here the connection to the database is managed to save the input made by the user.
         JSONObject post_dict = new JSONObject();
 
         try {
@@ -520,10 +408,9 @@ public class student_settings extends student_SlidingMenuActivity {
 
             try {
 
-
-
                 String status = (myCallback.execution_Post("http://"+url+":8000/profile/", token, "PATCH", post_dict.toString()));
                 if (status == "true") {
+                    //If we succeed to update database, the text is not more editable for the user.
                     studfirstnameInput.setFocusable(false);
                     studfirstnameInput.setClickable(false);
                     studlastnameInput.setFocusable(false);
@@ -550,6 +437,7 @@ public class student_settings extends student_SlidingMenuActivity {
         Button btn = (Button) findViewById(R.id.change_password_button);
         btn.setOnClickListener(new View.OnClickListener() {
 
+
             public void onClick(View v) {
                 Intent intent1 = new Intent(student_settings.this, change_password.class);
                 startActivity(intent1);
@@ -560,8 +448,6 @@ public class student_settings extends student_SlidingMenuActivity {
 
 
 }
-
-
 
 
 

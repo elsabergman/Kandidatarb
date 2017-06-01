@@ -30,6 +30,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import java.util.concurrent.ExecutionException;
+
+import static com.example.android.campusapp.Constants.CAMPUS_LOCATION_NAME;
+import static com.example.android.campusapp.Constants.CAMPUS_NAME;
 import static com.example.android.campusapp.Constants.DESCRIPTION;
 import static com.example.android.campusapp.Constants.FAVORITES;
 import static com.example.android.campusapp.Constants.FIRST_COLUMN;
@@ -41,22 +44,18 @@ import static com.example.android.campusapp.Constants.URL;
 
 /**
  * Created by fridakornsater on 2017-04-19.
+ * Code added on ny by Elsa Bergman and Frida Kornsäter.
+ * Below is the code for the functions that enable the favorite function for the student user.
  */
 public class favorites extends student_SlidingMenuActivity {
-    ListView firstRow;
-    ListView secondRow;
-    ListView thirdRow;
 
     ProgressDialog dialog;
-    RecyclerView  mRecyclerView;
     String status;
-    String serverUrl = "130.243.182.165";
-    String id_event;
-    private Date dateTime;
+
+    String serverUrl = "212.25.151.161";
+
     TextView no_favs, descr;
 
-    ImageView imageView;
-    ImageView fav_heart;
 
     private ArrayList<HashMap<String, String>> list;
 
@@ -73,7 +72,7 @@ public class favorites extends student_SlidingMenuActivity {
         String token = PreferenceManager.getDefaultSharedPreferences(this).getString("token", null);
         /*----------------------------------------------*/
 
-                 /*---Fonts for our Logo---*/
+        /*---Fonts for our Logo---*/
         TextView header = (TextView) findViewById(R.id.favorites);
         Typeface custom_font = Typeface.createFromAsset(this.getAssets(), "fonts/Shrikhand-Regular.ttf");
         header.setTypeface(custom_font);
@@ -87,7 +86,7 @@ public class favorites extends student_SlidingMenuActivity {
 
         Callback myCallback = new Callback();
 
-
+        /*---Get the favourites page from the database---*/
         try { String status = (myCallback.execution_Get("http://"+serverUrl+":8000/events/my-favourites/", token, "GET", "No JsonData"));
 
 
@@ -103,10 +102,14 @@ public class favorites extends student_SlidingMenuActivity {
                 JSONArray favoritesItemsArray = json_data.getJSONArray("favorites");
 
                 ListView listView = (ListView) findViewById(R.id.favorite_list);
-
+        /*--------------------------*/
 
                 descr = (TextView) findViewById(R.id.descr_info);
                 no_favs = (TextView) findViewById(R.id.no_favs);
+
+                /*--- Show different texts depending on if the user has an favorited event or not ---*/
+
+
                 if (favoritesItemsArray.length() > 0 ){
                     descr.setText("Click on event to show further information");
 
@@ -115,6 +118,7 @@ public class favorites extends student_SlidingMenuActivity {
                 else {
                     no_favs.setText("Can't see any favorites? Add an event to your favorites on the 'All Events' page");
                 }
+                 /*--------------------------*/
 
 
 
@@ -136,16 +140,38 @@ public class favorites extends student_SlidingMenuActivity {
                     String name = items.getString("name_event");
                     String start_time = items.getString("start_time");
                     String end_time = items.getString("stop_time");
-                    String external_url = items.getString("external_url");
+                    String url = items.getString("external_url");
                     String description = items.getString("description");
                     String id_event = items.getString("id");
+                    String location_name = items.getString("campus_location_name");
+                    String campus_name = items.getString("campus_name");
                     list.get(i).put(FIRST_COLUMN, date);
                     list.get(i).put(SECOND_COLUMN,start_time + "- " +end_time );
                     list.get(i).put(THIRD_COLUMN,name );
                     list.get(i).put(DESCRIPTION, description);
-                    list.get(i).put(URL,external_url);
+                    list.get(i).put(URL, url);
                     list.get(i).put(FAVORITES,"Remove from favorites");
                     list.get(i).put(ID,id_event);
+
+
+
+                    if ( url != null) {
+
+                        list.get(i).put(URL, url);
+
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+
+
+                    }
+
+                    else {
+
+                        list.get(i).put(URL, url);
+                        list.get(i).put(CAMPUS_NAME, campus_name);
+                        list.get(i).put(CAMPUS_LOCATION_NAME, location_name);
+                    }
+
 
 
                 }

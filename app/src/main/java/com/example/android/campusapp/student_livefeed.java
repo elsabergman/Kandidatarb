@@ -1,5 +1,16 @@
 package com.example.android.campusapp;
 
+/**Name: student_livefeed.java
+ * Author: Anna Eriksson
+ * Live feed has two methods: createFeed() and createPost(). createFeed() creates the page with all messages. Every message
+ * has a content, location, comments and up and downvotes. If the user agree or disagree with the message,
+ * the user can either up- or downvote with the arrows.
+ *
+ * The user can also post a message in createPost(). The user writes a description and fills in the location and posts it
+ * After it is posted, the message will appear in the top of the feed.
+ * Created by Anna on 2017-04-24.
+ */
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,12 +45,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
-
-
-/**
- * Created by Anna on 2017-04-24.
- */
-
 public class student_livefeed extends student_SlidingMenuActivity implements Serializable  {
 
     private Context mContext;
@@ -58,27 +63,17 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
     private ArrayList<ArrayList> listComments_message;
     private ArrayList<String> listComments;
     private ArrayList<String> listCommentCount;
+    private ArrayList<String> listUpVote;
+    private ArrayList<String> listDownVote;
+    String upvote;
+    String downvote;
 
-
-    private ArrayList<String> neutralArray;
-    private ArrayList<String> greenArray;
-    private ArrayList<String> redArray;
-    private String before_voting;
-    private String after_voting;
-     ImageButton arrow_up;
-     ImageButton arrow_down;
+    ImageButton arrow_up;
+    ImageButton arrow_down;
     ImageButton comment;
     String comment_content;
 
-
-
-    String url = "130.243.182.165";
-
-
-
-
-
-
+    String url = "212.25.151.161";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,32 +98,28 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
 
-        //Hämtar alla inlägg från databasen och lägger de i list
+        //Gets information from the database and puts it in lists
         Callback myCallback = new Callback();
 
         try {
             status = (myCallback.execution_Get("http://" + url +":8000/messages/", token, "GET", "No JsonData"));
-            System.out.println(status);
             if (status == "false") {
                 Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
             } else {
 
                 JSONArray feedArray = new JSONArray(status);
 
-
+                /*Creates a list for every information type*/
                 listID = new ArrayList<>();
-
-
-
                 listContent = new ArrayList<>();
                 listLocation = new ArrayList<>();
                 listCount = new ArrayList<>();
                 listComments_message = new ArrayList<>();
                 listCommentCount = new ArrayList<>();
+                listUpVote = new ArrayList<>();
+                listDownVote = new ArrayList<>();
 
-
-
-
+                /*Gets the specific information from json_data and adds it in a list */
 
                 for (int i = 0; i < feedArray.length(); i++) {
                     JSONObject json_data = feedArray.getJSONObject(i);
@@ -144,6 +135,13 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     String count = json_data.getString("votes");
                     listCount.add(count);
 
+                    upvote = json_data.getJSONObject("my_vote").getString("upvote");
+                    listUpVote.add(upvote);
+                    downvote = json_data.getJSONObject("my_vote").getString("downvote");
+                    listDownVote.add(downvote);
+
+                    /* Comments is in a nested query, that's why we needed to do this for loop. But
+                     it gets the comment information for each message and adds it in the listComments_message */
 
 
                     JSONArray values = json_data.getJSONArray("comments");
@@ -160,7 +158,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
                     listComments_message.add(listComments);
 
-
+                    /* adds the number of comments for each message in listCommentCount. */
                     listCommentCount.add(String.valueOf(listComments.size()));
 
                 }
@@ -170,15 +168,19 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                 ArrayList voteArray = new ArrayList<>();
 
 
-        /* Här skapas rutorna i feeden */
+        /* Creates the rectangles in the feed   */
                 for (int i = listContent.size()-1; i >= 0; i--) {
+                    /* message equals one message */
+                    RelativeLayout message = new RelativeLayout(this);
 
-                    RelativeLayout feed = new RelativeLayout(this);
+                    /*creates an area for every information type*/
                     final TextView descriptionArea = new TextView(this);
                     TextView locationArea = new TextView(this);
                     final TextView countArea = new TextView(this);
                     TextView commentArea = new TextView(this);
                     TextView commentCountArea = new TextView(this);
+
+                    /* Sets the style on every text area */
 
                     descriptionArea.setText(listContent.get(i));
                     descriptionArea.setTextSize(21);
@@ -194,9 +196,11 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
                     countArea.setText(listCount.get(i));
                     countArea.setTextSize(20);
-                    countArea.setHeight(200);
-                    countArea.setWidth(200);
+                    countArea.setHeight(70);
+                    countArea.setWidth(70);
                     countArea.setTextColor(Color.rgb(0, 0, 0));
+                    countArea.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                    countArea.setTextColor(Color.WHITE);
 
                     commentCountArea.setText(listCommentCount.get(i));
                     commentCountArea.setTextSize(20);
@@ -205,27 +209,47 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     commentCountArea.setTextColor(Color.rgb(0, 0, 0));
 
 
-                    feed.addView(descriptionArea);
-                    feed.addView(locationArea);
-                    feed.addView(commentCountArea);
+/*Checks if the user already have voted. If Downvoted --> the  area is red. Id Upvoted --> the area is green.
+If not voted --> the area is grey*/
 
 
-                    feed.setBackgroundResource(R.color.white);
-                    feed.setAlpha((float) 0.45);
+
+                   if(listUpVote.get(i) == "true"){
+                        countArea.setBackgroundColor(Color.parseColor("#008000"));
+                    }
+                    else if (listDownVote.get(i) == "true"){
+                        countArea.setBackgroundColor(Color.RED);
+
+                    }
+                    else{
+                        countArea.setBackgroundColor(Color.GRAY);
+
+                    }
 
 
+
+
+                /* adds the text areas on the message(message) */
+
+                    message.addView(descriptionArea);
+                    message.addView(locationArea);
+                    message.addView(commentCountArea);
+
+                    /* sets style on the message*/
+                    message.setBackgroundResource(R.color.white);
+                    message.setAlpha((float) 0.45);
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, 300);
                     lp.setMargins(0, 0, 0, 15);
 
-            /* Create up and down arrows and counter */
+                    /* Create up and down arrows, vote counter and the location image */
 
                     ImageView pin = new ImageView(this);
                     comment = new ImageButton(this);
                     arrow_up = new ImageButton(this);
                     arrow_down = new ImageButton(this);
 
-
+                    /* sets id on the arrows, converts it to int and adds it in VoteArray */
                     arrow_up.setId(i+1);
                     arrow_down.setId(i+1);
 
@@ -236,7 +260,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     voteArray.add(Id_arrowUp);
                     voteArray.add(Id_arrowDown);
 
-
+                    /* gets the image from drawable  */
                     pin.setImageResource(R.drawable.pin_live_feed);
                     comment.setBackgroundResource(R.drawable.comments_live_feed);
 
@@ -249,7 +273,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     buttons.add(arrow_up);
                     buttons.add(arrow_down);
 
-
+                  /* styles*/
                     RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -268,7 +292,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
                     lp4.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     lp4.addRule(RelativeLayout.END_OF, buttons.indexOf(arrow_up));
-                    lp4.setMargins(0, 120, 0, 0);
+                    lp4.setMargins(0, 115, 150, 0);
 
                     RelativeLayout.LayoutParams lp5 = new RelativeLayout.LayoutParams(70, 70);
                     lp5.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -289,7 +313,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     RelativeLayout.LayoutParams lp10 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     lp10.setMargins(380, 240, 0, 0);
 
-
+                /* sets the style on a specific item */
 
                     arrow_up.setLayoutParams(lp2);
                     arrow_down.setLayoutParams(lp3);
@@ -301,18 +325,18 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                     commentArea.setLayoutParams(lp9);
                     commentCountArea.setLayoutParams(lp10);
 
+                    /* adds image and text area to message */
+                    message.addView(arrow_up);
+                    message.addView(arrow_down);
+                    message.addView(comment);
+                    message.addView(pin);
+                    message.addView(countArea);
 
-                    feed.addView(arrow_up);
-                    feed.addView(arrow_down);
-                    feed.addView(comment);
-                    feed.addView(pin);
-                    feed.addView(countArea);
+                    /* adds message to the page */
+                    ll.addView(message, lp);
 
 
-                    ll.addView(feed, lp);
-
-
-                    /*Click on comment and get to other page*/
+                    /*Click on comment image to get to comment page*/
 
                     final int u = i;
 
@@ -321,47 +345,34 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                         @Override
                         public void onClick(View view) {
 
-                            //Intent intent = new Intent(student_livefeed.this, student_comments.class);
-                            //startActivity(intent);
-
-
                             Intent intent = new Intent(student_livefeed.this, student_comments.class);
+
+                            /* brings content and id to the comment page */
+
                             intent.putExtra("content", listContent.get(u));
                             intent.putExtra("id", listID.get(u));
+
+                            /* brings the comments to the comments page */
 
                             ArrayList <Object> object = listComments_message.get(u);
                             Bundle args = new Bundle();
                             args.putSerializable("comments", (Serializable)object);
                             intent.putExtra("comments", args);
 
-
-
-
-
-
-
+                            /* goes to student_comments */
                             startActivity(intent);
-
-
-
-
-
 
                         }
                         });
 
                     /*Upvote-listener*/
 
-
+                    /* the if-statement is to get the right up-arrow for the right message */
                     if(i+1 == Id_arrowUp) {
                         arrow_up.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View view) {
-                                System.out.println(status);
-
-
-
                                 JSONObject post_dict = new JSONObject();
 
 
@@ -372,48 +383,45 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+
+                                /*connect to Callback*/
                                 Callback myCallback = new Callback();
 
 
                                 try {
+                                    /* posts message_id, upvote, downvote to the database, when clicking on the up-arrow for a specific message */
                                     String status = (myCallback.execution_Post("http://" + url +":8000/vote/", token, "POST", post_dict.toString()));
                                 } catch (Exception e) {
 
-                                    System.out.println("Could not post feed");
+                                    System.out.println("Could not post message");
                                 }
 
                                 try {
+                                    /* gets information for a specific message*/
                                     status = (myCallback.execution_Get("http://" + url +":8000/messages/?id=" + String.valueOf(Id_arrowUp), token, "GET", "No JsonData"));
                                     if (status == "false") {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
                                         JSONArray feedArrayCount = new JSONArray(status);
-
-                                        listCount = new ArrayList<>();
+                                        /* creates list for the sum of votes and adds the amount to the text view (countarea)  */
+                                         listCount = new ArrayList<>();
 
                                          JSONObject json_data_vote = feedArrayCount.getJSONObject(0);
                                          String count = json_data_vote.getString("votes");
 
-
-
                                          listCount.add(count);
                                          countArea.setText(count);
 
-                                         String upvote = json_data_vote.getJSONObject("my_vote").getString("upvote");
-                                         String downvote = json_data_vote.getJSONObject("my_vote").getString("downvote");
-                                        System.out.println(upvote+ "    " + downvote);
+                                         upvote = json_data_vote.getJSONObject("my_vote").getString("upvote");
 
-                                       if (upvote == "true" && downvote == "false"){
-                                           System.out.println("hooho");
-                                           view.setBackgroundResource(R.drawable.arrow_up_green);
+                                        /* if the user have upvoted the color with be green otherwise it will be gray */
+                                       if (upvote.equals("true") ){
+                                           countArea.setBackgroundColor(Color.parseColor("#008000"));
 
                                         }
-                                        else if(downvote == "true" && upvote =="true"){
-                                           arrow_down.setImageResource(R.drawable.arrow_down_red);
 
-                                       }
                                        else{
-                                            view.setBackgroundResource(R.drawable.arrow_up);
+                                           countArea.setBackgroundColor(Color.GRAY);
 
                                         }
 
@@ -452,10 +460,14 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                                 Callback myCallback = new Callback();
 
                                 try {
+                                /* posts message_id, upvote, downvote to the database,
+                                 when clicking on the down-arrow for a specific message */
+
                                     String status = (myCallback.execution_Post("http://" + url +":8000/vote/", token, "POST", post_dict.toString()));
+
                                 } catch (Exception e) {
 
-                                    System.out.println("Could not post feed");
+                                    System.out.println("Could not post message");
                                 }
 
                                 try {
@@ -463,33 +475,26 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                                     if (status == "false") {
                                         Toast.makeText(student_livefeed.this, "could not fetch feeds", Toast.LENGTH_LONG).show();
                                     } else {
+                                        /* creates list for the sum of votes and adds the amount to the text view (countarea)  */
 
                                         JSONArray feedArrayCount = new JSONArray(status);
-
                                         listCount = new ArrayList<>();
-
                                         JSONObject json_data_vote = feedArrayCount.getJSONObject(0);
                                         String count = json_data_vote.getString("votes");
-                                        System.out.println(count);
                                         listCount.add(count);
                                         countArea.setText(count);
 
-                                        System.out.println(status);
+                                        downvote = json_data_vote.getJSONObject("my_vote").getString("downvote");
 
-                                        String upvote = json_data_vote.getJSONObject("my_vote").getString("upvote");
-                                        String downvote = json_data_vote.getJSONObject("my_vote").getString("downvote");
-
-
-                                            if (upvote == "true") {
-                                                arrow_up.setImageResource(R.drawable.arrow_up_green);
-
-                                            } else if (downvote == "true") {
-                                                view.setBackgroundResource(R.drawable.arrow_down_red);
-                                                arrow_up.setImageResource(R.drawable.arrow_up);
+                                        /* if the user have downvoted the color with be red otherwise it will be gray */
 
 
-                                            } else {
-                                                view.setBackgroundResource(R.drawable.arrow_down);
+                                            if (downvote == "true") {
+                                                countArea.setBackgroundColor(Color.RED);
+                                            }
+
+                                            else {
+                                                    countArea.setBackgroundColor(Color.GRAY);
 
                                             }
 
@@ -542,7 +547,7 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
 
                 fab.setOnClickListener(new View.OnClickListener() {
 
-
+                /* Click listener for the plus button */
                     @Override
                     public void onClick(View view) {
 
@@ -552,12 +557,12 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                         final View customView = inflater.inflate(R.layout.popup_file_livefeed, null);
                         final RelativeLayout back_dim_layout = (RelativeLayout) findViewById(R.id.background_popup);
                         back_dim_layout.setVisibility(View.VISIBLE); /*set faded background */
+                        /*creates pop up */
                         mPopupWindow = new PopupWindow(
                                 customView,
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT
                         );
-
                         mPopupWindow.setFocusable(true);
                         mPopupWindow.setOutsideTouchable(isRestricted());
 
@@ -568,10 +573,12 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                             mPopupWindow.setElevation(5.0f);
                         }
 
-                      Button add_post = (Button) customView.findViewById(R.id.comment_added);
+                        /* connects the post-button to the xml-files button id and adds a click listener for the button */
+                        Button add_post = (Button) customView.findViewById(R.id.comment_added);
                         add_post.setOnClickListener(new View.OnClickListener(){
                         @Override
                          public void onClick(View view) {
+                            /*connects the text fields to the xml-files text fields id */
                             final EditText feed_post = (EditText) customView.findViewById(R.id.feed_text);
                             final EditText feed_post_location = (EditText) customView.findViewById(R.id.feed_location);
 
@@ -589,29 +596,23 @@ public class student_livefeed extends student_SlidingMenuActivity implements Ser
                             if (post_dict.length() > 0) {
 
                                 Callback myCallback = new Callback();
-
+                        /* posts the content and location information to the database */
                                 try {
                                     String status = (myCallback.execution_Post("http://" + url +":8000/messages/", token, "POST", post_dict.toString()));
-                                    System.out.println(status);
                                 } catch (Exception e) {
 
                                     System.out.println("Could not post feed");
                                 }
-
-
+                                /* closes the pop up */
                                 mPopupWindow.dismiss();
                                 back_dim_layout.setVisibility(View.GONE);
                             }
+                            /* refresh the page */
                             mActivity.recreate();
 
                         }
 
                         });
-
-
-
-
-
 
                         ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
                         // Set a click listener for the popup window close button

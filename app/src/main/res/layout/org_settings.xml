@@ -215,14 +215,14 @@
 
         <Button
             android:id="@+id/change_password_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:text="Change Password"
-            android:textSize="10sp"
+            android:textSize="14sp"
             android:textColor="@color/darkest_blue"
             android:layout_below="@id/username"
-            android:layout_toRightOf="@+id/my_profile"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
             android:layout_marginTop="15dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
@@ -237,11 +237,10 @@
             android:layout_height="wrap_content"
             android:text="Campus settings"
             android:theme="@style/header2"
-
             android:textColor="@color/white"
-            android:layout_below="@id/background_myprofile"
+            android:layout_below="@id/change_password_button"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
 
 
 
@@ -314,102 +313,10 @@
           android:elevation="@dimen/activity_vertical_margin"
           />
 
-        <TextView
-            android:id="@+id/other_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other settings"
-            android:theme="@style/header2"
-            android:textColor="@color/white"
-            android:layout_below="@id/background_campus_settings"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="25dp"
-
-            />
-
-        <View
-            android:background ="@drawable/border"
-            android:id="@+id/background_other_settings"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_below="@id/other_settings"
-            android:alpha="0.3"
-            android:elevation="@dimen/activity_vertical_margin"
-
-            />
-        <TextView
-            android:id="@+id/notifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notifications"
-            android:textSize="20sp"
-            android:textColor="@color/darkest_blue"
-            android:layout_below="@id/other_settings"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:elevation="@dimen/activity_vertical_margin"
-
-            />
-
-
-
-        <Switch
-            android:id="@+id/mySwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="14sp"
-            android:textColor="@color/darkest_blue"
-            android:layout_below="@id/other_settings"
-            android:layout_toRightOf="@id/other_settings"
-            android:text="Switch for notification"
-            android:elevation="@dimen/activity_vertical_margin"/>
-
-        <TextView
-            android:id="@+id/switchStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/notifications"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:elevation="@dimen/activity_vertical_margin"/>
-
-        <TextView
-            android:id="@+id/language_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Language:"
-            android:textSize="20sp"
-            android:textColor="@color/darkest_blue"
-            android:layout_below="@id/switchStatus"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp"
-            android:elevation="@dimen/activity_vertical_margin"
-            />
-
-        <Spinner
-            android:id="@+id/languageSpinnerSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginBottom="20dp"
-            android:entries="@array/settings_language"
-            android:layout_toRightOf="@id/language_settings"
-            android:layout_below="@id/switchStatus"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="2dp"
-            android:elevation="@dimen/activity_vertical_margin"
-            />
 
 
             </RelativeLayout>
         </ScrollView>
-
 
 
     <include layout="@layout/app_bar_sliding_menu" />
