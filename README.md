@@ -4,6 +4,7 @@ version 3.0
 ## Background for this repository
 Kandidatarb contains code for the work in the course Independent Project in Sociotechnical Systems Engineering - IT System 10 hp at Uppsala University spring 2017.
 
+```
 Contributors:
 Elsa Bergman
 Angelica Elvin
@@ -16,6 +17,7 @@ Under supervisor of:
 Dave Clarke, Course Director
 Anton Axelsson, Assistant
 Davide Vega D'aurelio, Assistant
+```
 
 ## How to orient yourself in the repository
 In app->src->main->java/com/example/android/campusapp you will find .java files that handles the functionality of the app. The java files are named after what kind of user accesses them. student_etc are aimed at student users. org_etc are aimed at organisation user.
